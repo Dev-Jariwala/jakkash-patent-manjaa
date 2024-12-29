@@ -135,7 +135,11 @@ const StocksForm = () => {
                     />
                 </div>
             </div>
-            <Form {...form}>
+            {isLoading || isProductsLoading ? (
+                <div className="tw-flex tw-justify-center tw-items-center tw-h-64">
+                    <div className="basic-loader"></div>
+                </div>
+            ) : <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
                     className="tw-w-full tw-px-5"
@@ -222,13 +226,13 @@ const StocksForm = () => {
                         {isError && !isLoading && (
                             <QueryError className={"tw-mb-5"} error={error} />
                         )}
-                        <Button variant="" className="tw-bg-indigo-500 hover:tw-bg-indigo-600" type="submit">
+                        <Button variant="" disabled={createStockMutation?.isPending || updateStockMutation.isPending} isLoading={createStockMutation?.isPending || updateStockMutation.isPending} loadingText={formType === 'update' ? 'updating...' : 'creating...'} className="tw-bg-indigo-500 hover:tw-bg-indigo-600" type="submit">
                             {stock_id && formType === "update" ? "Update" : "Create"}{" "}
                             Stock
                         </Button>
                     </div>
                 </form>{" "}
-            </Form>
+            </Form>}
         </div>
     );
 };

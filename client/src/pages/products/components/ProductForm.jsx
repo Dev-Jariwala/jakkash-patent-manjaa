@@ -138,88 +138,91 @@ const ProductForm = () => {
           />
         </div>
       </div>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="tw-w-full tw-px-5"
-        >
-          <div className=" tw-grid lg:tw-grid-cols-3 tw-gap-5">
-            <FormField
-              control={form.control}
-              name="product_name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Product Name</FormLabel>
-                  <FormControl>
-                    <Input className="" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+      {isLoading ? <div className="tw-flex tw-justify-center tw-items-center tw-h-64">
+        <div className="basic-loader"></div>
+      </div> :
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="tw-w-full tw-px-5"
+          >
+            <div className=" tw-grid lg:tw-grid-cols-3 tw-gap-5">
+              <FormField
+                control={form.control}
+                name="product_name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Product Name</FormLabel>
+                    <FormControl>
+                      <Input className="" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="wholesale_price"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Wholesale Price</FormLabel>
+                    <FormControl>
+                      <Input className="" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="retail_price"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Retail Price</FormLabel>
+                    <FormControl>
+                      <Input className="" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="is_labour"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Category</FormLabel>
+                    <FormControl>
+                      <Select
+                        value={String(field.value)}
+                        onValueChange={field.onChange}
+                      >
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Collection" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="0">Product</SelectItem>
+                          <SelectItem value="1">Labour</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="tw-w-full tw-mt-5">
+              <MutationError mutation={createProductMutation} />
+              {isError && !isLoading && (
+                <QueryError className={"tw-mb-5"} error={error} />
               )}
-            />
-            <FormField
-              control={form.control}
-              name="wholesale_price"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Wholesale Price</FormLabel>
-                  <FormControl>
-                    <Input className="" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="retail_price"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Retail Price</FormLabel>
-                  <FormControl>
-                    <Input className="" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="is_labour"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Category</FormLabel>
-                  <FormControl>
-                    <Select
-                      value={String(field.value)}
-                      onValueChange={field.onChange}
-                    >
-                      <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder="Collection" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="0">Product</SelectItem>
-                        <SelectItem value="1">Labour</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <div className="tw-w-full tw-mt-5">
-            <MutationError mutation={createProductMutation} />
-            {isError && !isLoading && (
-              <QueryError className={"tw-mb-5"} error={error} />
-            )}
-            <Button variant="" className="tw-bg-indigo-500 hover:tw-bg-indigo-600" type="submit">
-              {product_id && formType === "update" ? "Update" : "Create"}{" "}
-              Product
-            </Button>
-          </div>
-        </form>{" "}
-      </Form>
+              <Button variant="" disabled={createProductMutation?.isPending || updateProductMutation?.isPending} isLoading={createProductMutation?.isPending || updateProductMutation?.isPending} loadingText={formType === 'update' ? 'updating...' : 'creating...'} className="tw-bg-indigo-500 hover:tw-bg-indigo-600" type="submit">
+                {product_id && formType === "update" ? "Update" : "Create"}{" "}
+                Product
+              </Button>
+            </div>
+          </form>{" "}
+        </Form>}
     </div>
   );
 };

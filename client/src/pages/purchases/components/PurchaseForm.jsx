@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 // import Select from "react-select";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form";
 
 import { Input } from "@/components/ui/input";
@@ -117,7 +116,11 @@ const PurchaseForm = () => {
                     />
                 </div>
             </div>
-            <Form {...form}>
+            {isLoading ? (
+                <div className="tw-flex tw-items-center tw-justify-center tw-h-64">
+                    <div className="basic-loader"></div>
+                </div>
+            ) : <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
                     className="tw-w-full tw-px-5"
@@ -232,13 +235,13 @@ const PurchaseForm = () => {
                         {isError && !isLoading && (
                             <QueryError className={"tw-mb-5"} error={error} />
                         )}
-                        <Button variant="" className="tw-bg-indigo-500 hover:tw-bg-indigo-600" type="submit">
+                        <Button variant="" disabled={createPurchaseMutation.isPending || updatePurchaseMutation.isPending} isLoading={createPurchaseMutation.isPending || updatePurchaseMutation.isPending} loadingText={formType === 'update' ? 'updating...' : 'creating...'} className="tw-bg-indigo-500 hover:tw-bg-indigo-600" type="submit">
                             {purchase_id && formType === "update" ? "Update" : "Create"}{" "}
                             Purchase
                         </Button>
                     </div>
                 </form>{" "}
-            </Form>
+            </Form>}
         </div>
     );
 };

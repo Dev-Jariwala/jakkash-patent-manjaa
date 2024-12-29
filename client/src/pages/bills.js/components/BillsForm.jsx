@@ -214,8 +214,8 @@ const BillsForm = () => {
     return (
         <>
             {isProductsLoading || isNextBillNoLoading ?
-                <div className="tw-flex tw-items-center tw-justify-center tw-h-96">
-                    ...loading
+                <div className="tw-flex tw-justify-center tw-items-center tw-h-64">
+                    <div className="basic-loader"></div>
                 </div> :
                 <div className="">
                     <div className="tw-flex tw-items-center tw-justify-between tw-px-5 tw-border-b tw-border-gray-200 tw-py-4 tw-mb-3">
@@ -598,7 +598,7 @@ const BillsForm = () => {
                             </div>
                             <div className="tw-w-full tw-mt-5 tw-flex tw-items-center tw-justify-center tw-col-span-5">
                                 <MutationError mutation={createBillMutation} />
-                                <Button variant="" className="tw-bg-indigo-500 hover:tw-bg-indigo-600" type="submit">
+                                <Button variant="" disabled={createBillMutation.isPending} isLoading={createBillMutation.isPending} loadingText={formType === 'update' ? 'updating...' : 'creating...'} className="tw-bg-indigo-500 hover:tw-bg-indigo-600" type="submit">
                                     {formType === "update" ? "Update" : "Create"}{" "}
                                     Bill
                                 </Button>

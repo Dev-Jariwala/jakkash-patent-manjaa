@@ -1,4 +1,5 @@
 import ExportPDF from "@/components/bill-pdf/ExportPDF";
+import TypeWritterLoader from "@/components/loaders/typewritter/TypeWritterLoader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getBillReport } from "@/services/bills";
@@ -22,7 +23,7 @@ const BillsReport = () => {
     const [toBillNo, setToBillNo] = useState("");
     const [reportData, setReportData] = useState([]);
 
-    const { mutate: fetchReport, isLoading: isReportLoading, error: reportError } = useMutation({
+    const { mutate: fetchReport, isPending: isReportLoading, error: reportError } = useMutation({
         mutationFn: async () => {
             const res = await getBillReport({
                 collection_id: activeCollection,
@@ -48,6 +49,12 @@ const BillsReport = () => {
         fetchReport();
     };
 
+    useEffect(() => {
+        if (reportError) {
+            toast.error(reportError?.message || "An error occurred while fetching the report.");
+        }
+    }, [reportError])
+
     return (
         <div className="tw-w-full tw-flex tw-flex-col tw-items-center">
             <div className="tw-flex tw-items-center tw-space-x-5 tw-w-[50%] tw-my-5">
@@ -69,15 +76,21 @@ const BillsReport = () => {
                     {isReportLoading ? "Generating..." : "Generate Report"}
                 </Button>
             </div>
-            {reportData.length > 0 && (
-                <PDFViewer width="100%" height="550">
-                    <ExportPDF
-                        exportData={reportData}
-                        headers={headers}
-                        title={`${billType === "retail" ? "Retail" : "Wholesale"} Report`}
-                    />
-                </PDFViewer>
-            )}
+            {isReportLoading ?
+                <div className="tw-flex tw-items-center tw-justify-between tw-h-64">
+                    <TypeWritterLoader />
+                </div>
+                : <>
+                    {reportData.length > 0 && (
+                        <PDFViewer width="100%" height="550">
+                            <ExportPDF
+                                exportData={reportData}
+                                headers={headers}
+                                title={`${billType === "retail" ? "Retail" : "Wholesale"} Report`}
+                            />
+                        </PDFViewer>
+                    )}
+                </>}
         </div>
     );
 };
