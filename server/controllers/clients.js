@@ -43,3 +43,13 @@ export const getClients = async (req, res) => {
         handleError('getClients', res, error);
     }
 };
+
+export const getClientByMobileNumber = async (req, res) => {
+    const { mobile } = req.params;
+    try {
+        const [client] = await query(`select * from clients where mobile = $1`, [mobile]);
+        res.json({ client });
+    } catch (error) {
+        handleError('getClientByMobileNumber', res, error);
+    }
+}

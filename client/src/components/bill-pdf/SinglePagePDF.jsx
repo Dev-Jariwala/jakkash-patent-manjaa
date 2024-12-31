@@ -239,10 +239,10 @@ const SinglePagePDF = ({ bill }) => {
                       <Text>{product?.quantity}</Text>
                     </View>
                     <View style={styles.tableCell}>
-                      <Text>{product?.price}/-</Text>
+                      <Text>{product?.price}</Text>
                     </View>
                     <View style={styles.tableCell}>
-                      <Text>{product?.price * product?.quantity}/-</Text>
+                      <Text>{product?.price * product?.quantity}</Text>
                     </View>
                     {/* Add more cells for additional data */}
                   </View>
@@ -277,7 +277,7 @@ const SinglePagePDF = ({ bill }) => {
                     <Text>Total</Text>
                   </View>
                   <View style={{ ...styles.tableCell, fontSize: 10 }}>
-                    <Text>{sub_total}/-</Text>
+                    <Text>{sub_total}</Text>
                   </View>
                   {/* Add more cells for additional data */}
                 </View>
@@ -307,7 +307,7 @@ const SinglePagePDF = ({ bill }) => {
                     <Text>Discount</Text>
                   </View>
                   <View style={{ ...styles.tableCell, fontSize: 10 }}>
-                    <Text>{discount}/-</Text>
+                    <Text>{discount}</Text>
                   </View>
                   {/* Add more cells for additional data */}
                 </View>
@@ -337,7 +337,7 @@ const SinglePagePDF = ({ bill }) => {
                     <Text>Advance</Text>
                   </View>
                   <View style={{ ...styles.tableCell, fontSize: 10 }}>
-                    <Text>{advance}/-</Text>
+                    <Text>{advance}</Text>
                   </View>
                   {/* Add more cells for additional data */}
                 </View>
@@ -367,7 +367,7 @@ const SinglePagePDF = ({ bill }) => {
                     <Text>Due</Text>
                   </View>
                   <View style={{ ...styles.tableCell, fontSize: 10 }}>
-                    <Text>{total_due}/-</Text>
+                    <Text>{total_due}</Text>
                   </View>
                   {/* Add more cells for additional data */}
                 </View>

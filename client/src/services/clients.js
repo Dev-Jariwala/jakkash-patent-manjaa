@@ -15,3 +15,13 @@ export const getClients = async ({ pagination, debouncedSearch }) => {
     });
     return response;
 }
+
+// router.get("/:mobile", clientControllers.getClientByMobileNumber);
+
+export const getClientByMobileNumber = async (mobile) => {
+    const response = await axios({
+        method: "GET",
+        url: `${import.meta.env.VITE_BACKEND_URL}clients/${mobile}`,
+    });
+    return response;
+}

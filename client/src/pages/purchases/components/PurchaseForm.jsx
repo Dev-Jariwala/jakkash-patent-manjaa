@@ -20,6 +20,7 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Textarea } from "@/components/ui/textarea";
+import { handleDecimalInputChange, handleNumberInputChange } from "@/helper/formHelper";
 const schema = yup.object().shape({
     purchase_date: yup.date().required("Purchase Date is required").typeError("Purchase Date is required"),
     invoice_no: yup.string().required("Invoice Number is required"),
@@ -197,7 +198,7 @@ const PurchaseForm = () => {
                                 <FormItem>
                                     <FormLabel>Rate <sup className="tw-text-red-500 tw-text-base -tw-top-0">*</sup></FormLabel>
                                     <FormControl>
-                                        <Input className="" {...field} />
+                                        <Input className="" {...field} onChange={e => handleDecimalInputChange(e, field)} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -210,7 +211,7 @@ const PurchaseForm = () => {
                                 <FormItem>
                                     <FormLabel>Quantity <sup className="tw-text-red-500 tw-text-base -tw-top-0">*</sup></FormLabel>
                                     <FormControl>
-                                        <Input className="" {...field} />
+                                        <Input className="" {...field} onChange={e => handleNumberInputChange(e, field)} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

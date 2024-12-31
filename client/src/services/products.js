@@ -36,3 +36,11 @@ export async function getProductById({ activeCollection, product_id }) {
   });
   return res;
 }
+
+export async function getProductsReport({ collection_id }) {
+  const res = await axios({
+    method: "GET",
+    url: `${import.meta.env.VITE_BACKEND_URL}collections/${collection_id}/products/report`,
+  });
+  return res;
+}

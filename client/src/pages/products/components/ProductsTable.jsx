@@ -29,6 +29,7 @@ import { Chip } from "@/components/ui/chip";
 import { useDebounce, useLocalStorage } from "@uidotdev/usehooks";
 import { getProductsByCollectionId } from "@/services/products";
 import { toast } from "react-toastify";
+import { FaFileAlt } from "react-icons/fa";
 
 const columnHelper = createColumnHelper();
 const columnsDef = [
@@ -119,6 +120,10 @@ const ProductsTable = () => {
           placeholder="Search product name..."
           className="tw-max-w-64"
         />
+        <Link to={`/products/report`} className="tw-flex tw-items-center tw-space-x-2 tw-border tw-rounded-lg tw-px-2 tw-cursor-pointer hover:tw-bg-gray-100 tw-py-1 tw-text-gray-700">
+          <FaFileAlt />
+          <span className=" tw-text-sm tw-font-semibold">Report</span>
+        </Link>
       </div>
       {isProductDataLoading ? <div className="tw-flex tw-justify-center tw-items-center tw-h-64">
         <div className="basic-loader"></div>

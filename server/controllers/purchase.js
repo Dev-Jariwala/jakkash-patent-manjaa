@@ -6,7 +6,7 @@
 // 	invoice_no varchar(255),
 // 	supplier_name varchar(255),
 // 	item_description TEXT,
-// 	rate int not null,
+// 	rate decimal(12,2) not null,
 // 	quantity int not null
 // );
 
@@ -86,5 +86,15 @@ export const getPurchaseById = async (req, res) => {
     } catch (error) {
         handleError('getPurchaseById', res, error);
 
+    }
+}
+
+export const getPurchasesReport = async (req, res) => {
+    const { collection_id } = req.params;
+    try {
+        const purchases = await query(`select * from purchases where collection_id = $1`, [collection_id]);
+        res.json({ purchases });
+    } catch (error) {
+        handleError('getPurchasesReport', res, error);
     }
 }

@@ -30,7 +30,7 @@ const Analytics = () => {
                 <MetricCard title="Total Investment" value={analytics?.totalPurchaseAmount} icon={<DollarSign size={24} />} trend="up" percentage="5.3%" />
                 <MetricCard title="Retail Sales" value={analytics?.totalRetailSalesAmount} icon={<ShoppingBag size={24} />} trend="down" percentage="2.1%" />
                 <MetricCard title="Wholesale Sales" value={analytics?.totalWholesaleSalesAmount} icon={<Package size={24} />} trend="up" percentage="7.8%" />
-                <MetricCard title="Total Profit" value={(analytics?.totalRetailSalesAmount + analytics?.totalWholesaleSalesAmount) - analytics?.totalPurchaseAmount} icon={<TrendingUp size={24} />} trend="up" percentage="3.2%" />
+                <MetricCard title="Total Profit" value={analytics?.totalSalesAmount - analytics?.totalPurchaseAmount} icon={<TrendingUp size={24} />} trend="up" percentage="3.2%" />
             </div>
         </main>
     )

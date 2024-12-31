@@ -39,7 +39,7 @@ export const createStock = async (req, res) => {
 
 export const getStocksByCollectionId = async (req, res, next) => {
   const { collection_id } = req.params;
-  const { page = 1, limit = 10, sortField = "created_at", sortOrder = "desc", search = '' } = req.query;
+  const { page = 1, limit = 10, sortField = "date", sortOrder = "desc", search = '' } = req.query;
 
   const offset = (page - 1) * limit;
 
@@ -119,3 +119,18 @@ export const getStockById = async (req, res) => {
     handleError("getStockById", res, error);
   }
 }
+
+export const getStocksReport = async (req, res) => {
+  const { collection_id } = req.params;
+  try {
+    const stockReportQuery = `
+      SELECT products.product_name, products.product_id, stocks.quantity, stocks.date FROM stocks
+      LEFT JOIN products ON stocks.product_id = products.product_id
+      WHERE stocks.collection_id = $1
+    `;
+    const stocks = await query(stockReportQuery, [collection_id]);
+    res.status(200).json({ stocks });
+  } catch (error) {
+    handleError("getStocksReport", res, error);
+  }
+};

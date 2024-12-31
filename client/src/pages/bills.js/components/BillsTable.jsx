@@ -14,6 +14,7 @@ import { useDebounce, useLocalStorage } from "@uidotdev/usehooks";
 import { getBillsByCollectionId } from "@/services/bills";
 import { toast } from "react-toastify";
 import { FaFileAlt } from "react-icons/fa";
+import { format } from "date-fns";
 
 const columnHelper = createColumnHelper();
 const columnsDef = [
@@ -23,7 +24,7 @@ const columnsDef = [
     columnHelper.accessor("order_date", {
         header: "Order Date",
         cell: (info) => {
-            return new Date(info.getValue()).toLocaleDateString();
+            return info.getValue() ? format(new Date(info.getValue()), "dd/MM/yyyy") : "-";
         }
     }),
     columnHelper.accessor("name", {
@@ -40,10 +41,10 @@ const columnsDef = [
                     variant={"light"}
                     border={"none"}
                     size={"xs"}
-                    color={info.getValue() === 0 ? "green" : "red"}
+                    color={info.getValue() > 0 ? "red" : "green"}
                     className={''}
                 >
-                    {info.getValue() === 0 ? "Paid" : info.getValue()}
+                    {info.getValue() > 0 ? info.getValue() : "Paid"}
                 </Chip>
             );
         },

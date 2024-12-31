@@ -10,6 +10,7 @@ import ProductSvg from "../svgs/ProductSvg";
 import ClientSvg from "../svgs/ClientSvg";
 import PurchaseSvg from "../svgs/PurchaseSvg";
 import AnalyticsSvg from "../svgs/AnalyticsSvg";
+import CollectionsSvg from "../svgs/Collections";
 
 const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -25,22 +26,28 @@ const Layout = () => {
       active: [""],
     },
     {
+      link: "/collections",
+      label: "Collections",
+      icon: <CollectionsSvg />,
+      active: ["collections"],
+    },
+    {
       link: "/products",
       label: "Products",
       icon: <ProductSvg />,
       active: ["products"],
     },
     {
-      link: "/bills",
-      label: "Bills",
-      icon: <BillSvg />,
-      active: ["bills"],
-    },
-    {
       link: "/stocks",
       label: "Stocks",
       icon: <StocksSvg />,
       active: ["stocks"],
+    },
+    {
+      link: "/bills",
+      label: "Bills",
+      icon: <BillSvg />,
+      active: ["bills"],
     },
     {
       link: "/clients",

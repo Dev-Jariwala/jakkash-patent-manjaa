@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-export const headers = [
+const headers = [
     { label: "Bill No.", key: "bill_no" },
     { label: "Name", key: "name" },
     { label: "Total Firki", key: "total_firki" },

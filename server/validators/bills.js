@@ -271,11 +271,15 @@ export const validateUpdateBillById = [
         throw new Error(`product not found in collection`);
       }
       const [billItem] = await query(`SELECT * FROM bill_items WHERE product_id = $1 and bill_id = $2`, [value, req.params.bill_id]);
-      if (!billItem) {
-        throw new Error(`product_id not exists in bill_items`);
-      }
-      if (product.stock_in_hand + billItem.quantity < currProd.quantity) {
-        throw new Error("Insufficient stock in hand for product_id");
+
+      if (billItem) {
+        if (product.stock_in_hand + billItem.quantity < currProd.quantity) {
+          throw new Error("Insufficient stock in hand for product_id");
+        }
+      }else{
+        if (product.stock_in_hand < currProd.quantity) {
+          throw new Error("Insufficient stock in hand for product_id");
+        }
       }
       if (product[priceKey] <= 0) {
         throw new Error("price says product is not for this bill_type");

@@ -116,3 +116,78 @@ export const getProductById = async (req, res, next) => {
     handleError("getProductById", res, error);
   }
 };
+
+/*
+-- Table: products
+CREATE TABLE products (
+    sr_no SERIAL PRIMARY KEY,
+    product_id UUID NOT NULL UNIQUE DEFAULT gen_random_uuid(),
+    collection_id UUID NOT NULL REFERENCES collections(collection_id),
+    product_name VARCHAR(50) NOT NULL,
+    wholesale_price FLOAT,
+    retail_price FLOAT,
+    stock_in_hand INT NOT NULL,
+    total_stock INT NOT NULL,
+    is_labour BOOLEAN DEFAULT FALSE,
+    is_delete BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ
+);
+*/
+
+// CREATE TABLE bills (
+// 	   sr_no SERIAL PRIMARY KEY,
+//     bill_id UUID NOT NULL UNIQUE DEFAULT gen_random_uuid(),
+//     collection_id UUID NOT NULL REFERENCES collections(collection_id),
+//     bill_no INT NOT NULL,
+//     bill_type VARCHAR(50) CHECK (bill_type IN ('retail','wholesale')),
+//     UNIQUE (collection_id, bill_no, bill_type),
+//     mobile VARCHAR(20) NOT NULL,
+//     name VARCHAR(100) NOT NULL,
+//     address VARCHAR(500) NOT NULL,
+//     order_date TIMESTAMPTZ NOT NULL,
+//     delivery_date TIMESTAMPTZ NOT NULL,
+//     notes TEXT,
+//     total_firki INT NOT NULL,
+//     sub_total FLOAT NOT NULL,
+//     discount FLOAT NOT NULL,
+//     advance FLOAT NOT NULL,
+//     total_due FLOAT NOT NULL
+// );
+
+// CREATE TABLE bill_items (
+// 	   sr_no SERIAL PRIMARY KEY,
+//     bill_item_id UUID NOT NULL UNIQUE DEFAULT gen_random_uuid(),
+//     bill_id UUID NOT NULL REFERENCES bills(bill_id),
+//     product_id UUID NOT NULL REFERENCES products(product_id),
+//     quantity INT NOT NULL,
+//     price FLOAT NOT NULL,
+//     UNIQUE (bill_id , product_id)
+// );
+
+export const getProductsReport = async (req, res, next) => {
+  const { collection_id } = req.params;
+  try {
+    // here we need to get the count of each product billed in retail and wholesale bills and the total amount
+    const productsReport = await query(
+      `
+      SELECT 
+        p.product_id, 
+        p.product_name, 
+        SUM(CASE WHEN b.bill_type = 'retail' THEN bi.quantity ELSE 0 END) as retail_quantity,
+        SUM(CASE WHEN b.bill_type = 'wholesale' THEN bi.quantity ELSE 0 END) as wholesale_quantity,
+        SUM(CASE WHEN b.bill_type = 'retail' THEN bi.quantity * bi.price ELSE 0 END) as retail_amount,
+        SUM(CASE WHEN b.bill_type = 'wholesale' THEN bi.quantity * bi.price ELSE 0 END) as wholesale_amount
+      FROM products p
+      LEFT JOIN bill_items bi ON p.product_id = bi.product_id
+      LEFT JOIN bills b ON bi.bill_id = b.bill_id
+      WHERE p.collection_id = $1
+      GROUP BY p.product_id, p.product_name
+      ORDER BY p.product_name
+      `,
+      [collection_id]);
+    res.status(200).json({ products: productsReport });
+  } catch (error) {
+    handleError("getProductsReport", res, error);
+  }
+};

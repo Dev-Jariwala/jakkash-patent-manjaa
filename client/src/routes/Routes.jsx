@@ -16,6 +16,12 @@ import Purchases from "@/pages/purchases/Purchases";
 import Analytics from "@/pages/analytics/Analytics";
 import PurchaseForm from "@/pages/purchases/components/PurchaseForm";
 import BillsReport from "@/pages/bills.js/components/BillsReport";
+import Sidebar from "@/components/ui/sidebar/Sidebar";
+import StocksReport from "@/pages/stocks/components/StocksReport";
+import PurchasesReport from "@/pages/purchases/components/PurchasesReport";
+import ProductsReport from "@/pages/products/components/ProductsReport";
+import Collections from "@/pages/collections/Collections";
+import CollectionForm from "@/pages/collections/components/CollectionForm";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -43,6 +49,18 @@ const Routes = () => {
               element: <div>Home</div>,
             },
             {
+              path: '/collections',
+              element: <Collections />
+            },
+            {
+              path: '/collections/new',
+              element: <CollectionForm />
+            },
+            {
+              path: '/collections/update',
+              element: <CollectionForm />
+            },
+            {
               path: "/products",
               element: <Products />,
             },
@@ -55,6 +73,10 @@ const Routes = () => {
               element: <ProductForm />,
             },
             {
+              path: "/products/report",
+              element: <ProductsReport />,
+            },
+            {
               path: "/stocks",
               element: <Stocks />,
             },
@@ -65,6 +87,10 @@ const Routes = () => {
             {
               path: "/stocks/update",
               element: <StocksForm />,
+            },
+            {
+              path: "/stocks/report",
+              element: <StocksReport />,
             },
             {
               path: "/bills",
@@ -109,6 +135,10 @@ const Routes = () => {
             {
               path: '/purchases/update',
               element: <PurchaseForm />
+            },
+            {
+              path: '/purchases/report',
+              element: <PurchasesReport />
             }
           ],
         },

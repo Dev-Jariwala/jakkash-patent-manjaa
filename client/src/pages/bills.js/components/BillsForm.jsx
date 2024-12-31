@@ -19,6 +19,8 @@ import { cn } from "@/lib/utils";
 import ReactSelect from "@/components/ui/react-select/react-select";
 import { Textarea } from "@/components/ui/textarea";
 import { createBill, getBillById, getNextBillNo, updateBillById } from "@/services/bills";
+import { handleDecimalInputChange, handleNumberInputChange } from "@/helper/formHelper";
+import { getClientByMobileNumber } from "@/services/clients";
 
 const BillsForm = () => {
     const { bill_id } = useParams();
@@ -120,6 +122,15 @@ const BillsForm = () => {
         },
         enabled: !!activeCollection && formType === "new",
     });
+    const mobile = form.watch("mobile");
+    const { data: clientDetails, isLoading: isClientDetailsLoading, error: clientDetailsError } = useQuery({
+        queryKey: ["clientDetails", mobile],
+        queryFn: async () => {
+            const response = await getClientByMobileNumber(mobile);
+            return response.data?.client || {};
+        },
+        enabled: mobile?.length === 10,
+    });
     const productsOptions = useMemo(() => products?.filter(product => product?.[`${billType}_price`] > 0)?.map(product => ({ label: product?.product_name, value: product?.product_id })) || [], [products]);
 
     const createBillMutation = useMutation({
@@ -161,12 +172,6 @@ const BillsForm = () => {
             console.log({ data });
             updateBillMutation.mutate({ collection_id: activeCollection, bill_id, data });
         }
-    };
-
-    const handleNumberInputChange = (e, field) => {
-        const value = e.target.value.replace(/\D/g, '');
-        field.onChange(value);
-        return value;
     };
 
     useEffect(() => {
@@ -219,10 +224,20 @@ const BillsForm = () => {
         if (billError) {
             toast.error(`Error getting bill: ${billError.message}`);
         }
-    }, [productsError, nextBillNoError, billError]);
+        if (clientDetailsError) {
+            toast.error(`Error getting client details: ${clientDetailsError.message}`);
+        }
+    }, [productsError, nextBillNoError, billError, clientDetailsError]);
+
+    useEffect(() => {
+        if (clientDetails?.name && clientDetails?.address) {
+            form.setValue('name', clientDetails.name);
+            form.setValue('address', clientDetails.address);
+        }
+    }, [clientDetails])
     return (
         <>
-            {isProductsLoading || isNextBillNoLoading ?
+            {isProductsLoading || isNextBillNoLoading || isBillLoading ?
                 <div className="tw-flex tw-justify-center tw-items-center tw-h-64">
                     <div className="basic-loader"></div>
                 </div> :
@@ -557,7 +572,7 @@ const BillsForm = () => {
                                                 <FormControl>
                                                     <Input className="" {...field} onChange={
                                                         e => {
-                                                            const discount = handleNumberInputChange(e, field);
+                                                            const discount = handleDecimalInputChange(e, field);
                                                             form.setValue('total_due', form.watch('sub_total') - discount - form.watch('advance'));
                                                             form.trigger(['total_due', 'sub_total', 'advance', 'discount']);
                                                         }
@@ -576,7 +591,7 @@ const BillsForm = () => {
                                                 <FormControl>
                                                     <Input className="" {...field} onChange={
                                                         e => {
-                                                            const advance = handleNumberInputChange(e, field);
+                                                            const advance = handleDecimalInputChange(e, field);
                                                             form.setValue('total_due', form.watch('sub_total') - form.watch('discount') - advance);
                                                             form.trigger(['total_due', 'sub_total', 'advance', 'discount']);
                                                         }
@@ -601,11 +616,11 @@ const BillsForm = () => {
                                     />
                                 </div>
                             </div>
-                            <div className="tw-w-full tw-mt-5 tw-flex tw-items-center tw-justify-center tw-col-span-5">
+                            <div className="tw-w-full tw-mt-5 tw-flex tw-items-center tw-justify-center tw-col-span-5 tw-mb-20">
                                 <MutationError mutation={createBillMutation} />
-                                <Button variant="" disabled={createBillMutation.isPending || updateBillMutation.isPending} isLoading={createBillMutation.isPending || updateBillMutation.isPending} loadingText={formType === 'update' ? 'updating...' : 'creating...'} className="tw-bg-indigo-500 hover:tw-bg-indigo-600" type="submit">
+                                <Button variant="" disabled={createBillMutation.isPending || updateBillMutation.isPending} isLoading={createBillMutation.isPending || updateBillMutation.isPending} loadingText={formType === 'update' ? `updating ${form.watch("bill_no")}...` : `creating ${form.watch("bill_no")}...`} className="tw-bg-indigo-500 hover:tw-bg-indigo-600" type="submit">
                                     {formType === "update" ? "Update" : "Create"}{" "}
-                                    Bill
+                                    Bill No. {form.watch("bill_no")}
                                 </Button>
                             </div>
                         </form>{" "}

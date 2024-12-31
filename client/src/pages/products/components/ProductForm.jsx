@@ -32,6 +32,7 @@ import {
 import MutationError from "@/components/Errors/MutationError";
 import QueryError from "@/components/Errors/QueryError";
 import { useLocalStorage } from "@uidotdev/usehooks";
+import { handleDecimalInputChange } from "@/helper/formHelper";
 const schema = yup.object().shape({
   product_name: yup.string().required("Product Name is required"),
   wholesale_price: yup
@@ -95,6 +96,7 @@ const ProductForm = () => {
       queryClient.invalidateQueries(["products", activeCollection]);
     },
   });
+
   const onSubmit = async (data) => {
     if (formType === "new") {
       createProductMutation.mutate(data);
@@ -167,7 +169,7 @@ const ProductForm = () => {
                   <FormItem>
                     <FormLabel>Wholesale Price</FormLabel>
                     <FormControl>
-                      <Input className="" {...field} />
+                      <Input className="" {...field} onChange={e => handleDecimalInputChange(e, field)} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -180,7 +182,7 @@ const ProductForm = () => {
                   <FormItem>
                     <FormLabel>Retail Price</FormLabel>
                     <FormControl>
-                      <Input className="" {...field} />
+                      <Input className="" {...field} onChange={e => handleDecimalInputChange(e, field)} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

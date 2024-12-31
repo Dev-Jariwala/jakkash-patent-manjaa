@@ -44,3 +44,13 @@ export const getStockById = async ({ collection_id, stock_id }) => {
     });
     return response;
 }
+
+// router.get("/:collection_id/stocks/report", stocksControllers.getStocksReport);
+
+export const getStocksReport = async ({ collection_id }) => {
+    const response = await axios({
+        method: "GET",
+        url: `${import.meta.env.VITE_BACKEND_URL}collections/${collection_id}/stocks/report`,
+    });
+    return response;
+}

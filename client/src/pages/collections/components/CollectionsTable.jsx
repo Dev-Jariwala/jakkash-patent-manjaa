@@ -1,131 +1,67 @@
 import { useQuery } from "@tanstack/react-query";
-import {
-    createColumnHelper,
-    flexRender,
-    getCoreRowModel,
-    getPaginationRowModel,
-    useReactTable,
-} from "@tanstack/react-table";
+import { createColumnHelper, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable, } from "@tanstack/react-table";
 import { useEffect, useMemo, useState } from "react";
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import {
-    MdKeyboardDoubleArrowLeft,
-    MdKeyboardDoubleArrowRight,
-} from "react-icons/md";
-import { Input } from "@/components/ui/input";
+import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight, } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { Pencil } from "lucide-react";
-import { useDebounce, useLocalStorage } from "@uidotdev/usehooks";
 import { toast } from "react-toastify";
-import { getPurchases } from "@/services/purchases";
-import { FaFileAlt } from "react-icons/fa";
-import { format } from "date-fns";
-
+import { getCollectionsOptions } from "@/services/collections";
 
 const columnHelper = createColumnHelper();
 const columnsDef = [
-    columnHelper.accessor("purchase_date", {
-        header: "Date",
+    columnHelper.accessor("sr_no", {
+        header: "Sr No",
         cell: (info) => {
-            return info.getValue() ? format(new Date(info.getValue()), "dd/MM/yyyy") : "-";
+            return `P-${info.getValue()}`;
         }
     }),
-    columnHelper.accessor("supplier_name", {
-        header: "Supplier Name",
-    }),
-    columnHelper.accessor("invoice_no", {
-        header: "Invoice No",
-    }),
-    columnHelper.accessor("item_description", {
-        header: "Item Description",
-    }),
-    columnHelper.accessor("rate", {
-        header: "Rate",
-    }),
-    columnHelper.accessor("quantity", {
-        header: "Quantity",
-    }),
-    columnHelper.accessor("total", {
-        header: "Total",
-        cell: (info) => {
-            // return rate * quantity
-            return info.row.original.rate * info.row.original.quantity;
-        }
+    columnHelper.accessor("collection_name", {
+        header: "Collection Name",
     }),
 ];
 
-// eslint-disable-next-line react/prop-types
-const PurchasesTable = () => {
-    const [activeCollection] = useLocalStorage("activeCollection", null);
+const ProductsTable = () => {
     const [pagination, setPagination] = useState({
         pageIndex: 0,
         pageSize: 5,
     });
-    const [search, setSearch] = useState("");
-    const debouncedSearch = useDebounce(search, 300);
 
-    const { data: purchasesData, error: purchasesDataError, isLoading: isPurchaseDataLoading } = useQuery({
-        queryKey: ["purchases", activeCollection, pagination, debouncedSearch],
+    const { data: collections, isLoading: isCollectionsLoading, error: collectionsError } = useQuery({
+        queryKey: ["collections",],
         queryFn: async () => {
-            console.log({ activeCollection, pagination, debouncedSearch });
-            const response = await getPurchases({ activeCollection, pagination, debouncedSearch });
-            return response.data;
-        },
-        enabled: !!activeCollection,
+            const response = await getCollectionsOptions();
+            return response.data?.collections || [];
+        }
     });
 
-    const data = useMemo(() => purchasesData?.purchases ?? [], [purchasesData]);
     const columns = useMemo(() => columnsDef, []);
     const table = useReactTable({
-        data,
+        data: collections || [],
         columns,
         getCoreRowModel: getCoreRowModel(),
-        rowCount: purchasesData?.totalPurchases ?? -1,
+        rowCount: collections?.length ?? -1,
         state: {
             pagination,
         },
         onPaginationChange: setPagination,
         getPaginationRowModel: getPaginationRowModel(),
-        manualPagination: true,
     });
 
     useEffect(() => {
-        if (purchasesDataError) {
-            toast.error(`Error getting bills`)
+        if (collectionsError) {
+            toast.error(collectionsError.message || "Error while fetching products");
         }
-    }, [purchasesDataError])
+    }, [collectionsError]);
 
     return (
         <>
-            <div className="tw-flex tw-items-center tw-justify-between tw-px-4">
-                <div className="tw-flex tw-items-center tw-space-x-4">
-                    <Input
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        placeholder="Search product name..."
-                        className="tw-w-56"
-                    />
-                </div>
-                <Link to={`/purchases/report`} className="tw-flex tw-items-center tw-space-x-2 tw-border tw-rounded-lg tw-px-2 tw-cursor-pointer hover:tw-bg-gray-100 tw-py-1 tw-text-gray-700">
-                    <FaFileAlt />
-                    <span className=" tw-text-sm tw-font-semibold">Report</span>
-                </Link>
-            </div>
-            {isPurchaseDataLoading ? (
-                <div className="tw-flex tw-items-center tw-justify-center tw-h-64">
-                    <div className="basic-loader"></div>
-                </div>
-            ) : (
+            {isCollectionsLoading ? <div className="tw-flex tw-justify-center tw-items-center tw-h-64">
+                <div className="basic-loader"></div>
+            </div> :
                 <>
                     <ScrollArea className="tw-w-full tw-overflow-y-auto">
                         <div className="tw-mt-3">
@@ -170,7 +106,7 @@ const PurchasesTable = () => {
                                                 ))}
                                                 <TableCell className="tw-flex tw-items-center tw-space-x-2">
                                                     <Link
-                                                        to={`/purchases/update?purchase_id=${row.original?.purchase_id}`}
+                                                        to={`/collections/update?collection_id=${row.original?.collection_id}`}
                                                         className="hover:tw-bg-gray-200 tw-rounded-full tw-size-8 tw-flex tw-items-center tw-justify-center"
                                                     >
                                                         <Pencil size={16} className="tw-text-green-500" />
@@ -194,7 +130,7 @@ const PurchasesTable = () => {
                         <ScrollBar orientation="horizontal" />
                     </ScrollArea>
                     <div className="tw-flex tw-items-center tw-justify-between tw-p-4">
-                        <div className="">{table.getRowCount()} Purchases</div>
+                        <div className="">{table.getRowCount()} Products</div>
                         <div className="tw-flex tw-items-center tw-space-x-2 ">
                             <Button
                                 variant="outline"
@@ -232,9 +168,9 @@ const PurchasesTable = () => {
                         </div>
                     </div>
                 </>
-            )}
+            }
         </>
     );
 };
 
-export default PurchasesTable;
+export default ProductsTable;

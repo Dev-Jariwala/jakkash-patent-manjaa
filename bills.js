@@ -274,17 +274,17 @@ const wholeSaleBills = [
             {
                 "productId": "65bde88769acedb394df247b",
                 "productName": "BOX ",
-                "quantity": 1700,
+                "quantity": 1800,
                 "price": 30,
                 "_id": "673db518a9e3787c8c5b4360"
             }
         ],
-        "totalFirki": 3900,
-        "subTotal": 1096000,
+        "totalFirki": 4000,
+        "subTotal": 1099000,
         "discount": 53900,
         "advance": 801000,
         "paid": 0,
-        "totalDue": 241100,
+        "totalDue": 244100,
         "notes": "",
         "__v": 0
     },
@@ -455,8 +455,8 @@ const wholeSaleBills = [
         "subTotal": 479650,
         "discount": 3000,
         "advance": 0,
-        "paid": 0,
-        "totalDue": 476650,
+        "paid": 426650,
+        "totalDue": 50000,
         "notes": "",
         "__v": 0
     },
@@ -503,8 +503,8 @@ const wholeSaleBills = [
         "subTotal": 101500,
         "discount": 0,
         "advance": 0,
-        "paid": 0,
-        "totalDue": 101500,
+        "paid": 101500,
+        "totalDue": 0,
         "notes": "",
         "__v": 0
     },
@@ -537,8 +537,8 @@ const wholeSaleBills = [
         "subTotal": 60000,
         "discount": 2600,
         "advance": 0,
-        "paid": 0,
-        "totalDue": 57400,
+        "paid": 57400,
+        "totalDue": 0,
         "notes": "",
         "__v": 0
     },
@@ -2214,8 +2214,42 @@ const wholeSaleBills = [
         "totalDue": 20160,
         "notes": "",
         "__v": 0
+    },
+    {
+        "_id": "6771630217b41b48084d1715",
+        "collectionId": "65bde88669acedb394df2464",
+        "BillNo": 53,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "C D PATEL",
+        "address": "TADWADI",
+        "mobileNumber": 9638947557,
+        "deliveryDate": "2024-12-29T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2467",
+                "productName": "ONLY FIRKI 1000",
+                "quantity": 120,
+                "price": 45,
+                "_id": "6771630217b41b48084d1716"
+            },
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 120,
+                "price": 48,
+                "_id": "6771630217b41b48084d1717"
+            }
+        ],
+        "totalFirki": 240,
+        "subTotal": 11160,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 11160,
+        "notes": "",
+        "__v": 0
     }
-];
+]
 const retailBills = [
     {
         "_id": "6610fb44b9dec2939ccfdb77",
@@ -5910,7 +5944,7 @@ const retailBills = [
         "advance": 500,
         "paid": 0,
         "totalDue": 1500,
-        "notes": "",
+        "notes": "DELEVERD SELF",
         "__v": 0
     },
     {
@@ -10355,7 +10389,7 @@ const retailBills = [
         "advance": 0,
         "paid": 0,
         "totalDue": 2100,
-        "notes": "",
+        "notes": "DELIVERED",
         "__v": 0
     },
     {
@@ -15199,7 +15233,7 @@ const retailBills = [
         "advance": 350,
         "paid": 0,
         "totalDue": 0,
-        "notes": "",
+        "notes": "DELIVERED",
         "__v": 0
     },
     {
@@ -15871,7 +15905,7 @@ const retailBills = [
         "advance": 350,
         "paid": 0,
         "totalDue": 0,
-        "notes": "",
+        "notes": "DELIVERED",
         "__v": 0
     },
     {
@@ -16186,7 +16220,7 @@ const retailBills = [
         "advance": 1050,
         "paid": 0,
         "totalDue": 0,
-        "notes": "",
+        "notes": "DELIVERED",
         "__v": 0
     },
     {
@@ -16515,7 +16549,7 @@ const retailBills = [
         "advance": 0,
         "paid": 0,
         "totalDue": 1625,
-        "notes": "",
+        "notes": "DELIEVERED",
         "__v": 0
     },
     {
@@ -16921,7 +16955,7 @@ const retailBills = [
         "advance": 0,
         "paid": 0,
         "totalDue": 1400,
-        "notes": "",
+        "notes": "DELEVERD",
         "__v": 0
     },
     {
@@ -20892,125 +20926,7979 @@ const retailBills = [
         "totalDue": 470,
         "notes": "",
         "__v": 0
+    },
+    {
+        "_id": "6770f5ef402856dc169c6487",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "676eb1ae66a0a25f0c14b00f",
+        "BillNo": 542,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "RISHI",
+        "address": "ST",
+        "mobileNumber": 9638794550,
+        "deliveryDate": "2024-12-29T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 2,
+                "price": 650,
+                "_id": "6770f5ef402856dc169c6488"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 1300,
+        "discount": 0,
+        "advance": 1300,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6770f6023c6db2758db7d42b",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "676eb1ae66a0a25f0c14b00f",
+        "BillNo": 542,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "RISHI",
+        "address": "ST",
+        "mobileNumber": 9638794550,
+        "deliveryDate": "2024-12-29T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 2,
+                "price": 650,
+                "_id": "6770f6023c6db2758db7d42c"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 1300,
+        "discount": 0,
+        "advance": 1300,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6770f6b73c6db2758db7e1b4",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6770f6b73c6db2758db7e1b2",
+        "BillNo": 544,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "DHAVAL",
+        "address": "ST",
+        "mobileNumber": 9537229306,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6770f6b73c6db2758db7e1b5"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 175,
+        "discount": 0,
+        "advance": 175,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6770f7393c6db2758db7ef41",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6770f7393c6db2758db7ef3f",
+        "BillNo": 545,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "DHAYEY",
+        "address": "ST",
+        "mobileNumber": 9824756001,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 1,
+                "price": 60,
+                "_id": "6770f7393c6db2758db7ef42"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6770f7393c6db2758db7ef43"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 235,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 235,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6770f941ae73eeccabc01721",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6770f941ae73eeccabc0171f",
+        "BillNo": 546,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "AADITAY",
+        "address": "ST",
+        "mobileNumber": 9328813968,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6770f941ae73eeccabc01722"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 3,
+                "price": 175,
+                "_id": "6770f941ae73eeccabc01723"
+            }
+        ],
+        "totalFirki": 5,
+        "subTotal": 875,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 875,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6770f9553c190f7ba7cedafd",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6770f941ae73eeccabc0171f",
+        "BillNo": 546,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "AADITAY",
+        "address": "ST",
+        "mobileNumber": 9328813968,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6770f9553c190f7ba7cedafe"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 3,
+                "price": 175,
+                "_id": "6770f9553c190f7ba7cedaff"
+            }
+        ],
+        "totalFirki": 5,
+        "subTotal": 875,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 875,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6770f9ef3c190f7ba7cee89e",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6770f9ef3c190f7ba7cee89c",
+        "BillNo": 548,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "HARDIK",
+        "address": "ST",
+        "mobileNumber": 6353712690,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 3,
+                "price": 175,
+                "_id": "6770f9ef3c190f7ba7cee89f"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 525,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6770fa983c190f7ba7cef63f",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6770fa983c190f7ba7cef63d",
+        "BillNo": 549,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "DARSHAN",
+        "address": "ST",
+        "mobileNumber": 7041840419,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 2,
+                "price": 60,
+                "_id": "6770fa983c190f7ba7cef640"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 2,
+                "price": 350,
+                "_id": "6770fa983c190f7ba7cef641"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "6770fa983c190f7ba7cef642"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 1170,
+        "discount": 0,
+        "advance": 500,
+        "paid": 0,
+        "totalDue": 670,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6770fb073c190f7ba7cf03ee",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6770fb073c190f7ba7cf03ec",
+        "BillNo": 550,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "YESH",
+        "address": "ST",
+        "mobileNumber": 7575098476,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6770fb073c190f7ba7cf03ef"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6770fb073c190f7ba7cf03f0"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 525,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6770fc68fbe62bc5c32af1c5",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6770fc68fbe62bc5c32af1c3",
+        "BillNo": 551,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "RAMESH",
+        "address": "ST",
+        "mobileNumber": 9277957890,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 2,
+                "price": 650,
+                "_id": "6770fc68fbe62bc5c32af1c6"
+            },
+            {
+                "productId": "65bde88769acedb394df246f",
+                "productName": "9/500 READY FIRKI",
+                "quantity": 2,
+                "price": 1100,
+                "_id": "6770fc68fbe62bc5c32af1c7"
+            }
+        ],
+        "totalFirki": 4,
+        "subTotal": 3500,
+        "discount": 0,
+        "advance": 3500,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6770fe28fbe62bc5c32aff7d",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6770fe28fbe62bc5c32aff7b",
+        "BillNo": 552,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "PARTH",
+        "address": "ST",
+        "mobileNumber": 9016244486,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "6770fe28fbe62bc5c32aff7e"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "6770fe28fbe62bc5c32aff7f"
+            }
+        ],
+        "totalFirki": 4,
+        "subTotal": 1050,
+        "discount": 0,
+        "advance": 1050,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6770ff46cca2ed8f24c9ca42",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6770ff46cca2ed8f24c9ca3f",
+        "BillNo": 553,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "RUDHAR",
+        "address": "ST",
+        "mobileNumber": 7016964564,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "6770ff46cca2ed8f24c9ca43"
+            }
+        ],
+        "totalFirki": 4,
+        "subTotal": 700,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 700,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6770ff5dc49aafa2c9ddcb98",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6770ff46cca2ed8f24c9ca3f",
+        "BillNo": 553,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "RUDHAR",
+        "address": "ST",
+        "mobileNumber": 7016964564,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "6770ff5dc49aafa2c9ddcb99"
+            }
+        ],
+        "totalFirki": 4,
+        "subTotal": 700,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 700,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6770ffdbc49aafa2c9ddde2f",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6770ffdbc49aafa2c9ddde2d",
+        "BillNo": 555,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "AYUSH",
+        "address": "ST",
+        "mobileNumber": 7490022652,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6770ffdbc49aafa2c9ddde30"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6770ffdbc49aafa2c9ddde31"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 525,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677100ff8c49afff3e4a89cc",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677100ff8c49afff3e4a89ca",
+        "BillNo": 556,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "SHUBHAM",
+        "address": "ST",
+        "mobileNumber": 9157801003,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "677100ff8c49afff3e4a89cd"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 350,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67710117ae8fde42f5355a2f",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677100ff8c49afff3e4a89ca",
+        "BillNo": 556,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "SHUBHAM",
+        "address": "ST",
+        "mobileNumber": 9157801003,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67710117ae8fde42f5355a30"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 350,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67710185ae8fde42f53567fd",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67710185ae8fde42f53567fb",
+        "BillNo": 558,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "SAGHAR",
+        "address": "ST",
+        "mobileNumber": 7048175670,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67710185ae8fde42f53567fe"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "67710185ae8fde42f53567ff"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 520,
+        "paid": 0,
+        "totalDue": 5,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677102c4e67955d0dc79eb65",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677102c4e67955d0dc79eb63",
+        "BillNo": 559,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "DWVANSHU",
+        "address": "ST",
+        "mobileNumber": 9409827008,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 5,
+                "price": 60,
+                "_id": "677102c4e67955d0dc79eb66"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 5,
+                "price": 350,
+                "_id": "677102c4e67955d0dc79eb67"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 5,
+                "price": 175,
+                "_id": "677102c4e67955d0dc79eb68"
+            }
+        ],
+        "totalFirki": 5,
+        "subTotal": 2925,
+        "discount": 0,
+        "advance": 500,
+        "paid": 0,
+        "totalDue": 2425,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6771037a451433127b6355e9",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6771037a451433127b6355e6",
+        "BillNo": 560,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "DHANNJAY",
+        "address": "ST",
+        "mobileNumber": 9586406005,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "6771037a451433127b6355ea"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 350,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6771038c151b178b4e3eb769",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6771037a451433127b6355e6",
+        "BillNo": 560,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "DHANNJAY",
+        "address": "ST",
+        "mobileNumber": 9586406005,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "6771038c151b178b4e3eb76a"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 350,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6771040c151b178b4e3ec54a",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6771040c151b178b4e3ec548",
+        "BillNo": 562,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "PARTH",
+        "address": "ST",
+        "mobileNumber": 7624035837,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "6771040c151b178b4e3ec54b"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "6771040c151b178b4e3ec54c"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 1350,
+        "discount": 0,
+        "advance": 500,
+        "paid": 0,
+        "totalDue": 850,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6771046d2b72ca94cf90c922",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6771046d2b72ca94cf90c920",
+        "BillNo": 563,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "ABHISHEK",
+        "address": "ST",
+        "mobileNumber": 9106011471,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 2,
+                "price": 70,
+                "_id": "6771046d2b72ca94cf90c923"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 140,
+        "discount": 0,
+        "advance": 140,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67710480de6bea3d29e290db",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6771046d2b72ca94cf90c920",
+        "BillNo": 563,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "ABHISHEK",
+        "address": "ST",
+        "mobileNumber": 9106011471,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 2,
+                "price": 70,
+                "_id": "67710480de6bea3d29e290dc"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 140,
+        "discount": 0,
+        "advance": 140,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677104967a8903ffbafdeb1d",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6771046d2b72ca94cf90c920",
+        "BillNo": 563,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "ABHISHEK",
+        "address": "ST",
+        "mobileNumber": 9106011471,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 2,
+                "price": 70,
+                "_id": "677104967a8903ffbafdeb1e"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 140,
+        "discount": 0,
+        "advance": 140,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677104cdf078d94c67d0cdcc",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6771046d2b72ca94cf90c920",
+        "BillNo": 563,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "ABHISHEK",
+        "address": "ST",
+        "mobileNumber": 9106011471,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 2,
+                "price": 70,
+                "_id": "677104cdf078d94c67d0cdcd"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 140,
+        "discount": 0,
+        "advance": 140,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677104f68240c3f8667c0038",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6771046d2b72ca94cf90c920",
+        "BillNo": 563,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "ABHISHEK",
+        "address": "ST",
+        "mobileNumber": 9106011471,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 2,
+                "price": 70,
+                "_id": "677104f78240c3f8667c0039"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 140,
+        "discount": 0,
+        "advance": 140,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6771054d2930d8103b3a7832",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6771054d2930d8103b3a7830",
+        "BillNo": 568,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "JAY",
+        "address": "ST",
+        "mobileNumber": 8200994908,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6771054d2930d8103b3a7833"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 175,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 175,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677105cf0f50401d9498c9e9",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677105cf0f50401d9498c9e7",
+        "BillNo": 569,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "paesh",
+        "address": "st",
+        "mobileNumber": 9377599933,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "677105cf0f50401d9498c9ea"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "677105cf0f50401d9498c9eb"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 875,
+        "discount": 0,
+        "advance": 400,
+        "paid": 0,
+        "totalDue": 475,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677106634d38aae33b949e87",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677106634d38aae33b949e85",
+        "BillNo": 570,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "HARSH",
+        "address": "ST",
+        "mobileNumber": 8128153880,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 2,
+                "price": 650,
+                "_id": "677106634d38aae33b949e88"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "677106634d38aae33b949e89"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 2000,
+        "discount": 0,
+        "advance": 2000,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677106bb4d38aae33b94ac8e",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677106bb4d38aae33b94ac8c",
+        "BillNo": 571,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "SANDIP",
+        "address": "ST",
+        "mobileNumber": 8320742562,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "677106bb4d38aae33b94ac8f"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 175,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 175,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677107094d38aae33b94ba95",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677107094d38aae33b94ba93",
+        "BillNo": 572,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "UMESH",
+        "address": "ST",
+        "mobileNumber": 9664501187,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "677107094d38aae33b94ba96"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 350,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677107e1166b0f2f5a6d7415",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677107e1166b0f2f5a6d7413",
+        "BillNo": 573,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "DEV",
+        "address": "ST",
+        "mobileNumber": 6351564331,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "677107e1166b0f2f5a6d7416"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "677107e1166b0f2f5a6d7417"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 875,
+        "discount": 0,
+        "advance": 500,
+        "paid": 0,
+        "totalDue": 375,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6771088c3bceae2c2d995753",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6771088c3bceae2c2d995751",
+        "BillNo": 574,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "MAHESH",
+        "address": "ST",
+        "mobileNumber": 9998221923,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 1,
+                "price": 60,
+                "_id": "6771088c3bceae2c2d995754"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6771088c3bceae2c2d995755"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "6771088c3bceae2c2d995756"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6771088c3bceae2c2d995757"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6771088c3bceae2c2d995758"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 1585,
+        "discount": 5,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 1580,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677109915abc64b19fc305d8",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677109915abc64b19fc305d6",
+        "BillNo": 575,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "SAGHAR",
+        "address": "ST",
+        "mobileNumber": 9313648280,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 1,
+                "price": 60,
+                "_id": "677109915abc64b19fc305d9"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "677109915abc64b19fc305da"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "677109915abc64b19fc305db"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 585,
+        "discount": 0,
+        "advance": 585,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67710a00b6c6d1c677b6a8cd",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67710a00b6c6d1c677b6a8cb",
+        "BillNo": 576,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "DEEP",
+        "address": "ST",
+        "mobileNumber": 8154024575,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 1,
+                "price": 60,
+                "_id": "67710a00b6c6d1c677b6a8ce"
+            },
+            {
+                "productId": "65bde88769acedb394df2469",
+                "productName": "ONLY FIRKI 5000",
+                "quantity": 1,
+                "price": 80,
+                "_id": "67710a00b6c6d1c677b6a8cf"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 4,
+                "price": 350,
+                "_id": "67710a00b6c6d1c677b6a8d0"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "67710a00b6c6d1c677b6a8d1"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67710a00b6c6d1c677b6a8d2"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 4,
+                "price": 175,
+                "_id": "67710a00b6c6d1c677b6a8d3"
+            }
+        ],
+        "totalFirki": 5,
+        "subTotal": 3240,
+        "discount": 0,
+        "advance": 500,
+        "paid": 0,
+        "totalDue": 2740,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67710a29503729e05273de68",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67710a00b6c6d1c677b6a8cb",
+        "BillNo": 576,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "DEEP",
+        "address": "ST",
+        "mobileNumber": 8154024575,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 1,
+                "price": 60,
+                "_id": "67710a29503729e05273de69"
+            },
+            {
+                "productId": "65bde88769acedb394df2469",
+                "productName": "ONLY FIRKI 5000",
+                "quantity": 1,
+                "price": 80,
+                "_id": "67710a29503729e05273de6a"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 4,
+                "price": 350,
+                "_id": "67710a29503729e05273de6b"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "67710a29503729e05273de6c"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67710a29503729e05273de6d"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 4,
+                "price": 175,
+                "_id": "67710a29503729e05273de6e"
+            }
+        ],
+        "totalFirki": 5,
+        "subTotal": 3240,
+        "discount": 0,
+        "advance": 500,
+        "paid": 0,
+        "totalDue": 2740,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67710a901cb78f92ea09e837",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67710a901cb78f92ea09e835",
+        "BillNo": 578,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "GOLU",
+        "address": "ST",
+        "mobileNumber": 6351210753,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67710a901cb78f92ea09e838"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 350,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67710bf01aaddf39bc9192ba",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67710bf01aaddf39bc9192b8",
+        "BillNo": 579,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "PARESHBHAI",
+        "address": "ST",
+        "mobileNumber": 9624158067,
+        "deliveryDate": "2024-12-29T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 2,
+                "price": 650,
+                "_id": "67710bf01aaddf39bc9192bb"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 1300,
+        "discount": 0,
+        "advance": 1300,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67710e56901756cf2039fb3a",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67710e56901756cf2039fb38",
+        "BillNo": 580,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "DARSHAN",
+        "address": "ST",
+        "mobileNumber": 9726526060,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 1,
+                "price": 70,
+                "_id": "67710e56901756cf2039fb3b"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 4,
+                "price": 175,
+                "_id": "67710e56901756cf2039fb3c"
+            }
+        ],
+        "totalFirki": 8,
+        "subTotal": 770,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 770,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67710eefffafcbbdd82192e1",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67710eefffafcbbdd82192df",
+        "BillNo": 581,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "SANDIP",
+        "address": "ST",
+        "mobileNumber": 9898269722,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "67710eefffafcbbdd82192e2"
+            }
+        ],
+        "totalFirki": 4,
+        "subTotal": 700,
+        "discount": 0,
+        "advance": 700,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677111938553847378619e07",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677111938553847378619e05",
+        "BillNo": 582,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "ANKIT",
+        "address": "ST",
+        "mobileNumber": 7817899500,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "677111938553847378619e08"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 350,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677114af76fa05e1b804fe86",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677114af76fa05e1b804fe84",
+        "BillNo": 583,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "MEGHABHAI",
+        "address": "ST",
+        "mobileNumber": 9870032891,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "677114af76fa05e1b804fe87"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "677114af76fa05e1b804fe88"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 1000,
+        "discount": 100,
+        "advance": 900,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677115a81dbaceeaec73a36c",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677115a81dbaceeaec73a36a",
+        "BillNo": 584,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "RAJ",
+        "address": "ST",
+        "mobileNumber": 9313205256,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 1,
+                "price": 70,
+                "_id": "677115a81dbaceeaec73a36d"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 3,
+                "price": 175,
+                "_id": "677115a81dbaceeaec73a36e"
+            }
+        ],
+        "totalFirki": 4,
+        "subTotal": 595,
+        "discount": 0,
+        "advance": 595,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6771171f5264334b283c4df5",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6771171f5264334b283c4df3",
+        "BillNo": 585,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "KHUSHI",
+        "address": "ST",
+        "mobileNumber": 7862881919,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2473",
+                "productName": "9/900 BOBIN",
+                "quantity": 1,
+                "price": 150,
+                "_id": "6771171f5264334b283c4df6"
+            },
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 1,
+                "price": 70,
+                "_id": "6771171f5264334b283c4df7"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 220,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 220,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67711737ff525f2aabfffffe",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6771171f5264334b283c4df3",
+        "BillNo": 585,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "KHUSHI",
+        "address": "ST",
+        "mobileNumber": 7862881919,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2473",
+                "productName": "9/900 BOBIN",
+                "quantity": 1,
+                "price": 150,
+                "_id": "67711737ff525f2aab000000"
+            },
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 1,
+                "price": 70,
+                "_id": "67711737ff525f2aab000001"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 220,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 220,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677117f1737c357c9ba0a012",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677117f1737c357c9ba0a010",
+        "BillNo": 587,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "HIREN",
+        "address": "ST",
+        "mobileNumber": 9723159123,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 1,
+                "price": 70,
+                "_id": "677117f1737c357c9ba0a013"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "677117f1737c357c9ba0a014"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 420,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 420,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67711a34848d68051255829b",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67711a34848d680512558299",
+        "BillNo": 588,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "devash",
+        "address": "st",
+        "mobileNumber": 9825743520,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "67711a34848d68051255829c"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67711a34848d68051255829d"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 525,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67711ae2d7dce3f156de3771",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67711ae2d7dce3f156de376f",
+        "BillNo": 589,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "RAM",
+        "address": "ST",
+        "mobileNumber": 7490892807,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "67711ae2d7dce3f156de3772"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "67711ae2d7dce3f156de3773"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 875,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 875,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67711b40cfc0d302d59c0e1b",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67711b40cfc0d302d59c0e19",
+        "BillNo": 590,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "JAGDISH",
+        "address": "ST",
+        "mobileNumber": 9724345422,
+        "deliveryDate": "2024-12-29T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 5,
+                "price": 650,
+                "_id": "67711b40cfc0d302d59c0e1c"
+            },
+            {
+                "productId": "65bde88769acedb394df246f",
+                "productName": "9/500 READY FIRKI",
+                "quantity": 5,
+                "price": 1100,
+                "_id": "67711b40cfc0d302d59c0e1d"
+            }
+        ],
+        "totalFirki": 10,
+        "subTotal": 8750,
+        "discount": 0,
+        "advance": 8750,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67711bc2a674e7adf1d3bf1c",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67711bc2a674e7adf1d3bf1a",
+        "BillNo": 591,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "RAM",
+        "address": "ST",
+        "mobileNumber": 9328366263,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67711bc2a674e7adf1d3bf1d"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 250,
+        "paid": 0,
+        "totalDue": 100,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67711d6bf1e70f0851076241",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67711d6bf1e70f085107623f",
+        "BillNo": 592,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "BRIJESH",
+        "address": "ST",
+        "mobileNumber": 8264763954,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 7,
+                "price": 350,
+                "_id": "67711d6bf1e70f0851076242"
+            }
+        ],
+        "totalFirki": 10,
+        "subTotal": 2450,
+        "discount": 0,
+        "advance": 2450,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67711e3557456c99ea732df8",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67711e3557456c99ea732df6",
+        "BillNo": 593,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "GOPESH",
+        "address": "ST",
+        "mobileNumber": 9879127003,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2469",
+                "productName": "ONLY FIRKI 5000",
+                "quantity": 2,
+                "price": 80,
+                "_id": "67711e3557456c99ea732df9"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 3,
+                "price": 650,
+                "_id": "67711e3557456c99ea732dfa"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 3,
+                "price": 350,
+                "_id": "67711e3557456c99ea732dfb"
+            }
+        ],
+        "totalFirki": 4,
+        "subTotal": 3160,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 3160,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67711eb36d223ba5314aa793",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67711eb36d223ba5314aa791",
+        "BillNo": 594,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "KIRTAN",
+        "address": "ST",
+        "mobileNumber": 8758281000,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 3,
+                "price": 350,
+                "_id": "67711eb36d223ba5314aa794"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 1050,
+        "discount": 0,
+        "advance": 1050,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67711f1848117811f93be059",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67711f1848117811f93be057",
+        "BillNo": 595,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "DARSH",
+        "address": "ST",
+        "mobileNumber": 9712721621,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67711f1848117811f93be05a"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 350,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67711fb2a1f6cfb83cbce828",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67711fb2a1f6cfb83cbce826",
+        "BillNo": 596,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "UDIT PATEL",
+        "address": "ST",
+        "mobileNumber": 9099131763,
+        "deliveryDate": "2024-12-29T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 1,
+                "price": 650,
+                "_id": "67711fb2a1f6cfb83cbce829"
+            },
+            {
+                "productId": "65bde88769acedb394df246f",
+                "productName": "9/500 READY FIRKI",
+                "quantity": 2,
+                "price": 1100,
+                "_id": "67711fb2a1f6cfb83cbce82a"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 2850,
+        "discount": 0,
+        "advance": 2850,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677120e6a71fbd71ddca8281",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677120e6a71fbd71ddca827f",
+        "BillNo": 597,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "JAY",
+        "address": "ST",
+        "mobileNumber": 8866886568,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 2,
+                "price": 650,
+                "_id": "677120e6a71fbd71ddca8282"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "677120e6a71fbd71ddca8283"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 2000,
+        "discount": 0,
+        "advance": 2000,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677122f4d4c2b10fe41e1bfa",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677122f4d4c2b10fe41e1bf8",
+        "BillNo": 598,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "NIKHIL",
+        "address": "ST",
+        "mobileNumber": 9328025177,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "677122f4d4c2b10fe41e1bfb"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 150,
+        "paid": 0,
+        "totalDue": 200,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67712388bce50a7888bc598b",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67712388bce50a7888bc5989",
+        "BillNo": 599,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "SHLOK",
+        "address": "ST",
+        "mobileNumber": 9726342903,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67712388bce50a7888bc598c"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 350,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677125427983681cd9b7765a",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677125427983681cd9b77658",
+        "BillNo": 600,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "MAN",
+        "address": "ST",
+        "mobileNumber": 7777929031,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 3,
+                "price": 175,
+                "_id": "677125427983681cd9b7765b"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "677125427983681cd9b7765c"
+            },
+            {
+                "productId": "65bde88769acedb394df2469",
+                "productName": "ONLY FIRKI 5000",
+                "quantity": 1,
+                "price": 80,
+                "_id": "677125427983681cd9b7765d"
+            }
+        ],
+        "totalFirki": 4,
+        "subTotal": 955,
+        "discount": 0,
+        "advance": 955,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677125c38a38d8c39b5360ee",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677125c38a38d8c39b5360ec",
+        "BillNo": 601,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "DHRUVIL",
+        "address": "ST",
+        "mobileNumber": 7990853588,
+        "deliveryDate": "2024-12-29T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246d",
+                "productName": "9/900 READY FIRKI",
+                "quantity": 2,
+                "price": 350,
+                "_id": "677125c38a38d8c39b5360ef"
+            },
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 4,
+                "price": 650,
+                "_id": "677125c38a38d8c39b5360f0"
+            },
+            {
+                "productId": "65bde88769acedb394df246f",
+                "productName": "9/500 READY FIRKI",
+                "quantity": 1,
+                "price": 1100,
+                "_id": "677125c38a38d8c39b5360f1"
+            }
+        ],
+        "totalFirki": 7,
+        "subTotal": 4400,
+        "discount": 0,
+        "advance": 4400,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6771267c150e78857ee83f64",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6771267c150e78857ee83f62",
+        "BillNo": 602,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "HEET",
+        "address": "ST",
+        "mobileNumber": 9586734210,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "6771267c150e78857ee83f65"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6771267c150e78857ee83f66"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 1000,
+        "discount": 100,
+        "advance": 900,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677126f581a3a33a7a4c219f",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677126f581a3a33a7a4c219d",
+        "BillNo": 603,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "BHAVIK",
+        "address": "ST",
+        "mobileNumber": 9714793074,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 2,
+                "price": 70,
+                "_id": "677126f581a3a33a7a4c21a0"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "677126f581a3a33a7a4c21a1"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "677126f581a3a33a7a4c21a2"
+            }
+        ],
+        "totalFirki": 4,
+        "subTotal": 665,
+        "discount": 0,
+        "advance": 665,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677127a67d97175755dd120b",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "676a8ac18fc0b17ea3258fa6",
+        "BillNo": 604,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "HOME",
+        "address": "ST",
+        "mobileNumber": 9428670817,
+        "deliveryDate": "2024-12-29T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246d",
+                "productName": "9/900 READY FIRKI",
+                "quantity": 3,
+                "price": 350,
+                "_id": "677127a67d97175755dd120c"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 1050,
+        "discount": 0,
+        "advance": 1050,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67712823016ec1cb22a620f6",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67712823016ec1cb22a620f4",
+        "BillNo": 605,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "ADITYA ",
+        "address": "ST",
+        "mobileNumber": 8238854700,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "67712823016ec1cb22a620f7"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67712823016ec1cb22a620f8"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 525,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67712895e9d1f34e20b744f0",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677126f581a3a33a7a4c219d",
+        "BillNo": 606,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "BHAVIK",
+        "address": "ST",
+        "mobileNumber": 9714793074,
+        "deliveryDate": "2024-12-29T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 2,
+                "price": 650,
+                "_id": "67712895e9d1f34e20b744f1"
+            },
+            {
+                "productId": "65bde88769acedb394df246d",
+                "productName": "9/900 READY FIRKI",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67712895e9d1f34e20b744f2"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 1650,
+        "discount": 0,
+        "advance": 1650,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67712914ddc569f3ec8c65cd",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67712914ddc569f3ec8c65cb",
+        "BillNo": 607,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "RAKESH",
+        "address": "ST",
+        "mobileNumber": 9723058235,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 6,
+                "price": 60,
+                "_id": "67712914ddc569f3ec8c65ce"
+            },
+            {
+                "productId": "65bde88769acedb394df2473",
+                "productName": "9/900 BOBIN",
+                "quantity": 2,
+                "price": 150,
+                "_id": "67712914ddc569f3ec8c65cf"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 4,
+                "price": 350,
+                "_id": "67712914ddc569f3ec8c65d0"
+            },
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 2,
+                "price": 70,
+                "_id": "67712914ddc569f3ec8c65d1"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 4,
+                "price": 175,
+                "_id": "67712914ddc569f3ec8c65d2"
+            }
+        ],
+        "totalFirki": 6,
+        "subTotal": 2900,
+        "discount": 0,
+        "advance": 1800,
+        "paid": 0,
+        "totalDue": 1100,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67712aab2d072353fcdf1a91",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67712aab2d072353fcdf1a8f",
+        "BillNo": 608,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "HARSH",
+        "address": "ST",
+        "mobileNumber": 7016903682,
+        "deliveryDate": "2024-12-29T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2472",
+                "productName": "12/500 READY FIRKI",
+                "quantity": 1,
+                "price": 1300,
+                "_id": "67712aab2d072353fcdf1a92"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 1300,
+        "discount": 0,
+        "advance": 1300,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67712b8950385328c5f9091d",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67712b8950385328c5f9091b",
+        "BillNo": 609,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "ALTAF",
+        "address": "ST",
+        "mobileNumber": 9662877155,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2469",
+                "productName": "ONLY FIRKI 5000",
+                "quantity": 1,
+                "price": 80,
+                "_id": "67712b8950385328c5f9091e"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "67712b8950385328c5f9091f"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67712b8950385328c5f90920"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 1080,
+        "discount": 0,
+        "advance": 580,
+        "paid": 0,
+        "totalDue": 500,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67712b9d299d82e5b41c3e67",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67712b8950385328c5f9091b",
+        "BillNo": 609,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "ALTAF",
+        "address": "ST",
+        "mobileNumber": 9662877155,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2469",
+                "productName": "ONLY FIRKI 5000",
+                "quantity": 1,
+                "price": 80,
+                "_id": "67712b9d299d82e5b41c3e68"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "67712b9d299d82e5b41c3e69"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67712b9d299d82e5b41c3e6a"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 1080,
+        "discount": 0,
+        "advance": 580,
+        "paid": 0,
+        "totalDue": 500,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67712bb0d1ecb4123735c1cf",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67712b8950385328c5f9091b",
+        "BillNo": 609,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "ALTAF",
+        "address": "ST",
+        "mobileNumber": 9662877155,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2469",
+                "productName": "ONLY FIRKI 5000",
+                "quantity": 1,
+                "price": 80,
+                "_id": "67712bb0d1ecb4123735c1d0"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "67712bb0d1ecb4123735c1d1"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67712bb0d1ecb4123735c1d2"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 1080,
+        "discount": 0,
+        "advance": 580,
+        "paid": 0,
+        "totalDue": 500,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67712c5d56bb32df98a387d2",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67712c5d56bb32df98a387cf",
+        "BillNo": 612,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "SIDDHART",
+        "address": "ST",
+        "mobileNumber": 8200456358,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67712c5d56bb32df98a387d3"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "67712c5d56bb32df98a387d4"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 525,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67712cdb88d78dd2b82a3668",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67712cdb88d78dd2b82a3666",
+        "BillNo": 613,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "UMESH",
+        "address": "ST",
+        "mobileNumber": 9974218639,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "67712cdb88d78dd2b82a3669"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 175,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 175,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67712f2e32eae2b84a64e6cb",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67711b40cfc0d302d59c0e19",
+        "BillNo": 614,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "JD RAVAL",
+        "address": "ST",
+        "mobileNumber": 9724345422,
+        "deliveryDate": "2024-12-29T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2471",
+                "productName": "12/250 READY FIRKI",
+                "quantity": 2,
+                "price": 750,
+                "_id": "67712f2e32eae2b84a64e6cc"
+            },
+            {
+                "productId": "65bde88769acedb394df2472",
+                "productName": "12/500 READY FIRKI",
+                "quantity": 1,
+                "price": 1300,
+                "_id": "67712f2e32eae2b84a64e6cd"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 2800,
+        "discount": 0,
+        "advance": 2800,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677130f2ac2b4b7d8e7ff31c",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677130f2ac2b4b7d8e7ff31a",
+        "BillNo": 615,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "RAHUL",
+        "address": "ST",
+        "mobileNumber": 7817026490,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "677130f2ac2b4b7d8e7ff31d"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 350,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677131b39684c320406fda2f",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677131b39684c320406fda2d",
+        "BillNo": 616,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "DEEPESH",
+        "address": "ST",
+        "mobileNumber": 7405121285,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "677131b39684c320406fda30"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 175,
+        "discount": 0,
+        "advance": 175,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6771324c461bdfcc29140a2d",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6771324c461bdfcc29140a2b",
+        "BillNo": 617,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "VIRAL",
+        "address": "ST",
+        "mobileNumber": 9898256888,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2469",
+                "productName": "ONLY FIRKI 5000",
+                "quantity": 1,
+                "price": 80,
+                "_id": "6771324c461bdfcc29140a2e"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6771324c461bdfcc29140a2f"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6771324c461bdfcc29140a30"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 605,
+        "discount": 0,
+        "advance": 605,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6771333a04f85add374ff898",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6771333a04f85add374ff896",
+        "BillNo": 618,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "MEHUL",
+        "address": "ST",
+        "mobileNumber": 9825861432,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 2,
+                "price": 350,
+                "_id": "6771333a04f85add374ff899"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "6771333a04f85add374ff89a"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 1050,
+        "discount": 0,
+        "advance": 1050,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677136da7466a24dfcb9793b",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677136da7466a24dfcb97939",
+        "BillNo": 619,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "HARDIK",
+        "address": "ST",
+        "mobileNumber": 9726595901,
+        "deliveryDate": "2024-12-29T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 1,
+                "price": 650,
+                "_id": "677136da7466a24dfcb9793c"
+            },
+            {
+                "productId": "65bde88769acedb394df246f",
+                "productName": "9/500 READY FIRKI",
+                "quantity": 1,
+                "price": 1100,
+                "_id": "677136da7466a24dfcb9793d"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 1750,
+        "discount": 0,
+        "advance": 1750,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6771374e85e112569b32baed",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677136da7466a24dfcb97939",
+        "BillNo": 619,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "HARDIK",
+        "address": "ST",
+        "mobileNumber": 9726595901,
+        "deliveryDate": "2024-12-29T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 1,
+                "price": 650,
+                "_id": "6771374e85e112569b32baee"
+            },
+            {
+                "productId": "65bde88769acedb394df246f",
+                "productName": "9/500 READY FIRKI",
+                "quantity": 1,
+                "price": 1100,
+                "_id": "6771374e85e112569b32baef"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 1750,
+        "discount": 0,
+        "advance": 1750,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677137b07fd3856320d11f6d",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677137b07fd3856320d11f6b",
+        "BillNo": 621,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "DHRUV",
+        "address": "ST",
+        "mobileNumber": 9586551171,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 2,
+                "price": 650,
+                "_id": "677137b07fd3856320d11f6e"
+            },
+            {
+                "productId": "65bde88769acedb394df246f",
+                "productName": "9/500 READY FIRKI",
+                "quantity": 1,
+                "price": 1100,
+                "_id": "677137b07fd3856320d11f6f"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 2400,
+        "discount": 0,
+        "advance": 2400,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67713870a940523a56ee8d08",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67713870a940523a56ee8d06",
+        "BillNo": 622,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "RINKESH",
+        "address": "ST",
+        "mobileNumber": 9033252381,
+        "deliveryDate": "2024-12-31T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2469",
+                "productName": "ONLY FIRKI 5000",
+                "quantity": 1,
+                "price": 80,
+                "_id": "67713870a940523a56ee8d09"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67713870a940523a56ee8d0a"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 430,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 430,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6771388748822bbbdd19e9c8",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67713870a940523a56ee8d06",
+        "BillNo": 622,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "RINKESH",
+        "address": "ST",
+        "mobileNumber": 9033252381,
+        "deliveryDate": "2024-12-31T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2469",
+                "productName": "ONLY FIRKI 5000",
+                "quantity": 1,
+                "price": 80,
+                "_id": "6771388748822bbbdd19e9c9"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6771388748822bbbdd19e9ca"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 430,
+        "discount": 0,
+        "advance": 430,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67713a50ee197fd5155b5c28",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67713a50ee197fd5155b5c26",
+        "BillNo": 624,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "TEJ",
+        "address": "ST",
+        "mobileNumber": 9510137343,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2477",
+                "productName": "12/500 BOBIN",
+                "quantity": 1,
+                "price": 800,
+                "_id": "67713a50ee197fd5155b5c29"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67713a50ee197fd5155b5c2a"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 1150,
+        "discount": 0,
+        "advance": 1150,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67713a6535479701a25bbab5",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67713a50ee197fd5155b5c26",
+        "BillNo": 624,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "TEJ",
+        "address": "ST",
+        "mobileNumber": 9510137343,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2477",
+                "productName": "12/500 BOBIN",
+                "quantity": 1,
+                "price": 800,
+                "_id": "67713a6535479701a25bbab6"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67713a6535479701a25bbab7"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 1150,
+        "discount": 0,
+        "advance": 1150,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67713aaf615a600d60a6966f",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67713aaf615a600d60a6966d",
+        "BillNo": 626,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "RAKESH",
+        "address": "ST",
+        "mobileNumber": 9664689344,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 1,
+                "price": 650,
+                "_id": "67713aaf615a600d60a69670"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 650,
+        "discount": 0,
+        "advance": 650,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67713af0d03910608c8a1e9f",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67713af0d03910608c8a1e9d",
+        "BillNo": 627,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "HARISH",
+        "address": "ST",
+        "mobileNumber": 8849712082,
+        "deliveryDate": "2024-12-29T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246f",
+                "productName": "9/500 READY FIRKI",
+                "quantity": 1,
+                "price": 1100,
+                "_id": "67713af0d03910608c8a1ea0"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 1100,
+        "discount": 0,
+        "advance": 1100,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67713cafe8f5b3f72b720e7f",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67713cafe8f5b3f72b720e7d",
+        "BillNo": 628,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "SUNIL",
+        "address": "ST",
+        "mobileNumber": 9904323455,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2469",
+                "productName": "ONLY FIRKI 5000",
+                "quantity": 1,
+                "price": 80,
+                "_id": "67713cafe8f5b3f72b720e80"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67713cafe8f5b3f72b720e81"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "67713cafe8f5b3f72b720e82"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "67713cafe8f5b3f72b720e83"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "67713cafe8f5b3f72b720e84"
+            }
+        ],
+        "totalFirki": 4,
+        "subTotal": 2130,
+        "discount": 0,
+        "advance": 2130,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67713d7173cb3d7f6e3135b7",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6767faf1ef5ad60767f8c0a9",
+        "BillNo": 629,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "HITESH",
+        "address": "ST",
+        "mobileNumber": 9687781605,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 1,
+                "price": 70,
+                "_id": "67713d7173cb3d7f6e3135b8"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 70,
+        "discount": 0,
+        "advance": 70,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67713e0fc9fbe3a06cc73b42",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67713e0fc9fbe3a06cc73b40",
+        "BillNo": 630,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "MAHESH",
+        "address": "ST",
+        "mobileNumber": 9904701855,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2473",
+                "productName": "9/900 BOBIN",
+                "quantity": 1,
+                "price": 150,
+                "_id": "67713e0fc9fbe3a06cc73b43"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67713e0fc9fbe3a06cc73b44"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "67713e0fc9fbe3a06cc73b45"
+            },
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 1,
+                "price": 70,
+                "_id": "67713e0fc9fbe3a06cc73b46"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 745,
+        "discount": 0,
+        "advance": 745,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67713f27b672b4f413823a58",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67713f27b672b4f413823a56",
+        "BillNo": 631,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "HARSH",
+        "address": "ST",
+        "mobileNumber": 8200868591,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67713f27b672b4f413823a59"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "67713f27b672b4f413823a5a"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 525,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6771408449a86b8b07ec48d6",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6771408449a86b8b07ec48d4",
+        "BillNo": 632,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "SAILESH",
+        "address": "ST",
+        "mobileNumber": 9904961799,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6771408449a86b8b07ec48d7"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 3,
+                "price": 350,
+                "_id": "6771408449a86b8b07ec48d8"
+            }
+        ],
+        "totalFirki": 6,
+        "subTotal": 1225,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 1225,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677140fd9be2b338f40b95cd",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677140fd9be2b338f40b95cb",
+        "BillNo": 633,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "BHAVESH (ARHAM)",
+        "address": "ST",
+        "mobileNumber": 9725819196,
+        "deliveryDate": "2024-12-29T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 5,
+                "price": 650,
+                "_id": "677140fd9be2b338f40b95ce"
+            },
+            {
+                "productId": "65bde88769acedb394df246f",
+                "productName": "9/500 READY FIRKI",
+                "quantity": 1,
+                "price": 1100,
+                "_id": "677140fd9be2b338f40b95cf"
+            }
+        ],
+        "totalFirki": 6,
+        "subTotal": 4350,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 4350,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6771417ef321adf0a75f69a3",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6771417ef321adf0a75f69a1",
+        "BillNo": 634,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "CHINTAN",
+        "address": "ST",
+        "mobileNumber": 9723395087,
+        "deliveryDate": "2024-12-29T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 2,
+                "price": 650,
+                "_id": "6771417ef321adf0a75f69a4"
+            },
+            {
+                "productId": "65bde88769acedb394df246f",
+                "productName": "9/500 READY FIRKI",
+                "quantity": 4,
+                "price": 1100,
+                "_id": "6771417ef321adf0a75f69a5"
+            }
+        ],
+        "totalFirki": 6,
+        "subTotal": 5700,
+        "discount": 0,
+        "advance": 5700,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677142af1982d3753a72c047",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677142ae1982d3753a72c045",
+        "BillNo": 635,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "NISHANT",
+        "address": "ST",
+        "mobileNumber": 9924512210,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 3,
+                "price": 175,
+                "_id": "677142af1982d3753a72c048"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "677142af1982d3753a72c049"
+            }
+        ],
+        "totalFirki": 4,
+        "subTotal": 875,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 875,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677142f06aa7820914c355d7",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677142f06aa7820914c355d5",
+        "BillNo": 636,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "SANJAY",
+        "address": "ST",
+        "mobileNumber": 9978550604,
+        "deliveryDate": "2025-01-01T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "677142f06aa7820914c355d8"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "677142f06aa7820914c355d9"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 525,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677143c810bf12c0252b320f",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677143c810bf12c0252b320d",
+        "BillNo": 637,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "OM",
+        "address": "ST",
+        "mobileNumber": 9328468859,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 5,
+                "price": 175,
+                "_id": "677143c810bf12c0252b3210"
+            }
+        ],
+        "totalFirki": 4,
+        "subTotal": 875,
+        "discount": 0,
+        "advance": 875,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6771456838dc9b4fae96576b",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67665fae0ccbd7a3b231cf79",
+        "BillNo": 638,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "PARESH",
+        "address": "ST",
+        "mobileNumber": 8238070733,
+        "deliveryDate": "2024-12-29T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 1,
+                "price": 650,
+                "_id": "6771456838dc9b4fae96576c"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 650,
+        "discount": 0,
+        "advance": 650,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677145b430e96792427172e4",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677145b430e96792427172e1",
+        "BillNo": 639,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "BHARAT",
+        "address": "ST",
+        "mobileNumber": 7600003094,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "677145b430e96792427172e5"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "677145b430e96792427172e6"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 875,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 875,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6771469565b916d3697cddc8",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6771469565b916d3697cddc6",
+        "BillNo": 640,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "KAMLESH",
+        "address": "ST",
+        "mobileNumber": 9998753823,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2469",
+                "productName": "ONLY FIRKI 5000",
+                "quantity": 1,
+                "price": 80,
+                "_id": "6771469565b916d3697cddc9"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6771469565b916d3697cddca"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "6771469565b916d3697cddcb"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6771469565b916d3697cddcc"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6771469565b916d3697cddcd"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 1605,
+        "discount": 0,
+        "advance": 1605,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6771473c9cfe585c1407340a",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6771473c9cfe585c14073408",
+        "BillNo": 641,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "ISHAAN",
+        "address": "ST",
+        "mobileNumber": 9925100624,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "6771473c9cfe585c1407340b"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 200,
+        "paid": 0,
+        "totalDue": 150,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6771480092992b947b90d5f7",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6771480092992b947b90d5f5",
+        "BillNo": 642,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "HIREN",
+        "address": "ST",
+        "mobileNumber": 9714253256,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2473",
+                "productName": "9/900 BOBIN",
+                "quantity": 1,
+                "price": 150,
+                "_id": "6771480092992b947b90d5f8"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 3,
+                "price": 350,
+                "_id": "6771480092992b947b90d5f9"
+            },
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 1,
+                "price": 70,
+                "_id": "6771480092992b947b90d5fa"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 3,
+                "price": 175,
+                "_id": "6771480092992b947b90d5fb"
+            }
+        ],
+        "totalFirki": 4,
+        "subTotal": 1795,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 1795,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677148b78f725d88dc7d89f4",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "675999a492a6c945e31e1bd8",
+        "BillNo": 643,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "HEMU (SOCIETY)",
+        "address": "ST",
+        "mobileNumber": 9824183096,
+        "deliveryDate": "2024-12-29T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 1,
+                "price": 650,
+                "_id": "677148b78f725d88dc7d89f5"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 650,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 650,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677149b6bbefb75af813560e",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677149b6bbefb75af813560c",
+        "BillNo": 644,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "PRATIK",
+        "address": "ST",
+        "mobileNumber": 8980935026,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 3,
+                "price": 175,
+                "_id": "677149b6bbefb75af813560f"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 525,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67714a52bf2a9ccabafaefae",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67714a52bf2a9ccabafaefac",
+        "BillNo": 645,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "DIVYESH",
+        "address": "ST",
+        "mobileNumber": 9574246351,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 3,
+                "price": 175,
+                "_id": "67714a52bf2a9ccabafaefaf"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 525,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67714aa5e86ef211446a240e",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67714aa5e86ef211446a240c",
+        "BillNo": 646,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "TIRTH",
+        "address": "ST",
+        "mobileNumber": 9428754752,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "67714aa5e86ef211446a240f"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 175,
+        "discount": 0,
+        "advance": 175,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67714b0aaf7f403893db9fb2",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67714b0aaf7f403893db9fb0",
+        "BillNo": 647,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "DINESH BHAI",
+        "address": "ST",
+        "mobileNumber": 7990170610,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 2,
+                "price": 350,
+                "_id": "67714b0aaf7f403893db9fb3"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "67714b0aaf7f403893db9fb4"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 1050,
+        "discount": 0,
+        "advance": 500,
+        "paid": 0,
+        "totalDue": 550,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67714b67a88e617f6c4df07e",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67714b67a88e617f6c4df07c",
+        "BillNo": 648,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "BONY",
+        "address": "ST",
+        "mobileNumber": 9714819877,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "67714b67a88e617f6c4df07f"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 350,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67714bbf83b0f04499cb37ec",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67714bbf83b0f04499cb37ea",
+        "BillNo": 649,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "SAYED",
+        "address": "ST",
+        "mobileNumber": 9028611460,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 2,
+                "price": 350,
+                "_id": "67714bbf83b0f04499cb37ed"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "67714bbf83b0f04499cb37ee"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 1050,
+        "discount": 0,
+        "advance": 1050,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67714d7057d8c7cc84e4f0e7",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67714d7057d8c7cc84e4f0e5",
+        "BillNo": 650,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "PAL",
+        "address": "ST",
+        "mobileNumber": 9428741149,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2473",
+                "productName": "9/900 BOBIN",
+                "quantity": 1,
+                "price": 150,
+                "_id": "67714d7057d8c7cc84e4f0e8"
+            },
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 1,
+                "price": 70,
+                "_id": "67714d7057d8c7cc84e4f0e9"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 220,
+        "discount": 0,
+        "advance": 220,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67714e02732cc19344c013e0",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67714e02732cc19344c013de",
+        "BillNo": 651,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "RAJ",
+        "address": "ST",
+        "mobileNumber": 7862046422,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 2,
+                "price": 70,
+                "_id": "67714e02732cc19344c013e1"
+            },
+            {
+                "productId": "65bde88769acedb394df2473",
+                "productName": "9/900 BOBIN",
+                "quantity": 2,
+                "price": 150,
+                "_id": "67714e02732cc19344c013e2"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 440,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 440,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67714e4563855a58330e7ae8",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67714e4563855a58330e7ae6",
+        "BillNo": 652,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "KARTIK",
+        "address": "ST",
+        "mobileNumber": 8140034123,
+        "deliveryDate": "2024-12-29T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246f",
+                "productName": "9/500 READY FIRKI",
+                "quantity": 1,
+                "price": 1100,
+                "_id": "67714e4563855a58330e7ae9"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 1100,
+        "discount": 0,
+        "advance": 1100,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67714ec399e9d29226738abf",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67714ec399e9d29226738abd",
+        "BillNo": 653,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "BHAIRAV",
+        "address": "ST",
+        "mobileNumber": 9376091092,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67714ec399e9d29226738ac0"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "67714ec399e9d29226738ac1"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "67714ec399e9d29226738ac2"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67714ec399e9d29226738ac3"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 1525,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 1525,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67714f275d8a7b2d418c5a98",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67714f275d8a7b2d418c5a96",
+        "BillNo": 654,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "PRASANT",
+        "address": "ST",
+        "mobileNumber": 8238686910,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67714f275d8a7b2d418c5a99"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 350,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6771503e719f8c28ec3cd725",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6771503e719f8c28ec3cd723",
+        "BillNo": 655,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "NISARG",
+        "address": "ST",
+        "mobileNumber": 9023774050,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6771503e719f8c28ec3cd726"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6771503e719f8c28ec3cd727"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 525,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677150a6c7d96a69b1204240",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677150a6c7d96a69b120423e",
+        "BillNo": 656,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "HAPPY",
+        "address": "ST",
+        "mobileNumber": 7801800018,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "677150a6c7d96a69b1204241"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "677150a6c7d96a69b1204242"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 525,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677151df2768dedf12fcd20d",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677151df2768dedf12fcd20b",
+        "BillNo": 657,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "RAHUL",
+        "address": "ST",
+        "mobileNumber": 7043129008,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 2,
+                "price": 350,
+                "_id": "677151df2768dedf12fcd20e"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "677151df2768dedf12fcd20f"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "677151df2768dedf12fcd210"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "677151df2768dedf12fcd211"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 2050,
+        "discount": 0,
+        "advance": 2050,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677152edd56fdbfbb0da4ac7",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677152edd56fdbfbb0da4ac5",
+        "BillNo": 658,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "ASHISH",
+        "address": "ST",
+        "mobileNumber": 8490083213,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 3,
+                "price": 350,
+                "_id": "677152edd56fdbfbb0da4ac8"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 3,
+                "price": 175,
+                "_id": "677152edd56fdbfbb0da4ac9"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 1575,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 1575,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67715567112e70edfe8a5dd5",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67715567112e70edfe8a5dd3",
+        "BillNo": 659,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "LALIT",
+        "address": "ST",
+        "mobileNumber": 9824701337,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67715929b8219e0b65babea5"
+            },
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 1,
+                "price": 70,
+                "_id": "67715929b8219e0b65babea6"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 420,
+        "discount": 0,
+        "advance": 200,
+        "paid": 0,
+        "totalDue": 220,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677159b4d14a06947aa65a49",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677159b4d14a06947aa65a47",
+        "BillNo": 660,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "VANSH",
+        "address": "ST",
+        "mobileNumber": 8160938662,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 2,
+                "price": 60,
+                "_id": "677159b4d14a06947aa65a4a"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "677159b4d14a06947aa65a4b"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 470,
+        "discount": 0,
+        "advance": 470,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67715ac8bbd3f3a4f81dffb6",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67715ac8bbd3f3a4f81dffb4",
+        "BillNo": 661,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "DEEP",
+        "address": "ST",
+        "mobileNumber": 7984233842,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 1,
+                "price": 60,
+                "_id": "67715ac8bbd3f3a4f81dffb7"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 7,
+                "price": 350,
+                "_id": "67715ac8bbd3f3a4f81dffb8"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 7,
+                "price": 175,
+                "_id": "67715ac8bbd3f3a4f81dffb9"
+            }
+        ],
+        "totalFirki": 7,
+        "subTotal": 3735,
+        "discount": 0,
+        "advance": 1500,
+        "paid": 0,
+        "totalDue": 2235,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67715bec1bd55821db1f84ce",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67715bec1bd55821db1f84cc",
+        "BillNo": 662,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "DEEEPAK",
+        "address": "ST",
+        "mobileNumber": 9099648952,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 2,
+                "price": 350,
+                "_id": "67715bec1bd55821db1f84cf"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "67715bec1bd55821db1f84d0"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "67715bec1bd55821db1f84d1"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67715bec1bd55821db1f84d2"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 2050,
+        "discount": 0,
+        "advance": 2050,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67715c342c0f7ea5c777aed7",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67715c342c0f7ea5c777aed5",
+        "BillNo": 663,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "SAHIL",
+        "address": "ST",
+        "mobileNumber": 6355780321,
+        "deliveryDate": "2024-12-29T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246f",
+                "productName": "9/500 READY FIRKI",
+                "quantity": 1,
+                "price": 1100,
+                "_id": "67715c342c0f7ea5c777aed8"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 1100,
+        "discount": 0,
+        "advance": 1100,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67715cf7a3c47761d7c052c4",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67715cf7a3c47761d7c052c2",
+        "BillNo": 664,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "RAKESH BHAI",
+        "address": "ST",
+        "mobileNumber": 9375827334,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "67715cf7a3c47761d7c052c5"
+            }
+        ],
+        "totalFirki": 5,
+        "subTotal": 700,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 700,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67715dfaa678edfd18e1f732",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "676819fe19929962653c220e",
+        "BillNo": 665,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "KRUMAL",
+        "address": "ST",
+        "mobileNumber": 9898593285,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67715dfaa678edfd18e1f733"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "67715dfaa678edfd18e1f734"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 525,
+        "discount": 225,
+        "advance": 300,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677164a6f5b4a0ae2df30dde",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677164a6f5b4a0ae2df30ddc",
+        "BillNo": 666,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "BHAVIK",
+        "address": "ST",
+        "mobileNumber": 8511308091,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "677164a6f5b4a0ae2df30ddf"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 700,
+        "discount": 0,
+        "advance": 700,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67716561e907a12ae97a5e9f",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "676d7805850f5767808bb9de",
+        "BillNo": 667,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "SAHIL",
+        "address": "ST",
+        "mobileNumber": 9313952829,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2473",
+                "productName": "9/900 BOBIN",
+                "quantity": 1,
+                "price": 150,
+                "_id": "67716561e907a12ae97a5ea0"
+            },
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 1,
+                "price": 70,
+                "_id": "67716561e907a12ae97a5ea1"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 220,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 220,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677167236c4b0c719c4f57cf",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677167236c4b0c719c4f57cd",
+        "BillNo": 668,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "KARAN",
+        "address": "ST",
+        "mobileNumber": 7567717188,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 2,
+                "price": 350,
+                "_id": "677167236c4b0c719c4f57d0"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "677167236c4b0c719c4f57d1"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "677167236c4b0c719c4f57d2"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "677167236c4b0c719c4f57d3"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 2050,
+        "discount": 0,
+        "advance": 500,
+        "paid": 0,
+        "totalDue": 1550,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677167e1d3092615526edc9e",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677167e1d3092615526edc9c",
+        "BillNo": 669,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "JANAK",
+        "address": "ST",
+        "mobileNumber": 7778880838,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 3,
+                "price": 175,
+                "_id": "677167e1d3092615526edc9f"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 3,
+                "price": 350,
+                "_id": "677167e1d3092615526edca0"
+            }
+        ],
+        "totalFirki": 6,
+        "subTotal": 1575,
+        "discount": 0,
+        "advance": 1575,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67716b2f9a94ae385ce1d4d0",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67716b2f9a94ae385ce1d4ce",
+        "BillNo": 670,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "DHARMA",
+        "address": "ST",
+        "mobileNumber": 9825495129,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 1,
+                "price": 60,
+                "_id": "67716b2f9a94ae385ce1d4d1"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "67716b2f9a94ae385ce1d4d2"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 4,
+                "price": 350,
+                "_id": "67716b2f9a94ae385ce1d4d3"
+            }
+        ],
+        "totalFirki": 6,
+        "subTotal": 1635,
+        "discount": 0,
+        "advance": 1635,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67716d07d4beec568072bec1",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67716d07d4beec568072bebf",
+        "BillNo": 671,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "PARTH",
+        "address": "ST",
+        "mobileNumber": 9427014462,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "67716d07d4beec568072bec2"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67716d07d4beec568072bec3"
+            }
+        ],
+        "totalFirki": 4,
+        "subTotal": 700,
+        "discount": 0,
+        "advance": 700,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67716dc46096abd1edb4827e",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "675e9f1bb7a84b7264b7b41d",
+        "BillNo": 672,
+        "orderDate": "2024-12-29T00:00:00.000Z",
+        "name": "MANTHAN",
+        "address": "ST",
+        "mobileNumber": 9924799809,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "67716dc46096abd1edb4827f"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 175,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 175,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67722058387bf0e444a8e320",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67722058387bf0e444a8e31e",
+        "BillNo": 673,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "niharika",
+        "address": "st",
+        "mobileNumber": 7778963825,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "67722058387bf0e444a8e321"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67722058387bf0e444a8e322"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 525,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772207653f9d0743d7dccf1",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67722058387bf0e444a8e31e",
+        "BillNo": 673,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "niharika",
+        "address": "st",
+        "mobileNumber": 7778963825,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772207653f9d0743d7dccf2"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772207653f9d0743d7dccf3"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 500,
+        "paid": 0,
+        "totalDue": 25,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772273fd44b481e4a7d93af",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772273fd44b481e4a7d93ad",
+        "BillNo": 675,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "BAKUL",
+        "address": "ST",
+        "mobileNumber": 9898079464,
+        "deliveryDate": "2024-12-30T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 3,
+                "price": 650,
+                "_id": "6772273fd44b481e4a7d93b0"
+            },
+            {
+                "productId": "65bde88769acedb394df246f",
+                "productName": "9/500 READY FIRKI",
+                "quantity": 4,
+                "price": 1100,
+                "_id": "6772273fd44b481e4a7d93b1"
+            },
+            {
+                "productId": "65bde88769acedb394df2471",
+                "productName": "12/250 READY FIRKI",
+                "quantity": 1,
+                "price": 750,
+                "_id": "6772273fd44b481e4a7d93b2"
+            }
+        ],
+        "totalFirki": 8,
+        "subTotal": 7100,
+        "discount": 0,
+        "advance": 7100,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677227636373979983bcaf35",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772273fd44b481e4a7d93ad",
+        "BillNo": 675,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "BAKUL",
+        "address": "ST",
+        "mobileNumber": 9898079464,
+        "deliveryDate": "2024-12-30T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 3,
+                "price": 650,
+                "_id": "677227636373979983bcaf36"
+            },
+            {
+                "productId": "65bde88769acedb394df246f",
+                "productName": "9/500 READY FIRKI",
+                "quantity": 4,
+                "price": 1100,
+                "_id": "677227636373979983bcaf37"
+            },
+            {
+                "productId": "65bde88769acedb394df2471",
+                "productName": "12/250 READY FIRKI",
+                "quantity": 1,
+                "price": 750,
+                "_id": "677227636373979983bcaf38"
+            }
+        ],
+        "totalFirki": 8,
+        "subTotal": 7100,
+        "discount": 0,
+        "advance": 7100,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677227b8e358aaa85ddc0951",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772273fd44b481e4a7d93ad",
+        "BillNo": 677,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "BAKUL",
+        "address": "ST",
+        "mobileNumber": 9898079464,
+        "deliveryDate": "2024-12-30T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2470",
+                "productName": "12/900 READY FIRKI",
+                "quantity": 1,
+                "price": 400,
+                "_id": "677227b8e358aaa85ddc0952"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 400,
+        "discount": 0,
+        "advance": 400,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772299ddf84b4eaad237e81",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772299cdf84b4eaad237e7f",
+        "BillNo": 678,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "RANA BHAI",
+        "address": "ST",
+        "mobileNumber": 7990209552,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "6772299ddf84b4eaad237e82"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 700,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 700,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67723078c62865cee39e2828",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67723078c62865cee39e2826",
+        "BillNo": 679,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "UTSAV",
+        "address": "ST",
+        "mobileNumber": 7228906002,
+        "deliveryDate": "2024-12-30T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "67723078c62865cee39e2829"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 175,
+        "discount": 0,
+        "advance": 175,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677233eb348a4d77e115d1ef",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677233eb348a4d77e115d1ed",
+        "BillNo": 680,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "JENISH",
+        "address": "ST",
+        "mobileNumber": 9586060867,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "677233eb348a4d77e115d1f0"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 350,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677235509c8681413dd169fa",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677235509c8681413dd169f8",
+        "BillNo": 681,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "RACHIT",
+        "address": "ST",
+        "mobileNumber": 9978643661,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "677235509c8681413dd169fb"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 175,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 175,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677243129d86c0655656011d",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677243129d86c0655656011b",
+        "BillNo": 682,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "UJASH",
+        "address": "ST",
+        "mobileNumber": 8200334296,
+        "deliveryDate": "2024-12-30T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 5,
+                "price": 650,
+                "_id": "677243129d86c0655656011e"
+            },
+            {
+                "productId": "65bde88769acedb394df246f",
+                "productName": "9/500 READY FIRKI",
+                "quantity": 3,
+                "price": 1100,
+                "_id": "677243129d86c0655656011f"
+            }
+        ],
+        "totalFirki": 8,
+        "subTotal": 6550,
+        "discount": 0,
+        "advance": 6550,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677243a80eb3ba8033a38885",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677243a80eb3ba8033a38883",
+        "BillNo": 683,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "DIPAKBHAI",
+        "address": "ST",
+        "mobileNumber": 9601815840,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2469",
+                "productName": "ONLY FIRKI 5000",
+                "quantity": 1,
+                "price": 80,
+                "_id": "677243a80eb3ba8033a38886"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "677243a80eb3ba8033a38887"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "677243a80eb3ba8033a38888"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 1080,
+        "discount": 0,
+        "advance": 1080,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67724411540c85292afc0ae8",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67724411540c85292afc0ae6",
+        "BillNo": 684,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "NILAY",
+        "address": "ST",
+        "mobileNumber": 7600714006,
+        "deliveryDate": "2024-12-30T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2471",
+                "productName": "12/250 READY FIRKI",
+                "quantity": 2,
+                "price": 750,
+                "_id": "67724411540c85292afc0ae9"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 1500,
+        "discount": 0,
+        "advance": 1500,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67724434aedb3bdcd38324b3",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67724411540c85292afc0ae6",
+        "BillNo": 684,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "NILAY",
+        "address": "ST",
+        "mobileNumber": 7600714006,
+        "deliveryDate": "2024-12-30T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2471",
+                "productName": "12/250 READY FIRKI",
+                "quantity": 2,
+                "price": 750,
+                "_id": "67724434aedb3bdcd38324b4"
+            },
+            {
+                "productId": "65bde88769acedb394df2472",
+                "productName": "12/500 READY FIRKI",
+                "quantity": 1,
+                "price": 1300,
+                "_id": "67724589c2d09ea1cd136727"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 2800,
+        "discount": 0,
+        "advance": 2800,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67724b9da8eb0884e2a17594",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67710a901cb78f92ea09e835",
+        "BillNo": 686,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "PRAVIN",
+        "address": "ST",
+        "mobileNumber": 6351210753,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "67724b9da8eb0884e2a17595"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 175,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 175,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67724c2c0134330efcbe0074",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6770fb073c190f7ba7cf03ec",
+        "BillNo": 687,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "YASH",
+        "address": "ST",
+        "mobileNumber": 7575098476,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 2,
+                "price": 350,
+                "_id": "67724c2c0134330efcbe0075"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "67724c2c0134330efcbe0076"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 1050,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 1050,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67724d01bb02eb6b678c3dc4",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67724d01bb02eb6b678c3dc1",
+        "BillNo": 688,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "MANISH",
+        "address": "ST",
+        "mobileNumber": 9913750744,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 1,
+                "price": 60,
+                "_id": "67724d01bb02eb6b678c3dc5"
+            },
+            {
+                "productId": "65bde88769acedb394df2473",
+                "productName": "9/900 BOBIN",
+                "quantity": 1,
+                "price": 150,
+                "_id": "67724d01bb02eb6b678c3dc6"
+            },
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 1,
+                "price": 70,
+                "_id": "67724d01bb02eb6b678c3dc7"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 280,
+        "discount": 0,
+        "advance": 280,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677250ad531f34d404482137",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677250ad531f34d404482135",
+        "BillNo": 689,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "MODI",
+        "address": "ST",
+        "mobileNumber": 9913335632,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "677250ad531f34d404482138"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 350,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772514fed4919c1ca0df97a",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772514fed4919c1ca0df978",
+        "BillNo": 690,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "MODI DIPU",
+        "address": "ST",
+        "mobileNumber": 8141692883,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772514fed4919c1ca0df97b"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 350,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677258cc14f4f9b96eea36bf",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677258cc14f4f9b96eea36bd",
+        "BillNo": 691,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "HERRY",
+        "address": "ST",
+        "mobileNumber": 7600673663,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 2,
+                "price": 60,
+                "_id": "677258cc14f4f9b96eea36c0"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "677258cc14f4f9b96eea36c1"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 470,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 470,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67725bed96c43a0d3ed9a393",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67725bed96c43a0d3ed9a391",
+        "BillNo": 692,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "RAJENDAR",
+        "address": "ST",
+        "mobileNumber": 7202022000,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2469",
+                "productName": "ONLY FIRKI 5000",
+                "quantity": 1,
+                "price": 80,
+                "_id": "67725bed96c43a0d3ed9a395"
+            },
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 2,
+                "price": 60,
+                "_id": "67725c9e56fd8a87e7993313"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 3,
+                "price": 350,
+                "_id": "67725c9e56fd8a87e7993314"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 3,
+                "price": 175,
+                "_id": "67725c9e56fd8a87e7993315"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 1775,
+        "discount": 0,
+        "advance": 1190,
+        "paid": 0,
+        "totalDue": 585,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67725f455c6432504d6deb7d",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67725f455c6432504d6deb7b",
+        "BillNo": 693,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "NILESH",
+        "address": "ST",
+        "mobileNumber": 9979266298,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "67725f455c6432504d6deb7e"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "67725f455c6432504d6deb7f"
+            }
+        ],
+        "totalFirki": 4,
+        "subTotal": 875,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 875,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677262d31a7b01b65cbc69d8",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677262d31a7b01b65cbc69d5",
+        "BillNo": 694,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "MEET",
+        "address": "ST",
+        "mobileNumber": 9723631058,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 3,
+                "price": 175,
+                "_id": "677262d31a7b01b65cbc69d9"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "677262d31a7b01b65cbc69da"
+            }
+        ],
+        "totalFirki": 5,
+        "subTotal": 1225,
+        "discount": 0,
+        "advance": 1225,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677262e96c1ebcb69a3dfef6",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677262d31a7b01b65cbc69d5",
+        "BillNo": 694,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "MEET",
+        "address": "ST",
+        "mobileNumber": 9723631058,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 3,
+                "price": 175,
+                "_id": "677262e96c1ebcb69a3dfef7"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "677262e96c1ebcb69a3dfef8"
+            }
+        ],
+        "totalFirki": 5,
+        "subTotal": 1225,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 1225,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67726c42f3fd14483b9e82b2",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67726c42f3fd14483b9e82b0",
+        "BillNo": 696,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "NIKUNJ",
+        "address": "ST",
+        "mobileNumber": 9512548096,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "67726c42f3fd14483b9e82b3"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 175,
+        "discount": 0,
+        "advance": 175,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67726e75fea76af02c754b68",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67726e75fea76af02c754b66",
+        "BillNo": 697,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "PINKESH",
+        "address": "ST",
+        "mobileNumber": 8401277595,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 1,
+                "price": 60,
+                "_id": "67726e75fea76af02c754b69"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 4,
+                "price": 175,
+                "_id": "67726e75fea76af02c754b6a"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 3,
+                "price": 350,
+                "_id": "67726e75fea76af02c754b6b"
+            }
+        ],
+        "totalFirki": 7,
+        "subTotal": 1810,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 1810,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67726f58348a2aa74f4ab679",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67726f58348a2aa74f4ab677",
+        "BillNo": 698,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "HANIF",
+        "address": "ST",
+        "mobileNumber": 9879882668,
+        "deliveryDate": "2024-12-30T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246d",
+                "productName": "9/900 READY FIRKI",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67726f58348a2aa74f4ab67a"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 350,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67727865af625716d839fcfd",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67727865af625716d839fcfb",
+        "BillNo": 699,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "JEMISH",
+        "address": "ST",
+        "mobileNumber": 6353932389,
+        "deliveryDate": "2024-12-30T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67727865af625716d839fcfe"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 350,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677281c0318be23cdf4859c4",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677281c0318be23cdf4859c2",
+        "BillNo": 700,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "PRATIK ",
+        "address": "ST",
+        "mobileNumber": 9879945642,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 4,
+                "price": 350,
+                "_id": "677281c0318be23cdf4859c6"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 4,
+                "price": 175,
+                "_id": "677281c0318be23cdf4859c7"
+            }
+        ],
+        "totalFirki": 4,
+        "subTotal": 2100,
+        "discount": 0,
+        "advance": 0,
+        "paid": 2100,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677283eaa2303ba32a5facc1",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677283eaa2303ba32a5facbf",
+        "BillNo": 701,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "LAKDAWALA",
+        "address": "ST",
+        "mobileNumber": 9909990554,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "677283eaa2303ba32a5facc2"
+            }
+        ],
+        "totalFirki": 4,
+        "subTotal": 700,
+        "discount": 0,
+        "advance": 700,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677284990a7d64e0555ace48",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677284990a7d64e0555ace46",
+        "BillNo": 702,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "BHAVIN ",
+        "address": "ST",
+        "mobileNumber": 9033712176,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 3,
+                "price": 175,
+                "_id": "677284990a7d64e0555ace49"
+            },
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 1,
+                "price": 60,
+                "_id": "67728512fdfb6d13599112e4"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 585,
+        "discount": 0,
+        "advance": 585,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67728a0c82fd6af47f375387",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67728a0c82fd6af47f375385",
+        "BillNo": 703,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "HIREN",
+        "address": "ST",
+        "mobileNumber": 9662512726,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "67728a0c82fd6af47f375388"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67728a0c82fd6af47f375389"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 1000,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 1000,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677290c9eda140349247012d",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677290c9eda140349247012b",
+        "BillNo": 704,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "KETAN",
+        "address": "ST",
+        "mobileNumber": 8460521028,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 1,
+                "price": 60,
+                "_id": "677290c9eda140349247012e"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "677290c9eda140349247012f"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "677290c9eda1403492470130"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 585,
+        "discount": 0,
+        "advance": 585,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772926e7a3d243d6f40b1e5",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772926e7a3d243d6f40b1e3",
+        "BillNo": 705,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "JIGAR",
+        "address": "ST",
+        "mobileNumber": 8000397677,
+        "deliveryDate": "2024-12-30T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 3,
+                "price": 650,
+                "_id": "6772926e7a3d243d6f40b1e6"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 1950,
+        "discount": 0,
+        "advance": 1950,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772934a4b7eeb0890ad203d",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772934a4b7eeb0890ad203b",
+        "BillNo": 706,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "VISHAL ",
+        "address": "ST",
+        "mobileNumber": 9825987275,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "6772934a4b7eeb0890ad203e"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772934a4b7eeb0890ad203f"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 1000,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 1000,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67729360e13ebae41cc9fd24",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772934a4b7eeb0890ad203b",
+        "BillNo": 706,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "VISHAL ",
+        "address": "ST",
+        "mobileNumber": 9825987275,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "67729360e13ebae41cc9fd25"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67729360e13ebae41cc9fd26"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772941e60876deaf2fa585c"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772941e60876deaf2fa585d"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 1525,
+        "discount": 0,
+        "advance": 1525,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677294acee7c7bf6258a3fbb",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677294acee7c7bf6258a3fb9",
+        "BillNo": 708,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "JAY",
+        "address": "ST",
+        "mobileNumber": 9913117107,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "677294acee7c7bf6258a3fbc"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "677294acee7c7bf6258a3fbd"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 1000,
+        "discount": 0,
+        "advance": 500,
+        "paid": 0,
+        "totalDue": 500,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677295c6e23364292ca29c05",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677295c6e23364292ca29c03",
+        "BillNo": 709,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "PATEL",
+        "address": "ST",
+        "mobileNumber": 9879515120,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "677295c6e23364292ca29c06"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 350,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677297ba7b3870ec237a6037",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677297ba7b3870ec237a6035",
+        "BillNo": 710,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "SAHIL",
+        "address": "ST",
+        "mobileNumber": 9879144133,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "677297ba7b3870ec237a6038"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 175,
+        "discount": 0,
+        "advance": 175,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772993b5ead0d60aec56263",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67696430bbde601db2a1d1c0",
+        "BillNo": 711,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "PRAGNESH",
+        "address": "ST",
+        "mobileNumber": 9825011194,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772993b5ead0d60aec56264"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "6772993b5ead0d60aec56265"
+            },
+            {
+                "productId": "65bde88769acedb394df2476",
+                "productName": "12/250 BOBIN",
+                "quantity": 1,
+                "price": 400,
+                "_id": "6772993b5ead0d60aec56266"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "6772993b5ead0d60aec56267"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772993b5ead0d60aec56268"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 2100,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 2100,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677299b687ef9a41889b294c",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677299b687ef9a41889b2949",
+        "BillNo": 712,
+        "orderDate": "2025-01-30T00:00:00.000Z",
+        "name": "HARSH",
+        "address": "ST",
+        "mobileNumber": 8469076006,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "677299b687ef9a41889b294d"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 700,
+        "discount": 0,
+        "advance": 700,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67729c369b9057cb70985748",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67729c369b9057cb70985746",
+        "BillNo": 713,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "PARTH",
+        "address": "ST",
+        "mobileNumber": 9313412370,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2469",
+                "productName": "ONLY FIRKI 5000",
+                "quantity": 2,
+                "price": 80,
+                "_id": "67729c369b9057cb70985749"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 2,
+                "price": 650,
+                "_id": "67729c369b9057cb7098574a"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "67729c369b9057cb7098574b"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 2160,
+        "discount": 0,
+        "advance": 1500,
+        "paid": 0,
+        "totalDue": 660,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67729cdadea8933905633ce4",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67729cdadea8933905633ce2",
+        "BillNo": 714,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "KETAN",
+        "address": "ST",
+        "mobileNumber": 9825124535,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 4,
+                "price": 175,
+                "_id": "67729cdadea8933905633ce5"
+            }
+        ],
+        "totalFirki": 4,
+        "subTotal": 700,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 700,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67729d862e7db759359c82e7",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67729d862e7db759359c82e5",
+        "BillNo": 715,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "VIPUL",
+        "address": "ST",
+        "mobileNumber": 8141035528,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67729d862e7db759359c82e8"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 350,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67729da3f8e98751820e60cb",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67729d862e7db759359c82e5",
+        "BillNo": 715,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "VIPUL",
+        "address": "ST",
+        "mobileNumber": 8141035528,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67729da3f8e98751820e60cc"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 200,
+        "paid": 0,
+        "totalDue": 150,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67729fa022c308f2722313c4",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "676ec32c6dbec9173f20fe12",
+        "BillNo": 717,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "PRINCE",
+        "address": "ST",
+        "mobileNumber": 7990566704,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67729fa022c308f2722313c5"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 350,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772a057e146f9554e9fea46",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "676e9dcc376de82b7c3fcfa1",
+        "BillNo": 718,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "BHAVESH",
+        "address": "ST",
+        "mobileNumber": 7859947422,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772a057e146f9554e9fea47"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 175,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 175,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772a0e38af650a5a2e0884f",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772a0e38af650a5a2e0884c",
+        "BillNo": 719,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "PRATIK",
+        "address": "ST",
+        "mobileNumber": 9638110149,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 2,
+                "price": 350,
+                "_id": "6772a0e38af650a5a2e08850"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "6772a0e38af650a5a2e08851"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 1050,
+        "discount": 0,
+        "advance": 1050,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772a20587f188b38e4a24e2",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772a20587f188b38e4a24e0",
+        "BillNo": 720,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "MAYUR",
+        "address": "ST",
+        "mobileNumber": 8487875858,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772a20587f188b38e4a24e3"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772a20587f188b38e4a24e4"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 525,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772a3617a7f50476853bfc0",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772a3617a7f50476853bfbe",
+        "BillNo": 721,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "MEET",
+        "address": "ST",
+        "mobileNumber": 9727380961,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772a3617a7f50476853bfc1"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 175,
+        "discount": 0,
+        "advance": 175,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772a3dfc5910a99a071779c",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772a3617a7f50476853bfbe",
+        "BillNo": 722,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "MEET",
+        "address": "ST",
+        "mobileNumber": 9727380961,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 3,
+                "price": 350,
+                "_id": "6772a3dfc5910a99a071779d"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 3,
+                "price": 175,
+                "_id": "6772a3dfc5910a99a071779e"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 1575,
+        "discount": 0,
+        "advance": 1575,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772a4710fe9e367a5dc701a",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772a4710fe9e367a5dc7018",
+        "BillNo": 723,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "DIVYANG",
+        "address": "ST",
+        "mobileNumber": 9727741888,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 3,
+                "price": 650,
+                "_id": "6772a4710fe9e367a5dc701c"
+            },
+            {
+                "productId": "65bde88769acedb394df246f",
+                "productName": "9/500 READY FIRKI",
+                "quantity": 2,
+                "price": 1100,
+                "_id": "6772a4f3a71e9538883109ca"
+            }
+        ],
+        "totalFirki": 5,
+        "subTotal": 4150,
+        "discount": 0,
+        "advance": 4150,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772a4ca0fe709843590602f",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772a4ca0fe709843590602d",
+        "BillNo": 724,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "YASH",
+        "address": "ST",
+        "mobileNumber": 8849675988,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772a4ca0fe7098435906030"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 175,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 175,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772a6da92429ca1c20eaf27",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772a6da92429ca1c20eaf25",
+        "BillNo": 725,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "HAESHIL",
+        "address": "ST",
+        "mobileNumber": 7096859498,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "6772a6da92429ca1c20eaf28"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 350,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772a75dfce926c16fab3ee7",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "676fc783704ba3ffe8e2e9e3",
+        "BillNo": 726,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "HENISH",
+        "address": "ST",
+        "mobileNumber": 9033640795,
+        "deliveryDate": "2024-12-30T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 3,
+                "price": 650,
+                "_id": "6772a75dfce926c16fab3ee8"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 1950,
+        "discount": 0,
+        "advance": 1950,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772aa41e9a36db2286ffb23",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772aa41e9a36db2286ffb21",
+        "BillNo": 727,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "KAMLESH",
+        "address": "ST",
+        "mobileNumber": 9879070510,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772aa41e9a36db2286ffb24"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 350,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772aae7dd8486de7eaab3d4",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772aae7dd8486de7eaab3d2",
+        "BillNo": 728,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "PRAGNESH",
+        "address": "ST",
+        "mobileNumber": 9879389741,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772aae7dd8486de7eaab3d5"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772aae7dd8486de7eaab3d6"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 525,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772ab12dc6f0c9a40e981ef",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772aae7dd8486de7eaab3d2",
+        "BillNo": 728,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "PRAGNESH",
+        "address": "ST",
+        "mobileNumber": 9879389741,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772ab12dc6f0c9a40e981f0"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772ab12dc6f0c9a40e981f1"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 525,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772abd885d37ede23752282",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772abd885d37ede23752280",
+        "BillNo": 730,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "MAHESH",
+        "address": "ST",
+        "mobileNumber": 9824773760,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 2,
+                "price": 60,
+                "_id": "6772abd885d37ede23752283"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "6772abd885d37ede23752284"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 470,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 470,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772ac9b684385a6790ee4fa",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772ac9a684385a6790ee4f8",
+        "BillNo": 731,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "JIGNESH",
+        "address": "ST",
+        "mobileNumber": 9924699442,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772ac9b684385a6790ee4fb"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 175,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 175,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772ace12477b4032c44250d",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772ace12477b4032c44250b",
+        "BillNo": 732,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "KETAN",
+        "address": "ST",
+        "mobileNumber": 9099002464,
+        "deliveryDate": "2024-12-30T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 3,
+                "price": 650,
+                "_id": "6772ace12477b4032c44250e"
+            },
+            {
+                "productId": "65bde88769acedb394df246f",
+                "productName": "9/500 READY FIRKI",
+                "quantity": 1,
+                "price": 1100,
+                "_id": "6772ace12477b4032c44250f"
+            }
+        ],
+        "totalFirki": 4,
+        "subTotal": 3050,
+        "discount": 0,
+        "advance": 3050,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772adc6cd3819d5a78deac3",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772ac9a684385a6790ee4f8",
+        "BillNo": 733,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "JIGO",
+        "address": "ST",
+        "mobileNumber": 9924699442,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 1,
+                "price": 60,
+                "_id": "6772adc6cd3819d5a78deac4"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772adc6cd3819d5a78deac5"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772adc6cd3819d5a78deac6"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 585,
+        "discount": 0,
+        "advance": 200,
+        "paid": 0,
+        "totalDue": 385,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772ae64d5d31135f6d49042",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772ae64d5d31135f6d49040",
+        "BillNo": 734,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "DHAWAL",
+        "address": "ST",
+        "mobileNumber": 9974629388,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 1,
+                "price": 60,
+                "_id": "6772ae64d5d31135f6d49043"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772ae64d5d31135f6d49044"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 235,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 235,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772aecbacfd21f1327fce38",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772aecbacfd21f1327fce36",
+        "BillNo": 735,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "VIPUL",
+        "address": "ST",
+        "mobileNumber": 9375037227,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2469",
+                "productName": "ONLY FIRKI 5000",
+                "quantity": 1,
+                "price": 80,
+                "_id": "6772aecbacfd21f1327fce39"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772aecbacfd21f1327fce3a"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "6772aecbacfd21f1327fce3b"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772aecbacfd21f1327fce3c"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772aecbacfd21f1327fce3d"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 1605,
+        "discount": 0,
+        "advance": 1605,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772af940432231760b2e78a",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772af940432231760b2e788",
+        "BillNo": 736,
+        "orderDate": "2025-01-03T00:00:00.000Z",
+        "name": "PRIYANK",
+        "address": "ST",
+        "mobileNumber": 8200707330,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2473",
+                "productName": "9/900 BOBIN",
+                "quantity": 1,
+                "price": 150,
+                "_id": "6772af940432231760b2e78b"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772af940432231760b2e78c"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "6772af940432231760b2e78d"
+            },
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 1,
+                "price": 70,
+                "_id": "6772af940432231760b2e78e"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772af940432231760b2e78f"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772af940432231760b2e790"
+            },
+            {
+                "productId": "65bde88769acedb394df2469",
+                "productName": "ONLY FIRKI 5000",
+                "quantity": 1,
+                "price": 80,
+                "_id": "6772af940432231760b2e791"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 1825,
+        "discount": 0,
+        "advance": 1825,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772b01adc1899477c26b3dc",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772b01adc1899477c26b3da",
+        "BillNo": 737,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "TANMAY",
+        "address": "ST",
+        "mobileNumber": 6353744680,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772b01adc1899477c26b3dd"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 175,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 175,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772b09c68db87e83f075336",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772b09c68db87e83f075334",
+        "BillNo": 738,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "SHAILESH",
+        "address": "ST",
+        "mobileNumber": 9879988131,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "6772b09c68db87e83f075337"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 350,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772b0f27269c8656084dde4",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "676a8ac18fc0b17ea3258fa6",
+        "BillNo": 739,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "HOME",
+        "address": "ST",
+        "mobileNumber": 9428670817,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df246d",
+                "productName": "9/900 READY FIRKI",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772b0f27269c8656084dde5"
+            },
+            {
+                "productId": "65bde88769acedb394df246e",
+                "productName": "9/250 READY FIRKI",
+                "quantity": 1,
+                "price": 650,
+                "_id": "6772b0f27269c8656084dde6"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 1000,
+        "discount": 0,
+        "advance": 1000,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772b1e0f5d36fbe28f93d09",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772b1e0f5d36fbe28f93d07",
+        "BillNo": 740,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "DIVYANG",
+        "address": "ST",
+        "mobileNumber": 7698996949,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772b1e0f5d36fbe28f93d0a"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 350,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772b28f2137b379de119e73",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772b28f2137b379de119e71",
+        "BillNo": 741,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "OM",
+        "address": "ST",
+        "mobileNumber": 9512914609,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 2,
+                "price": 60,
+                "_id": "6772b28f2137b379de119e74"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 3,
+                "price": 350,
+                "_id": "6772b28f2137b379de119e75"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 3,
+                "price": 175,
+                "_id": "6772b28f2137b379de119e76"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 1695,
+        "discount": 0,
+        "advance": 1695,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772b303dba52b8784c28cca",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772b303dba52b8784c28cc8",
+        "BillNo": 742,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "RAVI",
+        "address": "ST",
+        "mobileNumber": 9727002302,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 6,
+                "price": 175,
+                "_id": "6772b303dba52b8784c28ccb"
+            }
+        ],
+        "totalFirki": 6,
+        "subTotal": 1050,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 1050,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772b44658a42ce74d9d8f50",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772b44658a42ce74d9d8f4e",
+        "BillNo": 743,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "VEER",
+        "address": "ST",
+        "mobileNumber": 9879870507,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2473",
+                "productName": "9/900 BOBIN",
+                "quantity": 1,
+                "price": 150,
+                "_id": "6772b44658a42ce74d9d8f51"
+            },
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 1,
+                "price": 70,
+                "_id": "6772b44658a42ce74d9d8f52"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 220,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 220,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772b4efb733e0087942279a",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772b4efb733e00879422798",
+        "BillNo": 744,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "AAYUSH",
+        "address": "ST",
+        "mobileNumber": 7802041641,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 2,
+                "price": 650,
+                "_id": "6772b4efb733e0087942279b"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "6772b4efb733e0087942279c"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 2000,
+        "discount": 0,
+        "advance": 1000,
+        "paid": 0,
+        "totalDue": 1000,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772b55b7dd0011474d6d7ec",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772b55b7dd0011474d6d7ea",
+        "BillNo": 745,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "ATUL BHAI ",
+        "address": "ST",
+        "mobileNumber": 9824573740,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772b55b7dd0011474d6d7ed"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772b55b7dd0011474d6d7ee"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 525,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772b56f1b8e00e492aa8f6a",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772b55b7dd0011474d6d7ea",
+        "BillNo": 745,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "ATUL BHAI ",
+        "address": "ST",
+        "mobileNumber": 9824573740,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772b56f1b8e00e492aa8f6b"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772b56f1b8e00e492aa8f6c"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 500,
+        "paid": 0,
+        "totalDue": 25,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772b5ba8f08c7c2509ef0ef",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772b5ba8f08c7c2509ef0ed",
+        "BillNo": 747,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "HITESH",
+        "address": "ST",
+        "mobileNumber": 7359900059,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 3,
+                "price": 350,
+                "_id": "6772b5ba8f08c7c2509ef0f0"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 1050,
+        "discount": 0,
+        "advance": 1050,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772b93b03fef8162809cf9a",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772b93b03fef8162809cf98",
+        "BillNo": 748,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "KASHYAB",
+        "address": "ST",
+        "mobileNumber": 9427909995,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772b93b03fef8162809cf9b"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772b93b03fef8162809cf9c"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 525,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772b9cc66c211f960c59011",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772b9cc66c211f960c5900f",
+        "BillNo": 749,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "HAIMIL",
+        "address": "ST",
+        "mobileNumber": 9016067543,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "6772b9cc66c211f960c59012"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 350,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772bac676668b3dc69dd314",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772bac676668b3dc69dd312",
+        "BillNo": 750,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "AKSHAY",
+        "address": "ST",
+        "mobileNumber": 9725014225,
+        "deliveryDate": "2025-01-02T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772bac676668b3dc69dd315"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "6772bac676668b3dc69dd316"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 875,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 875,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772bbf88713f0070a827380",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6766c2be80d1cfce76c6db1a",
+        "BillNo": 751,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "CHETAN",
+        "address": "ST",
+        "mobileNumber": 8141285599,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 2,
+                "price": 60,
+                "_id": "6772bbf88713f0070a827381"
+            },
+            {
+                "productId": "65bde88769acedb394df2469",
+                "productName": "ONLY FIRKI 5000",
+                "quantity": 1,
+                "price": 80,
+                "_id": "6772bbf88713f0070a827382"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 2,
+                "price": 350,
+                "_id": "6772bbf88713f0070a827383"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "6772bbf88713f0070a827384"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "6772bbf88713f0070a827385"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772bbf88713f0070a827386"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 2250,
+        "discount": 0,
+        "advance": 1000,
+        "paid": 0,
+        "totalDue": 1250,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772bc14dd4efe944c06d132",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6766c2be80d1cfce76c6db1a",
+        "BillNo": 751,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "CHETAN",
+        "address": "ST",
+        "mobileNumber": 8141285599,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 2,
+                "price": 60,
+                "_id": "6772bc14dd4efe944c06d133"
+            },
+            {
+                "productId": "65bde88769acedb394df2469",
+                "productName": "ONLY FIRKI 5000",
+                "quantity": 1,
+                "price": 80,
+                "_id": "6772bc14dd4efe944c06d134"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 2,
+                "price": 350,
+                "_id": "6772bc14dd4efe944c06d135"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "6772bc14dd4efe944c06d136"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 2,
+                "price": 175,
+                "_id": "6772bc14dd4efe944c06d137"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772bc14dd4efe944c06d138"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 2250,
+        "discount": 0,
+        "advance": 1000,
+        "paid": 0,
+        "totalDue": 1250,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772bcfd84c91b117d49f164",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772bcfd84c91b117d49f162",
+        "BillNo": 753,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "MEHUL",
+        "address": "ST",
+        "mobileNumber": 7990240148,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772bcfd84c91b117d49f165"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772bcfd84c91b117d49f166"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 525,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772bd861a473d5be29b978d",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772bd861a473d5be29b978b",
+        "BillNo": 754,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "VIJAY",
+        "address": "ST",
+        "mobileNumber": 8511711912,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772bd861a473d5be29b978e"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "6772bd861a473d5be29b978f"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772bd861a473d5be29b9790"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772bd861a473d5be29b9791"
+            }
+        ],
+        "totalFirki": 2,
+        "subTotal": 1525,
+        "discount": 0,
+        "advance": 1525,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772be453270127c8c2ea92e",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772be453270127c8c2ea92c",
+        "BillNo": 755,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "DHRUVIN",
+        "address": "ST",
+        "mobileNumber": 9979322005,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772be453270127c8c2ea92f"
+            },
+            {
+                "productId": "65bde88769acedb394df2475",
+                "productName": "9/500 BOBIN",
+                "quantity": 1,
+                "price": 650,
+                "_id": "6772be453270127c8c2ea930"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772be453270127c8c2ea931"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772be453270127c8c2ea932"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 1525,
+        "discount": 0,
+        "advance": 500,
+        "paid": 0,
+        "totalDue": 1025,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772bf29fbc8baba61fddba7",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772bf29fbc8baba61fddba5",
+        "BillNo": 756,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "PRASHANT",
+        "address": "ST",
+        "mobileNumber": 9687338292,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772bf29fbc8baba61fddba8"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 3,
+                "price": 350,
+                "_id": "6772bf29fbc8baba61fddba9"
+            }
+        ],
+        "totalFirki": 6,
+        "subTotal": 1225,
+        "discount": 0,
+        "advance": 1225,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772c1116ffdf81e287ba415",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772c1116ffdf81e287ba413",
+        "BillNo": 757,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "BIPIN",
+        "address": "ST",
+        "mobileNumber": 9099888922,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 4,
+                "price": 175,
+                "_id": "6772c1116ffdf81e287ba416"
+            },
+            {
+                "productId": "65bde88769acedb394df2474",
+                "productName": "9/250 BOBIN",
+                "quantity": 4,
+                "price": 350,
+                "_id": "6772c1116ffdf81e287ba417"
+            },
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 3,
+                "price": 60,
+                "_id": "6772c1116ffdf81e287ba418"
+            }
+        ],
+        "totalFirki": 4,
+        "subTotal": 2280,
+        "discount": 0,
+        "advance": 700,
+        "paid": 0,
+        "totalDue": 1580,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772c14d55dae4e5ee8f3fd5",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "676be85da35ed69d77d098c6",
+        "BillNo": 758,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "KISHAN",
+        "address": "ST",
+        "mobileNumber": 7984322905,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 3,
+                "price": 350,
+                "_id": "6772c14d55dae4e5ee8f3fd6"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 1050,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 1050,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6772c1f98fbf3306f7d8af22",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6772c1f98fbf3306f7d8af20",
+        "BillNo": 759,
+        "orderDate": "2024-12-30T00:00:00.000Z",
+        "name": "HIMMAT BHAI",
+        "address": "ST",
+        "mobileNumber": 9099789224,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6772c1f98fbf3306f7d8af23"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "6772c1f98fbf3306f7d8af24"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 525,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 525,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6773644855595f25e1586905",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6773644855595f25e1586903",
+        "BillNo": 760,
+        "orderDate": "2024-12-31T00:00:00.000Z",
+        "name": "RAJESH",
+        "address": "ST",
+        "mobileNumber": 9737476770,
+        "deliveryDate": "2024-12-31T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 11,
+                "price": 350,
+                "_id": "6773644855595f25e1586906"
+            },
+            {
+                "productId": "65bde88769acedb394df2469",
+                "productName": "ONLY FIRKI 5000",
+                "quantity": 1,
+                "price": 80,
+                "_id": "6773644855595f25e1586907"
+            }
+        ],
+        "totalFirki": 12,
+        "subTotal": 3930,
+        "discount": 0,
+        "advance": 3930,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6773684d1e910a1d9e50e030",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6773684d1e910a1d9e50e02e",
+        "BillNo": 761,
+        "orderDate": "2024-12-31T00:00:00.000Z",
+        "name": "RAJ",
+        "address": "ST",
+        "mobileNumber": 9328341465,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 1,
+                "price": 175,
+                "_id": "6773684d1e910a1d9e50e031"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 175,
+        "discount": 0,
+        "advance": 175,
+        "paid": 0,
+        "totalDue": 0,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67736a4572e457be55e046e3",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67736a4572e457be55e046e1",
+        "BillNo": 762,
+        "orderDate": "2024-12-31T00:00:00.000Z",
+        "name": "JEET",
+        "address": "ST",
+        "mobileNumber": 7600949100,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2468",
+                "productName": "ONLY FIRKI 2500",
+                "quantity": 1,
+                "price": 60,
+                "_id": "67736a4572e457be55e046e4"
+            },
+            {
+                "productId": "65bde88769acedb394df2478",
+                "productName": "LABOUR 900 MTR RIL",
+                "quantity": 2,
+                "price": 70,
+                "_id": "67736a4572e457be55e046e5"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 4,
+                "price": 175,
+                "_id": "67736a4572e457be55e046e6"
+            }
+        ],
+        "totalFirki": 6,
+        "subTotal": 900,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 900,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67736aa7affb92abdaf0c7c6",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "67736aa7affb92abdaf0c7c4",
+        "BillNo": 763,
+        "orderDate": "2024-12-31T00:00:00.000Z",
+        "name": "JENISH",
+        "address": "ST",
+        "mobileNumber": 7874736755,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 1,
+                "price": 350,
+                "_id": "67736aa7affb92abdaf0c7c7"
+            }
+        ],
+        "totalFirki": 1,
+        "subTotal": 350,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 350,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "677372c7943f746f4a3e70fd",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "677372c7943f746f4a3e70fb",
+        "BillNo": 764,
+        "orderDate": "2024-12-31T00:00:00.000Z",
+        "name": "DR",
+        "address": "ST",
+        "mobileNumber": 8000888987,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 2,
+                "price": 350,
+                "_id": "677372c7943f746f4a3e70fe"
+            }
+        ],
+        "totalFirki": 3,
+        "subTotal": 700,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 700,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "6773752555c69f981d73d74a",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6773752555c69f981d73d748",
+        "BillNo": 765,
+        "orderDate": "2024-12-31T00:00:00.000Z",
+        "name": "HARSHIL",
+        "address": "ST",
+        "mobileNumber": 9023280729,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2469",
+                "productName": "ONLY FIRKI 5000",
+                "quantity": 1,
+                "price": 80,
+                "_id": "6773752555c69f981d73d74b"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 6,
+                "price": 175,
+                "_id": "6773752555c69f981d73d74c"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 4,
+                "price": 350,
+                "_id": "6773752555c69f981d73d74d"
+            }
+        ],
+        "totalFirki": 11,
+        "subTotal": 2530,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 2530,
+        "notes": "",
+        "__v": 0
+    },
+    {
+        "_id": "67737541a3a5d113e11a9a1a",
+        "collectionId": "65bde88669acedb394df2464",
+        "clientId": "6773752555c69f981d73d748",
+        "BillNo": 765,
+        "orderDate": "2024-12-31T00:00:00.000Z",
+        "name": "HARSHIL",
+        "address": "ST",
+        "mobileNumber": 9023280729,
+        "deliveryDate": "2025-01-03T00:00:00.000Z",
+        "products": [
+            {
+                "productId": "65bde88769acedb394df2469",
+                "productName": "ONLY FIRKI 5000",
+                "quantity": 1,
+                "price": 80,
+                "_id": "67737541a3a5d113e11a9a1b"
+            },
+            {
+                "productId": "65bde88769acedb394df2479",
+                "productName": "LABOUR 250 GM RIL",
+                "quantity": 6,
+                "price": 175,
+                "_id": "67737541a3a5d113e11a9a1c"
+            },
+            {
+                "productId": "65bde88769acedb394df247a",
+                "productName": "LABOUR 500 GM RIL",
+                "quantity": 4,
+                "price": 350,
+                "_id": "67737541a3a5d113e11a9a1d"
+            }
+        ],
+        "totalFirki": 11,
+        "subTotal": 2530,
+        "discount": 0,
+        "advance": 0,
+        "paid": 0,
+        "totalDue": 2530,
+        "notes": "",
+        "__v": 0
     }
 ];
 const products = [
     {
         product_name: '12/900 BOBIN',
-        product_id: '0e230aae-c1cf-4970-bde8-05833325908e',
-        collection_id: '4c7a0ac8-8633-4dde-97de-f9e393001b6f'
+        product_id: '0edd7969-20bc-44ec-9e2c-33165873be3f',
+        collection_id: '79c68672-77d0-493a-bbce-6553303f18cc'
     },
     {
         product_name: 'BOX',
-        product_id: '3e58682e-673e-45e2-8b23-541219d121ac',
-        collection_id: '4c7a0ac8-8633-4dde-97de-f9e393001b6f'
+        product_id: '16b9aa1a-8aa1-4044-b27e-c8d6d0d0355c',
+        collection_id: '79c68672-77d0-493a-bbce-6553303f18cc'
     },
     {
         product_name: 'LABOUR 500 GM RIL',
-        product_id: '2c81c3f7-9515-463f-aae3-ac19a96cb7e2',
-        collection_id: '4c7a0ac8-8633-4dde-97de-f9e393001b6f'
+        product_id: '38e8ab43-4b16-4bb9-8624-79e1796eb841',
+        collection_id: '79c68672-77d0-493a-bbce-6553303f18cc'
     },
     {
         product_name: 'LABOUR 250 GM RIL',
-        product_id: '73343500-42da-4901-8702-248a7d0aeaee',
-        collection_id: '4c7a0ac8-8633-4dde-97de-f9e393001b6f'
+        product_id: 'f05f98ca-ce93-4fc8-a406-4fdffbc50567',
+        collection_id: '79c68672-77d0-493a-bbce-6553303f18cc'
     },
     {
         product_name: 'LABOUR 900 MTR RIL',
-        product_id: 'f665f4e3-599d-4e67-85a8-682e6e722384',
-        collection_id: '4c7a0ac8-8633-4dde-97de-f9e393001b6f'
+        product_id: '2be8d5fa-b1fa-416c-811d-e0bc958bbc12',
+        collection_id: '79c68672-77d0-493a-bbce-6553303f18cc'
     },
     {
         product_name: '12/500 BOBIN',
-        product_id: '5843d333-fbf6-4900-8193-707f8feaccc3',
-        collection_id: '4c7a0ac8-8633-4dde-97de-f9e393001b6f'
+        product_id: '4fb6efb6-d996-4997-b418-ffa29bd60721',
+        collection_id: '79c68672-77d0-493a-bbce-6553303f18cc'
     },
     {
         product_name: '12/250 BOBIN',
-        product_id: 'e474185f-6e10-4cf5-8264-47b7f338121e',
-        collection_id: '4c7a0ac8-8633-4dde-97de-f9e393001b6f'
+        product_id: 'e1e8a849-e7cc-4d33-98e4-7a026524eaaa',
+        collection_id: '79c68672-77d0-493a-bbce-6553303f18cc'
     },
     {
         product_name: '9/500 BOBIN',
-        product_id: '24ec49fc-5816-4616-b5f7-e3e39b1534de',
-        collection_id: '4c7a0ac8-8633-4dde-97de-f9e393001b6f'
+        product_id: '63250654-2050-4978-a634-e9c2c51a9f12',
+        collection_id: '79c68672-77d0-493a-bbce-6553303f18cc'
     },
     {
         product_name: '9/250 BOBIN',
-        product_id: '2c1a2a84-81a9-493a-96a6-99c39f498bc6',
-        collection_id: '4c7a0ac8-8633-4dde-97de-f9e393001b6f'
+        product_id: '0e61cd4e-6d91-4784-b575-c46302135a55',
+        collection_id: '79c68672-77d0-493a-bbce-6553303f18cc'
     },
     {
         product_name: '9/900 BOBIN',
-        product_id: 'ed847d23-53f7-4ca0-81bf-2439448f9dd3',
-        collection_id: '4c7a0ac8-8633-4dde-97de-f9e393001b6f'
+        product_id: '739179a5-4c2f-4dc6-9c9b-5260d7194bec',
+        collection_id: '79c68672-77d0-493a-bbce-6553303f18cc'
     },
     {
         product_name: '12/500 READY FIRKI',
-        product_id: '536e8eca-e869-4264-a154-4aeb80c78b91',
-        collection_id: '4c7a0ac8-8633-4dde-97de-f9e393001b6f'
+        product_id: '11a78d7a-2f91-4d2d-b874-dac53ad5d027',
+        collection_id: '79c68672-77d0-493a-bbce-6553303f18cc'
     },
     {
         product_name: '12/250 READY FIRKI',
-        product_id: '5478a623-8836-452a-9ade-b0c55111cb31',
-        collection_id: '4c7a0ac8-8633-4dde-97de-f9e393001b6f'
+        product_id: '00bc1088-e982-428a-ab1a-9034c0eaf38c',
+        collection_id: '79c68672-77d0-493a-bbce-6553303f18cc'
     },
     {
         product_name: '12/900 READY FIRKI',
-        product_id: 'c523f527-de2a-416b-b703-b2b5ef24f7f0',
-        collection_id: '4c7a0ac8-8633-4dde-97de-f9e393001b6f'
+        product_id: 'e279bf60-5a4a-49be-b6e9-ef27737e32d8',
+        collection_id: '79c68672-77d0-493a-bbce-6553303f18cc'
     },
     {
         product_name: '9/500 READY FIRKI',
-        product_id: '16f57eff-1f12-43ee-8e54-62f3ba420fe3',
-        collection_id: '4c7a0ac8-8633-4dde-97de-f9e393001b6f'
+        product_id: '99ba2c97-0ddf-4cc6-850d-f3f5767d7f9d',
+        collection_id: '79c68672-77d0-493a-bbce-6553303f18cc'
     },
     {
         product_name: '9/250 READY FIRKI',
-        product_id: '7c5de16f-8a4c-4fa6-bde1-3c2a17805bf3',
-        collection_id: '4c7a0ac8-8633-4dde-97de-f9e393001b6f'
+        product_id: '0fb89653-e6d2-4816-ba10-8859e34341c0',
+        collection_id: '79c68672-77d0-493a-bbce-6553303f18cc'
     },
     {
         product_name: '9/900 READY FIRKI',
-        product_id: 'a967d9a4-035f-46e2-ba4d-6f3d2fe6a60e',
-        collection_id: '4c7a0ac8-8633-4dde-97de-f9e393001b6f'
+        product_id: '6fd589e2-f3e6-4e1c-9114-87507fb541a2',
+        collection_id: '79c68672-77d0-493a-bbce-6553303f18cc'
     },
     {
         product_name: '6/500 REDY FIRKI',
-        product_id: '61e1afc1-358f-4a3d-a87f-182a8b9f67b7',
-        collection_id: '4c7a0ac8-8633-4dde-97de-f9e393001b6f'
+        product_id: '384ab505-c39c-49e3-b049-ce9496a1e8b2',
+        collection_id: '79c68672-77d0-493a-bbce-6553303f18cc'
     },
     {
         product_name: '6/250 READY FIRKI',
-        product_id: '2fc23c3b-ac41-478f-b7cd-8c5c76ca1e56',
-        collection_id: '4c7a0ac8-8633-4dde-97de-f9e393001b6f'
+        product_id: '3a968fa6-8d0b-4c16-8302-4f11076a4cb9',
+        collection_id: '79c68672-77d0-493a-bbce-6553303f18cc'
     },
     {
         product_name: '6/900 READY FIRKI',
-        product_id: 'e5048be0-cf64-4d5c-8764-f5fb36f6e511',
-        collection_id: '4c7a0ac8-8633-4dde-97de-f9e393001b6f'
+        product_id: 'f1d74e12-07bc-4d75-b9b2-4a4bb201496d',
+        collection_id: '79c68672-77d0-493a-bbce-6553303f18cc'
     },
     {
         product_name: 'ONLY FIRKI 5000',
-        product_id: 'e4aa70db-1459-4c2c-a57a-46f6100abc28',
-        collection_id: '4c7a0ac8-8633-4dde-97de-f9e393001b6f'
+        product_id: 'fcb57160-fca8-488c-a1b4-3863622e808b',
+        collection_id: '79c68672-77d0-493a-bbce-6553303f18cc'
     },
     {
         product_name: 'ONLY FIRKI 2500',
-        product_id: '79fe4274-1b7f-4d84-982b-785fd1c28a35',
-        collection_id: '4c7a0ac8-8633-4dde-97de-f9e393001b6f'
+        product_id: '65ea3e26-52ab-4e7e-92ae-c0a8fc1fde99',
+        collection_id: '79c68672-77d0-493a-bbce-6553303f18cc'
     },
     {
         product_name: 'ONLY FIRKI 1000',
-        product_id: '4435a183-444d-49a2-be2b-b9124b4eedb3',
-        collection_id: '4c7a0ac8-8633-4dde-97de-f9e393001b6f'
+        product_id: '6f60effb-d9dc-4735-8559-d218b1eb1026',
+        collection_id: '79c68672-77d0-493a-bbce-6553303f18cc'
     }
 ];
 const bills = [
     {
-        "sr_no": 53,
-        "bill_id": "4dfc448f-a5e7-474d-818c-c9040e8e8177",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 715,
+        "bill_id": "7be69e1c-0946-47f3-84a0-2512cf68364c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 1,
         "bill_type": "wholesale",
         "mobile": "9898820464",
@@ -21026,9 +28914,9 @@ const bills = [
         "total_due": 540870
     },
     {
-        "sr_no": 54,
-        "bill_id": "49dd7ac3-d926-46d1-999f-e70c30eb1520",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 716,
+        "bill_id": "0a1aece7-5158-42f3-8814-f0f88c3d91ff",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 2,
         "bill_type": "wholesale",
         "mobile": "9879710991",
@@ -21044,9 +28932,9 @@ const bills = [
         "total_due": 472500
     },
     {
-        "sr_no": 55,
-        "bill_id": "ecb63ffb-fd2e-4d08-bf47-2575be0bef85",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 717,
+        "bill_id": "c4bf0123-5d21-4750-b8dd-bfdd3f676b01",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 3,
         "bill_type": "wholesale",
         "mobile": "9426754003",
@@ -21062,9 +28950,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 56,
-        "bill_id": "bd4bd70d-f26f-4537-b048-de2682e44b11",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 718,
+        "bill_id": "cf848932-3451-4dd1-ab3e-be5467d5aa4e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 4,
         "bill_type": "wholesale",
         "mobile": "9427882624",
@@ -21080,9 +28968,9 @@ const bills = [
         "total_due": 39600
     },
     {
-        "sr_no": 57,
-        "bill_id": "e17084be-5f5a-4ef8-adb8-a7a379fbcd44",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 719,
+        "bill_id": "8e553b60-f40a-4575-beb0-0c150daa4058",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 5,
         "bill_type": "wholesale",
         "mobile": "9429238562",
@@ -21091,16 +28979,16 @@ const bills = [
         "order_date": "2024-11-10T00:00:00.000Z",
         "delivery_date": "2024-11-10T00:00:00.000Z",
         "notes": "",
-        "total_firki": 3900,
-        "sub_total": 1096000,
+        "total_firki": 4000,
+        "sub_total": 1099000,
         "discount": 53900,
         "advance": 801000,
-        "total_due": 241100
+        "total_due": 244100
     },
     {
-        "sr_no": 58,
-        "bill_id": "8e6d26b1-b23d-487b-99a8-6caa3b63a2b9",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 720,
+        "bill_id": "2adb7800-9010-4998-81d8-c2243416ae14",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 6,
         "bill_type": "wholesale",
         "mobile": "9879144867",
@@ -21116,9 +29004,9 @@ const bills = [
         "total_due": 732050
     },
     {
-        "sr_no": 59,
-        "bill_id": "19f77090-4ccc-455e-b5ec-df11a4cc5db2",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 721,
+        "bill_id": "49fe08c5-b803-4f0f-8747-8c033a185879",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 7,
         "bill_type": "wholesale",
         "mobile": "9727655780",
@@ -21134,9 +29022,9 @@ const bills = [
         "total_due": 244000
     },
     {
-        "sr_no": 60,
-        "bill_id": "98457843-ca8f-48e5-97b5-2f4b16b4a319",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 722,
+        "bill_id": "3a88d932-538b-41eb-b3db-4916bb2a74f0",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 8,
         "bill_type": "wholesale",
         "mobile": "7623805050",
@@ -21149,12 +29037,12 @@ const bills = [
         "sub_total": 479650,
         "discount": 3000,
         "advance": 0,
-        "total_due": 476650
+        "total_due": 50000
     },
     {
-        "sr_no": 61,
-        "bill_id": "6944b272-86a2-43d3-8d1e-654d1cd7cd1e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 723,
+        "bill_id": "4ff57d46-3cdc-4111-b884-f674f998125c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 9,
         "bill_type": "wholesale",
         "mobile": "9727655780",
@@ -21167,12 +29055,12 @@ const bills = [
         "sub_total": 101500,
         "discount": 0,
         "advance": 0,
-        "total_due": 101500
+        "total_due": 0
     },
     {
-        "sr_no": 62,
-        "bill_id": "11bdffe8-af28-4162-938e-9f2a3f2f9922",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 724,
+        "bill_id": "e193eb64-f689-4c93-a075-29a458ac654e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 10,
         "bill_type": "wholesale",
         "mobile": "9824080372",
@@ -21185,12 +29073,12 @@ const bills = [
         "sub_total": 60000,
         "discount": 2600,
         "advance": 0,
-        "total_due": 57400
+        "total_due": 0
     },
     {
-        "sr_no": 63,
-        "bill_id": "c4ff78cf-7260-42fd-9cd1-2005312c8892",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 725,
+        "bill_id": "b8abf3bf-e945-4284-87ad-83f5add68740",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 11,
         "bill_type": "wholesale",
         "mobile": "9427882624",
@@ -21206,9 +29094,9 @@ const bills = [
         "total_due": 37620
     },
     {
-        "sr_no": 64,
-        "bill_id": "0322aaff-9599-473b-9619-acd9f25ec94c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 726,
+        "bill_id": "46cf25b9-eed1-44cd-bb39-088b6d14fe10",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 12,
         "bill_type": "wholesale",
         "mobile": "9427882624",
@@ -21224,9 +29112,9 @@ const bills = [
         "total_due": 30240
     },
     {
-        "sr_no": 65,
-        "bill_id": "708a4bfb-3d87-4b4e-9558-ea2b8f74addd",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 727,
+        "bill_id": "f7e58e14-fdb6-47d6-a2e1-d442f0b07a60",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 13,
         "bill_type": "wholesale",
         "mobile": "9427882624",
@@ -21242,9 +29130,9 @@ const bills = [
         "total_due": 32400
     },
     {
-        "sr_no": 66,
-        "bill_id": "02ca07f6-a017-40e6-8913-dca55bbb8ff6",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 728,
+        "bill_id": "4f46188d-e3e7-4bad-85c5-d1b0c3565f03",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 14,
         "bill_type": "wholesale",
         "mobile": "7016813280",
@@ -21260,9 +29148,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 67,
-        "bill_id": "bf4da4cc-1dd8-4fa1-bf82-d9e5ec609eee",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 729,
+        "bill_id": "e721bbb0-8eb5-4315-b051-8ff85e5293fe",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 15,
         "bill_type": "wholesale",
         "mobile": "9427882624",
@@ -21278,9 +29166,9 @@ const bills = [
         "total_due": 31212
     },
     {
-        "sr_no": 68,
-        "bill_id": "0947c1cb-980e-4cca-92e2-393dc6e85116",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 730,
+        "bill_id": "80c1ef76-dc8d-4eb1-a843-e8edf5d9dd01",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 16,
         "bill_type": "wholesale",
         "mobile": "9427882624",
@@ -21296,9 +29184,9 @@ const bills = [
         "total_due": 27612
     },
     {
-        "sr_no": 69,
-        "bill_id": "205d91a3-4fac-432a-8c26-312e204a9904",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 731,
+        "bill_id": "eda35de8-e57e-434d-9f11-e616ce84b8e6",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 17,
         "bill_type": "wholesale",
         "mobile": "9427882624",
@@ -21314,9 +29202,9 @@ const bills = [
         "total_due": 26514
     },
     {
-        "sr_no": 70,
-        "bill_id": "28130625-6a51-4b5f-8580-55b0722aa8e8",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 732,
+        "bill_id": "18eca6a2-ce1e-4fa9-946e-96e8b141be5a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 18,
         "bill_type": "wholesale",
         "mobile": "7016249889",
@@ -21332,9 +29220,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 71,
-        "bill_id": "eaf87a78-f0d1-4cca-a55f-03d02d4e58db",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 733,
+        "bill_id": "d69810a0-1e9c-4a10-bb26-290345e03f04",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 19,
         "bill_type": "wholesale",
         "mobile": "8320120021",
@@ -21350,9 +29238,9 @@ const bills = [
         "total_due": 59400
     },
     {
-        "sr_no": 72,
-        "bill_id": "dcbaf1da-7980-4023-ab78-9635d4912f8f",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 734,
+        "bill_id": "455fb4a6-8bfb-41c7-a896-b7b63c769d00",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 20,
         "bill_type": "wholesale",
         "mobile": "9427882624",
@@ -21368,9 +29256,9 @@ const bills = [
         "total_due": 23256
     },
     {
-        "sr_no": 73,
-        "bill_id": "ca1b07e3-2603-4712-abf5-ad6fe3928106",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 735,
+        "bill_id": "84404f90-0e16-40a8-9d29-a6c767f11ea0",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 21,
         "bill_type": "wholesale",
         "mobile": "8320393524",
@@ -21386,9 +29274,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 74,
-        "bill_id": "ce09ff35-07df-4bd0-8d5b-a360d45a148f",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 736,
+        "bill_id": "37990364-1465-4dd6-888d-fc4028d6dbab",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 22,
         "bill_type": "wholesale",
         "mobile": "9427882624",
@@ -21404,9 +29292,9 @@ const bills = [
         "total_due": 23940
     },
     {
-        "sr_no": 75,
-        "bill_id": "e17e7f1b-15a1-4822-aa34-3d6a3a1b725a",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 737,
+        "bill_id": "f99d35c8-c2b4-4c66-8bb5-ef9da723e2ff",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 23,
         "bill_type": "wholesale",
         "mobile": "9427882624",
@@ -21422,9 +29310,9 @@ const bills = [
         "total_due": 27000
     },
     {
-        "sr_no": 76,
-        "bill_id": "bdb058c5-0857-4295-b911-d277bf9bcf42",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 738,
+        "bill_id": "c3f20ab2-a61a-48e1-bbc6-69ad42ef33f5",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 24,
         "bill_type": "wholesale",
         "mobile": "9427882624",
@@ -21440,9 +29328,9 @@ const bills = [
         "total_due": 23436
     },
     {
-        "sr_no": 77,
-        "bill_id": "b7ede6ab-5874-46ff-a5a6-148238169fbe",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 739,
+        "bill_id": "f231df8c-c4e2-4c34-96af-d3e074a75f1e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 25,
         "bill_type": "wholesale",
         "mobile": "9825480077",
@@ -21458,9 +29346,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 78,
-        "bill_id": "88ab95fd-9455-4a93-b7dd-bac3964a00f5",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 740,
+        "bill_id": "e30aca62-84d2-44a1-a225-1832411e1a3c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 26,
         "bill_type": "wholesale",
         "mobile": "9427882624",
@@ -21476,9 +29364,9 @@ const bills = [
         "total_due": 21168
     },
     {
-        "sr_no": 79,
-        "bill_id": "fdbf93a7-7953-4bb6-8d54-3c7af5097686",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 741,
+        "bill_id": "daef97e4-d04f-4055-83d0-5813483d5c24",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 27,
         "bill_type": "wholesale",
         "mobile": "9427882624",
@@ -21494,9 +29382,9 @@ const bills = [
         "total_due": 16524
     },
     {
-        "sr_no": 80,
-        "bill_id": "2b3bde20-aa58-4957-920f-d0cd04cc3194",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 742,
+        "bill_id": "28780889-7da9-4b4c-921d-142735122725",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 28,
         "bill_type": "wholesale",
         "mobile": "9427882624",
@@ -21512,9 +29400,9 @@ const bills = [
         "total_due": 22680
     },
     {
-        "sr_no": 81,
-        "bill_id": "434cd20a-84a6-45c1-892c-876f6b835e79",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 743,
+        "bill_id": "894b1248-783f-42cc-a6af-2277895a8bc9",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 29,
         "bill_type": "wholesale",
         "mobile": "7575077934",
@@ -21530,9 +29418,9 @@ const bills = [
         "total_due": 50000
     },
     {
-        "sr_no": 82,
-        "bill_id": "bd4038d3-1ff4-410a-bcab-02cb2774975e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 744,
+        "bill_id": "1122d106-bdc9-4039-8afb-ead6d4193001",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 30,
         "bill_type": "wholesale",
         "mobile": "9427882624",
@@ -21548,9 +29436,9 @@ const bills = [
         "total_due": 15120
     },
     {
-        "sr_no": 83,
-        "bill_id": "ab2e598f-3d94-4d79-b780-f1424bdd09a7",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 745,
+        "bill_id": "7e856da9-1812-4600-a051-47d59638d762",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 31,
         "bill_type": "wholesale",
         "mobile": "9879146171",
@@ -21566,9 +29454,9 @@ const bills = [
         "total_due": 406500
     },
     {
-        "sr_no": 84,
-        "bill_id": "da1dd812-a16d-4da0-a265-ff6de8e7a4e4",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 746,
+        "bill_id": "47428a08-8652-414f-8b77-faa04c5cc99d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 32,
         "bill_type": "wholesale",
         "mobile": "9979706558",
@@ -21584,9 +29472,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 85,
-        "bill_id": "e71069ae-93c3-45e8-a653-14f5465bf593",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 747,
+        "bill_id": "2f056ded-4af9-4fdc-89e2-89ac6a62eddc",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 33,
         "bill_type": "wholesale",
         "mobile": "9712982596",
@@ -21602,9 +29490,9 @@ const bills = [
         "total_due": 266690
     },
     {
-        "sr_no": 86,
-        "bill_id": "a6d806a2-b910-4d7e-b3dc-5a946f354e10",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 748,
+        "bill_id": "0958ee61-334a-4fbb-b6b1-51c6c5997ce8",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 34,
         "bill_type": "wholesale",
         "mobile": "9898820464",
@@ -21620,9 +29508,9 @@ const bills = [
         "total_due": 57250
     },
     {
-        "sr_no": 87,
-        "bill_id": "955625f8-398b-4fd9-863e-e134f359c5c7",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 749,
+        "bill_id": "14ed5604-0a43-4b8e-803c-e78a94fd111f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 35,
         "bill_type": "wholesale",
         "mobile": "9879144867",
@@ -21638,9 +29526,9 @@ const bills = [
         "total_due": 465800
     },
     {
-        "sr_no": 88,
-        "bill_id": "20fa716a-b03b-4d1e-b22a-3ee49656b366",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 750,
+        "bill_id": "25321943-3e00-408d-9a41-d939878ba2e1",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 36,
         "bill_type": "wholesale",
         "mobile": "9974730708",
@@ -21656,9 +29544,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 89,
-        "bill_id": "4e6397f6-6fc7-446d-a4ce-5b1aed763a68",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 751,
+        "bill_id": "7f4be263-ea3c-49fd-93e1-a81379a87b05",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 37,
         "bill_type": "wholesale",
         "mobile": "9898097737",
@@ -21674,9 +29562,9 @@ const bills = [
         "total_due": 5460
     },
     {
-        "sr_no": 90,
-        "bill_id": "4cab6a3f-f780-49b5-b1f8-740a09a0f8cd",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 752,
+        "bill_id": "37e09b51-6ccc-46ca-96c4-51c591fcda10",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 38,
         "bill_type": "wholesale",
         "mobile": "9824483724",
@@ -21692,9 +29580,9 @@ const bills = [
         "total_due": 223200
     },
     {
-        "sr_no": 91,
-        "bill_id": "03fab519-eb54-4c58-b6d6-44031b79d2cb",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 753,
+        "bill_id": "cc854945-cf70-43b2-beac-ceff2ffd5b7a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 39,
         "bill_type": "wholesale",
         "mobile": "9426336590",
@@ -21710,9 +29598,9 @@ const bills = [
         "total_due": 24700
     },
     {
-        "sr_no": 92,
-        "bill_id": "1558be40-c862-46c8-9dd0-ba3ed8bbad79",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 754,
+        "bill_id": "e50b952f-60ef-4fb5-8040-ed427ccadab5",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 40,
         "bill_type": "wholesale",
         "mobile": "9173664066",
@@ -21728,9 +29616,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 93,
-        "bill_id": "5d4c41e4-c7b4-489d-9677-32e59a450711",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 755,
+        "bill_id": "6522526c-9868-462b-8f0b-c095672e7187",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 41,
         "bill_type": "wholesale",
         "mobile": "9712722670",
@@ -21746,9 +29634,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 94,
-        "bill_id": "21aa7da8-7a71-4e9e-b55b-8a4b73365ac7",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 756,
+        "bill_id": "7ede0585-e037-4fe1-801f-a2485dafce28",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 42,
         "bill_type": "wholesale",
         "mobile": "9898056580",
@@ -21764,9 +29652,9 @@ const bills = [
         "total_due": 185000
     },
     {
-        "sr_no": 95,
-        "bill_id": "6ecf49d5-1c1c-4ef6-8a29-709fc85d261c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 757,
+        "bill_id": "4a624df3-3ee9-4022-8f71-31cc17c454a7",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 43,
         "bill_type": "wholesale",
         "mobile": "9824264573",
@@ -21782,9 +29670,9 @@ const bills = [
         "total_due": 134300
     },
     {
-        "sr_no": 96,
-        "bill_id": "3627d526-4058-4faa-b2e4-d27e8cc4fd3b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 758,
+        "bill_id": "9a478146-7acb-413f-8f69-ff61be65ca6b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 44,
         "bill_type": "wholesale",
         "mobile": "9586664717",
@@ -21800,9 +29688,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 97,
-        "bill_id": "fb88f261-bec5-40a7-a99e-9becdccf77fd",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 759,
+        "bill_id": "76bef105-0674-4612-b45d-69e7e4b6b2d8",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 45,
         "bill_type": "wholesale",
         "mobile": "9824333124",
@@ -21818,9 +29706,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 98,
-        "bill_id": "02f797e5-eb0f-4d1c-90c9-a4104be5bf6d",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 760,
+        "bill_id": "7ef7e1a8-4581-4f01-aae4-8795535f39a7",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 46,
         "bill_type": "wholesale",
         "mobile": "9724374570",
@@ -21836,9 +29724,9 @@ const bills = [
         "total_due": 54050
     },
     {
-        "sr_no": 99,
-        "bill_id": "665eb1be-ac40-44a6-92d3-dcb14b6311f3",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 761,
+        "bill_id": "52248fc6-f8ca-40f3-be38-5cbec922ebaf",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 47,
         "bill_type": "wholesale",
         "mobile": "9427882624",
@@ -21854,9 +29742,9 @@ const bills = [
         "total_due": 27540
     },
     {
-        "sr_no": 100,
-        "bill_id": "2186f361-b797-49fe-b914-74884232e536",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 762,
+        "bill_id": "bfaf66a8-0bc8-4af2-b4f6-14c2d8c7ac49",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 48,
         "bill_type": "wholesale",
         "mobile": "9898097737",
@@ -21872,9 +29760,9 @@ const bills = [
         "total_due": 1213
     },
     {
-        "sr_no": 101,
-        "bill_id": "aa746010-f45b-4319-817c-d8a3ead83cf8",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 763,
+        "bill_id": "840833e8-07bc-4c56-8a67-ff9dd1e6743c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 49,
         "bill_type": "wholesale",
         "mobile": "9427882624",
@@ -21890,9 +29778,9 @@ const bills = [
         "total_due": 9504
     },
     {
-        "sr_no": 102,
-        "bill_id": "983b7187-8b4d-40e0-9dd1-b779bfba8e31",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 764,
+        "bill_id": "404387a1-4c73-4829-b5a0-275e7cbf316d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 50,
         "bill_type": "wholesale",
         "mobile": "9924862456",
@@ -21908,9 +29796,9 @@ const bills = [
         "total_due": 6470
     },
     {
-        "sr_no": 103,
-        "bill_id": "ae701e6f-7ed6-4d88-829e-41ad2324637a",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 765,
+        "bill_id": "d9fac45d-e524-4c0a-9525-709738f03e9c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 51,
         "bill_type": "wholesale",
         "mobile": "9924862456",
@@ -21926,9 +29814,9 @@ const bills = [
         "total_due": 98950
     },
     {
-        "sr_no": 104,
-        "bill_id": "ccfdf6a2-2f6b-4cb7-a9c1-40f8496a41db",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 766,
+        "bill_id": "5f88f8c2-7783-4870-b620-a4f6178acced",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 52,
         "bill_type": "wholesale",
         "mobile": "9427882624",
@@ -21944,9 +29832,27 @@ const bills = [
         "total_due": 20160
     },
     {
-        "sr_no": 105,
-        "bill_id": "ad284263-829d-4250-9bc6-2962f1e39f37",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 767,
+        "bill_id": "f58d6bc9-e6a3-4554-8b88-5f2b229ddf8f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 53,
+        "bill_type": "wholesale",
+        "mobile": "9638947557",
+        "name": "C D PATEL",
+        "address": "TADWADI",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2024-12-29T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 240,
+        "sub_total": 11160,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 11160
+    },
+    {
+        "sr_no": 5165,
+        "bill_id": "00ed7fb2-6ad7-4ce9-bc7b-d3d4182ae566",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 1,
         "bill_type": "retail",
         "mobile": "9824080372",
@@ -21962,9 +29868,9 @@ const bills = [
         "total_due": 11000
     },
     {
-        "sr_no": 106,
-        "bill_id": "f10f21e5-ab52-4ef9-b3c5-4ca8ffbe8b12",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5166,
+        "bill_id": "32a080dc-1cf6-4614-b654-4d07bcfc053a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 2,
         "bill_type": "retail",
         "mobile": "9978622476",
@@ -21980,9 +29886,9 @@ const bills = [
         "total_due": 965
     },
     {
-        "sr_no": 107,
-        "bill_id": "6c3e98c8-bfeb-430c-90e3-a29e9c40fa91",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5167,
+        "bill_id": "a2113e22-2a6c-4ef7-9eed-edbb7040db2e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 3,
         "bill_type": "retail",
         "mobile": "9825295589",
@@ -21998,9 +29904,9 @@ const bills = [
         "total_due": 950
     },
     {
-        "sr_no": 108,
-        "bill_id": "4c8986b2-caf9-4408-946a-e2317fc228a4",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5168,
+        "bill_id": "fb3770d0-03e9-4b96-8a4d-299dadbfd574",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 4,
         "bill_type": "retail",
         "mobile": "7265035038",
@@ -22016,9 +29922,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 109,
-        "bill_id": "47061ced-e584-4d72-a72b-3997586d7332",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5169,
+        "bill_id": "45fb7df7-3a4f-47d8-955d-c41253c050e0",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 5,
         "bill_type": "retail",
         "mobile": "9427701801",
@@ -22034,9 +29940,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 110,
-        "bill_id": "bcfbaba4-627b-4ff7-b987-d91da996fd2d",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5170,
+        "bill_id": "df441cdd-f4e0-4b82-bd10-8d679f2dc544",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 6,
         "bill_type": "retail",
         "mobile": "9925392162",
@@ -22052,9 +29958,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 111,
-        "bill_id": "df16d2a0-6468-414b-80d5-8ef27fdd4818",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5171,
+        "bill_id": "a59823b7-fd3d-4a99-ae3c-9620191c50fb",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 7,
         "bill_type": "retail",
         "mobile": "8160328228",
@@ -22070,9 +29976,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 112,
-        "bill_id": "5b7dfd2f-400a-487f-a6bd-91aacdb942bc",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5172,
+        "bill_id": "fa419899-0475-4472-9884-d439417db838",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 8,
         "bill_type": "retail",
         "mobile": "9104804372",
@@ -22088,9 +29994,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 113,
-        "bill_id": "7b240713-653c-4358-a7ab-f8766ec937bc",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5173,
+        "bill_id": "4cbde257-bdd8-4c35-90d8-817783a00713",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 9,
         "bill_type": "retail",
         "mobile": "9898678008",
@@ -22106,9 +30012,9 @@ const bills = [
         "total_due": 3330
     },
     {
-        "sr_no": 114,
-        "bill_id": "22dcc071-5731-4ba4-b1f7-50961ec27373",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5174,
+        "bill_id": "342f3179-0d5d-4212-b040-81b70d8005d1",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 10,
         "bill_type": "retail",
         "mobile": "9898097737",
@@ -22124,9 +30030,9 @@ const bills = [
         "total_due": 21150
     },
     {
-        "sr_no": 115,
-        "bill_id": "9f6a4fae-497e-486a-ac64-0ed8c2dd1b42",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5175,
+        "bill_id": "533aa015-41ba-45cf-a07c-3e5744d2f7c6",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 11,
         "bill_type": "retail",
         "mobile": "9712942131",
@@ -22142,9 +30048,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 116,
-        "bill_id": "74143397-e540-4971-8a7f-50e9ee06626b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5176,
+        "bill_id": "2fadb76b-c9cd-4705-8206-83c564db956a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 12,
         "bill_type": "retail",
         "mobile": "9909919536",
@@ -22160,9 +30066,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 117,
-        "bill_id": "6730e1c0-f23c-43b6-9a24-20dae09e2d9e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5177,
+        "bill_id": "85cbea02-3a04-47cc-bcb3-f47fd29957cb",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 13,
         "bill_type": "retail",
         "mobile": "8141917802",
@@ -22178,9 +30084,9 @@ const bills = [
         "total_due": 1290
     },
     {
-        "sr_no": 118,
-        "bill_id": "acb8214f-b256-47f0-ba43-eb3db12ba6aa",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5178,
+        "bill_id": "825cdc21-1e50-4815-b216-1a398d251415",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 14,
         "bill_type": "retail",
         "mobile": "8160979610",
@@ -22196,9 +30102,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 119,
-        "bill_id": "197faabe-dfe1-4bcf-9894-75882cfbe969",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5179,
+        "bill_id": "35e48133-18c8-4e80-9fdb-191bfec86b8e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 15,
         "bill_type": "retail",
         "mobile": "9426141431",
@@ -22214,9 +30120,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 120,
-        "bill_id": "090a4533-c7fa-415a-9eba-85735f93aa59",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5180,
+        "bill_id": "ddbe6e42-ffb1-4bde-a671-fdc30c24fc33",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 16,
         "bill_type": "retail",
         "mobile": "8511118478",
@@ -22232,9 +30138,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 121,
-        "bill_id": "9e4c8ac9-b015-4cbe-bb80-5aaf84f605ab",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5181,
+        "bill_id": "79b543fd-c065-44c1-b2b9-ac8fb8d699b3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 17,
         "bill_type": "retail",
         "mobile": "7283862150",
@@ -22250,9 +30156,9 @@ const bills = [
         "total_due": 1000
     },
     {
-        "sr_no": 122,
-        "bill_id": "16e5a116-2a78-49bd-9b93-a03b04e4cc66",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5182,
+        "bill_id": "6423a18a-73a2-429e-b55e-be78ab8e7fac",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 18,
         "bill_type": "retail",
         "mobile": "7283862150",
@@ -22268,9 +30174,9 @@ const bills = [
         "total_due": 1050
     },
     {
-        "sr_no": 123,
-        "bill_id": "bdc3a391-2bc0-4593-9b9a-914a7f88d682",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5183,
+        "bill_id": "f0d304c3-5e01-4d86-9dd4-906e74843758",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 19,
         "bill_type": "retail",
         "mobile": "9924747476",
@@ -22286,9 +30192,9 @@ const bills = [
         "total_due": 525
     },
     {
-        "sr_no": 124,
-        "bill_id": "d1e31aa9-08ea-461d-9d5c-88204fdf5b3a",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5184,
+        "bill_id": "c1ae7421-99bd-494e-a66e-896ab1d3e1bf",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 20,
         "bill_type": "retail",
         "mobile": "9879395051",
@@ -22304,9 +30210,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 125,
-        "bill_id": "2ad9a301-c062-4dfe-9714-2786332b0623",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5185,
+        "bill_id": "5f897dff-4eab-4cc9-9529-0bd5d22353f5",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 21,
         "bill_type": "retail",
         "mobile": "9879447001",
@@ -22322,9 +30228,9 @@ const bills = [
         "total_due": 1050
     },
     {
-        "sr_no": 126,
-        "bill_id": "172f9737-e224-4625-ab98-b9e74b2a7959",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5186,
+        "bill_id": "a3d37a31-bbe2-4205-8784-a5eb634b0d9c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 22,
         "bill_type": "retail",
         "mobile": "9427893257",
@@ -22340,9 +30246,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 127,
-        "bill_id": "9ce5517b-c1fa-4ad0-97e4-d2b94e76a3d5",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5187,
+        "bill_id": "e81429b3-74c9-4111-90fd-a9a4576428bc",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 23,
         "bill_type": "retail",
         "mobile": "9714241304",
@@ -22358,9 +30264,9 @@ const bills = [
         "total_due": 700
     },
     {
-        "sr_no": 128,
-        "bill_id": "0e6a4159-34dc-4e00-bcd3-d2c55a249605",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5188,
+        "bill_id": "a7ba0293-2364-409e-b30f-afa44cabfe23",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 24,
         "bill_type": "retail",
         "mobile": "9638223334",
@@ -22376,9 +30282,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 129,
-        "bill_id": "ae41c0b7-a963-4292-8c7e-1901bb632569",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5189,
+        "bill_id": "b9641c6c-5442-45b3-90e6-c86511af616a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 25,
         "bill_type": "retail",
         "mobile": "9978544293",
@@ -22394,9 +30300,9 @@ const bills = [
         "total_due": 5000
     },
     {
-        "sr_no": 130,
-        "bill_id": "5e2f2b51-65d3-4a6d-b29f-9abee56fd3a5",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5190,
+        "bill_id": "0c00a25b-64cd-4061-ab97-5da8ff08a3fc",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 26,
         "bill_type": "retail",
         "mobile": "9898314623",
@@ -22412,9 +30318,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 131,
-        "bill_id": "82e6135b-25cd-43cc-b4e6-138cf1bca29f",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5191,
+        "bill_id": "3c208ebe-4f8f-4e82-966b-e17840f972d3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 27,
         "bill_type": "retail",
         "mobile": "9023488201",
@@ -22430,9 +30336,9 @@ const bills = [
         "total_due": 350
     },
     {
-        "sr_no": 132,
-        "bill_id": "4bf58390-5b61-41a8-9aaf-9e0a55eb51c8",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5192,
+        "bill_id": "8be2f0f7-463b-48e0-b973-7d0cb88ceae5",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 28,
         "bill_type": "retail",
         "mobile": "9313268033",
@@ -22448,9 +30354,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 133,
-        "bill_id": "07e112ec-437a-4013-85b6-6fe56facc539",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5193,
+        "bill_id": "fe8304f0-eff6-43a5-9218-9aab1c30e799",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 29,
         "bill_type": "retail",
         "mobile": "7383056053",
@@ -22466,9 +30372,9 @@ const bills = [
         "total_due": 175
     },
     {
-        "sr_no": 134,
-        "bill_id": "18cf205b-4387-41a3-bea8-61c3d1da1789",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5194,
+        "bill_id": "db86f22a-2ed6-486c-87a8-2365b2ea8d0a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 30,
         "bill_type": "retail",
         "mobile": "8141314232",
@@ -22484,9 +30390,9 @@ const bills = [
         "total_due": 525
     },
     {
-        "sr_no": 135,
-        "bill_id": "e488bfbd-473a-4e2b-bfc1-205ac708e131",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5195,
+        "bill_id": "f0a75e09-8efa-433d-8a8f-aabc7f08c412",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 31,
         "bill_type": "retail",
         "mobile": "9879447001",
@@ -22502,9 +30408,9 @@ const bills = [
         "total_due": 350
     },
     {
-        "sr_no": 136,
-        "bill_id": "802c5032-af34-42c6-bc6a-a844e3033ed6",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5196,
+        "bill_id": "c1497378-06de-49f9-a724-966cd1a3f066",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 32,
         "bill_type": "retail",
         "mobile": "9016487974",
@@ -22520,9 +30426,9 @@ const bills = [
         "total_due": 525
     },
     {
-        "sr_no": 137,
-        "bill_id": "e7d3a19b-e1c7-461c-984c-8eca273f6340",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5197,
+        "bill_id": "5d65f474-59df-445f-a017-70e1425cf5fa",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 33,
         "bill_type": "retail",
         "mobile": "7862088449",
@@ -22538,9 +30444,9 @@ const bills = [
         "total_due": 10
     },
     {
-        "sr_no": 138,
-        "bill_id": "aa68ea15-b449-4788-a7e1-22d86fb10886",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5198,
+        "bill_id": "7451b92a-22c8-4489-bacb-a5389d1a8fe5",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 34,
         "bill_type": "retail",
         "mobile": "9427123558",
@@ -22556,9 +30462,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 139,
-        "bill_id": "27849377-8006-49d2-974a-311cfcf1d68d",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5199,
+        "bill_id": "4d04abea-3038-4681-9f9d-db47f826bd60",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 35,
         "bill_type": "retail",
         "mobile": "9273600657",
@@ -22574,9 +30480,9 @@ const bills = [
         "total_due": 350
     },
     {
-        "sr_no": 140,
-        "bill_id": "08272156-1579-4910-b70b-4826a4bb4154",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5200,
+        "bill_id": "c07fca8f-6a88-469e-9dde-50ad59ab927e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 36,
         "bill_type": "retail",
         "mobile": "9726490990",
@@ -22592,9 +30498,9 @@ const bills = [
         "total_due": 525
     },
     {
-        "sr_no": 141,
-        "bill_id": "527e0d7c-3a9c-4113-a7c5-c09a02af41ca",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5201,
+        "bill_id": "9f4d1447-8ccb-4cb0-97d2-91e641aefea6",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 37,
         "bill_type": "retail",
         "mobile": "9228701783",
@@ -22610,9 +30516,9 @@ const bills = [
         "total_due": 200
     },
     {
-        "sr_no": 142,
-        "bill_id": "f0ed9b10-a692-4bc0-909f-8b3143521bce",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5202,
+        "bill_id": "4e114efe-1d72-4eb2-8d13-d57b6e9459ea",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 38,
         "bill_type": "retail",
         "mobile": "8141865708",
@@ -22628,9 +30534,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 143,
-        "bill_id": "651ca4b6-943e-4b3c-af66-4d53e93883ab",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5203,
+        "bill_id": "73b91ee4-8705-4b7f-afcb-b26ef26a56d7",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 39,
         "bill_type": "retail",
         "mobile": "8141865708",
@@ -22646,9 +30552,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 144,
-        "bill_id": "e565f15a-7550-429c-95f0-1c3d63c9a840",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5204,
+        "bill_id": "84c20c91-b5ad-427c-b67b-f03ac3c95cae",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 40,
         "bill_type": "retail",
         "mobile": "8460050957",
@@ -22664,9 +30570,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 145,
-        "bill_id": "90411149-ae92-4bdd-9854-cf5b8871fdd4",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5205,
+        "bill_id": "04d218e4-2f02-4920-9a47-0297e51e434c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 41,
         "bill_type": "retail",
         "mobile": "8460479434",
@@ -22682,9 +30588,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 146,
-        "bill_id": "a6538b19-5a13-404c-9816-e623737e8cb0",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5206,
+        "bill_id": "7859ced9-6b34-49c2-ae83-1b0221faff1c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 42,
         "bill_type": "retail",
         "mobile": "8469974063",
@@ -22700,9 +30606,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 147,
-        "bill_id": "b1b50581-13dc-4df3-af69-71cd7bae2024",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5207,
+        "bill_id": "fac80714-bd5d-484d-871a-250ee3927915",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 43,
         "bill_type": "retail",
         "mobile": "8980173905",
@@ -22718,9 +30624,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 148,
-        "bill_id": "2aceb2a0-d4be-4162-884d-06c94cacee85",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5208,
+        "bill_id": "9ce61517-abc5-4977-b6ed-f781dac45246",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 44,
         "bill_type": "retail",
         "mobile": "9879746529",
@@ -22736,9 +30642,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 149,
-        "bill_id": "d2d48200-b1cd-4213-ab40-32be5d295733",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5209,
+        "bill_id": "2997f077-11e3-48ba-bc27-4f286563668c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 45,
         "bill_type": "retail",
         "mobile": "9429427094",
@@ -22754,9 +30660,9 @@ const bills = [
         "total_due": 485
     },
     {
-        "sr_no": 150,
-        "bill_id": "f566d40b-4d72-4370-8a05-5099ecf178b0",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5210,
+        "bill_id": "4045978a-9a79-4eb5-961a-869254fdce8c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 46,
         "bill_type": "retail",
         "mobile": "8238461075",
@@ -22772,9 +30678,9 @@ const bills = [
         "total_due": 250
     },
     {
-        "sr_no": 151,
-        "bill_id": "25603766-59d5-4c7c-8b27-f235639dfcef",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5211,
+        "bill_id": "05ae6f2d-4291-4c49-9529-eff5e5d48425",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 47,
         "bill_type": "retail",
         "mobile": "9898494840",
@@ -22790,9 +30696,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 152,
-        "bill_id": "81fa0ff5-2a5d-4a4f-8e05-9894e5117288",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5212,
+        "bill_id": "ba6ad96c-9ae5-401d-a830-defc584d1889",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 48,
         "bill_type": "retail",
         "mobile": "8780526497",
@@ -22808,9 +30714,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 153,
-        "bill_id": "fb94bc1e-a31f-4fd5-b4de-6a00e1204ce2",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5213,
+        "bill_id": "327f2b72-738b-4cf7-8ce2-37ff38dd86b4",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 49,
         "bill_type": "retail",
         "mobile": "9974218690",
@@ -22826,9 +30732,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 154,
-        "bill_id": "cc58207e-4224-441f-be57-aaf0dfcffa8b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5214,
+        "bill_id": "d8ae2d4f-773d-405f-8e44-463ea0553ecd",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 50,
         "bill_type": "retail",
         "mobile": "9228066537",
@@ -22844,9 +30750,9 @@ const bills = [
         "total_due": 700
     },
     {
-        "sr_no": 155,
-        "bill_id": "d3e84b3c-da17-4fe5-afea-9d331f8c5fb1",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5215,
+        "bill_id": "18aa3ee3-1454-451f-a4ce-717fd061c82f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 51,
         "bill_type": "retail",
         "mobile": "9313606667",
@@ -22862,9 +30768,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 156,
-        "bill_id": "68191216-faa6-4099-89f7-f959564346f2",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5216,
+        "bill_id": "9da8605b-b2fd-40c3-bd29-4ac63ed6fc07",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 52,
         "bill_type": "retail",
         "mobile": "9898038735",
@@ -22880,9 +30786,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 157,
-        "bill_id": "6b5ab44a-8814-471e-ad0b-a32603671e9f",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5217,
+        "bill_id": "3462e8c9-949d-49c7-ae4e-1499796af48d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 53,
         "bill_type": "retail",
         "mobile": "9825919622",
@@ -22898,9 +30804,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 158,
-        "bill_id": "b9aa869f-9065-4f63-bdbf-4c072502f5ab",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5218,
+        "bill_id": "7dec0e7f-d53c-404c-ac8c-09c942454734",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 54,
         "bill_type": "retail",
         "mobile": "8511006733",
@@ -22916,9 +30822,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 159,
-        "bill_id": "6ac64a06-6859-4dc8-bc8a-28d09030b372",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5219,
+        "bill_id": "bb19685e-16ac-47dc-a7c8-dccb415229ee",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 55,
         "bill_type": "retail",
         "mobile": "9924799809",
@@ -22934,9 +30840,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 160,
-        "bill_id": "8ee1625c-b07a-4ac8-aa42-9e38beac577c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5220,
+        "bill_id": "c596f4a9-f08b-42f5-a60e-368bee938bc7",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 56,
         "bill_type": "retail",
         "mobile": "7990840645",
@@ -22952,9 +30858,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 161,
-        "bill_id": "181bcb53-b4d2-4ae7-8c4e-9aa0ecab73ce",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5221,
+        "bill_id": "301a486c-711f-4a85-8109-f245f3de605e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 57,
         "bill_type": "retail",
         "mobile": "9427504882",
@@ -22970,9 +30876,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 162,
-        "bill_id": "1eb8f36d-f0a4-44c2-a7b6-c0333fb26f00",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5222,
+        "bill_id": "304b0eef-9ed4-47ca-a907-ff94149970ab",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 58,
         "bill_type": "retail",
         "mobile": "9099747674",
@@ -22988,9 +30894,9 @@ const bills = [
         "total_due": 1050
     },
     {
-        "sr_no": 163,
-        "bill_id": "c280101d-7c74-479a-a8be-c7ee9854decc",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5223,
+        "bill_id": "54538dc6-4c6a-4304-9a9c-2dbd96ff0942",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 59,
         "bill_type": "retail",
         "mobile": "9537011555",
@@ -23006,9 +30912,9 @@ const bills = [
         "total_due": 700
     },
     {
-        "sr_no": 164,
-        "bill_id": "acb45fa7-8137-47e2-8dc5-5cb7faaef4ed",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5224,
+        "bill_id": "d176e594-26bd-4aed-a2ab-e949401c718f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 60,
         "bill_type": "retail",
         "mobile": "9898697705",
@@ -23024,9 +30930,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 165,
-        "bill_id": "a00ed2dc-fb80-47d7-9d58-33027830b96f",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5225,
+        "bill_id": "18f5cf26-6bf6-4604-8dea-30f6d392c49f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 61,
         "bill_type": "retail",
         "mobile": "9427289583",
@@ -23042,9 +30948,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 166,
-        "bill_id": "0e20d446-7801-4956-8329-2b1b7338247c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5226,
+        "bill_id": "732324e9-3710-4731-b4d9-cb73eae9d175",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 62,
         "bill_type": "retail",
         "mobile": "6353444842",
@@ -23060,9 +30966,9 @@ const bills = [
         "total_due": 1000
     },
     {
-        "sr_no": 167,
-        "bill_id": "5d852dd1-e49e-4743-80d7-a1db40d18926",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5227,
+        "bill_id": "a3dcd8a7-7e6c-471e-be89-47974df31993",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 63,
         "bill_type": "retail",
         "mobile": "9879746576",
@@ -23078,9 +30984,9 @@ const bills = [
         "total_due": 1000
     },
     {
-        "sr_no": 168,
-        "bill_id": "d00a91d4-0f16-42d2-ba06-d2f3d6c6a4f5",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5228,
+        "bill_id": "cd39a9b9-94b5-4c5b-af5f-fccddecd562a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 64,
         "bill_type": "retail",
         "mobile": "8849377544",
@@ -23096,9 +31002,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 169,
-        "bill_id": "0f9f4388-42cd-49f2-a134-2c751a182747",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5229,
+        "bill_id": "f34ae9e6-5fec-4915-9b90-9b7fb09ae27a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 65,
         "bill_type": "retail",
         "mobile": "9909313145",
@@ -23114,9 +31020,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 170,
-        "bill_id": "c64135d6-0498-4288-9061-2e2be185bd3f",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5230,
+        "bill_id": "b56bab71-84ba-4019-9d6e-56153cf3b33e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 66,
         "bill_type": "retail",
         "mobile": "9898928228",
@@ -23132,9 +31038,9 @@ const bills = [
         "total_due": 350
     },
     {
-        "sr_no": 171,
-        "bill_id": "9e4d12dd-5647-45ae-bdf3-49305af55923",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5231,
+        "bill_id": "b7c20c8c-4dab-4aa0-b43b-25d66b86ef28",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 67,
         "bill_type": "retail",
         "mobile": "7600004138",
@@ -23150,9 +31056,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 172,
-        "bill_id": "9c63ae22-7730-4b89-bc52-e6ad61c19599",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5232,
+        "bill_id": "3f93058c-216e-4480-b33d-872bc7ba4b2f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 68,
         "bill_type": "retail",
         "mobile": "9909194969",
@@ -23168,9 +31074,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 173,
-        "bill_id": "273289d0-5f25-4232-9364-8ea398b3aedb",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5233,
+        "bill_id": "66280340-b3ab-4f35-8085-031a8d9bdc0b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 69,
         "bill_type": "retail",
         "mobile": "9925806663",
@@ -23186,9 +31092,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 174,
-        "bill_id": "79268863-a0f9-42d4-bba1-1063a77e5eab",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5234,
+        "bill_id": "38d3c79d-a64f-4644-a4e9-5d3ccfc028e3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 70,
         "bill_type": "retail",
         "mobile": "7567111103",
@@ -23204,9 +31110,9 @@ const bills = [
         "total_due": 805
     },
     {
-        "sr_no": 175,
-        "bill_id": "affc793d-5aaf-4f09-91bf-16fe3ba0d713",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5235,
+        "bill_id": "20633162-818c-4e29-8de0-fc81a0c277ee",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 71,
         "bill_type": "retail",
         "mobile": "6352077988",
@@ -23222,9 +31128,9 @@ const bills = [
         "total_due": 1900
     },
     {
-        "sr_no": 176,
-        "bill_id": "66562f8b-f303-4615-ab1b-d24d38d9f5e8",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5236,
+        "bill_id": "ceb1f81d-0927-4bb0-a2b0-162b2d09d5af",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 72,
         "bill_type": "retail",
         "mobile": "9624742800",
@@ -23240,9 +31146,9 @@ const bills = [
         "total_due": 1575
     },
     {
-        "sr_no": 177,
-        "bill_id": "04d4b143-f5b0-41a1-a6f0-6f9f9e41d3da",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5237,
+        "bill_id": "d43079c6-c964-4438-bac2-ca105211c07f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 73,
         "bill_type": "retail",
         "mobile": "8866778448",
@@ -23258,9 +31164,9 @@ const bills = [
         "total_due": 1575
     },
     {
-        "sr_no": 178,
-        "bill_id": "ed4230bc-bbdd-4c8e-b301-1eaf2693fae3",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5238,
+        "bill_id": "1266bd6b-6a5f-495b-8978-9dcb79ad5ca3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 74,
         "bill_type": "retail",
         "mobile": "9879779812",
@@ -23276,9 +31182,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 179,
-        "bill_id": "e7a9b267-baea-44e8-90bd-d6c1ce02b5d3",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5239,
+        "bill_id": "55d1c21b-8d1c-4161-bae5-7a99aa9a62bd",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 75,
         "bill_type": "retail",
         "mobile": "8799159199",
@@ -23294,9 +31200,9 @@ const bills = [
         "total_due": 2200
     },
     {
-        "sr_no": 180,
-        "bill_id": "29d0a9cf-170f-4bdd-b335-1858ddc3f00e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5240,
+        "bill_id": "dd670e84-90ef-43ab-82a1-0406c9239750",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 76,
         "bill_type": "retail",
         "mobile": "7405300842",
@@ -23312,9 +31218,9 @@ const bills = [
         "total_due": 350
     },
     {
-        "sr_no": 181,
-        "bill_id": "c4b30593-2bfe-4255-893e-4f4ba3eb4492",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5241,
+        "bill_id": "df4fba0c-bc6c-416b-8f95-4211406e8d43",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 77,
         "bill_type": "retail",
         "mobile": "9825462434",
@@ -23330,9 +31236,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 182,
-        "bill_id": "5c0db839-c05d-4ed1-bc2d-aa8f9f5a0e4f",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5242,
+        "bill_id": "d175a7c6-2d65-45aa-b8b1-94e1f6e33399",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 78,
         "bill_type": "retail",
         "mobile": "9586597048",
@@ -23348,9 +31254,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 183,
-        "bill_id": "f51c56cd-a667-4d4e-b062-828372d0fcc7",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5243,
+        "bill_id": "cc89c670-468b-4d1c-85db-635158c77165",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 79,
         "bill_type": "retail",
         "mobile": "7990314914",
@@ -23366,9 +31272,9 @@ const bills = [
         "total_due": 410
     },
     {
-        "sr_no": 184,
-        "bill_id": "6f4beacc-5195-4b2c-86c7-3acf4536fa3d",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5244,
+        "bill_id": "a1affbc8-4852-433e-9d00-533861abec6e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 80,
         "bill_type": "retail",
         "mobile": "9099754489",
@@ -23384,9 +31290,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 185,
-        "bill_id": "860581a5-5504-432b-9a00-73a4a89e4aba",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5245,
+        "bill_id": "ee6eaea5-d5f5-4a51-9457-c73851885e0e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 81,
         "bill_type": "retail",
         "mobile": "9904386766",
@@ -23402,9 +31308,9 @@ const bills = [
         "total_due": 175
     },
     {
-        "sr_no": 186,
-        "bill_id": "55ad38b0-cfe1-4f58-90c7-94449365fbe6",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5246,
+        "bill_id": "9ccaa4e2-2fc1-410c-a310-54f04ff771c0",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 82,
         "bill_type": "retail",
         "mobile": "9998710609",
@@ -23420,9 +31326,9 @@ const bills = [
         "total_due": 1050
     },
     {
-        "sr_no": 187,
-        "bill_id": "bc32a822-e85c-4948-8ebe-c841270784ad",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5247,
+        "bill_id": "0fe745ad-5746-4c3c-be88-5819cec2a6e7",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 83,
         "bill_type": "retail",
         "mobile": "9924337958",
@@ -23438,9 +31344,9 @@ const bills = [
         "total_due": 700
     },
     {
-        "sr_no": 188,
-        "bill_id": "ce4a0db4-bb62-4a29-bc7b-f4265702b046",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5248,
+        "bill_id": "5ca984a5-fd5b-44de-9d4d-af9054c66940",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 84,
         "bill_type": "retail",
         "mobile": "7405330452",
@@ -23456,9 +31362,9 @@ const bills = [
         "total_due": 1750
     },
     {
-        "sr_no": 189,
-        "bill_id": "4c0f4231-9afd-44bb-b9fd-513f89078040",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5249,
+        "bill_id": "961d0d1b-eade-4df1-8fcf-1d3bb02defed",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 85,
         "bill_type": "retail",
         "mobile": "7405330452",
@@ -23474,9 +31380,9 @@ const bills = [
         "total_due": 70
     },
     {
-        "sr_no": 190,
-        "bill_id": "2763e4b6-ae93-48d2-882e-b55b27349f3e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5250,
+        "bill_id": "eac2aba0-3cb1-49f2-a6f4-f9e2c9529e5f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 86,
         "bill_type": "retail",
         "mobile": "9016961201",
@@ -23492,9 +31398,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 191,
-        "bill_id": "1ac1e203-70b7-463e-912b-cbb3a9f8ad92",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5251,
+        "bill_id": "49785b13-a23b-46cb-afa1-4dadd11ec13f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 87,
         "bill_type": "retail",
         "mobile": "7622021211",
@@ -23510,9 +31416,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 192,
-        "bill_id": "ad8857eb-8ed7-484b-9b43-c80c5cccfe1a",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5252,
+        "bill_id": "9d365491-c731-459d-8b28-7daad2215fe3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 88,
         "bill_type": "retail",
         "mobile": "9712547501",
@@ -23528,9 +31434,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 193,
-        "bill_id": "a8a7a987-4535-4a11-b474-572a08a368a1",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5253,
+        "bill_id": "a977e0fd-98f9-4b2f-93e5-ec43d6eeb68c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 89,
         "bill_type": "retail",
         "mobile": "9978937568",
@@ -23546,9 +31452,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 194,
-        "bill_id": "6ab57044-3c45-41d1-8c74-6a61b1ed6b7a",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5254,
+        "bill_id": "530873e3-1d14-4e74-a531-103b044e6cbe",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 90,
         "bill_type": "retail",
         "mobile": "9879593838",
@@ -23564,9 +31470,9 @@ const bills = [
         "total_due": 175
     },
     {
-        "sr_no": 195,
-        "bill_id": "1cd36f5f-f409-4de5-83a9-797f19f26aad",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5255,
+        "bill_id": "28ba3919-4790-491f-bcc4-d65a541d3635",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 91,
         "bill_type": "retail",
         "mobile": "7862000154",
@@ -23582,9 +31488,9 @@ const bills = [
         "total_due": 50
     },
     {
-        "sr_no": 196,
-        "bill_id": "3060cabe-6eeb-4c09-881f-3b7210e0cb2a",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5256,
+        "bill_id": "7c394dd1-b9dd-4e67-a0b7-809dfb65ad12",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 92,
         "bill_type": "retail",
         "mobile": "9909447577",
@@ -23600,9 +31506,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 197,
-        "bill_id": "eaa99b4a-9a84-44a2-8a8d-c578d412fd37",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5257,
+        "bill_id": "14b21678-ae29-4b95-ac50-5700c014dc64",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 93,
         "bill_type": "retail",
         "mobile": "9033207114",
@@ -23618,9 +31524,9 @@ const bills = [
         "total_due": 1575
     },
     {
-        "sr_no": 198,
-        "bill_id": "30cee386-601b-419a-925b-0772b2698e59",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5258,
+        "bill_id": "839c686a-08af-4579-b160-2bd714fe72cc",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 94,
         "bill_type": "retail",
         "mobile": "9825964744",
@@ -23636,9 +31542,9 @@ const bills = [
         "total_due": 2400
     },
     {
-        "sr_no": 199,
-        "bill_id": "f8a15669-b9ce-4fe2-9ea3-2350faef108f",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5259,
+        "bill_id": "f50a5cfe-bc0a-4681-984b-3153205ec011",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 95,
         "bill_type": "retail",
         "mobile": "9974854981",
@@ -23654,9 +31560,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 200,
-        "bill_id": "f2f5b2d6-5286-446e-b98d-12b961bdd159",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5260,
+        "bill_id": "c022c0cf-8cc7-41f0-8e96-4232120ee7a8",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 96,
         "bill_type": "retail",
         "mobile": "8238944777",
@@ -23672,9 +31578,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 201,
-        "bill_id": "5784b3d5-c91c-423d-9e90-fcabd1d0512c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5261,
+        "bill_id": "a1977c8d-5287-4093-8377-4a8617a85845",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 97,
         "bill_type": "retail",
         "mobile": "8320507910",
@@ -23690,9 +31596,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 202,
-        "bill_id": "7d0a6dc2-851b-48d4-9fa2-da8a1b5c5c59",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5262,
+        "bill_id": "e0318796-ff94-45e2-b4a7-8140230c1886",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 98,
         "bill_type": "retail",
         "mobile": "7203042510",
@@ -23708,9 +31614,9 @@ const bills = [
         "total_due": 525
     },
     {
-        "sr_no": 203,
-        "bill_id": "fed60a6e-73e2-45cf-913d-58be75971677",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5263,
+        "bill_id": "1864bb25-d925-464c-a6e3-88d46ba25e25",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 99,
         "bill_type": "retail",
         "mobile": "8320550961",
@@ -23726,9 +31632,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 204,
-        "bill_id": "ccfa5f93-5672-4539-9829-da9361933d41",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5264,
+        "bill_id": "4bc08b85-d7db-49be-9edd-740a2a7bcd38",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 100,
         "bill_type": "retail",
         "mobile": "8238461075",
@@ -23744,9 +31650,9 @@ const bills = [
         "total_due": 250
     },
     {
-        "sr_no": 205,
-        "bill_id": "6e6ea483-80f4-40ab-b3b1-1b261223e6cd",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5265,
+        "bill_id": "3002919a-8374-4bb9-980c-2c8aaa82fced",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 101,
         "bill_type": "retail",
         "mobile": "9825375424",
@@ -23762,9 +31668,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 206,
-        "bill_id": "b4c7b451-8a88-4c51-bae2-2ca9aa44ab92",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5266,
+        "bill_id": "5f6d3a7b-cd97-40f9-af98-a179e17b8c90",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 102,
         "bill_type": "retail",
         "mobile": "9579624043",
@@ -23780,9 +31686,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 207,
-        "bill_id": "0cc282c1-19fa-43ac-a9a3-fdeb1fbf8a96",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5267,
+        "bill_id": "b7330f33-95ce-41e0-bad0-b30543e1130c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 103,
         "bill_type": "retail",
         "mobile": "9925690400",
@@ -23798,9 +31704,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 208,
-        "bill_id": "d59e28c4-cd49-45d7-b049-6f580ee91caa",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5268,
+        "bill_id": "9ff48a04-43a7-4a6c-8de7-6033a1ed8a39",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 104,
         "bill_type": "retail",
         "mobile": "9974458840",
@@ -23816,9 +31722,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 209,
-        "bill_id": "0f70cfd3-c2a5-498e-8d9b-46b807ca0285",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5269,
+        "bill_id": "0cef56f1-3d76-4de1-9491-1f4ec174c07a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 105,
         "bill_type": "retail",
         "mobile": "7567560884",
@@ -23834,9 +31740,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 210,
-        "bill_id": "3915fd11-c5fa-4609-b985-6b1f3714391e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5270,
+        "bill_id": "5b6bc155-7648-4934-83fa-7c41fc6b0477",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 106,
         "bill_type": "retail",
         "mobile": "8866079304",
@@ -23852,9 +31758,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 211,
-        "bill_id": "cc8873b9-7a20-42cf-904e-05fa501e6090",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5271,
+        "bill_id": "a8ba7feb-7c59-422e-b2e1-d57723ba6981",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 107,
         "bill_type": "retail",
         "mobile": "9638837120",
@@ -23870,9 +31776,9 @@ const bills = [
         "total_due": 3170
     },
     {
-        "sr_no": 212,
-        "bill_id": "7479cbae-bbea-43a4-b3e9-78b899b30c12",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5272,
+        "bill_id": "fa7dd96e-6142-47e4-90c7-af793d782eaa",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 108,
         "bill_type": "retail",
         "mobile": "8799159199",
@@ -23880,7 +31786,7 @@ const bills = [
         "address": "ST",
         "order_date": "2024-12-18T00:00:00.000Z",
         "delivery_date": "2024-12-20T00:00:00.000Z",
-        "notes": "",
+        "notes": "DELEVERD SELF",
         "total_firki": 2,
         "sub_total": 2000,
         "discount": 0,
@@ -23888,9 +31794,9 @@ const bills = [
         "total_due": 1500
     },
     {
-        "sr_no": 213,
-        "bill_id": "8bf2e8d2-0d43-47e4-8842-7f7951b88467",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5273,
+        "bill_id": "a60be7f0-d6d6-4cfd-abb7-f973ff055507",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 109,
         "bill_type": "retail",
         "mobile": "8780104378",
@@ -23906,9 +31812,9 @@ const bills = [
         "total_due": 4080
     },
     {
-        "sr_no": 214,
-        "bill_id": "c4a79ca0-8ad5-4af5-9ea5-f0fe715c1052",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5274,
+        "bill_id": "a7ee385f-daa6-4af1-856f-32d4949c087c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 110,
         "bill_type": "retail",
         "mobile": "9909258261",
@@ -23924,9 +31830,9 @@ const bills = [
         "total_due": 675
     },
     {
-        "sr_no": 215,
-        "bill_id": "fe2c2cd3-4d59-447b-bf02-319d1cc69cb5",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5275,
+        "bill_id": "12180b23-e4b1-4e08-a363-dd90320463d8",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 111,
         "bill_type": "retail",
         "mobile": "9265702683",
@@ -23942,9 +31848,9 @@ const bills = [
         "total_due": 2220
     },
     {
-        "sr_no": 216,
-        "bill_id": "6e8c5b63-30de-4089-8acb-2d897fde833b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5276,
+        "bill_id": "c29dde22-6af6-4b09-9402-77e2542caef3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 112,
         "bill_type": "retail",
         "mobile": "8401885356",
@@ -23960,9 +31866,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 217,
-        "bill_id": "a3dcbe1c-c3a0-42b4-b6c5-105f0fcfee37",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5277,
+        "bill_id": "21831acf-5636-40ad-93a7-4aa7f49ecce6",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 113,
         "bill_type": "retail",
         "mobile": "9898905284",
@@ -23978,9 +31884,9 @@ const bills = [
         "total_due": 700
     },
     {
-        "sr_no": 218,
-        "bill_id": "04dbb486-17d5-4d89-8b19-d4610b7a5548",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5278,
+        "bill_id": "ff592056-84e2-4871-a80c-19f33e1bd553",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 114,
         "bill_type": "retail",
         "mobile": "9023488201",
@@ -23996,9 +31902,9 @@ const bills = [
         "total_due": 5090
     },
     {
-        "sr_no": 219,
-        "bill_id": "b30f2e08-0920-42cc-8a2d-854e9f49c587",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5279,
+        "bill_id": "5fdb7653-7cb2-46ed-9c3d-7a6d2e995f1e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 115,
         "bill_type": "retail",
         "mobile": "9726157249",
@@ -24014,9 +31920,9 @@ const bills = [
         "total_due": 705
     },
     {
-        "sr_no": 220,
-        "bill_id": "04eaee80-79ca-4104-905d-95fbb6fe12c8",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5280,
+        "bill_id": "583df683-79d5-48ac-b758-5d3365a03a77",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 116,
         "bill_type": "retail",
         "mobile": "8160213496",
@@ -24032,9 +31938,9 @@ const bills = [
         "total_due": 1000
     },
     {
-        "sr_no": 221,
-        "bill_id": "42c8f9a8-eada-4d1a-974a-598514cdf4ca",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5281,
+        "bill_id": "66e397e2-6509-43a1-845b-d3d576e4aa00",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 117,
         "bill_type": "retail",
         "mobile": "9909242091",
@@ -24050,9 +31956,9 @@ const bills = [
         "total_due": 550
     },
     {
-        "sr_no": 222,
-        "bill_id": "ad6acc29-6633-4feb-bdb8-ed80092c07db",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5282,
+        "bill_id": "97f3c287-eeda-4488-bec4-e8147b46b890",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 118,
         "bill_type": "retail",
         "mobile": "9725297799",
@@ -24068,9 +31974,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 223,
-        "bill_id": "04f45a90-4ce8-4e2d-8eb6-094df664399d",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5283,
+        "bill_id": "15eaa17b-edad-4392-b1b7-3ab57e038c1a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 119,
         "bill_type": "retail",
         "mobile": "9998188876",
@@ -24086,9 +31992,9 @@ const bills = [
         "total_due": 175
     },
     {
-        "sr_no": 224,
-        "bill_id": "c8c4f004-6acd-400d-8a7f-592bd48e5ce8",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5284,
+        "bill_id": "ed580839-221e-4e61-8db3-8702679ee37a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 120,
         "bill_type": "retail",
         "mobile": "9315080824",
@@ -24104,9 +32010,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 225,
-        "bill_id": "3d4f8400-07cf-445e-b31e-3b6e7bef7177",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5285,
+        "bill_id": "337ce931-394e-441a-84ab-86ad6d927408",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 121,
         "bill_type": "retail",
         "mobile": "9904203525",
@@ -24122,9 +32028,9 @@ const bills = [
         "total_due": 430
     },
     {
-        "sr_no": 226,
-        "bill_id": "9499f7fe-c6ce-4154-bf9c-09223b2fc123",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5286,
+        "bill_id": "7fc57641-835f-4ace-9486-f99095670349",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 122,
         "bill_type": "retail",
         "mobile": "7990073570",
@@ -24140,9 +32046,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 227,
-        "bill_id": "08bf3fce-3735-4243-9500-32242800face",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5287,
+        "bill_id": "74d65f96-f0aa-4d41-a374-03de2a03b782",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 123,
         "bill_type": "retail",
         "mobile": "9586029159",
@@ -24158,9 +32064,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 228,
-        "bill_id": "9ee163c8-907c-4020-9379-26d5fbf17d0d",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5288,
+        "bill_id": "0590a490-f0ba-4e3b-9d85-c852789e5642",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 124,
         "bill_type": "retail",
         "mobile": "9427123558",
@@ -24176,9 +32082,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 229,
-        "bill_id": "fda7acf2-fa3f-497a-9ae2-9e126f5c1b75",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5289,
+        "bill_id": "3491e080-38ad-4957-befd-e8a4415094c1",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 125,
         "bill_type": "retail",
         "mobile": "9033207114",
@@ -24194,9 +32100,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 230,
-        "bill_id": "737a60d7-f62f-4e3b-805c-037917ca8c82",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5290,
+        "bill_id": "345f08be-dd16-4378-aeb1-37961dbfce27",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 126,
         "bill_type": "retail",
         "mobile": "9909953752",
@@ -24212,9 +32118,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 231,
-        "bill_id": "4db4fb26-73eb-4657-a613-1a88a496a05a",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5291,
+        "bill_id": "d287c82d-c6b2-4b40-a449-04d97d84705d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 127,
         "bill_type": "retail",
         "mobile": "9913590709",
@@ -24230,9 +32136,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 232,
-        "bill_id": "ed0360dc-8efe-4741-8cbb-7741eb577906",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5292,
+        "bill_id": "c952322c-9c9d-44a2-82c0-8905d7679f9b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 128,
         "bill_type": "retail",
         "mobile": "9825462434",
@@ -24248,9 +32154,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 233,
-        "bill_id": "ba923238-3432-4a34-a4f9-0f03e1b6658b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5293,
+        "bill_id": "ba086f4d-121e-4de8-9be5-5360ac85b602",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 129,
         "bill_type": "retail",
         "mobile": "9265468184",
@@ -24266,9 +32172,9 @@ const bills = [
         "total_due": 580
     },
     {
-        "sr_no": 234,
-        "bill_id": "5ad873d8-edae-4762-be01-8eed8e46422c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5294,
+        "bill_id": "6ad0ff91-54fb-4668-a005-1283e54821fa",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 130,
         "bill_type": "retail",
         "mobile": "9106814544",
@@ -24284,9 +32190,9 @@ const bills = [
         "total_due": 1000
     },
     {
-        "sr_no": 235,
-        "bill_id": "b4d8a333-a795-42f7-b618-673beff23bf0",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5295,
+        "bill_id": "fe18bc17-e094-4f77-abe0-861988921034",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 131,
         "bill_type": "retail",
         "mobile": "9879168930",
@@ -24302,9 +32208,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 236,
-        "bill_id": "45ea387c-34e2-4666-b1de-c1521e9d867b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5296,
+        "bill_id": "dcb99f0b-507b-4db7-9bad-5c8d7f7ec074",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 132,
         "bill_type": "retail",
         "mobile": "8690009003",
@@ -24320,9 +32226,9 @@ const bills = [
         "total_due": 350
     },
     {
-        "sr_no": 237,
-        "bill_id": "ba5ee78a-0f58-44a6-85d1-1bf2b8d2756a",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5297,
+        "bill_id": "f7ba6301-a7b3-4c33-8d55-cd5621f3d1ef",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 133,
         "bill_type": "retail",
         "mobile": "8141412424",
@@ -24338,9 +32244,9 @@ const bills = [
         "total_due": 875
     },
     {
-        "sr_no": 238,
-        "bill_id": "0abadd32-ed2c-496d-b2d5-0d8b49b87aff",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5298,
+        "bill_id": "98f89176-589b-4cf7-b5d6-a8828f899ee8",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 134,
         "bill_type": "retail",
         "mobile": "9898550462",
@@ -24356,9 +32262,9 @@ const bills = [
         "total_due": 23000
     },
     {
-        "sr_no": 239,
-        "bill_id": "35e9b27b-385a-4cbf-a6f6-ba11f94d93ea",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5299,
+        "bill_id": "0e7c906c-6f47-4dd1-8445-84e428926024",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 135,
         "bill_type": "retail",
         "mobile": "9998099943",
@@ -24374,9 +32280,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 240,
-        "bill_id": "c999249f-6884-4b28-ad19-4866eff2478a",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5300,
+        "bill_id": "67c38199-5c02-48a9-96d1-cf0084615cc2",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 136,
         "bill_type": "retail",
         "mobile": "9016131597",
@@ -24392,9 +32298,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 241,
-        "bill_id": "e4331567-558b-49f9-b397-40a43fb11715",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5301,
+        "bill_id": "261dbc43-8b0c-452d-9730-2b131fe7d44d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 137,
         "bill_type": "retail",
         "mobile": "9825118188",
@@ -24410,9 +32316,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 242,
-        "bill_id": "8a2bbcec-a5e4-4698-aa14-211055a384ab",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5302,
+        "bill_id": "333d7615-388b-4896-af3c-700a396da308",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 138,
         "bill_type": "retail",
         "mobile": "9879508617",
@@ -24428,9 +32334,9 @@ const bills = [
         "total_due": 150
     },
     {
-        "sr_no": 243,
-        "bill_id": "829e0926-7d7e-479b-b142-b90a3970606a",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5303,
+        "bill_id": "58f44c33-f056-4750-83c7-fdd134e2c003",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 139,
         "bill_type": "retail",
         "mobile": "9879948155",
@@ -24446,9 +32352,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 244,
-        "bill_id": "cde8b25c-ebe7-4071-8eff-fac2dc87f897",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5304,
+        "bill_id": "d3cd4052-ad7e-402b-b764-5a6a92cb221a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 140,
         "bill_type": "retail",
         "mobile": "8980497750",
@@ -24464,9 +32370,9 @@ const bills = [
         "total_due": 1160
     },
     {
-        "sr_no": 245,
-        "bill_id": "14212ebb-c3f5-49ec-980d-26aae228a88f",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5305,
+        "bill_id": "0151f21f-28c0-4790-be8e-cb29c0db288c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 141,
         "bill_type": "retail",
         "mobile": "8200245338",
@@ -24482,9 +32388,9 @@ const bills = [
         "total_due": 525
     },
     {
-        "sr_no": 246,
-        "bill_id": "0648f1b8-b0e1-4b04-8eed-dc829be6a805",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5306,
+        "bill_id": "19656fda-175a-4374-a3b7-7affe856a189",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 142,
         "bill_type": "retail",
         "mobile": "7405300842",
@@ -24500,9 +32406,9 @@ const bills = [
         "total_due": 350
     },
     {
-        "sr_no": 247,
-        "bill_id": "a4803fbe-bf1b-44fb-ad52-f7b2b21d5f76",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5307,
+        "bill_id": "fb79b78b-8722-44b7-bd5d-69371c671f89",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 143,
         "bill_type": "retail",
         "mobile": "6354727620",
@@ -24518,9 +32424,9 @@ const bills = [
         "total_due": 1030
     },
     {
-        "sr_no": 248,
-        "bill_id": "9b4fbd50-5998-481a-8632-bbc0946c8857",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5308,
+        "bill_id": "3f7c46b5-9aa9-4948-b601-acd400b5cb7c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 144,
         "bill_type": "retail",
         "mobile": "9879088188",
@@ -24536,9 +32442,9 @@ const bills = [
         "total_due": 2850
     },
     {
-        "sr_no": 249,
-        "bill_id": "5d8bf20a-c2af-4bff-9e22-03e4cd54aa80",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5309,
+        "bill_id": "a2a45428-7148-4476-85f6-d7237ff907e4",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 145,
         "bill_type": "retail",
         "mobile": "8448194941",
@@ -24554,9 +32460,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 250,
-        "bill_id": "b9416869-6f7d-4308-aef3-a0a806ce0912",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5310,
+        "bill_id": "92fc3963-fa10-433a-9c3d-9beff9281118",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 146,
         "bill_type": "retail",
         "mobile": "9687952341",
@@ -24572,9 +32478,9 @@ const bills = [
         "total_due": 995
     },
     {
-        "sr_no": 251,
-        "bill_id": "75c4f059-b883-4691-9faf-af87f3bd60bf",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5311,
+        "bill_id": "86bfe416-d13e-413c-9495-2e872b9ecd25",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 147,
         "bill_type": "retail",
         "mobile": "9265213159",
@@ -24590,9 +32496,9 @@ const bills = [
         "total_due": 2745
     },
     {
-        "sr_no": 252,
-        "bill_id": "cced6988-7ea3-430b-8012-e0593f496423",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5312,
+        "bill_id": "e18eb227-96e0-4919-8872-5806875a2e04",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 148,
         "bill_type": "retail",
         "mobile": "9712220585",
@@ -24608,9 +32514,9 @@ const bills = [
         "total_due": 950
     },
     {
-        "sr_no": 253,
-        "bill_id": "a039ac44-5298-4062-be6d-5f1a96f42e9f",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5313,
+        "bill_id": "d572342b-ba5e-4441-801b-e06a4b87bb47",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 149,
         "bill_type": "retail",
         "mobile": "9925246130",
@@ -24626,9 +32532,9 @@ const bills = [
         "total_due": 1225
     },
     {
-        "sr_no": 254,
-        "bill_id": "9074c9f2-4cc7-46bf-aeca-9f8ec201cd9f",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5314,
+        "bill_id": "02152eff-70c1-4954-88ae-80b1b86299ee",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 150,
         "bill_type": "retail",
         "mobile": "8238070733",
@@ -24644,9 +32550,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 255,
-        "bill_id": "3fbcb98f-3ee7-46ec-84a5-e290e108d161",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5315,
+        "bill_id": "8a5b7db4-a08f-46ca-a3ce-fbecdf473f09",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 151,
         "bill_type": "retail",
         "mobile": "8980401771",
@@ -24662,9 +32568,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 256,
-        "bill_id": "49c11110-21c4-4911-8d01-5f72538f1074",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5316,
+        "bill_id": "81205d4f-c1b0-4ede-abc1-9a8a3a0619c4",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 152,
         "bill_type": "retail",
         "mobile": "8454940295",
@@ -24680,9 +32586,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 257,
-        "bill_id": "885d1560-086f-4fd1-b041-223b60b9c31f",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5317,
+        "bill_id": "6c19b407-dbb2-43ce-b354-52f9667523a0",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 153,
         "bill_type": "retail",
         "mobile": "7984056328",
@@ -24698,9 +32604,9 @@ const bills = [
         "total_due": 525
     },
     {
-        "sr_no": 258,
-        "bill_id": "16c864cd-ad2f-4b47-8fb2-238d07d93180",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5318,
+        "bill_id": "01afd042-d0c2-4b7e-a8e9-23ef447b5b4d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 154,
         "bill_type": "retail",
         "mobile": "9712975024",
@@ -24716,9 +32622,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 259,
-        "bill_id": "e323edcc-a71f-451d-93d3-1ee08f9febab",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5319,
+        "bill_id": "88e2893d-48e8-4176-b3c8-847e6f528848",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 155,
         "bill_type": "retail",
         "mobile": "8128482444",
@@ -24734,9 +32640,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 260,
-        "bill_id": "664671b1-d788-4344-9f83-288882d8877e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5320,
+        "bill_id": "ba434960-5dbd-4e50-8b3a-b790fef915f5",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 156,
         "bill_type": "retail",
         "mobile": "6352077988",
@@ -24752,9 +32658,9 @@ const bills = [
         "total_due": 780
     },
     {
-        "sr_no": 261,
-        "bill_id": "ed56f625-bc18-4501-b875-b805048fd4c8",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5321,
+        "bill_id": "7b537734-1935-4d57-a6e9-7b5083a569c1",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 157,
         "bill_type": "retail",
         "mobile": "6354720335",
@@ -24770,9 +32676,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 262,
-        "bill_id": "a6d588b6-d1b7-4ee9-8430-b7a3cf43a445",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5322,
+        "bill_id": "910d4d91-b749-4ad1-9123-444d631bc976",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 158,
         "bill_type": "retail",
         "mobile": "6354720335",
@@ -24788,9 +32694,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 263,
-        "bill_id": "44a85aba-285a-4152-920c-e74e336b0fb2",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5323,
+        "bill_id": "50b2b151-74d6-49bb-914c-070a0e60f4f7",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 159,
         "bill_type": "retail",
         "mobile": "9662967766",
@@ -24806,9 +32712,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 264,
-        "bill_id": "b7257be2-50bb-4c0c-9f60-429772d083c8",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5324,
+        "bill_id": "b12eee21-818e-460d-bcb0-fe852dc1c830",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 160,
         "bill_type": "retail",
         "mobile": "9427504882",
@@ -24824,9 +32730,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 265,
-        "bill_id": "e7caed21-fa83-4a48-9606-1ec437683fb1",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5325,
+        "bill_id": "fc53e031-da7c-474a-b706-dafff972f2db",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 161,
         "bill_type": "retail",
         "mobile": "9924846795",
@@ -24842,9 +32748,9 @@ const bills = [
         "total_due": 2420
     },
     {
-        "sr_no": 266,
-        "bill_id": "572a19e4-75ab-4a64-9fec-ce799f553d5e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5326,
+        "bill_id": "31a34178-f412-4035-8526-8d10478e4490",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 162,
         "bill_type": "retail",
         "mobile": "9601133366",
@@ -24860,9 +32766,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 267,
-        "bill_id": "64a07c3e-271b-429b-b618-22e72a925263",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5327,
+        "bill_id": "ee33dcb2-104f-411f-936f-ca980bd6a302",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 163,
         "bill_type": "retail",
         "mobile": "9712756858",
@@ -24878,9 +32784,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 268,
-        "bill_id": "95ed5923-5d52-4c1b-a241-2429f42831bc",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5328,
+        "bill_id": "da5d7d7b-e95b-4a08-8f9f-0fb52563e597",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 164,
         "bill_type": "retail",
         "mobile": "9725500240",
@@ -24896,9 +32802,9 @@ const bills = [
         "total_due": 2445
     },
     {
-        "sr_no": 269,
-        "bill_id": "18a9794f-bad6-4a31-bb31-ea51ccefe948",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5329,
+        "bill_id": "f8f2d197-f360-4ddc-9fb2-9a8af86e2d38",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 165,
         "bill_type": "retail",
         "mobile": "8780535915",
@@ -24914,9 +32820,9 @@ const bills = [
         "total_due": 660
     },
     {
-        "sr_no": 270,
-        "bill_id": "4ba27175-2d9e-459d-8b96-7a304906d492",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5330,
+        "bill_id": "b3cc264e-07e3-4793-9b60-b8a5c72c3d6d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 166,
         "bill_type": "retail",
         "mobile": "9879039216",
@@ -24932,9 +32838,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 271,
-        "bill_id": "37e96cca-18f4-489a-9e71-fd953526f59e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5331,
+        "bill_id": "ceeb9b6e-2f67-44df-8261-85fe43f2ea55",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 167,
         "bill_type": "retail",
         "mobile": "8141285599",
@@ -24950,9 +32856,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 272,
-        "bill_id": "caaef2d8-a0b3-45fa-b7df-02ea0da28269",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5332,
+        "bill_id": "cb89fcb6-9840-49c1-856e-6c2fd16b459c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 168,
         "bill_type": "retail",
         "mobile": "7984820441",
@@ -24968,9 +32874,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 273,
-        "bill_id": "9895f662-ed06-4bca-95bf-17d0dd5cf77e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5333,
+        "bill_id": "0d79235c-89a3-4177-91ab-8e4a5d8a0dfa",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 169,
         "bill_type": "retail",
         "mobile": "8141917802",
@@ -24986,9 +32892,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 274,
-        "bill_id": "afad8839-864f-48f8-b6f7-4688e92cd6bc",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5334,
+        "bill_id": "b531ce1f-24d4-4705-ba52-d78cf17b228f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 170,
         "bill_type": "retail",
         "mobile": "7046653003",
@@ -25004,9 +32910,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 275,
-        "bill_id": "d072dd78-8fd1-47a8-b3dc-9655c25e6778",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5335,
+        "bill_id": "b0033e24-90e9-469b-b55e-a1d39430969b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 171,
         "bill_type": "retail",
         "mobile": "7600003480",
@@ -25022,9 +32928,9 @@ const bills = [
         "total_due": 350
     },
     {
-        "sr_no": 276,
-        "bill_id": "0c825bc4-8a9b-4419-9a90-dd3f08612114",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5336,
+        "bill_id": "bdf32590-c3c4-43f7-badb-1a8c9e58e8a7",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 172,
         "bill_type": "retail",
         "mobile": "9687412050",
@@ -25040,9 +32946,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 277,
-        "bill_id": "ff9d133f-72d0-4ee2-a525-ae461a0ee7be",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5337,
+        "bill_id": "a6fab40a-1f51-4fdf-bb40-ed35349bb063",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 173,
         "bill_type": "retail",
         "mobile": "9978127775",
@@ -25058,9 +32964,9 @@ const bills = [
         "total_due": 770
     },
     {
-        "sr_no": 278,
-        "bill_id": "d63935c8-1e0c-4319-ac83-bb8adb30621a",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5338,
+        "bill_id": "71100da5-6485-4e20-8b7b-939d110d386c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 174,
         "bill_type": "retail",
         "mobile": "9998001815",
@@ -25076,9 +32982,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 279,
-        "bill_id": "1b7a4ecc-1634-463c-822b-4ea99298d01e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5339,
+        "bill_id": "71b4e2ef-2354-40c5-b0fc-4d3579e0f12a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 175,
         "bill_type": "retail",
         "mobile": "9879101841",
@@ -25094,9 +33000,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 280,
-        "bill_id": "d5cc4005-00c0-4bb3-9c8c-d60536d157b6",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5340,
+        "bill_id": "82d956cc-5da0-488b-be5c-4858ef65a8bb",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 176,
         "bill_type": "retail",
         "mobile": "8735086009",
@@ -25112,9 +33018,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 281,
-        "bill_id": "1f21fdc9-1678-4f58-8f83-247d20acc75b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5341,
+        "bill_id": "3e970811-d361-46b7-b1d2-2b66cd9c6145",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 177,
         "bill_type": "retail",
         "mobile": "9824183096",
@@ -25130,9 +33036,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 282,
-        "bill_id": "e5850155-0d14-499d-8482-4826eb49c9a3",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5342,
+        "bill_id": "e2cd032a-9bc9-4215-bf8f-186963427d8c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 178,
         "bill_type": "retail",
         "mobile": "6354927775",
@@ -25148,9 +33054,9 @@ const bills = [
         "total_due": 350
     },
     {
-        "sr_no": 283,
-        "bill_id": "8acc5ac2-4eab-4ea3-ade5-c5655a58bd85",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5343,
+        "bill_id": "c6a51345-2702-47d9-828e-61da91c11225",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 179,
         "bill_type": "retail",
         "mobile": "8799159199",
@@ -25166,9 +33072,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 284,
-        "bill_id": "ef9a1fe0-c9d8-419e-ad9b-4b58ba934ace",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5344,
+        "bill_id": "a3407f19-25fe-4989-8024-2df5aff67a9c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 180,
         "bill_type": "retail",
         "mobile": "6354927775",
@@ -25184,9 +33090,9 @@ const bills = [
         "total_due": 180
     },
     {
-        "sr_no": 285,
-        "bill_id": "d9649df6-057f-46c1-9334-97460af8225e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5345,
+        "bill_id": "13facfef-c72f-43fa-b781-2d88da430db1",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 181,
         "bill_type": "retail",
         "mobile": "9586853620",
@@ -25202,9 +33108,9 @@ const bills = [
         "total_due": 1255
     },
     {
-        "sr_no": 286,
-        "bill_id": "448789b7-2216-4448-b583-45c60a5633eb",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5346,
+        "bill_id": "a34600c2-0c5a-4728-b7cd-11d3ae5d075b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 182,
         "bill_type": "retail",
         "mobile": "9725045744",
@@ -25220,9 +33126,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 287,
-        "bill_id": "68ac62d0-22dd-4628-95a4-08c10d61a95e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5347,
+        "bill_id": "5fbeb248-f5ee-471c-9597-67110898ba92",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 183,
         "bill_type": "retail",
         "mobile": "9825716617",
@@ -25238,9 +33144,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 288,
-        "bill_id": "cbf2b666-5d0b-4cfc-b93e-6a3a4a91ca94",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5348,
+        "bill_id": "01f4d4e7-676d-4032-947c-5bdc086daa25",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 184,
         "bill_type": "retail",
         "mobile": "9510496904",
@@ -25256,9 +33162,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 289,
-        "bill_id": "cdaa6794-b8a6-431d-80a5-37dfbd046dbd",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5349,
+        "bill_id": "8ae32ce3-e621-4665-afa1-440f456d4742",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 185,
         "bill_type": "retail",
         "mobile": "9106772921",
@@ -25274,9 +33180,9 @@ const bills = [
         "total_due": 500
     },
     {
-        "sr_no": 290,
-        "bill_id": "0d2d616c-9985-4bf3-ae84-1d919aca9755",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5350,
+        "bill_id": "91287d37-c793-432e-bc47-686a3a3d682d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 186,
         "bill_type": "retail",
         "mobile": "7861918907",
@@ -25292,9 +33198,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 291,
-        "bill_id": "08a97cb2-55ac-4fd3-b56d-8fa4fb963011",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5351,
+        "bill_id": "2c0a2837-d70e-4b09-96b2-ffc616f8a641",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 187,
         "bill_type": "retail",
         "mobile": "9664802475",
@@ -25310,9 +33216,9 @@ const bills = [
         "total_due": 1400
     },
     {
-        "sr_no": 292,
-        "bill_id": "c0389086-c367-43c6-8e71-123cb5572616",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5352,
+        "bill_id": "e07d74e6-a6e8-41cb-ba88-8660cf41477c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 188,
         "bill_type": "retail",
         "mobile": "9099470502",
@@ -25328,9 +33234,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 293,
-        "bill_id": "cd49844d-f7fe-4d55-aba0-899d2840b251",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5353,
+        "bill_id": "a91cbb7a-56c7-4a2f-9dc1-7c9165c846a2",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 189,
         "bill_type": "retail",
         "mobile": "9265984034",
@@ -25346,9 +33252,9 @@ const bills = [
         "total_due": 180
     },
     {
-        "sr_no": 294,
-        "bill_id": "11309b46-39f5-4769-b95a-a91b311cf422",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5354,
+        "bill_id": "0d7daf07-855c-4272-8256-b3a672065781",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 190,
         "bill_type": "retail",
         "mobile": "9328332290",
@@ -25364,9 +33270,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 295,
-        "bill_id": "1f2e6207-6f65-4c4e-9255-a8ec01f29949",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5355,
+        "bill_id": "70db9770-32b8-455d-9abd-d551d9456dca",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 191,
         "bill_type": "retail",
         "mobile": "9727754296",
@@ -25382,9 +33288,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 296,
-        "bill_id": "f2e3c0e9-a047-4a16-9a6e-f9062ef08fae",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5356,
+        "bill_id": "6f2e3c23-6c6d-434a-b5b6-abff353ca3f4",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 192,
         "bill_type": "retail",
         "mobile": "8000243433",
@@ -25400,9 +33306,9 @@ const bills = [
         "total_due": 900
     },
     {
-        "sr_no": 297,
-        "bill_id": "04803893-1178-4156-9a13-b36e58ae7ebe",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5357,
+        "bill_id": "079a76f8-4ae4-4aae-bc91-8b920c8ff6f1",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 193,
         "bill_type": "retail",
         "mobile": "9624532320",
@@ -25418,9 +33324,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 298,
-        "bill_id": "6b2e381b-f88c-4e96-a7be-960912ef7ff5",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5358,
+        "bill_id": "7deb59c3-9f00-4b88-9fd3-8022447384c3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 194,
         "bill_type": "retail",
         "mobile": "9825913690",
@@ -25436,9 +33342,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 299,
-        "bill_id": "71b9396c-a6cb-4117-9a38-025faa046aa3",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5359,
+        "bill_id": "40889aec-5d9f-4a17-8e34-1bee9563b3c1",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 195,
         "bill_type": "retail",
         "mobile": "9879101840",
@@ -25454,9 +33360,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 300,
-        "bill_id": "e98420f6-ba6e-40f0-8a40-65a759c5104c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5360,
+        "bill_id": "2c900aaa-dd8b-454a-bd5d-848762396e03",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 196,
         "bill_type": "retail",
         "mobile": "9687781605",
@@ -25472,9 +33378,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 301,
-        "bill_id": "bceea936-db0b-4121-b9c0-7cae4a5eb21e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5361,
+        "bill_id": "d23294c0-801d-4542-b7b5-b6b4331780c1",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 197,
         "bill_type": "retail",
         "mobile": "7016210544",
@@ -25490,9 +33396,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 302,
-        "bill_id": "a0378f9c-ab5e-401d-922d-50bff310c213",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5362,
+        "bill_id": "906b2b58-f954-4254-9f4a-9fd5287d5fdf",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 198,
         "bill_type": "retail",
         "mobile": "8460455889",
@@ -25508,9 +33414,9 @@ const bills = [
         "total_due": 1000
     },
     {
-        "sr_no": 303,
-        "bill_id": "1ad15822-a294-4858-9007-6a6f263af785",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5363,
+        "bill_id": "9f4aac80-7b56-4e32-8955-a239390099e2",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 199,
         "bill_type": "retail",
         "mobile": "9909307247",
@@ -25526,9 +33432,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 304,
-        "bill_id": "787df809-a2f0-44a6-86d2-a04a86430109",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5364,
+        "bill_id": "cf04bb85-6eba-437d-953c-eaf8d0893eeb",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 200,
         "bill_type": "retail",
         "mobile": "9979860076",
@@ -25544,9 +33450,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 305,
-        "bill_id": "145d2034-6778-4914-b1c3-c069154fe2a7",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5365,
+        "bill_id": "68a45a85-88e4-463b-ac02-6a4bdeee9498",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 201,
         "bill_type": "retail",
         "mobile": "7284865657",
@@ -25562,9 +33468,9 @@ const bills = [
         "total_due": 605
     },
     {
-        "sr_no": 306,
-        "bill_id": "28eeefd1-1d11-4d5b-90df-79b317a49241",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5366,
+        "bill_id": "21fa6123-6b8f-4eb8-9b3d-2ae5086618f2",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 202,
         "bill_type": "retail",
         "mobile": "9898566800",
@@ -25580,9 +33486,9 @@ const bills = [
         "total_due": 1660
     },
     {
-        "sr_no": 307,
-        "bill_id": "780fcb16-2ea4-4235-8720-dbd1720e451e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5367,
+        "bill_id": "a70ceed4-eb3a-4f08-8591-81c0b6e6bb13",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 203,
         "bill_type": "retail",
         "mobile": "8320822501",
@@ -25598,9 +33504,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 308,
-        "bill_id": "3b57fae2-ed74-4a02-8477-885d65fd7c29",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5368,
+        "bill_id": "db5559c3-7a75-4bff-873b-bbe30dc824b0",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 204,
         "bill_type": "retail",
         "mobile": "9924309396",
@@ -25616,9 +33522,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 309,
-        "bill_id": "95d771b4-1059-461f-ad8f-6a0f66828085",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5369,
+        "bill_id": "1352223b-ed10-42e5-940e-e4b12270b469",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 205,
         "bill_type": "retail",
         "mobile": "8200616859",
@@ -25634,9 +33540,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 310,
-        "bill_id": "2f0c1bfc-416f-49c8-be82-1647bcb32770",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5370,
+        "bill_id": "b9091005-e411-4dba-94df-d4f06b6c7637",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 206,
         "bill_type": "retail",
         "mobile": "9825559792",
@@ -25652,9 +33558,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 311,
-        "bill_id": "09a6f0cc-6431-4365-ba99-917e56d1f8c2",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5371,
+        "bill_id": "e3ddc937-07b7-4eba-974f-225d7fd68c0c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 207,
         "bill_type": "retail",
         "mobile": "9408666299",
@@ -25670,9 +33576,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 312,
-        "bill_id": "7bb3a7b1-9056-415f-93a4-e83b1d933466",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5372,
+        "bill_id": "c9536f2b-bbfa-4ea3-a22f-d12ed23128fd",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 208,
         "bill_type": "retail",
         "mobile": "7046796225",
@@ -25688,9 +33594,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 313,
-        "bill_id": "de81b392-208c-4c1e-b0d2-41f1cc457e57",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5373,
+        "bill_id": "201fc2a6-bfba-4760-9de1-462f0e729ee5",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 209,
         "bill_type": "retail",
         "mobile": "6352690941",
@@ -25706,9 +33612,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 314,
-        "bill_id": "68ae86eb-f442-40ea-a697-ee7e647f53a6",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5374,
+        "bill_id": "80e2c1de-f91e-43fe-8928-0197095fff91",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 210,
         "bill_type": "retail",
         "mobile": "9687781605",
@@ -25724,9 +33630,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 315,
-        "bill_id": "eae0fda9-5e4f-44b8-9e5a-aa1f88f60082",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5375,
+        "bill_id": "6b9c03df-ce01-48ca-b495-ce5f313c01d5",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 211,
         "bill_type": "retail",
         "mobile": "9712991360",
@@ -25742,9 +33648,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 316,
-        "bill_id": "ba85a9c3-eb0a-49c4-a659-0d4200a46272",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5376,
+        "bill_id": "b2766ff8-53a8-47d0-9d1f-c269eb2cafcb",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 212,
         "bill_type": "retail",
         "mobile": "9099081799",
@@ -25760,9 +33666,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 317,
-        "bill_id": "3d277a7a-70e1-4b04-b722-83f4f21d24c0",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5377,
+        "bill_id": "7347398d-27f7-4aa1-970d-3b3a74ef45b2",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 213,
         "bill_type": "retail",
         "mobile": "9081314031",
@@ -25778,9 +33684,9 @@ const bills = [
         "total_due": 4160
     },
     {
-        "sr_no": 318,
-        "bill_id": "a04ef0f5-26ff-4430-a7eb-08e099080591",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5378,
+        "bill_id": "cc1e5510-36dd-4500-b624-d36bd1cc8cc1",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 214,
         "bill_type": "retail",
         "mobile": "9898593285",
@@ -25796,9 +33702,9 @@ const bills = [
         "total_due": 1080
     },
     {
-        "sr_no": 319,
-        "bill_id": "f7233fda-a423-4142-b16a-2a719eae1c0a",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5379,
+        "bill_id": "d3517bd9-dbee-4202-ae5f-37dfa824adb0",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 215,
         "bill_type": "retail",
         "mobile": "8511168363",
@@ -25814,9 +33720,9 @@ const bills = [
         "total_due": 375
     },
     {
-        "sr_no": 320,
-        "bill_id": "e95467ad-4110-4a76-977c-6fdc9e2058fa",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5380,
+        "bill_id": "54b86119-0835-47ef-9ffc-823fecf790fb",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 216,
         "bill_type": "retail",
         "mobile": "7016350474",
@@ -25832,9 +33738,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 321,
-        "bill_id": "3f5fdecd-35e9-479d-a6af-873271764113",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5381,
+        "bill_id": "292eba38-59ec-4a10-8391-0fe9771dfba3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 217,
         "bill_type": "retail",
         "mobile": "9023880297",
@@ -25850,9 +33756,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 322,
-        "bill_id": "bab1649c-fa3d-4c34-9a10-da7ac278b3ba",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5382,
+        "bill_id": "591d442a-6a82-4879-9ab1-4b63bd619a75",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 218,
         "bill_type": "retail",
         "mobile": "9023953577",
@@ -25868,9 +33774,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 323,
-        "bill_id": "193a32ef-d1fc-42a2-8dde-f4575fbc93c5",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5383,
+        "bill_id": "344b51a7-8364-4e90-93af-9feb4c8eca96",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 219,
         "bill_type": "retail",
         "mobile": "8511444068",
@@ -25886,9 +33792,9 @@ const bills = [
         "total_due": 470
     },
     {
-        "sr_no": 324,
-        "bill_id": "fcd5653f-3a4b-4ff7-bde4-1c36ec7327ed",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5384,
+        "bill_id": "3fb01524-408a-4b99-b1a9-408931e8160e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 220,
         "bill_type": "retail",
         "mobile": "7359400768",
@@ -25904,9 +33810,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 325,
-        "bill_id": "73b8d76a-fd10-4e6c-ba40-5a11e2ba15cf",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5385,
+        "bill_id": "6fbe2db6-63f6-443a-80e2-a7fa0638a3b9",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 221,
         "bill_type": "retail",
         "mobile": "9825105391",
@@ -25922,9 +33828,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 326,
-        "bill_id": "86ca8fad-d209-4b19-ab22-2ec88772b217",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5386,
+        "bill_id": "38463af1-33e7-4fc2-be85-319f57d1ca39",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 222,
         "bill_type": "retail",
         "mobile": "7874237576",
@@ -25940,9 +33846,9 @@ const bills = [
         "total_due": 1200
     },
     {
-        "sr_no": 327,
-        "bill_id": "e8183228-08a3-4d20-a542-a09d4e716141",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5387,
+        "bill_id": "9fb0544d-2e7a-40a1-8707-eb7e00b896ac",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 223,
         "bill_type": "retail",
         "mobile": "9726552006",
@@ -25958,9 +33864,9 @@ const bills = [
         "total_due": 1045
     },
     {
-        "sr_no": 328,
-        "bill_id": "3c4994d8-11f1-40b7-b1f8-c96b6f43a988",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5388,
+        "bill_id": "250e2913-5139-4a57-bcc0-500775ca1b1a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 224,
         "bill_type": "retail",
         "mobile": "9662494504",
@@ -25976,9 +33882,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 329,
-        "bill_id": "eaa7dfa9-320a-4056-94cd-3674a6d14537",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5389,
+        "bill_id": "5a1ff84d-9fce-4810-8bf4-dbc202fb234b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 225,
         "bill_type": "retail",
         "mobile": "9913411825",
@@ -25994,9 +33900,9 @@ const bills = [
         "total_due": 350
     },
     {
-        "sr_no": 330,
-        "bill_id": "cdac9c04-0502-4b0a-85a0-170b36494f09",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5390,
+        "bill_id": "d3b62eca-6d1f-4b90-b0fc-f11afebb012a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 226,
         "bill_type": "retail",
         "mobile": "8401131999",
@@ -26012,9 +33918,9 @@ const bills = [
         "total_due": 740
     },
     {
-        "sr_no": 331,
-        "bill_id": "4413e539-74cf-4c59-9ed0-d1c68c09a3e0",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5391,
+        "bill_id": "8a832377-8b8d-4073-bf87-46f437be2cae",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 227,
         "bill_type": "retail",
         "mobile": "9723511528",
@@ -26030,9 +33936,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 332,
-        "bill_id": "afefdb2d-2809-49e6-a6cb-02b953d773dd",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5392,
+        "bill_id": "4887d49f-c271-45d0-bd7d-aecb012f6619",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 228,
         "bill_type": "retail",
         "mobile": "9879115259",
@@ -26048,9 +33954,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 333,
-        "bill_id": "31e7a826-e3a6-4748-8d19-7ac183112115",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5393,
+        "bill_id": "ca5f37dd-a62a-4df8-846e-0c2560239b27",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 229,
         "bill_type": "retail",
         "mobile": "9974952890",
@@ -26066,9 +33972,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 334,
-        "bill_id": "bc15d724-343e-4e71-8933-a495695583b2",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5394,
+        "bill_id": "5d900c1e-fadc-437e-9023-cf50c9a7b161",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 230,
         "bill_type": "retail",
         "mobile": "9998218128",
@@ -26084,9 +33990,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 335,
-        "bill_id": "ba573cc6-4349-4255-9733-93efc494428e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5395,
+        "bill_id": "368cb1cb-e7d5-442d-a0f4-3597b42aea28",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 231,
         "bill_type": "retail",
         "mobile": "9662512736",
@@ -26102,9 +34008,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 336,
-        "bill_id": "eac3b59d-8f9e-478c-a011-ef61de25eaba",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5396,
+        "bill_id": "be85b72a-4151-4015-b402-bd85faeabf1b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 232,
         "bill_type": "retail",
         "mobile": "8799098766",
@@ -26120,9 +34026,9 @@ const bills = [
         "total_due": 875
     },
     {
-        "sr_no": 337,
-        "bill_id": "1906ebca-8c8a-4898-8ca0-ccfbd4e40990",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5397,
+        "bill_id": "5d63d1b5-e8e0-4bfd-8450-99395b79d246",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 233,
         "bill_type": "retail",
         "mobile": "6354149447",
@@ -26138,9 +34044,9 @@ const bills = [
         "total_due": 525
     },
     {
-        "sr_no": 338,
-        "bill_id": "42b7ace4-8673-43ac-90db-85d6f5268347",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5398,
+        "bill_id": "fad98602-ef42-43b9-8aa9-24655be2ec5f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 234,
         "bill_type": "retail",
         "mobile": "9099120723",
@@ -26156,9 +34062,9 @@ const bills = [
         "total_due": 350
     },
     {
-        "sr_no": 339,
-        "bill_id": "7a9a8a9a-177c-4888-9b6f-7b37b2cf7b0f",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5399,
+        "bill_id": "dcb20f4e-4df9-4c03-a848-88899d3b3203",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 235,
         "bill_type": "retail",
         "mobile": "9825011194",
@@ -26166,7 +34072,7 @@ const bills = [
         "address": "ST",
         "order_date": "2024-12-23T00:00:00.000Z",
         "delivery_date": "2024-12-25T00:00:00.000Z",
-        "notes": "",
+        "notes": "DELIVERED",
         "total_firki": 4,
         "sub_total": 2100,
         "discount": 0,
@@ -26174,9 +34080,9 @@ const bills = [
         "total_due": 2100
     },
     {
-        "sr_no": 340,
-        "bill_id": "7d70d6da-ab13-4a5f-9a06-da6428c9b587",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5400,
+        "bill_id": "4283eedb-09d7-4f5a-869c-052424658596",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 236,
         "bill_type": "retail",
         "mobile": "9925355200",
@@ -26192,9 +34098,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 341,
-        "bill_id": "0ea1a481-1319-48f0-b86b-69f664bab95b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5401,
+        "bill_id": "6a756115-de22-4adb-bfe2-c5c71f910199",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 237,
         "bill_type": "retail",
         "mobile": "9824729590",
@@ -26210,9 +34116,9 @@ const bills = [
         "total_due": 175
     },
     {
-        "sr_no": 342,
-        "bill_id": "ac587078-d4b7-4fd0-8e1f-4ce8775ed458",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5402,
+        "bill_id": "abdde05e-608d-44ef-befc-1a34c7813072",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 238,
         "bill_type": "retail",
         "mobile": "7283834717",
@@ -26228,9 +34134,9 @@ const bills = [
         "total_due": 405
     },
     {
-        "sr_no": 343,
-        "bill_id": "3dbf62bb-6e6b-4343-88fc-69a8b3beb21b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5403,
+        "bill_id": "9a9d0e75-4bbb-43f5-912d-42c66d79d109",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 239,
         "bill_type": "retail",
         "mobile": "8799160914",
@@ -26246,9 +34152,9 @@ const bills = [
         "total_due": 1000
     },
     {
-        "sr_no": 344,
-        "bill_id": "65e830b6-5508-4683-a4d5-e3731110e53e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5404,
+        "bill_id": "530bca8f-2621-42ee-899b-d2286e8e8cc7",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 240,
         "bill_type": "retail",
         "mobile": "9687145417",
@@ -26264,9 +34170,9 @@ const bills = [
         "total_due": 175
     },
     {
-        "sr_no": 345,
-        "bill_id": "93cb5cc9-1216-4ef1-83a4-7f09f7e78590",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5405,
+        "bill_id": "a4639a73-540f-4f13-a9af-c4eb2d90a1cf",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 241,
         "bill_type": "retail",
         "mobile": "6359737351",
@@ -26282,9 +34188,9 @@ const bills = [
         "total_due": 1400
     },
     {
-        "sr_no": 346,
-        "bill_id": "5d899145-4cae-4001-af8a-08eff624aa08",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5406,
+        "bill_id": "a304a046-4f1d-4ab8-b11b-ea521559a299",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 242,
         "bill_type": "retail",
         "mobile": "7600242499",
@@ -26300,9 +34206,9 @@ const bills = [
         "total_due": 525
     },
     {
-        "sr_no": 347,
-        "bill_id": "a28e107d-52b3-40b0-abf3-df48f2a074f5",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5407,
+        "bill_id": "6823d33d-a041-4875-9489-33a5d077b967",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 243,
         "bill_type": "retail",
         "mobile": "9033186344",
@@ -26318,9 +34224,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 348,
-        "bill_id": "c627514a-e005-4271-8ed3-fe9109113d64",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5408,
+        "bill_id": "a793d71e-3622-44e5-8b26-d5a173965431",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 244,
         "bill_type": "retail",
         "mobile": "9722339992",
@@ -26336,9 +34242,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 349,
-        "bill_id": "bcabcb8c-60c1-4aad-aace-6a2977648868",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5409,
+        "bill_id": "4ac1befa-76a4-4308-b4f6-8e97865266cb",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 245,
         "bill_type": "retail",
         "mobile": "9427886426",
@@ -26354,9 +34260,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 350,
-        "bill_id": "8b844f39-290f-40e4-8eeb-58086ea2ccb4",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5410,
+        "bill_id": "44396e60-0050-4836-a136-0fe995ff6055",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 246,
         "bill_type": "retail",
         "mobile": "9824183096",
@@ -26372,9 +34278,9 @@ const bills = [
         "total_due": 1000
     },
     {
-        "sr_no": 351,
-        "bill_id": "5c15413b-8184-4ae4-9655-cf0a101b87f9",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5411,
+        "bill_id": "5743200b-33bc-455f-ac35-14ed2cda7a80",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 247,
         "bill_type": "retail",
         "mobile": "9898081410",
@@ -26390,9 +34296,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 352,
-        "bill_id": "ef0e0842-8bb7-454b-ad05-5a074521c7b3",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5412,
+        "bill_id": "96b95768-fd1f-491b-8366-2cd6b8a9664e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 248,
         "bill_type": "retail",
         "mobile": "9712351177",
@@ -26408,9 +34314,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 353,
-        "bill_id": "3f377952-d3c1-403d-a367-e48857e1247d",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5413,
+        "bill_id": "cec1dce0-e979-452c-8a24-aa8e8133a3ce",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 249,
         "bill_type": "retail",
         "mobile": "7405330452",
@@ -26426,9 +34332,9 @@ const bills = [
         "total_due": 1550
     },
     {
-        "sr_no": 354,
-        "bill_id": "6dd56cb3-8337-4d28-9fd6-8ac5344abc40",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5414,
+        "bill_id": "5755cf46-0778-4cd2-8b38-9e7a07707eb8",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 250,
         "bill_type": "retail",
         "mobile": "9825749995",
@@ -26444,9 +34350,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 355,
-        "bill_id": "5df67eab-6d2c-4e1f-b4a2-2ac7169b3a56",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5415,
+        "bill_id": "8e808d47-d700-4b5c-9d44-341652bf4d9c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 251,
         "bill_type": "retail",
         "mobile": "9687288805",
@@ -26462,9 +34368,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 356,
-        "bill_id": "adf3368d-1c48-49a3-bde9-adbbd645787d",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5416,
+        "bill_id": "e2ce87e0-32df-4276-b84f-a175d61b0c2f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 252,
         "bill_type": "retail",
         "mobile": "9909997451",
@@ -26480,9 +34386,9 @@ const bills = [
         "total_due": 28350
     },
     {
-        "sr_no": 357,
-        "bill_id": "c59eca7a-aba7-443f-9feb-5bf5c20a025d",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5417,
+        "bill_id": "96dd57e9-fde6-4f54-bd0d-6281ecb0c9f6",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 253,
         "bill_type": "retail",
         "mobile": "9904755507",
@@ -26498,9 +34404,9 @@ const bills = [
         "total_due": 310
     },
     {
-        "sr_no": 358,
-        "bill_id": "6bb7f570-4627-4704-a9a8-6bba9f6eae32",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5418,
+        "bill_id": "183ed54b-93d9-418e-bb9d-7d36f6f472da",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 254,
         "bill_type": "retail",
         "mobile": "7802013498",
@@ -26516,9 +34422,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 359,
-        "bill_id": "1607a106-9256-48d2-a73c-12a4971021ca",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5419,
+        "bill_id": "394874b4-bac9-409d-800c-c1005591ced6",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 255,
         "bill_type": "retail",
         "mobile": "9723198459",
@@ -26534,9 +34440,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 360,
-        "bill_id": "1f64cced-0d5f-429c-97ed-c6db6defdb18",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5420,
+        "bill_id": "d51941b6-0852-4e86-ab66-0ba832e0d907",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 256,
         "bill_type": "retail",
         "mobile": "9974009135",
@@ -26552,9 +34458,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 361,
-        "bill_id": "851b3013-8124-4762-8429-29120462288a",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5421,
+        "bill_id": "b9458997-0edb-4b4e-8c08-ba116cab9b79",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 257,
         "bill_type": "retail",
         "mobile": "9979452844",
@@ -26570,9 +34476,9 @@ const bills = [
         "total_due": 1000
     },
     {
-        "sr_no": 362,
-        "bill_id": "4c947577-86ad-43d4-84a2-55e04e7fc093",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5422,
+        "bill_id": "44415e8f-e58c-49d7-a7e2-0cbee630e49e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 258,
         "bill_type": "retail",
         "mobile": "9574579935",
@@ -26588,9 +34494,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 363,
-        "bill_id": "25276160-0e7d-431b-a032-eb6c00142a5e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5423,
+        "bill_id": "65a452ef-34b4-4e60-ae60-77dd4301f17d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 259,
         "bill_type": "retail",
         "mobile": "9638878078",
@@ -26606,9 +34512,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 364,
-        "bill_id": "654b8acc-3453-4d8d-b9b1-6edb2398f423",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5424,
+        "bill_id": "a6e3f1da-a315-4310-9681-ee0d9e8e5ee4",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 260,
         "bill_type": "retail",
         "mobile": "8155800222",
@@ -26624,9 +34530,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 365,
-        "bill_id": "ad9e01b0-238c-4130-97f3-660002cd98df",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5425,
+        "bill_id": "ee3ae7ee-cfe9-47d3-8f07-4106f09f8be6",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 261,
         "bill_type": "retail",
         "mobile": "9925081920",
@@ -26642,9 +34548,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 366,
-        "bill_id": "3d23579c-d70e-417e-a378-c42831991bc9",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5426,
+        "bill_id": "87b38629-d1d9-4170-9ff3-0394c6f3d5e7",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 262,
         "bill_type": "retail",
         "mobile": "9904221924",
@@ -26660,9 +34566,9 @@ const bills = [
         "total_due": 225
     },
     {
-        "sr_no": 367,
-        "bill_id": "f04d421e-a516-469e-8dfc-00464895a1e0",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5427,
+        "bill_id": "096bcfaa-8964-4404-8b1d-a9cfbb18a1f9",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 263,
         "bill_type": "retail",
         "mobile": "9104446170",
@@ -26678,9 +34584,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 368,
-        "bill_id": "69c27e4f-9333-4e6e-85ff-fb041f427309",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5428,
+        "bill_id": "969fa5df-4a1b-4182-b3c2-0421dfdc4720",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 264,
         "bill_type": "retail",
         "mobile": "9428670817",
@@ -26696,9 +34602,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 369,
-        "bill_id": "7fa8cc86-d364-4d43-88bc-ad8eb65a94ed",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5429,
+        "bill_id": "2745b137-e095-4b03-8bc8-e39bc9dee344",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 265,
         "bill_type": "retail",
         "mobile": "7265867644",
@@ -26714,9 +34620,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 370,
-        "bill_id": "77bcea0a-3647-47f6-bf2f-96145e76d8af",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5430,
+        "bill_id": "7f64e36d-c02a-4b0e-81d4-338cf9f42cb9",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 266,
         "bill_type": "retail",
         "mobile": "9825876556",
@@ -26732,9 +34638,9 @@ const bills = [
         "total_due": 525
     },
     {
-        "sr_no": 371,
-        "bill_id": "bffdfbcf-2cb0-43a1-94ad-40d2d00cb599",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5431,
+        "bill_id": "7ec0af60-c902-47b1-8fe8-e4454d07e3c1",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 267,
         "bill_type": "retail",
         "mobile": "9723297244",
@@ -26750,9 +34656,9 @@ const bills = [
         "total_due": 2120
     },
     {
-        "sr_no": 372,
-        "bill_id": "9a896fb6-9494-4392-bd87-d4677a403fdb",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5432,
+        "bill_id": "a4fdd07a-f7d0-4b87-a8f3-4afa4ce2fc2b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 268,
         "bill_type": "retail",
         "mobile": "8200022027",
@@ -26768,9 +34674,9 @@ const bills = [
         "total_due": 175
     },
     {
-        "sr_no": 373,
-        "bill_id": "939840d8-41d0-4a1e-a62e-6c514700e0d2",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5433,
+        "bill_id": "99a8eeb0-b295-4ecd-a555-6cf290cc857d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 269,
         "bill_type": "retail",
         "mobile": "9904441553",
@@ -26786,9 +34692,9 @@ const bills = [
         "total_due": 20
     },
     {
-        "sr_no": 374,
-        "bill_id": "b1349151-4e2f-4c7a-a4a0-35e9e27f7fb7",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5434,
+        "bill_id": "8091c7db-f8fd-4c0d-8219-b70bcc0aec33",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 270,
         "bill_type": "retail",
         "mobile": "9879748809",
@@ -26804,9 +34710,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 375,
-        "bill_id": "a4311fc0-737d-43a2-9cb2-a191959c9faa",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5435,
+        "bill_id": "550ba448-fac9-49eb-b0a8-3cdadc287701",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 271,
         "bill_type": "retail",
         "mobile": "7874558130",
@@ -26822,9 +34728,9 @@ const bills = [
         "total_due": 525
     },
     {
-        "sr_no": 376,
-        "bill_id": "233c4650-f759-4784-9827-0a1da5062903",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5436,
+        "bill_id": "e0254493-62db-46b2-9246-1fe3a421a737",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 272,
         "bill_type": "retail",
         "mobile": "8866982820",
@@ -26840,9 +34746,9 @@ const bills = [
         "total_due": 665
     },
     {
-        "sr_no": 377,
-        "bill_id": "7545b0db-dd24-4f59-a7d3-6b3358e03639",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5437,
+        "bill_id": "c4e0f204-fe70-4ed5-bf66-a01fd66225b2",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 273,
         "bill_type": "retail",
         "mobile": "7202998291",
@@ -26858,9 +34764,9 @@ const bills = [
         "total_due": 300
     },
     {
-        "sr_no": 378,
-        "bill_id": "e84ea647-abad-4c97-8ee1-6f66a8cfbdb7",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5438,
+        "bill_id": "47c72a2b-fdb2-4c0e-9206-42343407cd67",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 274,
         "bill_type": "retail",
         "mobile": "7990242487",
@@ -26876,9 +34782,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 379,
-        "bill_id": "e1440bb7-747f-4102-8b10-4959b1387f89",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5439,
+        "bill_id": "7923ab9a-0d07-430b-9396-c3798944a0f9",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 275,
         "bill_type": "retail",
         "mobile": "9978418194",
@@ -26894,9 +34800,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 380,
-        "bill_id": "1a976cf1-5c7c-46d3-a7d4-96e02d2bc9d9",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5440,
+        "bill_id": "4dcee8d6-4d12-458e-bad7-e67249bc6e00",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 276,
         "bill_type": "retail",
         "mobile": "9687002210",
@@ -26912,9 +34818,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 381,
-        "bill_id": "3b0c7d07-d5f4-4a2c-9149-b879dcea37bd",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5441,
+        "bill_id": "8c310ef7-8dc3-4a4d-b524-8643efc34e08",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 277,
         "bill_type": "retail",
         "mobile": "9375565712",
@@ -26930,9 +34836,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 382,
-        "bill_id": "60b9312b-6650-4706-9363-e07b606bc726",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5442,
+        "bill_id": "f14e27c9-f5e2-4b04-9fb5-9825e3ea6820",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 278,
         "bill_type": "retail",
         "mobile": "8758253399",
@@ -26948,9 +34854,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 383,
-        "bill_id": "2e4ca8d4-4042-4658-9071-9678e278f6dc",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5443,
+        "bill_id": "c6e3d9bb-42a5-404f-939a-544f9c6253d5",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 279,
         "bill_type": "retail",
         "mobile": "9824616168",
@@ -26966,9 +34872,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 384,
-        "bill_id": "8bfb1388-faf0-4dc7-977e-e435359055ed",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5444,
+        "bill_id": "4aa9ccb3-70ce-4b31-b514-407fff6b9924",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 280,
         "bill_type": "retail",
         "mobile": "7283825743",
@@ -26984,9 +34890,9 @@ const bills = [
         "total_due": 875
     },
     {
-        "sr_no": 385,
-        "bill_id": "5d87a9d7-e6ba-4022-b7ac-83b84a387cde",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5445,
+        "bill_id": "19e1bc53-de54-4f48-bd60-68f59f65e865",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 281,
         "bill_type": "retail",
         "mobile": "9313419873",
@@ -27002,9 +34908,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 386,
-        "bill_id": "dc4647aa-7ea4-4c48-9c53-cbab5a33fe62",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5446,
+        "bill_id": "0e7398d0-db46-4f52-a263-3829eeea9ee2",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 282,
         "bill_type": "retail",
         "mobile": "7284865657",
@@ -27020,9 +34926,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 387,
-        "bill_id": "58c814fe-39a5-4898-b8e7-47cbb4707c45",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5447,
+        "bill_id": "19e9537d-d98b-4c19-a087-1ff5faf2800b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 283,
         "bill_type": "retail",
         "mobile": "9737370369",
@@ -27038,9 +34944,9 @@ const bills = [
         "total_due": 3000
     },
     {
-        "sr_no": 388,
-        "bill_id": "7d6a4b86-24ae-4054-b2dd-f0c2e4c8faea",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5448,
+        "bill_id": "e0228497-a04d-48e8-b019-ac9118cd00c0",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 284,
         "bill_type": "retail",
         "mobile": "9428150369",
@@ -27056,9 +34962,9 @@ const bills = [
         "total_due": 1135
     },
     {
-        "sr_no": 389,
-        "bill_id": "0f410d7e-868e-43e0-88aa-69026ba14f41",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5449,
+        "bill_id": "6cbb4417-71a6-454c-80d3-f741b356910b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 285,
         "bill_type": "retail",
         "mobile": "7567752713",
@@ -27074,9 +34980,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 390,
-        "bill_id": "7b85d972-bac3-4cab-8387-e3b8395ee3a7",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5450,
+        "bill_id": "401206c3-1a91-4800-baaf-296caa31dff0",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 286,
         "bill_type": "retail",
         "mobile": "9978360036",
@@ -27092,9 +34998,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 391,
-        "bill_id": "e13c33d4-f17e-4a01-b64a-f7c051f55980",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5451,
+        "bill_id": "b05cb52e-5235-4b05-89fe-c0ea60eeda24",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 287,
         "bill_type": "retail",
         "mobile": "9429331937",
@@ -27110,9 +35016,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 392,
-        "bill_id": "c39785af-b3d8-4ef3-b2b2-61ca41be90ea",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5452,
+        "bill_id": "14894a29-374a-4435-aa69-00dd3f07212c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 288,
         "bill_type": "retail",
         "mobile": "9173179356",
@@ -27128,9 +35034,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 393,
-        "bill_id": "d39adab7-a273-432f-b961-f6e4c0ea1049",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5453,
+        "bill_id": "cf894b3a-376c-415a-a035-5fb1dcbc264a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 289,
         "bill_type": "retail",
         "mobile": "9510306463",
@@ -27146,9 +35052,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 394,
-        "bill_id": "9edbf7f2-7338-43ab-b638-81ad5ee342e3",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5454,
+        "bill_id": "3672d033-9b01-4b7a-a626-388f1fadd9b1",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 290,
         "bill_type": "retail",
         "mobile": "8980977507",
@@ -27164,9 +35070,9 @@ const bills = [
         "total_due": 3350
     },
     {
-        "sr_no": 395,
-        "bill_id": "09cba561-7006-4614-9359-302e97fc800a",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5455,
+        "bill_id": "7a2165e4-cdbc-4687-9697-9afda238cca4",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 291,
         "bill_type": "retail",
         "mobile": "8469309382",
@@ -27182,9 +35088,9 @@ const bills = [
         "total_due": 1110
     },
     {
-        "sr_no": 396,
-        "bill_id": "63fc862c-0c13-411d-98f8-1bcffaa099c1",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5456,
+        "bill_id": "b58bc804-aec8-45fb-8a3c-f6ac78ebf1dd",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 292,
         "bill_type": "retail",
         "mobile": "9227523585",
@@ -27200,9 +35106,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 397,
-        "bill_id": "de1b8bfd-5e28-4b81-b826-24ab65db24a3",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5457,
+        "bill_id": "364d0edf-93c3-4109-baac-0d70cd0eddbe",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 293,
         "bill_type": "retail",
         "mobile": "9879555040",
@@ -27218,9 +35124,9 @@ const bills = [
         "total_due": 720
     },
     {
-        "sr_no": 398,
-        "bill_id": "d5069d32-49ba-4661-a43e-de8ad4edd2a5",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5458,
+        "bill_id": "b2e41880-6fdd-4ddc-96eb-3943456ca9b2",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 294,
         "bill_type": "retail",
         "mobile": "8200122751",
@@ -27236,9 +35142,9 @@ const bills = [
         "total_due": 1660
     },
     {
-        "sr_no": 399,
-        "bill_id": "7438d335-8d92-42ae-94ca-819698ef7dd2",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5459,
+        "bill_id": "d672e0bd-73ce-4528-8358-23ebfaaf2ae7",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 295,
         "bill_type": "retail",
         "mobile": "9879078989",
@@ -27254,9 +35160,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 400,
-        "bill_id": "9489b833-3e92-4274-84ec-2b9626c75f16",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5460,
+        "bill_id": "1a7fc907-079e-4f27-9729-aaddfc420ab9",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 296,
         "bill_type": "retail",
         "mobile": "9898906191",
@@ -27272,9 +35178,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 401,
-        "bill_id": "a7cea5f4-3659-4717-b4fd-db15664e0aa4",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5461,
+        "bill_id": "6482eed3-21ca-4050-9d67-1db649c946a4",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 297,
         "bill_type": "retail",
         "mobile": "9924193766",
@@ -27290,9 +35196,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 402,
-        "bill_id": "7386f46c-7654-49c7-baaf-65b2899c8138",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5462,
+        "bill_id": "695081bc-32fe-44da-bc2e-419e12aafb91",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 298,
         "bill_type": "retail",
         "mobile": "9327898059",
@@ -27308,9 +35214,9 @@ const bills = [
         "total_due": 855
     },
     {
-        "sr_no": 403,
-        "bill_id": "d1e58881-ce7c-4f63-bfbe-1dca0fcd48dd",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5463,
+        "bill_id": "03307b8f-4f11-4c24-b42d-12c25fd63c33",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 299,
         "bill_type": "retail",
         "mobile": "9925715748",
@@ -27326,9 +35232,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 404,
-        "bill_id": "142a9551-d8cd-45ca-adcb-7dd0282de521",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5464,
+        "bill_id": "3d113dfe-3da4-4ea4-ab1c-8699ec7ee892",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 300,
         "bill_type": "retail",
         "mobile": "9712414832",
@@ -27344,9 +35250,9 @@ const bills = [
         "total_due": 500
     },
     {
-        "sr_no": 405,
-        "bill_id": "faeb7f9c-7c0e-4c49-869c-71af62850a87",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5465,
+        "bill_id": "6438e1b6-6e85-4363-beb1-9f475fe28096",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 301,
         "bill_type": "retail",
         "mobile": "9316560467",
@@ -27362,9 +35268,9 @@ const bills = [
         "total_due": 350
     },
     {
-        "sr_no": 406,
-        "bill_id": "fdbe6da6-c0d9-4514-82d3-7f32fc00772e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5466,
+        "bill_id": "44909a99-6935-4f8d-9034-950a7cd948d5",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 302,
         "bill_type": "retail",
         "mobile": "8849773527",
@@ -27380,9 +35286,9 @@ const bills = [
         "total_due": 175
     },
     {
-        "sr_no": 407,
-        "bill_id": "d44a22fc-ee4c-492d-9d20-4e442749bacf",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5467,
+        "bill_id": "01409d19-805a-434d-b41d-05cb6a61b8cf",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 303,
         "bill_type": "retail",
         "mobile": "9898751566",
@@ -27398,9 +35304,9 @@ const bills = [
         "total_due": 350
     },
     {
-        "sr_no": 408,
-        "bill_id": "b848f471-6814-418a-a25b-2cf0f92859f2",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5468,
+        "bill_id": "998b2962-2016-401d-8977-e4c3552b0a0e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 304,
         "bill_type": "retail",
         "mobile": "9558965555",
@@ -27416,9 +35322,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 409,
-        "bill_id": "d27bf4ba-e099-4d97-8a10-453cdda50a2d",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5469,
+        "bill_id": "8d57322e-f743-4489-b010-d3b0a0819880",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 305,
         "bill_type": "retail",
         "mobile": "9979334089",
@@ -27434,9 +35340,9 @@ const bills = [
         "total_due": 2525
     },
     {
-        "sr_no": 410,
-        "bill_id": "a56bbcf9-1a43-48a4-a590-5c005d8f8a17",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5470,
+        "bill_id": "4bb8efe6-ac23-45ff-98c9-0ff686e1ebca",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 306,
         "bill_type": "retail",
         "mobile": "6355944960",
@@ -27452,9 +35358,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 411,
-        "bill_id": "31955d3a-7242-4742-baa7-6754fdebd3be",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5471,
+        "bill_id": "387c2651-5d1c-43c6-934e-df1e65ccfb95",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 307,
         "bill_type": "retail",
         "mobile": "9099081770",
@@ -27470,9 +35376,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 412,
-        "bill_id": "99494538-fdd0-4652-9d92-262e21d2151d",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5472,
+        "bill_id": "b8f51a8e-1f3a-4f8b-a8f5-18f5168bfda1",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 308,
         "bill_type": "retail",
         "mobile": "7801800990",
@@ -27488,9 +35394,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 413,
-        "bill_id": "4bf7a87a-02d7-48e5-b770-37821b89537c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5473,
+        "bill_id": "eaa7820d-8746-4c03-8e89-7ed64881b38a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 309,
         "bill_type": "retail",
         "mobile": "7203868932",
@@ -27506,9 +35412,9 @@ const bills = [
         "total_due": 175
     },
     {
-        "sr_no": 414,
-        "bill_id": "3ec5328b-fe6b-4e63-925b-d2d4c1607321",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5474,
+        "bill_id": "28ca8fc7-045e-4191-9ccf-80296fa8a1fe",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 310,
         "bill_type": "retail",
         "mobile": "9328551562",
@@ -27524,9 +35430,9 @@ const bills = [
         "total_due": 385
     },
     {
-        "sr_no": 415,
-        "bill_id": "eb1cacbb-2c73-44d6-ba54-7fa8b600b629",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5475,
+        "bill_id": "f9a80e1c-8824-47fb-ae30-2c84f6ff0f8f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 311,
         "bill_type": "retail",
         "mobile": "8906967777",
@@ -27542,9 +35448,9 @@ const bills = [
         "total_due": 1700
     },
     {
-        "sr_no": 416,
-        "bill_id": "7f9698f8-776d-4e9f-9950-5920ae32ba9f",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5476,
+        "bill_id": "c0289b5d-d6fa-49f4-8796-f655db8f5cf2",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 312,
         "bill_type": "retail",
         "mobile": "9316038442",
@@ -27560,9 +35466,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 417,
-        "bill_id": "19e39422-b5c2-4397-9281-f2e1a97f467b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5477,
+        "bill_id": "63ffc9b9-e5a2-4284-987f-04ac4370dc45",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 313,
         "bill_type": "retail",
         "mobile": "7567560884",
@@ -27578,9 +35484,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 418,
-        "bill_id": "79921980-dbbb-4fa6-afef-1bdc977adb13",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5478,
+        "bill_id": "37e22fbe-27cd-45fd-b363-67f8fcbe8069",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 314,
         "bill_type": "retail",
         "mobile": "7405758772",
@@ -27596,9 +35502,9 @@ const bills = [
         "total_due": 1100
     },
     {
-        "sr_no": 419,
-        "bill_id": "8d657186-d21d-4834-a04a-17e4524effe7",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5479,
+        "bill_id": "bca28aab-a3a9-48c2-8538-5daa62da506d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 315,
         "bill_type": "retail",
         "mobile": "7046653003",
@@ -27614,9 +35520,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 420,
-        "bill_id": "73c49c73-8213-4e62-8977-1479dc913474",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5480,
+        "bill_id": "b16c56f2-cd2f-4e46-b5bf-f098dc8765ab",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 316,
         "bill_type": "retail",
         "mobile": "7043236817",
@@ -27632,9 +35538,9 @@ const bills = [
         "total_due": 700
     },
     {
-        "sr_no": 421,
-        "bill_id": "862bbe7c-0526-4d29-a38c-46fe25e5d211",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5481,
+        "bill_id": "01e0da17-1a38-4f84-9704-62b09e662c9e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 317,
         "bill_type": "retail",
         "mobile": "7862088449",
@@ -27650,9 +35556,9 @@ const bills = [
         "total_due": 605
     },
     {
-        "sr_no": 422,
-        "bill_id": "3a825581-da26-4a7f-b60b-3f787224baa3",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5482,
+        "bill_id": "bb34a3e7-06a9-48d5-9fe4-f9be6fd33ff5",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 318,
         "bill_type": "retail",
         "mobile": "9924892598",
@@ -27668,9 +35574,9 @@ const bills = [
         "total_due": 325
     },
     {
-        "sr_no": 423,
-        "bill_id": "af6f3b0c-8d86-412e-b10e-382458ca98dc",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5483,
+        "bill_id": "3055611f-1989-4b01-bc82-b3f5853428a2",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 319,
         "bill_type": "retail",
         "mobile": "7567230107",
@@ -27686,9 +35592,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 424,
-        "bill_id": "6a886b85-d1a0-43c4-a879-20d38936f8fa",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5484,
+        "bill_id": "7faa71c7-a97c-466d-a4b0-483915ebd3af",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 320,
         "bill_type": "retail",
         "mobile": "8238280381",
@@ -27704,9 +35610,9 @@ const bills = [
         "total_due": 630
     },
     {
-        "sr_no": 425,
-        "bill_id": "97afa8ee-8196-4ca6-b801-2a537b26bc9c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5485,
+        "bill_id": "1b1664e4-4928-4867-8de9-4ae063e97536",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 321,
         "bill_type": "retail",
         "mobile": "9624417879",
@@ -27722,9 +35628,9 @@ const bills = [
         "total_due": 1000
     },
     {
-        "sr_no": 426,
-        "bill_id": "43ff6595-026d-4104-99ea-c23949943b88",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5486,
+        "bill_id": "b8d56d8e-e8b1-4c06-95be-1b419bdf0c0a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 322,
         "bill_type": "retail",
         "mobile": "7984901494",
@@ -27740,9 +35646,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 427,
-        "bill_id": "9a524c91-5ed0-449b-9200-6d628980613d",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5487,
+        "bill_id": "97874f10-9bc5-4cc0-80a5-019999b9ac2c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 323,
         "bill_type": "retail",
         "mobile": "9925957755",
@@ -27758,9 +35664,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 428,
-        "bill_id": "28664a55-e0ce-400b-a11b-a07e96a78c09",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5488,
+        "bill_id": "5325c9f8-e973-4deb-9cde-8cf31a3ab5b9",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 324,
         "bill_type": "retail",
         "mobile": "9825487901",
@@ -27776,9 +35682,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 429,
-        "bill_id": "a97fd9f1-2851-4a8c-ae46-27e4c76bbf4e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5489,
+        "bill_id": "3d5f527d-3614-4a31-aa09-ece76d52565f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 325,
         "bill_type": "retail",
         "mobile": "7600002895",
@@ -27794,9 +35700,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 430,
-        "bill_id": "b8100640-dfbd-4d09-a50f-5ea18f86235b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5490,
+        "bill_id": "43065eaf-a1b7-46de-b89e-da974a01de36",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 326,
         "bill_type": "retail",
         "mobile": "9875224839",
@@ -27812,9 +35718,9 @@ const bills = [
         "total_due": 700
     },
     {
-        "sr_no": 431,
-        "bill_id": "b4237159-4d00-4d7f-9cfd-5d55a070ca5f",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5491,
+        "bill_id": "043410ee-341e-4da5-8ade-1600ed5f540c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 327,
         "bill_type": "retail",
         "mobile": "7984322905",
@@ -27830,9 +35736,9 @@ const bills = [
         "total_due": 350
     },
     {
-        "sr_no": 432,
-        "bill_id": "42e48e49-4e74-48d4-870e-2bb268379e73",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5492,
+        "bill_id": "bab8e59c-bd87-4493-8ee3-c22c0706e176",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 328,
         "bill_type": "retail",
         "mobile": "9924501754",
@@ -27848,9 +35754,9 @@ const bills = [
         "total_due": 1050
     },
     {
-        "sr_no": 433,
-        "bill_id": "f17ec9df-573a-4ca7-b3e3-fad924ec9c76",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5493,
+        "bill_id": "f7a9af09-df79-49e3-a746-d3ae6d2982eb",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 329,
         "bill_type": "retail",
         "mobile": "8699208689",
@@ -27866,9 +35772,9 @@ const bills = [
         "total_due": 1605
     },
     {
-        "sr_no": 434,
-        "bill_id": "ff06c910-a2a4-4ff1-8a9b-39232ec46b00",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5494,
+        "bill_id": "6d4cfc13-1d5d-4e52-b54f-d86a7f95c221",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 330,
         "bill_type": "retail",
         "mobile": "7778920204",
@@ -27884,9 +35790,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 435,
-        "bill_id": "f6e839ff-b9ad-45eb-ba5f-7daa817c40fc",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5495,
+        "bill_id": "6c8d1690-de52-45d4-b7cd-f802eae82686",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 331,
         "bill_type": "retail",
         "mobile": "9879552088",
@@ -27902,9 +35808,9 @@ const bills = [
         "total_due": 420
     },
     {
-        "sr_no": 436,
-        "bill_id": "9594c665-2847-49e9-8c07-cfa1124823bc",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5496,
+        "bill_id": "68b51b58-facf-48d6-9a9f-f2b14b0afb69",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 332,
         "bill_type": "retail",
         "mobile": "8141049237",
@@ -27920,9 +35826,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 437,
-        "bill_id": "ceb64364-f391-4e01-91e4-dff4bb621ed1",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5497,
+        "bill_id": "594c67c2-d881-4e88-8780-75408c6d9984",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 333,
         "bill_type": "retail",
         "mobile": "9726720999",
@@ -27938,9 +35844,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 438,
-        "bill_id": "5419d8b9-d253-47e9-b406-39be968660f6",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5498,
+        "bill_id": "5addcb98-6900-4ed4-b88e-68cef3103cda",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 334,
         "bill_type": "retail",
         "mobile": "8320049439",
@@ -27956,9 +35862,9 @@ const bills = [
         "total_due": 1925
     },
     {
-        "sr_no": 439,
-        "bill_id": "f4a36b12-d47d-491e-8636-5a965467f86f",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5499,
+        "bill_id": "0fa19791-51d8-4392-b55f-25d5216d3be8",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 335,
         "bill_type": "retail",
         "mobile": "9727777881",
@@ -27974,9 +35880,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 440,
-        "bill_id": "4bc59adc-c3d5-45fb-a012-03fb419866f4",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5500,
+        "bill_id": "bd3edcdf-e8fa-4371-92e0-a7e3fd661112",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 336,
         "bill_type": "retail",
         "mobile": "9974062408",
@@ -27992,9 +35898,9 @@ const bills = [
         "total_due": 525
     },
     {
-        "sr_no": 441,
-        "bill_id": "a3d8d013-3fd4-40bb-98ed-950ca624ac6c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5501,
+        "bill_id": "4fd1557c-be37-4b86-8cf0-325347efb84a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 337,
         "bill_type": "retail",
         "mobile": "7623838829",
@@ -28010,9 +35916,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 442,
-        "bill_id": "341914d8-1deb-4585-a7b6-fa02bd7408c2",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5502,
+        "bill_id": "fa90767d-5b1c-48b4-836b-fa6ce9bd24dc",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 338,
         "bill_type": "retail",
         "mobile": "7041312750",
@@ -28028,9 +35934,9 @@ const bills = [
         "total_due": 150
     },
     {
-        "sr_no": 443,
-        "bill_id": "61afd9c3-a062-4786-a733-32dd0eeb34d0",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5503,
+        "bill_id": "77cf00d9-ce01-4e4e-8466-d15705ad2ed2",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 339,
         "bill_type": "retail",
         "mobile": "8866113765",
@@ -28046,9 +35952,9 @@ const bills = [
         "total_due": 1050
     },
     {
-        "sr_no": 444,
-        "bill_id": "4a4b17c4-4eed-4ebd-bfa3-11a44d6e4ed7",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5504,
+        "bill_id": "b130f8c1-f70b-4506-81ce-396c37448d1c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 340,
         "bill_type": "retail",
         "mobile": "8238662674",
@@ -28064,9 +35970,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 445,
-        "bill_id": "b0e1eb2c-19f7-4d5f-906e-91c5bbbc73d9",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5505,
+        "bill_id": "940c60e3-2b8f-4883-80ac-373bf2c83eae",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 341,
         "bill_type": "retail",
         "mobile": "8160844944",
@@ -28082,9 +35988,9 @@ const bills = [
         "total_due": 2105
     },
     {
-        "sr_no": 446,
-        "bill_id": "afef4ba7-d9e7-4c51-bb23-8a1012426f72",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5506,
+        "bill_id": "a9c286b1-4dbd-43b8-8dda-df01d37b63d7",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 342,
         "bill_type": "retail",
         "mobile": "9099131834",
@@ -28100,9 +36006,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 447,
-        "bill_id": "adcddd9e-6610-4304-b1cf-021549b1ab73",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5507,
+        "bill_id": "c875122f-ced8-4a51-acce-7967dd664d46",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 343,
         "bill_type": "retail",
         "mobile": "9106425328",
@@ -28118,9 +36024,9 @@ const bills = [
         "total_due": 1925
     },
     {
-        "sr_no": 448,
-        "bill_id": "3a38eff7-e8e6-4ccc-b567-ceb8b05993ae",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5508,
+        "bill_id": "5d6fba1f-e882-4536-9d4b-46b2375eb618",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 344,
         "bill_type": "retail",
         "mobile": "8758263503",
@@ -28136,9 +36042,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 449,
-        "bill_id": "7e1c16c8-bd3d-4053-8cb2-7f90647a7719",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5509,
+        "bill_id": "81f3875b-c679-4e67-b78b-065131d5075d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 345,
         "bill_type": "retail",
         "mobile": "9825142411",
@@ -28154,9 +36060,9 @@ const bills = [
         "total_due": 11500
     },
     {
-        "sr_no": 450,
-        "bill_id": "37a35809-3ec4-45be-aa2b-d5d06987f663",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5510,
+        "bill_id": "7df6d62f-edc8-4d7e-89b9-a5d2b87bef9e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 346,
         "bill_type": "retail",
         "mobile": "9925039118",
@@ -28172,9 +36078,9 @@ const bills = [
         "total_due": 435
     },
     {
-        "sr_no": 451,
-        "bill_id": "94d10f62-58af-45a2-86aa-d605d8519d59",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5511,
+        "bill_id": "cb03484e-a6a0-442b-b142-c303c62c159d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 347,
         "bill_type": "retail",
         "mobile": "9687412050",
@@ -28190,9 +36096,9 @@ const bills = [
         "total_due": 485
     },
     {
-        "sr_no": 452,
-        "bill_id": "553f4379-dcff-4c5e-9d57-0500c4a5db9b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5512,
+        "bill_id": "cebd8965-4d31-4ad9-bdd0-cad01f388885",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 348,
         "bill_type": "retail",
         "mobile": "9898393500",
@@ -28208,9 +36114,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 453,
-        "bill_id": "5f0fa8a2-a2c7-4903-a106-edf2763069bd",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5513,
+        "bill_id": "8a17a360-4f29-471f-9235-4511fbf8db3d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 349,
         "bill_type": "retail",
         "mobile": "9825947774",
@@ -28226,9 +36132,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 454,
-        "bill_id": "bed9d513-49fc-4991-ba91-67cfd4f877cc",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5514,
+        "bill_id": "8978cc75-1f29-4722-92d5-eebab1b0d36c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 350,
         "bill_type": "retail",
         "mobile": "8866306716",
@@ -28244,9 +36150,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 455,
-        "bill_id": "76bcb77a-1dcc-4c20-b898-6071f99d8dbd",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5515,
+        "bill_id": "eebb9d8e-3cce-43ca-8388-5b1903b84698",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 351,
         "bill_type": "retail",
         "mobile": "9824528529",
@@ -28262,9 +36168,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 456,
-        "bill_id": "5b134f00-1c56-4dfe-b45f-373af5d74962",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5516,
+        "bill_id": "ce743575-fa60-4581-91b6-200c62477424",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 352,
         "bill_type": "retail",
         "mobile": "9879100862",
@@ -28280,9 +36186,9 @@ const bills = [
         "total_due": 175
     },
     {
-        "sr_no": 457,
-        "bill_id": "b64e7975-b16e-4977-8dff-b7527711e230",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5517,
+        "bill_id": "ffcf8ee2-dd7e-44ba-a28c-1536a039681a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 353,
         "bill_type": "retail",
         "mobile": "9825696467",
@@ -28298,9 +36204,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 458,
-        "bill_id": "df24a66d-0ccd-461d-bc21-441f16fd7e6f",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5518,
+        "bill_id": "c20dbe53-4c3e-4a42-953e-06026439f1c8",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 354,
         "bill_type": "retail",
         "mobile": "9638347939",
@@ -28316,9 +36222,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 459,
-        "bill_id": "ab71b021-3513-4f81-9e9d-db6d7a42b990",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5519,
+        "bill_id": "8efdb5ce-bb1f-4d8a-8ea6-b7ba77a55c4e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 355,
         "bill_type": "retail",
         "mobile": "7874237576",
@@ -28334,9 +36240,9 @@ const bills = [
         "total_due": 525
     },
     {
-        "sr_no": 460,
-        "bill_id": "08a94829-2d55-461b-9e60-95f13e371324",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5520,
+        "bill_id": "b53f42f6-a34e-4f29-9084-d7643a3ea10c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 356,
         "bill_type": "retail",
         "mobile": "6352043595",
@@ -28352,9 +36258,9 @@ const bills = [
         "total_due": 745
     },
     {
-        "sr_no": 461,
-        "bill_id": "f19abb0d-b805-4ae9-9d1d-49460c9961df",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5521,
+        "bill_id": "0009ee7a-aa88-45bd-9918-47af72cf21db",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 357,
         "bill_type": "retail",
         "mobile": "7567922274",
@@ -28370,9 +36276,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 462,
-        "bill_id": "b32e5559-c754-4871-a55e-fe6df80668a6",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5522,
+        "bill_id": "e4cc4535-7f7e-4e86-a39d-acaae6c318d2",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 358,
         "bill_type": "retail",
         "mobile": "9879637077",
@@ -28388,9 +36294,9 @@ const bills = [
         "total_due": 1350
     },
     {
-        "sr_no": 463,
-        "bill_id": "695dcbcb-e6c4-4664-aae9-4a9df1628ea1",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5523,
+        "bill_id": "6fe284cc-693c-49ba-95dd-a3b983270d2b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 359,
         "bill_type": "retail",
         "mobile": "9978622476",
@@ -28406,9 +36312,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 464,
-        "bill_id": "9f51975a-35e3-4902-a962-54ca05c4a718",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5524,
+        "bill_id": "fa102797-9e0d-4c71-b47b-090b435a6041",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 360,
         "bill_type": "retail",
         "mobile": "9023930660",
@@ -28424,9 +36330,9 @@ const bills = [
         "total_due": 150
     },
     {
-        "sr_no": 465,
-        "bill_id": "5438377e-6357-423b-9e3d-cc7005d9b7b3",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5525,
+        "bill_id": "8ac16317-04f3-4d8f-9299-0fd1aff44589",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 361,
         "bill_type": "retail",
         "mobile": "9313080824",
@@ -28442,9 +36348,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 466,
-        "bill_id": "15707b99-2a86-44a0-b1f7-91e7744d65de",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5526,
+        "bill_id": "fe60519d-398d-4cb4-a03c-aa78f7dae5c8",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 362,
         "bill_type": "retail",
         "mobile": "9913885368",
@@ -28460,9 +36366,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 467,
-        "bill_id": "4adce3ab-2f21-4256-97e0-dda5bce3feab",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5527,
+        "bill_id": "66417402-c1e0-4fbb-b8b9-c17d5208e581",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 363,
         "bill_type": "retail",
         "mobile": "9825826015",
@@ -28478,9 +36384,9 @@ const bills = [
         "total_due": 1110
     },
     {
-        "sr_no": 468,
-        "bill_id": "8abfa9a3-2cda-4191-9e06-461f2113c4cb",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5528,
+        "bill_id": "d8f1cf34-ad41-43a2-99c9-fa6dbc5bfe5c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 364,
         "bill_type": "retail",
         "mobile": "9909911454",
@@ -28496,9 +36402,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 469,
-        "bill_id": "e4a4f95d-c266-4213-b588-dfa06f7c7187",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5529,
+        "bill_id": "c3eba28a-808a-496a-a511-e4e0586cbea8",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 365,
         "bill_type": "retail",
         "mobile": "7567178787",
@@ -28514,9 +36420,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 470,
-        "bill_id": "3a5d95a4-2537-44f4-84fa-0a5f2634a564",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5530,
+        "bill_id": "bddc2982-11c1-4f31-bc57-774058a4df5d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 366,
         "bill_type": "retail",
         "mobile": "8200645726",
@@ -28532,9 +36438,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 471,
-        "bill_id": "f7cc4fa0-6e7e-4a08-8d5a-b52b835a5404",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5531,
+        "bill_id": "71c2e592-45b5-4596-a9ff-2b92fccfc62f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 367,
         "bill_type": "retail",
         "mobile": "8000891007",
@@ -28550,9 +36456,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 472,
-        "bill_id": "a48a397a-1742-4f07-b6b1-539fe9b74cde",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5532,
+        "bill_id": "9095b14e-2a09-4447-84e9-858fdfb65b93",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 368,
         "bill_type": "retail",
         "mobile": "8866465308",
@@ -28568,9 +36474,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 473,
-        "bill_id": "2cbb9b23-75ad-4883-ae31-d22a206fe168",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5533,
+        "bill_id": "374dc4c2-386d-4197-976e-4476062d42ad",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 369,
         "bill_type": "retail",
         "mobile": "9904111169",
@@ -28578,7 +36484,7 @@ const bills = [
         "address": "ST",
         "order_date": "2024-12-26T00:00:00.000Z",
         "delivery_date": "2024-12-28T00:00:00.000Z",
-        "notes": "DELIVETRED TO DENISH \n9904111169",
+        "notes": "DELIVETRED TO DENISH\n9904111169",
         "total_firki": 2,
         "sub_total": 525,
         "discount": 25,
@@ -28586,9 +36492,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 474,
-        "bill_id": "0936bfc6-b3c0-42df-9abc-289c3879d75c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5534,
+        "bill_id": "e7c83aa1-164b-44fd-b8d4-6ca3b067e5fa",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 370,
         "bill_type": "retail",
         "mobile": "8780968596",
@@ -28604,9 +36510,9 @@ const bills = [
         "total_due": 230
     },
     {
-        "sr_no": 475,
-        "bill_id": "3719c0ac-60cf-4821-a720-ae3aae4d75a1",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5535,
+        "bill_id": "043cc11a-1861-4381-b72d-e7b4abb2831e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 371,
         "bill_type": "retail",
         "mobile": "8980069098",
@@ -28622,9 +36528,9 @@ const bills = [
         "total_due": 150
     },
     {
-        "sr_no": 476,
-        "bill_id": "c85b9559-65f6-4018-a8ea-22b42ce636fe",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5536,
+        "bill_id": "0217e289-46b3-4e41-90cd-2e59aacbb276",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 372,
         "bill_type": "retail",
         "mobile": "9909918186",
@@ -28640,9 +36546,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 477,
-        "bill_id": "a69d199c-6e2c-421b-8e3e-b65019a6e744",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5537,
+        "bill_id": "101f8bef-3a75-42bc-9a9a-96de68c4f923",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 373,
         "bill_type": "retail",
         "mobile": "9825122619",
@@ -28658,9 +36564,9 @@ const bills = [
         "total_due": 580
     },
     {
-        "sr_no": 478,
-        "bill_id": "f7ccd1ea-2f79-4330-aa35-4ad17bd4f722",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5538,
+        "bill_id": "809e9d0f-f131-4245-9cc8-25e13876e11d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 374,
         "bill_type": "retail",
         "mobile": "9725159182",
@@ -28676,9 +36582,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 479,
-        "bill_id": "3d933006-2537-4525-8c6b-322ba656f0c1",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5539,
+        "bill_id": "72067834-4ab5-49d1-b064-c650eb89c3db",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 375,
         "bill_type": "retail",
         "mobile": "7383949777",
@@ -28686,7 +36592,7 @@ const bills = [
         "address": "ST",
         "order_date": "2024-12-26T00:00:00.000Z",
         "delivery_date": "2024-12-28T00:00:00.000Z",
-        "notes": "",
+        "notes": "DELIVERED",
         "total_firki": 2,
         "sub_total": 350,
         "discount": 0,
@@ -28694,9 +36600,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 480,
-        "bill_id": "481aa54c-28bc-4441-a209-bafe72d8b10b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5540,
+        "bill_id": "929a6246-0c1b-4191-a4be-1961b3889cd6",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 376,
         "bill_type": "retail",
         "mobile": "9909985096",
@@ -28712,9 +36618,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 481,
-        "bill_id": "b4f3e425-bed2-4f0a-bc56-eddd07efcbf9",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5541,
+        "bill_id": "45bbd8c2-8181-47c0-9f5b-eed4fffcb5ab",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 377,
         "bill_type": "retail",
         "mobile": "9879525777",
@@ -28730,9 +36636,9 @@ const bills = [
         "total_due": 950
     },
     {
-        "sr_no": 482,
-        "bill_id": "15f22940-6e2d-43f6-9756-279bf09d2f80",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5542,
+        "bill_id": "09434077-2afc-4208-bf99-cdccd17ed03f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 378,
         "bill_type": "retail",
         "mobile": "8511622456",
@@ -28748,9 +36654,9 @@ const bills = [
         "total_due": 2100
     },
     {
-        "sr_no": 483,
-        "bill_id": "a64e0981-b4d8-4889-a4ab-0900e376677b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5543,
+        "bill_id": "ce2718ba-991f-4c77-9e9c-37e1272bd004",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 379,
         "bill_type": "retail",
         "mobile": "8320751110",
@@ -28766,9 +36672,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 484,
-        "bill_id": "4ad41ac7-423c-4720-9f57-1fadc36b8009",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5544,
+        "bill_id": "3da8a3de-4a46-4bf6-9603-77da01bb7966",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 380,
         "bill_type": "retail",
         "mobile": "8156010171",
@@ -28784,9 +36690,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 485,
-        "bill_id": "54a70e34-c051-4563-80d9-db1c0e28c74b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5545,
+        "bill_id": "6c901290-38d9-4fb9-9f88-b60ab68f3f4d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 381,
         "bill_type": "retail",
         "mobile": "9712031822",
@@ -28802,9 +36708,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 486,
-        "bill_id": "ade04c4c-d013-4e6a-83d1-681868d1b13d",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5546,
+        "bill_id": "69ae2e2f-5c82-478d-81ba-77735091bdea",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 382,
         "bill_type": "retail",
         "mobile": "9998162626",
@@ -28820,9 +36726,9 @@ const bills = [
         "total_due": 80850
     },
     {
-        "sr_no": 487,
-        "bill_id": "4e9baf9b-2319-4a53-87b2-fa02362fbe84",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5547,
+        "bill_id": "27fb2a37-f435-42f7-9a89-e416a20b358c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 383,
         "bill_type": "retail",
         "mobile": "7622007469",
@@ -28838,9 +36744,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 488,
-        "bill_id": "0e72c216-042c-4188-aeef-b8ba1b861c6f",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5548,
+        "bill_id": "a7984c30-3a6c-4605-98ed-ae8d76b90c0a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 384,
         "bill_type": "retail",
         "mobile": "9825905259",
@@ -28856,9 +36762,9 @@ const bills = [
         "total_due": 3525
     },
     {
-        "sr_no": 489,
-        "bill_id": "09831c2b-2d6a-48c7-af4f-c0bc66a15615",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5549,
+        "bill_id": "a25aaad9-892f-49f8-b6f1-c695039efad9",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 385,
         "bill_type": "retail",
         "mobile": "8320272085",
@@ -28874,9 +36780,9 @@ const bills = [
         "total_due": 70
     },
     {
-        "sr_no": 490,
-        "bill_id": "b7f0922e-d5a6-47b1-aac5-67db98941b86",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5550,
+        "bill_id": "cc08edd5-c69e-43cc-9a95-133d7edd3d6d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 386,
         "bill_type": "retail",
         "mobile": "8866678102",
@@ -28892,9 +36798,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 491,
-        "bill_id": "05bfee33-faca-488d-827f-750ddb8d7a17",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5551,
+        "bill_id": "1dfb1678-cd9b-4496-9056-f2f9bf12c24b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 387,
         "bill_type": "retail",
         "mobile": "9313952829",
@@ -28910,9 +36816,9 @@ const bills = [
         "total_due": 770
     },
     {
-        "sr_no": 492,
-        "bill_id": "2f620e68-6162-45f5-9aea-7bbf1bd7655a",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5552,
+        "bill_id": "e6487724-0a88-48b1-8088-8e1cab85384e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 388,
         "bill_type": "retail",
         "mobile": "9925808073",
@@ -28928,9 +36834,9 @@ const bills = [
         "total_due": 525
     },
     {
-        "sr_no": 493,
-        "bill_id": "fbceaa6a-1027-43e4-bad4-71f803f3633c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5553,
+        "bill_id": "f926f7f0-0c80-41ca-8945-0d9943170e3a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 389,
         "bill_type": "retail",
         "mobile": "9586339395",
@@ -28946,9 +36852,9 @@ const bills = [
         "total_due": 700
     },
     {
-        "sr_no": 494,
-        "bill_id": "d64141c1-55eb-461a-9c0f-5537aee9c83e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5554,
+        "bill_id": "d3d0ebfc-b83e-4707-b795-717ce2230fff",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 390,
         "bill_type": "retail",
         "mobile": "8758882638",
@@ -28964,9 +36870,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 495,
-        "bill_id": "b086467e-a706-4aa7-844e-8e754347eefe",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5555,
+        "bill_id": "077c09c1-7cfb-4360-9cf2-0525c08d76ba",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 391,
         "bill_type": "retail",
         "mobile": "7265867644",
@@ -28982,9 +36888,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 496,
-        "bill_id": "884a2549-cf26-437e-96aa-6f34e4eacfbb",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5556,
+        "bill_id": "3b4cfc2f-8157-4fc5-af72-6719c9afbfa3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 392,
         "bill_type": "retail",
         "mobile": "9724185925",
@@ -29000,9 +36906,9 @@ const bills = [
         "total_due": 525
     },
     {
-        "sr_no": 497,
-        "bill_id": "cc8f5de9-96ce-4059-b41d-ec47507f11d7",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5557,
+        "bill_id": "d8a589b3-8f73-41ed-a6b2-93c8f7ca1659",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 393,
         "bill_type": "retail",
         "mobile": "9099604980",
@@ -29010,7 +36916,7 @@ const bills = [
         "address": "ST",
         "order_date": "2024-12-27T00:00:00.000Z",
         "delivery_date": "2024-12-29T00:00:00.000Z",
-        "notes": "",
+        "notes": "DELIVERED",
         "total_firki": 2,
         "sub_total": 350,
         "discount": 0,
@@ -29018,9 +36924,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 498,
-        "bill_id": "26f4ddc1-3c12-4118-a0e8-cb1a73a9e6a1",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5558,
+        "bill_id": "b9ff4b3c-ba56-44d7-8d70-283aae68df3d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 394,
         "bill_type": "retail",
         "mobile": "7228044118",
@@ -29036,9 +36942,9 @@ const bills = [
         "total_due": 125
     },
     {
-        "sr_no": 499,
-        "bill_id": "ce913eae-0661-4d90-81af-592d6824b55b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5559,
+        "bill_id": "1b71bd47-0a3a-4d93-8685-5840f403f89e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 395,
         "bill_type": "retail",
         "mobile": "9558822388",
@@ -29054,9 +36960,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 500,
-        "bill_id": "e0bc3ae9-38e5-4a05-9786-5f3fe1c86682",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5560,
+        "bill_id": "261c6690-ec5d-4827-b896-2a7f68129b40",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 396,
         "bill_type": "retail",
         "mobile": "8097047668",
@@ -29072,9 +36978,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 501,
-        "bill_id": "010a19b8-d8a1-4926-ba18-2c6943c5b585",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5561,
+        "bill_id": "564b2dbc-cc9b-42ff-b685-053fd00bf73b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 397,
         "bill_type": "retail",
         "mobile": "9998218845",
@@ -29090,9 +36996,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 502,
-        "bill_id": "44610017-e477-41f6-9881-86082b42b138",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5562,
+        "bill_id": "69beeda9-27a6-44d2-bc3b-9de68961fcb3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 398,
         "bill_type": "retail",
         "mobile": "7046127555",
@@ -29108,9 +37014,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 503,
-        "bill_id": "16fbd76f-b268-41d2-8a7e-78749ce0df2d",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5563,
+        "bill_id": "fe03f530-5880-4b01-819b-11ced3f7aee7",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 399,
         "bill_type": "retail",
         "mobile": "9825124277",
@@ -29126,9 +37032,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 504,
-        "bill_id": "0dbd464e-b118-43df-9c8b-50a0a778f3b1",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5564,
+        "bill_id": "2665ccf0-b629-426a-8efb-45449ed03b56",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 400,
         "bill_type": "retail",
         "mobile": "7990438305",
@@ -29144,9 +37050,9 @@ const bills = [
         "total_due": 1120
     },
     {
-        "sr_no": 505,
-        "bill_id": "992f929b-1366-4ede-a068-dc231fb3ea26",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5565,
+        "bill_id": "4455a93a-190c-4516-9adf-08994992b1bb",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 401,
         "bill_type": "retail",
         "mobile": "9925107773",
@@ -29162,9 +37068,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 506,
-        "bill_id": "745defee-de0c-4b78-85e6-40f1f3e3c37b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5566,
+        "bill_id": "a057d798-099f-423a-b97b-10657d522f10",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 402,
         "bill_type": "retail",
         "mobile": "9925107773",
@@ -29180,9 +37086,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 507,
-        "bill_id": "a4571da2-b2c6-466a-bd97-f7491c9dff25",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5567,
+        "bill_id": "379ac96f-fb38-4856-b041-7cfc5354706f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 403,
         "bill_type": "retail",
         "mobile": "9313534805",
@@ -29190,7 +37096,7 @@ const bills = [
         "address": "ST",
         "order_date": "2024-12-27T00:00:00.000Z",
         "delivery_date": "2024-12-29T00:00:00.000Z",
-        "notes": "",
+        "notes": "DELIVERED",
         "total_firki": 3,
         "sub_total": 1050,
         "discount": 0,
@@ -29198,9 +37104,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 508,
-        "bill_id": "e0bdfcc5-d0aa-487b-aa2c-46bc0cccd0fa",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5568,
+        "bill_id": "e0d8d8e5-c3a4-4c20-9778-725d533999a0",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 404,
         "bill_type": "retail",
         "mobile": "7862874392",
@@ -29216,9 +37122,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 509,
-        "bill_id": "88505d8d-9ad5-4aff-8ea9-2b71c907bd68",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5569,
+        "bill_id": "1a825de8-a245-4c9d-9b7b-47f8efbe5c1c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 405,
         "bill_type": "retail",
         "mobile": "9427554442",
@@ -29234,9 +37140,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 510,
-        "bill_id": "4bfda2ff-4526-48c4-ad70-135f41034946",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5570,
+        "bill_id": "05d03785-ccd5-474a-be76-b71abe36f94f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 406,
         "bill_type": "retail",
         "mobile": "6355424520",
@@ -29252,9 +37158,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 511,
-        "bill_id": "e5f1e8a1-3f3a-45e7-a860-23c462dfaf45",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5571,
+        "bill_id": "4e83fee1-53a3-4b0e-924c-0b75a6e43586",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 407,
         "bill_type": "retail",
         "mobile": "9924424269",
@@ -29270,9 +37176,9 @@ const bills = [
         "total_due": 1000
     },
     {
-        "sr_no": 512,
-        "bill_id": "e250ab7f-d3e4-46b3-a3f8-5c23055dc963",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5572,
+        "bill_id": "4eb7d140-4af6-4b06-aa55-a18823c93f9f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 408,
         "bill_type": "retail",
         "mobile": "9727085050",
@@ -29288,9 +37194,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 513,
-        "bill_id": "4448a6ef-9ca8-4d54-9e70-4754b5937012",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5573,
+        "bill_id": "d1993d06-2beb-4439-8142-3183c0bd5610",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 409,
         "bill_type": "retail",
         "mobile": "9662139987",
@@ -29306,9 +37212,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 514,
-        "bill_id": "5c9a25da-d593-4443-835c-a4f10f9cb36e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5574,
+        "bill_id": "f93312e5-b099-4666-8214-ccf83e509bbd",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 410,
         "bill_type": "retail",
         "mobile": "9773086216",
@@ -29324,9 +37230,9 @@ const bills = [
         "total_due": 3450
     },
     {
-        "sr_no": 515,
-        "bill_id": "e9b6e9b2-c186-49db-90f1-20fb307901f6",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5575,
+        "bill_id": "0e4adcc2-7583-486f-8299-ec70b151535f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 411,
         "bill_type": "retail",
         "mobile": "9054020421",
@@ -29342,9 +37248,9 @@ const bills = [
         "total_due": 1050
     },
     {
-        "sr_no": 516,
-        "bill_id": "48bcdcba-409d-4aed-b474-a3b83a70ca56",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5576,
+        "bill_id": "6618572f-f234-47f2-9bef-919e03d047fb",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 412,
         "bill_type": "retail",
         "mobile": "9725402884",
@@ -29352,7 +37258,7 @@ const bills = [
         "address": "ST",
         "order_date": "2024-12-27T00:00:00.000Z",
         "delivery_date": "2024-12-29T00:00:00.000Z",
-        "notes": "",
+        "notes": "DELIEVERED",
         "total_firki": 3,
         "sub_total": 1625,
         "discount": 0,
@@ -29360,9 +37266,9 @@ const bills = [
         "total_due": 1625
     },
     {
-        "sr_no": 517,
-        "bill_id": "7dfc1123-9164-4a7f-b45d-9ac4eabb2602",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5577,
+        "bill_id": "9f6970b9-1d10-450b-baaf-96e5e4e0f1b4",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 413,
         "bill_type": "retail",
         "mobile": "9429861553",
@@ -29378,9 +37284,9 @@ const bills = [
         "total_due": 525
     },
     {
-        "sr_no": 518,
-        "bill_id": "fc65f297-a43c-4f1c-83ee-3650c4adef29",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5578,
+        "bill_id": "73754142-b104-454a-9faa-f78756ecd3e7",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 414,
         "bill_type": "retail",
         "mobile": "9875286155",
@@ -29396,9 +37302,9 @@ const bills = [
         "total_due": 500
     },
     {
-        "sr_no": 519,
-        "bill_id": "8ec845f6-fd09-4668-84d8-5a60eac3897c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5579,
+        "bill_id": "31076ae6-e5e8-44ea-8aa7-7dcbf407e93c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 415,
         "bill_type": "retail",
         "mobile": "7859947422",
@@ -29414,9 +37320,9 @@ const bills = [
         "total_due": 2100
     },
     {
-        "sr_no": 520,
-        "bill_id": "892b8428-a879-45e3-91f9-7641b8f73f80",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5580,
+        "bill_id": "56a21e09-08a6-4654-b781-4c3c3da7ad1b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 416,
         "bill_type": "retail",
         "mobile": "9825051841",
@@ -29432,9 +37338,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 521,
-        "bill_id": "564d851a-31d9-485d-9935-2a71ac633c76",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5581,
+        "bill_id": "29d73aed-0a07-4811-b6f0-46d69ab26655",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 417,
         "bill_type": "retail",
         "mobile": "9909941256",
@@ -29450,9 +37356,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 522,
-        "bill_id": "788afd37-f98e-41f3-89d9-31c1cbfb34ec",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5582,
+        "bill_id": "4f01caac-ea98-40b5-8adc-dac4282bb45c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 418,
         "bill_type": "retail",
         "mobile": "7383894721",
@@ -29468,9 +37374,9 @@ const bills = [
         "total_due": 75
     },
     {
-        "sr_no": 523,
-        "bill_id": "0625e2b7-7be1-497c-a687-5f954b10c912",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5583,
+        "bill_id": "54313c97-e971-44c6-aaa7-0f3739e39b16",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 419,
         "bill_type": "retail",
         "mobile": "8849240482",
@@ -29486,9 +37392,9 @@ const bills = [
         "total_due": 955
     },
     {
-        "sr_no": 524,
-        "bill_id": "0891fa9f-1bcb-4623-b28a-fa97931cef4e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5584,
+        "bill_id": "6bab08cb-5db1-442f-ae6e-7e7b03a9c6dd",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 420,
         "bill_type": "retail",
         "mobile": "9558434533",
@@ -29504,9 +37410,9 @@ const bills = [
         "total_due": 1745
     },
     {
-        "sr_no": 525,
-        "bill_id": "46db9bcf-7281-4eb9-a8fb-0874b642db8c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5585,
+        "bill_id": "8d5d0c07-1a7f-4d10-860d-15dcb43a87cb",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 421,
         "bill_type": "retail",
         "mobile": "8460144561",
@@ -29522,9 +37428,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 526,
-        "bill_id": "b980648d-2634-4a09-9fa6-01f9f1b34242",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5586,
+        "bill_id": "b9f8ae3f-eb93-4cce-97ea-98ffa98f1209",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 422,
         "bill_type": "retail",
         "mobile": "9825193873",
@@ -29540,9 +37446,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 527,
-        "bill_id": "bf5c1735-7e82-4aaa-9781-886f762a6798",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5587,
+        "bill_id": "eb6e3262-e8ee-489a-8e9c-3e9db231f3db",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 423,
         "bill_type": "retail",
         "mobile": "9638794550",
@@ -29550,7 +37456,7 @@ const bills = [
         "address": "ST",
         "order_date": "2024-12-27T00:00:00.000Z",
         "delivery_date": "2024-12-30T00:00:00.000Z",
-        "notes": "",
+        "notes": "DELEVERD",
         "total_firki": 7,
         "sub_total": 1400,
         "discount": 0,
@@ -29558,9 +37464,9 @@ const bills = [
         "total_due": 1400
     },
     {
-        "sr_no": 528,
-        "bill_id": "64ca9879-d495-4af0-8ce5-20b150161470",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5588,
+        "bill_id": "2b2a039a-8f72-459d-8075-6fa5921a00d4",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 424,
         "bill_type": "retail",
         "mobile": "9687952341",
@@ -29576,9 +37482,9 @@ const bills = [
         "total_due": 935
     },
     {
-        "sr_no": 529,
-        "bill_id": "ea958b71-e994-4023-9bdb-b39ac646b1bd",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5589,
+        "bill_id": "553c32a4-065e-4eba-b74d-948a88298aea",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 425,
         "bill_type": "retail",
         "mobile": "9327476000",
@@ -29594,9 +37500,9 @@ const bills = [
         "total_due": 1580
     },
     {
-        "sr_no": 530,
-        "bill_id": "9d5c7431-b9b5-4325-b1b8-f65633a7af9b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5590,
+        "bill_id": "483d1f7b-495d-4840-bb58-8425c0155733",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 426,
         "bill_type": "retail",
         "mobile": "9825908592",
@@ -29612,9 +37518,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 531,
-        "bill_id": "7f629684-b633-4b9a-b7c1-3ef84abf4a7d",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5591,
+        "bill_id": "9ce8f291-cf94-4028-8bd5-67519fdab248",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 427,
         "bill_type": "retail",
         "mobile": "9428670817",
@@ -29630,9 +37536,9 @@ const bills = [
         "total_due": 1650
     },
     {
-        "sr_no": 532,
-        "bill_id": "9e945e89-8056-42e7-b18a-0f25b3ec48e2",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5592,
+        "bill_id": "f989e6ba-3195-4e87-957c-6e099566e3a9",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 428,
         "bill_type": "retail",
         "mobile": "9157889964",
@@ -29648,9 +37554,9 @@ const bills = [
         "total_due": 350
     },
     {
-        "sr_no": 533,
-        "bill_id": "6e9d278f-45c9-4ea2-9cd5-11fbea99aa1c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5593,
+        "bill_id": "06289ceb-fbc6-4680-959f-e39c95e711b6",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 429,
         "bill_type": "retail",
         "mobile": "7990566704",
@@ -29666,9 +37572,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 534,
-        "bill_id": "e985c4ec-0918-46a2-bd2d-8ea107853ae3",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5594,
+        "bill_id": "be082cb8-18be-49a3-8b1c-496e26aa9d6f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 430,
         "bill_type": "retail",
         "mobile": "7016125365",
@@ -29684,9 +37590,9 @@ const bills = [
         "total_due": 1575
     },
     {
-        "sr_no": 535,
-        "bill_id": "b42daf25-5c4b-42f3-94f4-6cd1bcb8334b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5595,
+        "bill_id": "937ff0b5-4fe9-46d0-8283-2f99694ce216",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 431,
         "bill_type": "retail",
         "mobile": "9023488201",
@@ -29702,9 +37608,9 @@ const bills = [
         "total_due": 4820
     },
     {
-        "sr_no": 536,
-        "bill_id": "db529f0a-1442-4efb-8dd5-b2a863e35fc4",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5596,
+        "bill_id": "46923d20-4a33-43ce-b497-4adfcc6751fc",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 432,
         "bill_type": "retail",
         "mobile": "9825289803",
@@ -29720,9 +37626,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 537,
-        "bill_id": "baee7c67-9ef2-4f40-97c2-c3a7b91331c3",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5597,
+        "bill_id": "f79ab2bf-600c-4497-a325-cab1f2587e8a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 433,
         "bill_type": "retail",
         "mobile": "9033187800",
@@ -29738,9 +37644,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 538,
-        "bill_id": "63ac0ef2-44df-4a86-be1f-067743d36dd9",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5598,
+        "bill_id": "a48851d5-2f3e-4bfc-9ad6-da9e0ca611f6",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 434,
         "bill_type": "retail",
         "mobile": "9428670817",
@@ -29756,9 +37662,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 539,
-        "bill_id": "b96ec369-0739-4525-beee-3db79e9eb423",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5599,
+        "bill_id": "689f19e6-5575-4a30-a7fa-0828566020b3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 435,
         "bill_type": "retail",
         "mobile": "7623838829",
@@ -29774,9 +37680,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 540,
-        "bill_id": "982048a1-5bac-4645-8966-30af5f4e7d14",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5600,
+        "bill_id": "535454ae-16c5-418c-b2bd-aaf121cae90b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 436,
         "bill_type": "retail",
         "mobile": "9898253021",
@@ -29792,9 +37698,9 @@ const bills = [
         "total_due": 525
     },
     {
-        "sr_no": 541,
-        "bill_id": "4902ce3b-93fc-4616-99d0-3f38d11a0279",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5601,
+        "bill_id": "50b0ea7f-d1c8-4008-b3f6-15b0aa0c2c68",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 437,
         "bill_type": "retail",
         "mobile": "9712994762",
@@ -29810,9 +37716,9 @@ const bills = [
         "total_due": 1520
     },
     {
-        "sr_no": 542,
-        "bill_id": "9a39562e-9f82-46e2-94b2-cfc76886fe25",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5602,
+        "bill_id": "12ed3415-6027-474c-8452-fbe4a2d72faa",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 438,
         "bill_type": "retail",
         "mobile": "9979614013",
@@ -29828,9 +37734,9 @@ const bills = [
         "total_due": 2220
     },
     {
-        "sr_no": 543,
-        "bill_id": "021bd2f0-a6cf-4606-8fe0-f9e1645eec31",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5603,
+        "bill_id": "c1062120-a864-4d06-8b41-7427c7288ea4",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 439,
         "bill_type": "retail",
         "mobile": "7043354080",
@@ -29846,9 +37752,9 @@ const bills = [
         "total_due": 860
     },
     {
-        "sr_no": 544,
-        "bill_id": "4b631161-ad06-4eb3-b66b-70f634a7b201",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5604,
+        "bill_id": "edc3102c-fdd8-47ac-8709-d5f15e598cf5",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 440,
         "bill_type": "retail",
         "mobile": "9979131026",
@@ -29864,9 +37770,9 @@ const bills = [
         "total_due": 525
     },
     {
-        "sr_no": 545,
-        "bill_id": "2222f91e-48d3-418d-8f31-cbd01840c739",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5605,
+        "bill_id": "d2472958-aa14-4340-9b56-e31867d60fb9",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 441,
         "bill_type": "retail",
         "mobile": "7623837457",
@@ -29882,9 +37788,9 @@ const bills = [
         "total_due": 1000
     },
     {
-        "sr_no": 546,
-        "bill_id": "b6b7fe8c-cf51-4e03-9df7-f78e926e44a3",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5606,
+        "bill_id": "38ac9798-c4b0-4ed2-85d7-758b312077a3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 442,
         "bill_type": "retail",
         "mobile": "9712894667",
@@ -29900,9 +37806,9 @@ const bills = [
         "total_due": 410
     },
     {
-        "sr_no": 547,
-        "bill_id": "40f3f522-674e-48de-846a-8ff4436297d9",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5607,
+        "bill_id": "acfbd07d-bde3-4412-a62d-638b030bdaa3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 443,
         "bill_type": "retail",
         "mobile": "9727550777",
@@ -29918,9 +37824,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 548,
-        "bill_id": "8980aee2-b536-4844-86ff-3e5a9e735653",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5608,
+        "bill_id": "7c0cf089-774b-4346-90f9-a1e2086a551c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 444,
         "bill_type": "retail",
         "mobile": "9909910350",
@@ -29936,9 +37842,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 549,
-        "bill_id": "2d857bf1-6daa-4c56-8547-23ff70b83c70",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5609,
+        "bill_id": "6c688b28-a326-4075-a5f5-cf6e2f8f6693",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 445,
         "bill_type": "retail",
         "mobile": "9016646700",
@@ -29954,9 +37860,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 550,
-        "bill_id": "51ab8742-ae41-45dd-9b39-d05ddeb2fd9c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5610,
+        "bill_id": "81c74a52-9cef-49c8-afbe-abbd75d31c53",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 446,
         "bill_type": "retail",
         "mobile": "9998236316",
@@ -29972,9 +37878,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 551,
-        "bill_id": "5b952803-fdbc-4c63-9a47-d514428c9c89",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5611,
+        "bill_id": "8914f604-725d-4b33-9f74-a82f4eb53f39",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 447,
         "bill_type": "retail",
         "mobile": "9998949281",
@@ -29990,9 +37896,9 @@ const bills = [
         "total_due": 745
     },
     {
-        "sr_no": 552,
-        "bill_id": "917dbbe2-7a45-4a9a-bd27-878c4207bf4c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5612,
+        "bill_id": "c21705f8-1fd5-4713-a22f-4c4750bad7fb",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 448,
         "bill_type": "retail",
         "mobile": "9712132532",
@@ -30008,9 +37914,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 553,
-        "bill_id": "f5c36aee-03e5-4007-813e-e82bff081d3a",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5613,
+        "bill_id": "602e878f-4e30-4b08-be18-ddb35fd6b2fc",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 449,
         "bill_type": "retail",
         "mobile": "9909409318",
@@ -30026,9 +37932,9 @@ const bills = [
         "total_due": 245
     },
     {
-        "sr_no": 554,
-        "bill_id": "75dbfbcb-8a53-46dd-a8c6-ef4a0ad83c31",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5614,
+        "bill_id": "74486dc1-fa9d-46a5-8190-78cccb6a7065",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 450,
         "bill_type": "retail",
         "mobile": "9924301131",
@@ -30044,9 +37950,9 @@ const bills = [
         "total_due": 1000
     },
     {
-        "sr_no": 555,
-        "bill_id": "19194443-d089-40e5-b5a3-9d3ea122c9ef",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5615,
+        "bill_id": "17a85f7f-73ca-4d87-99a3-6e9cfdeee549",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 451,
         "bill_type": "retail",
         "mobile": "7622876873",
@@ -30062,9 +37968,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 556,
-        "bill_id": "74a98240-9f7c-4423-9ab0-6fb6de80b372",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5616,
+        "bill_id": "f86b225a-0073-43db-b4b7-3d503f5a3aae",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 452,
         "bill_type": "retail",
         "mobile": "9879861187",
@@ -30080,9 +37986,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 557,
-        "bill_id": "3c4eecd2-4e7b-4641-b8df-d67ef0b30be7",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5617,
+        "bill_id": "5fe512a8-c061-4ca1-beb2-f8729c014603",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 453,
         "bill_type": "retail",
         "mobile": "8511830737",
@@ -30098,9 +38004,9 @@ const bills = [
         "total_due": 1000
     },
     {
-        "sr_no": 558,
-        "bill_id": "5068618f-cc1f-44e1-a99f-fef25fbf0e2b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5618,
+        "bill_id": "ac1fb3bb-4412-41db-9eb4-da5c34fa9f4e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 454,
         "bill_type": "retail",
         "mobile": "9879666819",
@@ -30116,9 +38022,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 559,
-        "bill_id": "957fb1ec-9b69-4718-aedf-66775f9dee9f",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5619,
+        "bill_id": "647bb60b-64f9-4e64-9de5-5d681269a4ec",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 455,
         "bill_type": "retail",
         "mobile": "7226041466",
@@ -30134,9 +38040,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 560,
-        "bill_id": "18b19fb7-b97c-4da9-9141-d0f3fe2c976a",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5620,
+        "bill_id": "3b1a0225-9c5c-49d4-87a4-324c4c77ece0",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 456,
         "bill_type": "retail",
         "mobile": "9574691555",
@@ -30152,9 +38058,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 561,
-        "bill_id": "a76b9f13-9ef5-4e8f-af80-4e084d773fd1",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5621,
+        "bill_id": "4797c6ad-e358-4b93-ad4a-ca171dd32734",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 457,
         "bill_type": "retail",
         "mobile": "9979461495",
@@ -30170,9 +38076,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 562,
-        "bill_id": "6f2e0457-8063-4fdc-8d1f-fac848803689",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5622,
+        "bill_id": "46a25c15-4cfa-41d3-9be4-94878226adcb",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 458,
         "bill_type": "retail",
         "mobile": "9725425253",
@@ -30188,9 +38094,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 563,
-        "bill_id": "6cbe904f-d39e-4d00-8345-696cb1af25e5",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5623,
+        "bill_id": "27507afb-586d-4bb6-983b-df7bc52a20b5",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 459,
         "bill_type": "retail",
         "mobile": "9979461495",
@@ -30206,9 +38112,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 564,
-        "bill_id": "85d00e67-269a-4fe3-a725-c8ef2102746b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5624,
+        "bill_id": "1f0fd7dd-a14c-4fae-ab67-5ec8e0bf5ab8",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 460,
         "bill_type": "retail",
         "mobile": "8866604877",
@@ -30224,9 +38130,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 565,
-        "bill_id": "86a9dece-9b79-48ee-ac61-ac663724f37d",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5625,
+        "bill_id": "3b54466d-9084-41ed-90af-b46e418589c3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 461,
         "bill_type": "retail",
         "mobile": "9173036116",
@@ -30242,9 +38148,9 @@ const bills = [
         "total_due": 70
     },
     {
-        "sr_no": 566,
-        "bill_id": "707de198-60a3-4d2b-afc2-80c5642965eb",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5626,
+        "bill_id": "ac171ae4-7e10-4172-955f-86f1a232ff5e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 462,
         "bill_type": "retail",
         "mobile": "6352690941",
@@ -30260,9 +38166,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 567,
-        "bill_id": "e8075e4a-683d-450d-b806-649db8cfb5ca",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5627,
+        "bill_id": "6554112b-404c-4d71-ac47-cbcb353d9161",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 463,
         "bill_type": "retail",
         "mobile": "9979334089",
@@ -30278,9 +38184,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 568,
-        "bill_id": "f2c092e2-f7c9-4081-b7cf-8062310f03f3",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5628,
+        "bill_id": "cc76a623-f32d-45b7-8b51-bdfaca8df82f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 464,
         "bill_type": "retail",
         "mobile": "9428390909",
@@ -30296,9 +38202,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 569,
-        "bill_id": "4ad952c2-fe65-446f-a700-1189002ff844",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5629,
+        "bill_id": "6584c105-1f55-4cff-b891-b1bab6180aff",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 465,
         "bill_type": "retail",
         "mobile": "8780061839",
@@ -30314,9 +38220,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 570,
-        "bill_id": "f9947644-3214-41ca-af8c-ffd19d1b5e8f",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5630,
+        "bill_id": "06c2cbdc-f9df-49fd-8bff-45cb7c09d3e8",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 466,
         "bill_type": "retail",
         "mobile": "9825879888",
@@ -30332,9 +38238,9 @@ const bills = [
         "total_due": 2180
     },
     {
-        "sr_no": 571,
-        "bill_id": "da2b9b91-12e9-44ff-bb54-be0f9f28e5fa",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5631,
+        "bill_id": "09b65898-d71f-4f1d-acf3-b302ce8967f1",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 467,
         "bill_type": "retail",
         "mobile": "9714333833",
@@ -30350,9 +38256,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 572,
-        "bill_id": "b1623af9-959f-42ff-9b06-36cf24bbcd4d",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5632,
+        "bill_id": "ce3c2616-3dce-4654-9684-b88349b964f2",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 468,
         "bill_type": "retail",
         "mobile": "8879265520",
@@ -30368,9 +38274,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 573,
-        "bill_id": "7a2a564f-d009-4c32-b48d-a331b91f5d56",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5633,
+        "bill_id": "d3cd4c5b-94f5-4e89-a5dd-cd717967d95b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 469,
         "bill_type": "retail",
         "mobile": "8866166327",
@@ -30386,9 +38292,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 574,
-        "bill_id": "91773a6e-99e8-4032-8a24-15699a2a6997",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5634,
+        "bill_id": "d6d349f5-bb98-4642-8fe2-680c354824e3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 470,
         "bill_type": "retail",
         "mobile": "9925778440",
@@ -30404,9 +38310,9 @@ const bills = [
         "total_due": 1050
     },
     {
-        "sr_no": 575,
-        "bill_id": "1c0317d2-9a14-466d-9757-f722fc984e41",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5635,
+        "bill_id": "492a79c5-ffbd-4cbf-8d62-2c10d60bc571",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 471,
         "bill_type": "retail",
         "mobile": "7041312750",
@@ -30422,9 +38328,9 @@ const bills = [
         "total_due": 175
     },
     {
-        "sr_no": 576,
-        "bill_id": "278200b0-399a-46ea-be56-58fc6de65ff4",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5636,
+        "bill_id": "b55352cb-0089-4180-93fb-a2587a42c52c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 472,
         "bill_type": "retail",
         "mobile": "8347991420",
@@ -30440,9 +38346,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 577,
-        "bill_id": "ea070374-ee21-4b1d-9986-9054a5fa56e6",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5637,
+        "bill_id": "8ef2d330-bc0d-4a0c-a20f-bc742c41067f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 473,
         "bill_type": "retail",
         "mobile": "9328332290",
@@ -30458,9 +38364,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 578,
-        "bill_id": "c2e68e02-f05c-48f0-8ea0-9e52f03b5aba",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5638,
+        "bill_id": "05ff07c2-d2aa-484d-a83f-ae53da1dc176",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 474,
         "bill_type": "retail",
         "mobile": "9033640795",
@@ -30476,9 +38382,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 579,
-        "bill_id": "7b4371da-b7eb-49ba-9bad-2723a203fdd5",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5639,
+        "bill_id": "f19237b9-df26-428c-928e-9ef9f6b74988",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 475,
         "bill_type": "retail",
         "mobile": "9033640795",
@@ -30494,9 +38400,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 580,
-        "bill_id": "6e2b49ee-0223-4c54-a676-be30d2e211f2",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5640,
+        "bill_id": "a3e56f65-93cf-49a4-b392-8570345e0d3f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 476,
         "bill_type": "retail",
         "mobile": "7990988306",
@@ -30512,9 +38418,9 @@ const bills = [
         "total_due": 40
     },
     {
-        "sr_no": 581,
-        "bill_id": "73e0f62d-2181-47b7-a6d6-7bae1b58a752",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5641,
+        "bill_id": "b72a9e78-1167-4f57-9fc6-18d23c7c049b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 477,
         "bill_type": "retail",
         "mobile": "9998502702",
@@ -30530,9 +38436,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 582,
-        "bill_id": "8f10b211-dac7-4f97-89f7-35b00a8b19fe",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5642,
+        "bill_id": "0779cde1-f329-43f3-8833-8da97f6def9f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 478,
         "bill_type": "retail",
         "mobile": "9313219146",
@@ -30548,9 +38454,9 @@ const bills = [
         "total_due": 2365
     },
     {
-        "sr_no": 583,
-        "bill_id": "9c6929e7-a11f-40ce-8dc6-fce0f99d0bbc",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5643,
+        "bill_id": "04d27555-3251-49ac-a286-d026947f6bd3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 479,
         "bill_type": "retail",
         "mobile": "8980598587",
@@ -30566,9 +38472,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 584,
-        "bill_id": "ec32b8cf-60cd-4ee2-a46d-1dbe4c89cf7c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5644,
+        "bill_id": "b5b45fc7-f623-4329-bd4a-0fe31b6bd4b0",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 480,
         "bill_type": "retail",
         "mobile": "9099201779",
@@ -30584,9 +38490,9 @@ const bills = [
         "total_due": 350
     },
     {
-        "sr_no": 585,
-        "bill_id": "62e52a68-4599-47ec-a9bc-1ec5501630f4",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5645,
+        "bill_id": "955a7d89-c986-4b6c-9b2a-245367218dbc",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 481,
         "bill_type": "retail",
         "mobile": "7359953837",
@@ -30602,9 +38508,9 @@ const bills = [
         "total_due": 350
     },
     {
-        "sr_no": 586,
-        "bill_id": "5aaaf53c-eee7-4d68-aca5-269fbd17b0e5",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5646,
+        "bill_id": "362e32c6-28a9-4eed-a8ee-84fb6bc5ec55",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 482,
         "bill_type": "retail",
         "mobile": "9727663888",
@@ -30620,9 +38526,9 @@ const bills = [
         "total_due": 430
     },
     {
-        "sr_no": 587,
-        "bill_id": "1f4e644b-5705-4dc1-af0a-93fd1ab62609",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5647,
+        "bill_id": "7db79284-a504-4b19-afc9-61e3fa0c4f28",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 483,
         "bill_type": "retail",
         "mobile": "9714909484",
@@ -30638,9 +38544,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 588,
-        "bill_id": "1758fb70-50db-44d1-bed8-73e7b937191d",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5648,
+        "bill_id": "42ae7b01-1d40-4e5b-b7bd-ffaa90190964",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 484,
         "bill_type": "retail",
         "mobile": "6354775113",
@@ -30656,9 +38562,9 @@ const bills = [
         "total_due": 175
     },
     {
-        "sr_no": 589,
-        "bill_id": "4c1c6d9c-a820-430b-beb8-f732f79afb0e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5649,
+        "bill_id": "1547a30e-9313-4599-b279-c7a398fbf2b6",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 485,
         "bill_type": "retail",
         "mobile": "9624979374",
@@ -30674,9 +38580,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 590,
-        "bill_id": "4720037e-9453-4b25-ba11-ae14dfa3c500",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5650,
+        "bill_id": "3e2f99c2-11c5-403d-aeb5-64e1c263b7d3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 486,
         "bill_type": "retail",
         "mobile": "9979526854",
@@ -30692,9 +38598,9 @@ const bills = [
         "total_due": 1150
     },
     {
-        "sr_no": 591,
-        "bill_id": "5ba77ff6-d9b0-42ef-9174-bb033f944ab4",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5651,
+        "bill_id": "a5d0b4f7-2b87-43b5-9c29-31ce7ecf5b7e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 487,
         "bill_type": "retail",
         "mobile": "7096446556",
@@ -30710,9 +38616,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 592,
-        "bill_id": "bed8afcd-556b-4224-8bac-346f421b1af1",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5652,
+        "bill_id": "39a67a52-859c-49ea-a9bc-ef2b072599f5",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 488,
         "bill_type": "retail",
         "mobile": "9586127731",
@@ -30728,9 +38634,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 593,
-        "bill_id": "bb0d77be-27f2-4985-9f0a-4a36ab89c62f",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5653,
+        "bill_id": "2cc8b2d5-22f8-462f-b6cc-7d99e155e35e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 489,
         "bill_type": "retail",
         "mobile": "9725053579",
@@ -30746,9 +38652,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 594,
-        "bill_id": "efa804b4-9c40-4143-a35a-08585828abf1",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5654,
+        "bill_id": "f98679b5-7463-41bc-8cc2-747c98bb08ab",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 490,
         "bill_type": "retail",
         "mobile": "9725053579",
@@ -30764,9 +38670,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 595,
-        "bill_id": "b6717806-9451-49ca-aba8-adbab878b4a9",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5655,
+        "bill_id": "54ba4b79-f914-4131-926a-4a775c2da5cb",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 491,
         "bill_type": "retail",
         "mobile": "8849848488",
@@ -30782,9 +38688,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 596,
-        "bill_id": "8c841f78-9b63-4f18-b5a8-179b04ba1438",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5656,
+        "bill_id": "09cedf21-c2f8-4435-a752-132900fa9105",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 492,
         "bill_type": "retail",
         "mobile": "7405589514",
@@ -30800,9 +38706,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 597,
-        "bill_id": "10731d10-c5e2-4fc7-985e-437fae42c304",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5657,
+        "bill_id": "668a4afe-a867-42d5-9f17-a2aa4424d3e6",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 493,
         "bill_type": "retail",
         "mobile": "9426043013",
@@ -30818,9 +38724,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 598,
-        "bill_id": "7e5cd47b-dbdd-45ee-bc87-be2eafe4e1d7",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5658,
+        "bill_id": "00016ad0-1bfb-421f-8237-ff4f43e71ca2",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 494,
         "bill_type": "retail",
         "mobile": "9879470227",
@@ -30836,9 +38742,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 599,
-        "bill_id": "04bef443-3254-4625-9647-c04efef25541",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5659,
+        "bill_id": "723fcf42-27b8-47ab-a6a9-3a84bf699f5e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 495,
         "bill_type": "retail",
         "mobile": "9725048411",
@@ -30854,9 +38760,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 600,
-        "bill_id": "bcacb24a-0022-426d-8101-07fd6be70101",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5660,
+        "bill_id": "0f15a203-1947-4c88-8838-4aaf4f7bd5ea",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 496,
         "bill_type": "retail",
         "mobile": "6353897548",
@@ -30872,9 +38778,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 601,
-        "bill_id": "d5b2f2a7-673f-4f23-b600-a0823253c969",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5661,
+        "bill_id": "743c2c27-18e2-4f8e-a9e4-0c685f4c0450",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 497,
         "bill_type": "retail",
         "mobile": "9979961116",
@@ -30890,9 +38796,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 602,
-        "bill_id": "d13b181d-2329-4734-bc22-ea2b0abffe19",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5662,
+        "bill_id": "1df513fa-18a4-4bb1-985a-b91fa2e29905",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 498,
         "bill_type": "retail",
         "mobile": "8320822501",
@@ -30908,9 +38814,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 603,
-        "bill_id": "0011cb40-3994-406c-a16d-acba5d50590b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5663,
+        "bill_id": "d559943f-fbb2-4371-bee3-1b12c758fea8",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 499,
         "bill_type": "retail",
         "mobile": "7016605718",
@@ -30926,9 +38832,9 @@ const bills = [
         "total_due": 245
     },
     {
-        "sr_no": 604,
-        "bill_id": "f0b7d747-f68f-4841-8c09-99932e2e2b04",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5664,
+        "bill_id": "9971b0ae-e3c6-455a-9bd0-61eb1c648562",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 500,
         "bill_type": "retail",
         "mobile": "8141033341",
@@ -30944,9 +38850,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 605,
-        "bill_id": "f4fb8bec-3f80-4211-bc3e-09dcdba525f3",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5665,
+        "bill_id": "7158464f-fcbc-4a4a-b06d-36f38f81deb3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 501,
         "bill_type": "retail",
         "mobile": "8866775890",
@@ -30962,9 +38868,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 606,
-        "bill_id": "1c9ea057-689a-41f8-800b-805690f3c133",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5666,
+        "bill_id": "63aa1ee4-9870-4bdf-9787-866eba34ac7e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 502,
         "bill_type": "retail",
         "mobile": "9726678777",
@@ -30980,9 +38886,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 607,
-        "bill_id": "ad21577a-3f5e-4700-93d5-2f529e13616c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5667,
+        "bill_id": "5dff01cd-a202-45d2-ae53-2066979b5d6f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 503,
         "bill_type": "retail",
         "mobile": "8849494351",
@@ -30998,9 +38904,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 608,
-        "bill_id": "856d7f4f-f6db-43b5-8e20-3a7468b0e784",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5668,
+        "bill_id": "43ace369-b780-4921-96ab-7c721eadd5c7",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 504,
         "bill_type": "retail",
         "mobile": "8320049439",
@@ -31016,9 +38922,9 @@ const bills = [
         "total_due": 700
     },
     {
-        "sr_no": 609,
-        "bill_id": "5619edc1-62f5-4009-a611-9b2a1efa3963",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5669,
+        "bill_id": "eb27e61b-e412-425a-8c52-a74b9401a1ee",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 505,
         "bill_type": "retail",
         "mobile": "9879447001",
@@ -31034,9 +38940,9 @@ const bills = [
         "total_due": 1470
     },
     {
-        "sr_no": 610,
-        "bill_id": "b80b0648-aa74-4139-8f26-8f39265e2d33",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5670,
+        "bill_id": "a3e1609c-9ab2-4e0e-aeac-88bf5fdfd904",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 506,
         "bill_type": "retail",
         "mobile": "8866221437",
@@ -31052,9 +38958,9 @@ const bills = [
         "total_due": 525
     },
     {
-        "sr_no": 611,
-        "bill_id": "ea6eaaef-6792-4ada-91dd-279ebef15c0e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5671,
+        "bill_id": "88348fc8-cf96-4d36-b7d4-9e40d893217b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 507,
         "bill_type": "retail",
         "mobile": "9558449434",
@@ -31070,9 +38976,9 @@ const bills = [
         "total_due": 1050
     },
     {
-        "sr_no": 612,
-        "bill_id": "4e836101-7313-47ff-8da8-0f15ed5baad8",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5672,
+        "bill_id": "021ddd3b-c39c-49d3-9e94-d691d194e28f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 508,
         "bill_type": "retail",
         "mobile": "7383644121",
@@ -31088,9 +38994,9 @@ const bills = [
         "total_due": 525
     },
     {
-        "sr_no": 613,
-        "bill_id": "dcfe69b6-f357-4ab9-a420-9e4d8e47f33a",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5673,
+        "bill_id": "9c06d9b0-528f-4338-9275-526367744fa9",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 509,
         "bill_type": "retail",
         "mobile": "9898107993",
@@ -31106,9 +39012,9 @@ const bills = [
         "total_due": 1575
     },
     {
-        "sr_no": 614,
-        "bill_id": "3cf76d54-90ed-4200-8324-16200328a111",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5674,
+        "bill_id": "d0f33dc7-eaba-4af7-9978-7cfff075f608",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 510,
         "bill_type": "retail",
         "mobile": "9898294775",
@@ -31124,9 +39030,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 615,
-        "bill_id": "15082003-a1a6-46d6-8128-0a64caf76d91",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5675,
+        "bill_id": "43406c28-3479-4ea2-af2e-fa9cfc6bb85e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 511,
         "bill_type": "retail",
         "mobile": "9586342609",
@@ -31142,9 +39048,9 @@ const bills = [
         "total_due": 875
     },
     {
-        "sr_no": 616,
-        "bill_id": "da5d0d2c-b56d-4b98-b418-d72102799303",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5676,
+        "bill_id": "c0a0ba23-9c2c-4b69-a5d2-0e172649468b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 512,
         "bill_type": "retail",
         "mobile": "9979227955",
@@ -31160,9 +39066,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 617,
-        "bill_id": "08b89c57-2910-4217-8516-6e36036ca122",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5677,
+        "bill_id": "a4506608-23fd-4dde-8ad1-98340b76be8d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 513,
         "bill_type": "retail",
         "mobile": "8866835677",
@@ -31178,9 +39084,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 618,
-        "bill_id": "df38b989-5dee-4004-ba16-e1a5041b25dc",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5678,
+        "bill_id": "ba5ec276-f45e-4eaf-96f1-ac38880c9d16",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 514,
         "bill_type": "retail",
         "mobile": "8000085177",
@@ -31196,9 +39102,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 619,
-        "bill_id": "5fc910d2-75e3-45d6-848e-cabeb5708bfa",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5679,
+        "bill_id": "c1c37056-d2ad-4816-882b-b434ede7e278",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 515,
         "bill_type": "retail",
         "mobile": "9978827073",
@@ -31214,9 +39120,9 @@ const bills = [
         "total_due": 350
     },
     {
-        "sr_no": 620,
-        "bill_id": "c41b5961-1487-42dd-a4fe-1e718324f4ce",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5680,
+        "bill_id": "8199dc87-5a7b-4a5a-b2e6-b0786c291dee",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 516,
         "bill_type": "retail",
         "mobile": "7990539543",
@@ -31232,9 +39138,9 @@ const bills = [
         "total_due": 950
     },
     {
-        "sr_no": 621,
-        "bill_id": "747dd8c6-62a0-4bd1-906d-f89e1505f5a4",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5681,
+        "bill_id": "deddce14-b8e8-4582-be1a-6ad8d6ce0746",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 517,
         "bill_type": "retail",
         "mobile": "9712551505",
@@ -31250,9 +39156,9 @@ const bills = [
         "total_due": 300
     },
     {
-        "sr_no": 622,
-        "bill_id": "77ed4586-21f5-4650-868d-a1de713f4b44",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5682,
+        "bill_id": "e09c103c-0cbb-4be6-bc40-03e6df158b24",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 518,
         "bill_type": "retail",
         "mobile": "9925241414",
@@ -31268,9 +39174,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 623,
-        "bill_id": "4c78d8f0-57ec-46bf-bc39-a1dfe2de2fda",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5683,
+        "bill_id": "ce484823-aaf3-4f63-949f-5da8fa578129",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 519,
         "bill_type": "retail",
         "mobile": "9624440444",
@@ -31286,9 +39192,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 624,
-        "bill_id": "3a23ff94-af04-4dca-beec-35e1b42263fa",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5684,
+        "bill_id": "3f9672b9-20ec-4ab5-a0c4-2426831b2457",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 520,
         "bill_type": "retail",
         "mobile": "8160518629",
@@ -31304,9 +39210,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 625,
-        "bill_id": "ed52c28b-64db-4e7a-90e3-f67f214a025b",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5685,
+        "bill_id": "52ca73fa-d284-4e30-80ef-aa9a55e6b2bf",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 521,
         "bill_type": "retail",
         "mobile": "9824303305",
@@ -31322,9 +39228,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 626,
-        "bill_id": "d2d14c39-248d-4fc2-83c7-6b82b0da703c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5686,
+        "bill_id": "6f6ccb3e-9914-4725-b697-a0c24c6f6982",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 522,
         "bill_type": "retail",
         "mobile": "8866508832",
@@ -31340,9 +39246,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 627,
-        "bill_id": "5dde4031-555f-4f3a-8645-5764b978ff94",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5687,
+        "bill_id": "492b381f-32ec-423a-9f94-af3f05d7a62c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 523,
         "bill_type": "retail",
         "mobile": "9726331299",
@@ -31358,9 +39264,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 628,
-        "bill_id": "82d8cc35-3a93-4ac7-b5fb-e20fe858482c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5688,
+        "bill_id": "2c1fd75e-f572-4bc9-830e-e9e29206b4e6",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 524,
         "bill_type": "retail",
         "mobile": "6354751153",
@@ -31376,9 +39282,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 629,
-        "bill_id": "97a23642-d0eb-4551-8709-2872c629ba02",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5689,
+        "bill_id": "576c7032-2d6d-4a85-83c5-ae9c5dc096aa",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 525,
         "bill_type": "retail",
         "mobile": "9898928228",
@@ -31394,9 +39300,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 630,
-        "bill_id": "abcaa688-a034-46cf-974d-67250070a1be",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5690,
+        "bill_id": "90076647-2bac-4119-82d0-0e48bf896d11",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 526,
         "bill_type": "retail",
         "mobile": "9712943530",
@@ -31412,9 +39318,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 631,
-        "bill_id": "23adf667-0e3e-4dc7-bd6a-d06d5616a701",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5691,
+        "bill_id": "21bc3dde-37b9-4f95-892a-fab93adc2cb1",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 527,
         "bill_type": "retail",
         "mobile": "8200022027",
@@ -31430,9 +39336,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 632,
-        "bill_id": "11da4c0c-09a1-43ec-b74b-3f171fe1fb9e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5692,
+        "bill_id": "cd523f0e-1ce7-48d9-97cd-540d0f772326",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 528,
         "bill_type": "retail",
         "mobile": "6355658583",
@@ -31448,9 +39354,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 633,
-        "bill_id": "7300c76f-0631-478b-a5c4-5c48cf2ce6df",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5693,
+        "bill_id": "5543321b-d880-47fd-bf00-c96bf89ba9d8",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 529,
         "bill_type": "retail",
         "mobile": "9099110513",
@@ -31466,9 +39372,9 @@ const bills = [
         "total_due": 525
     },
     {
-        "sr_no": 634,
-        "bill_id": "72ad8dae-9cb1-4064-a055-3366580ca5b6",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5694,
+        "bill_id": "82658363-3d5c-4c08-b817-e61cf232dadb",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 530,
         "bill_type": "retail",
         "mobile": "8140406675",
@@ -31484,9 +39390,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 635,
-        "bill_id": "4e71fc23-d671-4993-b406-06eaee2e1a92",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5695,
+        "bill_id": "83fe20ff-ce3c-449f-b569-3ced799acfb4",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 531,
         "bill_type": "retail",
         "mobile": "7621076775",
@@ -31502,9 +39408,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 636,
-        "bill_id": "71eb41cf-d43c-4f11-ad50-a8f88c73e3ce",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5696,
+        "bill_id": "0cfc0b59-0ba2-404d-a1b2-cacf1af06788",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 532,
         "bill_type": "retail",
         "mobile": "9662512141",
@@ -31520,9 +39426,9 @@ const bills = [
         "total_due": 470
     },
     {
-        "sr_no": 637,
-        "bill_id": "5d5fe870-10f2-4a2c-8e3c-d3f0dd2a6a10",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5697,
+        "bill_id": "299af041-5552-41a9-a601-e392a245c338",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 533,
         "bill_type": "retail",
         "mobile": "8141379191",
@@ -31538,9 +39444,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 638,
-        "bill_id": "54f0541f-7165-4e4a-a9ab-64afe340bc3d",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5698,
+        "bill_id": "89ac904c-cb04-4acd-ba7d-3d1adbe24198",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 534,
         "bill_type": "retail",
         "mobile": "9737325213",
@@ -31556,9 +39462,9 @@ const bills = [
         "total_due": 175
     },
     {
-        "sr_no": 639,
-        "bill_id": "391db5f0-3138-44a9-9e24-97014c5eef27",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5699,
+        "bill_id": "d2ffc2eb-05e5-4f6f-9a9e-92a6401bac70",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 535,
         "bill_type": "retail",
         "mobile": "9537022313",
@@ -31574,9 +39480,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 640,
-        "bill_id": "8b9e94fc-0963-4506-b84c-b3b499671eb5",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5700,
+        "bill_id": "222661d5-8f94-422d-94fd-a44e5302e78e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 536,
         "bill_type": "retail",
         "mobile": "9313183143",
@@ -31592,9 +39498,9 @@ const bills = [
         "total_due": 275
     },
     {
-        "sr_no": 641,
-        "bill_id": "1714627e-a868-4efb-a459-ff4f0b98e7cd",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5701,
+        "bill_id": "3e6c6842-491a-467e-9364-9437e941f110",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 537,
         "bill_type": "retail",
         "mobile": "7016633526",
@@ -31610,9 +39516,9 @@ const bills = [
         "total_due": 755
     },
     {
-        "sr_no": 642,
-        "bill_id": "cd9fd2ef-8fe4-4710-b1cb-480495042a4c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5702,
+        "bill_id": "2e89c673-4a64-4f63-bee4-1775a190df99",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 538,
         "bill_type": "retail",
         "mobile": "8799468660",
@@ -31628,9 +39534,9 @@ const bills = [
         "total_due": 0
     },
     {
-        "sr_no": 643,
-        "bill_id": "c964335b-217b-4e46-890e-e71fb54f8d67",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5703,
+        "bill_id": "3d0eada7-9c48-41e3-b361-9e164972edfe",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 539,
         "bill_type": "retail",
         "mobile": "7359356578",
@@ -31646,9 +39552,9 @@ const bills = [
         "total_due": 175
     },
     {
-        "sr_no": 644,
-        "bill_id": "97525e1c-c5c0-4c74-8c1e-50606dc2788c",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5704,
+        "bill_id": "14d5c49e-e54b-4cb6-934a-d8444b5ea52a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 540,
         "bill_type": "retail",
         "mobile": "9099391426",
@@ -31664,9 +39570,9 @@ const bills = [
         "total_due": 500
     },
     {
-        "sr_no": 645,
-        "bill_id": "183e7362-cc91-4733-9876-5652005d1c72",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 5705,
+        "bill_id": "b4e86bcc-3ff6-4422-a3b7-0ee2f0915eed",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "bill_no": 541,
         "bill_type": "retail",
         "mobile": "8141617244",
@@ -31680,10 +39586,3594 @@ const bills = [
         "discount": 0,
         "advance": 0,
         "total_due": 470
+    },
+    {
+        "sr_no": 5706,
+        "bill_id": "4b31070a-c2be-4d6f-b81f-9d1060d24862",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 542,
+        "bill_type": "retail",
+        "mobile": "9638794550",
+        "name": "RISHI",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2024-12-29T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 1300,
+        "discount": 0,
+        "advance": 1300,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5707,
+        "bill_id": "8768d64e-0edd-45bd-9628-ca2dc729e314",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 544,
+        "bill_type": "retail",
+        "mobile": "9537229306",
+        "name": "DHAVAL",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 175,
+        "discount": 0,
+        "advance": 175,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5708,
+        "bill_id": "42a80d3a-0df5-46d8-ab48-644820437b96",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 545,
+        "bill_type": "retail",
+        "mobile": "9824756001",
+        "name": "DHAYEY",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 235,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 235
+    },
+    {
+        "sr_no": 5709,
+        "bill_id": "fc86e847-7d93-4625-80f6-fb2e734c16f1",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 546,
+        "bill_type": "retail",
+        "mobile": "9328813968",
+        "name": "AADITAY",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 5,
+        "sub_total": 875,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 875
+    },
+    {
+        "sr_no": 5710,
+        "bill_id": "d6aae441-3eb4-4262-ae57-d1547d06a487",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 548,
+        "bill_type": "retail",
+        "mobile": "6353712690",
+        "name": "HARDIK",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 525,
+        "discount": 0,
+        "advance": 525,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5711,
+        "bill_id": "4d9e8d43-5a97-424f-ac80-af717defbf74",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 549,
+        "bill_type": "retail",
+        "mobile": "7041840419",
+        "name": "DARSHAN",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 1170,
+        "discount": 0,
+        "advance": 500,
+        "total_due": 670
+    },
+    {
+        "sr_no": 5712,
+        "bill_id": "9ebf84cc-fd60-4a0f-a9c5-e577fa8ba4fc",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 550,
+        "bill_type": "retail",
+        "mobile": "7575098476",
+        "name": "YESH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 525,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 525
+    },
+    {
+        "sr_no": 5713,
+        "bill_id": "03059618-c0a7-469a-8a7f-96567f6ee3d0",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 551,
+        "bill_type": "retail",
+        "mobile": "9277957890",
+        "name": "RAMESH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 4,
+        "sub_total": 3500,
+        "discount": 0,
+        "advance": 3500,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5714,
+        "bill_id": "597eeeca-6f70-41f9-be5d-792d67fd7db3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 552,
+        "bill_type": "retail",
+        "mobile": "9016244486",
+        "name": "PARTH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 4,
+        "sub_total": 1050,
+        "discount": 0,
+        "advance": 1050,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5715,
+        "bill_id": "fbab8bf3-5f2b-411e-90b2-36de39ada25b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 553,
+        "bill_type": "retail",
+        "mobile": "7016964564",
+        "name": "RUDHAR",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 4,
+        "sub_total": 700,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 700
+    },
+    {
+        "sr_no": 5716,
+        "bill_id": "f829784c-7951-4b0e-b946-054341db402f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 555,
+        "bill_type": "retail",
+        "mobile": "7490022652",
+        "name": "AYUSH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 525,
+        "discount": 0,
+        "advance": 525,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5717,
+        "bill_id": "7c518826-ad63-4faa-9206-87fe01831127",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 556,
+        "bill_type": "retail",
+        "mobile": "9157801003",
+        "name": "SHUBHAM",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 350,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5718,
+        "bill_id": "53898e0f-88b2-4003-a124-993f293f9422",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 558,
+        "bill_type": "retail",
+        "mobile": "7048175670",
+        "name": "SAGHAR",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 525,
+        "discount": 0,
+        "advance": 520,
+        "total_due": 5
+    },
+    {
+        "sr_no": 5719,
+        "bill_id": "2bfb5438-b244-4b31-a91e-dd988bfcc846",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 559,
+        "bill_type": "retail",
+        "mobile": "9409827008",
+        "name": "DWVANSHU",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 5,
+        "sub_total": 2925,
+        "discount": 0,
+        "advance": 500,
+        "total_due": 2425
+    },
+    {
+        "sr_no": 5720,
+        "bill_id": "134ee268-fdc3-40c0-8b06-6a227534828d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 560,
+        "bill_type": "retail",
+        "mobile": "9586406005",
+        "name": "DHANNJAY",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 350,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5721,
+        "bill_id": "eb8152c0-5346-41d9-b945-87ad95dbce0f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 562,
+        "bill_type": "retail",
+        "mobile": "7624035837",
+        "name": "PARTH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 1350,
+        "discount": 0,
+        "advance": 500,
+        "total_due": 850
+    },
+    {
+        "sr_no": 5722,
+        "bill_id": "7bf63675-77a6-4850-81dc-3716e0200582",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 563,
+        "bill_type": "retail",
+        "mobile": "9106011471",
+        "name": "ABHISHEK",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 140,
+        "discount": 0,
+        "advance": 140,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5723,
+        "bill_id": "5f11257d-2d99-4f7e-8a44-89b0374db415",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 568,
+        "bill_type": "retail",
+        "mobile": "8200994908",
+        "name": "JAY",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 175,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 175
+    },
+    {
+        "sr_no": 5724,
+        "bill_id": "e229c888-cde6-4f9f-997e-6cfc173b39e6",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 569,
+        "bill_type": "retail",
+        "mobile": "9377599933",
+        "name": "paesh",
+        "address": "st",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 875,
+        "discount": 0,
+        "advance": 400,
+        "total_due": 475
+    },
+    {
+        "sr_no": 5725,
+        "bill_id": "71d2fef2-7b5c-4a0e-98a9-8accbd4aecf5",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 570,
+        "bill_type": "retail",
+        "mobile": "8128153880",
+        "name": "HARSH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 2000,
+        "discount": 0,
+        "advance": 2000,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5726,
+        "bill_id": "9b0488ee-3d75-4c7d-aa9c-3f93cda09f72",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 571,
+        "bill_type": "retail",
+        "mobile": "8320742562",
+        "name": "SANDIP",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 175,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 175
+    },
+    {
+        "sr_no": 5727,
+        "bill_id": "20121a4b-36c5-43b8-b3bc-c02661e562bc",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 572,
+        "bill_type": "retail",
+        "mobile": "9664501187",
+        "name": "UMESH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 350
+    },
+    {
+        "sr_no": 5728,
+        "bill_id": "6d229312-8446-4b53-9d07-0dad0d5c7a4b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 573,
+        "bill_type": "retail",
+        "mobile": "6351564331",
+        "name": "DEV",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 875,
+        "discount": 0,
+        "advance": 500,
+        "total_due": 375
+    },
+    {
+        "sr_no": 5729,
+        "bill_id": "60ab6097-11af-4213-b32c-20d9b97bde66",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 574,
+        "bill_type": "retail",
+        "mobile": "9998221923",
+        "name": "MAHESH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 1585,
+        "discount": 5,
+        "advance": 0,
+        "total_due": 1580
+    },
+    {
+        "sr_no": 5730,
+        "bill_id": "13004b33-8078-4c09-aebf-4fc201a13410",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 575,
+        "bill_type": "retail",
+        "mobile": "9313648280",
+        "name": "SAGHAR",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 585,
+        "discount": 0,
+        "advance": 585,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5731,
+        "bill_id": "2ab9d144-a7bc-4685-9c08-77be4575b698",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 576,
+        "bill_type": "retail",
+        "mobile": "8154024575",
+        "name": "DEEP",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 5,
+        "sub_total": 3240,
+        "discount": 0,
+        "advance": 500,
+        "total_due": 2740
+    },
+    {
+        "sr_no": 5732,
+        "bill_id": "1733b7c4-2a89-42a7-98d0-e7b04d4554da",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 578,
+        "bill_type": "retail",
+        "mobile": "6351210753",
+        "name": "GOLU",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 350
+    },
+    {
+        "sr_no": 5733,
+        "bill_id": "c0fbebd0-7d60-42dc-a075-ae3f420b37aa",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 579,
+        "bill_type": "retail",
+        "mobile": "9624158067",
+        "name": "PARESHBHAI",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2024-12-29T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 1300,
+        "discount": 0,
+        "advance": 1300,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5734,
+        "bill_id": "a9b423df-efc3-46ce-ab0e-fa7983940c6a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 580,
+        "bill_type": "retail",
+        "mobile": "9726526060",
+        "name": "DARSHAN",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 8,
+        "sub_total": 770,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 770
+    },
+    {
+        "sr_no": 5735,
+        "bill_id": "6ad80675-a198-4737-b6ac-0c8353343803",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 581,
+        "bill_type": "retail",
+        "mobile": "9898269722",
+        "name": "SANDIP",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 4,
+        "sub_total": 700,
+        "discount": 0,
+        "advance": 700,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5736,
+        "bill_id": "c914b5b5-d7d4-40c5-81ea-f0790065f6fa",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 582,
+        "bill_type": "retail",
+        "mobile": "7817899500",
+        "name": "ANKIT",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 350
+    },
+    {
+        "sr_no": 5737,
+        "bill_id": "94489cb1-adc4-42c0-8ec2-9a07ca15dc10",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 583,
+        "bill_type": "retail",
+        "mobile": "9870032891",
+        "name": "MEGHABHAI",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 1000,
+        "discount": 100,
+        "advance": 900,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5738,
+        "bill_id": "042d13fb-20db-414e-82b9-a2a89fc6edfb",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 584,
+        "bill_type": "retail",
+        "mobile": "9313205256",
+        "name": "RAJ",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 4,
+        "sub_total": 595,
+        "discount": 0,
+        "advance": 595,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5739,
+        "bill_id": "151f8012-cf46-475f-9035-68e0a5fea580",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 585,
+        "bill_type": "retail",
+        "mobile": "7862881919",
+        "name": "KHUSHI",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 220,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 220
+    },
+    {
+        "sr_no": 5740,
+        "bill_id": "ef57721e-14a4-4353-b18a-5c0076d050dc",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 587,
+        "bill_type": "retail",
+        "mobile": "9723159123",
+        "name": "HIREN",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 420,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 420
+    },
+    {
+        "sr_no": 5741,
+        "bill_id": "74db34bc-428c-45ed-9c93-58f8c754efc5",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 588,
+        "bill_type": "retail",
+        "mobile": "9825743520",
+        "name": "devash",
+        "address": "st",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 525,
+        "discount": 0,
+        "advance": 525,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5742,
+        "bill_id": "4d636767-46ca-40c5-9817-f8ff3afff61c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 589,
+        "bill_type": "retail",
+        "mobile": "7490892807",
+        "name": "RAM",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 875,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 875
+    },
+    {
+        "sr_no": 5743,
+        "bill_id": "f09738f4-c2db-4dcb-a999-704d8cd3992c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 590,
+        "bill_type": "retail",
+        "mobile": "9724345422",
+        "name": "JAGDISH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2024-12-29T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 10,
+        "sub_total": 8750,
+        "discount": 0,
+        "advance": 8750,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5744,
+        "bill_id": "100131b7-40b3-4d04-aef3-3fe1217ff0a6",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 591,
+        "bill_type": "retail",
+        "mobile": "9328366263",
+        "name": "RAM",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 250,
+        "total_due": 100
+    },
+    {
+        "sr_no": 5745,
+        "bill_id": "ca47beae-963d-4855-846d-a5c7240f4db1",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 592,
+        "bill_type": "retail",
+        "mobile": "8264763954",
+        "name": "BRIJESH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 10,
+        "sub_total": 2450,
+        "discount": 0,
+        "advance": 2450,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5746,
+        "bill_id": "2759a2b9-e1ba-4587-9f09-b90bd1006fee",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 593,
+        "bill_type": "retail",
+        "mobile": "9879127003",
+        "name": "GOPESH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 4,
+        "sub_total": 3160,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 3160
+    },
+    {
+        "sr_no": 5747,
+        "bill_id": "1722b6a5-7aae-4f3a-bc31-feac6aca0074",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 594,
+        "bill_type": "retail",
+        "mobile": "8758281000",
+        "name": "KIRTAN",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 1050,
+        "discount": 0,
+        "advance": 1050,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5748,
+        "bill_id": "ef40fbab-e797-4775-ab44-2bbee0578f5a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 595,
+        "bill_type": "retail",
+        "mobile": "9712721621",
+        "name": "DARSH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 350,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5749,
+        "bill_id": "8efdb434-d81a-41dc-9ca3-3885bb75c917",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 596,
+        "bill_type": "retail",
+        "mobile": "9099131763",
+        "name": "UDIT PATEL",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2024-12-29T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 2850,
+        "discount": 0,
+        "advance": 2850,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5750,
+        "bill_id": "49ebd234-ace1-483f-95e6-ae482e43f261",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 597,
+        "bill_type": "retail",
+        "mobile": "8866886568",
+        "name": "JAY",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 2000,
+        "discount": 0,
+        "advance": 2000,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5751,
+        "bill_id": "11b99016-e14a-4263-a096-f1f003ba1691",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 598,
+        "bill_type": "retail",
+        "mobile": "9328025177",
+        "name": "NIKHIL",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 150,
+        "total_due": 200
+    },
+    {
+        "sr_no": 5752,
+        "bill_id": "a11c0789-de1c-49a8-8ee2-7094199037e8",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 599,
+        "bill_type": "retail",
+        "mobile": "9726342903",
+        "name": "SHLOK",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 350,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5753,
+        "bill_id": "e3d60abf-f317-4fc0-a945-1fa499372af5",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 600,
+        "bill_type": "retail",
+        "mobile": "7777929031",
+        "name": "MAN",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 4,
+        "sub_total": 955,
+        "discount": 0,
+        "advance": 955,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5754,
+        "bill_id": "9bd823fe-5396-4ca6-8b9b-24df5b7e2833",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 601,
+        "bill_type": "retail",
+        "mobile": "7990853588",
+        "name": "DHRUVIL",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2024-12-29T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 7,
+        "sub_total": 4400,
+        "discount": 0,
+        "advance": 4400,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5755,
+        "bill_id": "afc61a5e-1ca0-4aee-b47d-f0a41d45ea7b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 602,
+        "bill_type": "retail",
+        "mobile": "9586734210",
+        "name": "HEET",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 1000,
+        "discount": 100,
+        "advance": 900,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5756,
+        "bill_id": "65490506-279f-4f86-b833-7e944b8f7aa2",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 603,
+        "bill_type": "retail",
+        "mobile": "9714793074",
+        "name": "BHAVIK",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 4,
+        "sub_total": 665,
+        "discount": 0,
+        "advance": 665,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5757,
+        "bill_id": "a68fd019-3b5e-45fc-9ac7-668547666819",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 604,
+        "bill_type": "retail",
+        "mobile": "9428670817",
+        "name": "HOME",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2024-12-29T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 1050,
+        "discount": 0,
+        "advance": 1050,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5758,
+        "bill_id": "e9ff0303-48ce-4f7c-aa6e-48b57e4371c5",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 605,
+        "bill_type": "retail",
+        "mobile": "8238854700",
+        "name": "ADITYA ",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 525,
+        "discount": 0,
+        "advance": 525,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5759,
+        "bill_id": "bbf03ac9-38df-463b-aa73-b50c0b979cac",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 606,
+        "bill_type": "retail",
+        "mobile": "9714793074",
+        "name": "BHAVIK",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2024-12-29T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 1650,
+        "discount": 0,
+        "advance": 1650,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5760,
+        "bill_id": "24c8a71f-f923-4a11-a135-dca461439e0e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 607,
+        "bill_type": "retail",
+        "mobile": "9723058235",
+        "name": "RAKESH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 6,
+        "sub_total": 2900,
+        "discount": 0,
+        "advance": 1800,
+        "total_due": 1100
+    },
+    {
+        "sr_no": 5761,
+        "bill_id": "3d4c268d-3172-4414-aa2f-5e66f7de40ae",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 608,
+        "bill_type": "retail",
+        "mobile": "7016903682",
+        "name": "HARSH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2024-12-29T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 1300,
+        "discount": 0,
+        "advance": 1300,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5762,
+        "bill_id": "5d1bf0f8-ca0e-40fc-9b7b-1e33d76cfff9",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 609,
+        "bill_type": "retail",
+        "mobile": "9662877155",
+        "name": "ALTAF",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 1080,
+        "discount": 0,
+        "advance": 580,
+        "total_due": 500
+    },
+    {
+        "sr_no": 5763,
+        "bill_id": "b8fcdf89-f274-4448-843a-df588a766ff1",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 612,
+        "bill_type": "retail",
+        "mobile": "8200456358",
+        "name": "SIDDHART",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 525,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 525
+    },
+    {
+        "sr_no": 5764,
+        "bill_id": "78ba4739-51a3-44bb-81d2-5b578adc940b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 613,
+        "bill_type": "retail",
+        "mobile": "9974218639",
+        "name": "UMESH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 175,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 175
+    },
+    {
+        "sr_no": 5765,
+        "bill_id": "ce13bf65-7e7c-4061-ad56-f3c7dbcf208d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 614,
+        "bill_type": "retail",
+        "mobile": "9724345422",
+        "name": "JD RAVAL",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2024-12-29T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 2800,
+        "discount": 0,
+        "advance": 2800,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5766,
+        "bill_id": "e08f8e23-3066-4190-9e24-c6db9accfd70",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 615,
+        "bill_type": "retail",
+        "mobile": "7817026490",
+        "name": "RAHUL",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 350
+    },
+    {
+        "sr_no": 5767,
+        "bill_id": "1149ffee-e03d-4f8d-b900-763f961cf72a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 616,
+        "bill_type": "retail",
+        "mobile": "7405121285",
+        "name": "DEEPESH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 175,
+        "discount": 0,
+        "advance": 175,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5768,
+        "bill_id": "03caa5b8-9353-48a9-944d-7ac21703def1",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 617,
+        "bill_type": "retail",
+        "mobile": "9898256888",
+        "name": "VIRAL",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 605,
+        "discount": 0,
+        "advance": 605,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5769,
+        "bill_id": "c556c722-1dbe-484e-8ea6-23d884cbc0d6",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 618,
+        "bill_type": "retail",
+        "mobile": "9825861432",
+        "name": "MEHUL",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 1050,
+        "discount": 0,
+        "advance": 1050,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5770,
+        "bill_id": "f68cf598-c5e3-4f09-9d29-28cda24a2588",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 619,
+        "bill_type": "retail",
+        "mobile": "9726595901",
+        "name": "HARDIK",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2024-12-29T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 1750,
+        "discount": 0,
+        "advance": 1750,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5771,
+        "bill_id": "d0265b52-7aa9-4189-b429-9496ae8b9ebf",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 621,
+        "bill_type": "retail",
+        "mobile": "9586551171",
+        "name": "DHRUV",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 2400,
+        "discount": 0,
+        "advance": 2400,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5772,
+        "bill_id": "deab4ed2-d594-4e9f-b9ca-be8b53519e54",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 622,
+        "bill_type": "retail",
+        "mobile": "9033252381",
+        "name": "RINKESH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2024-12-31T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 430,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 430
+    },
+    {
+        "sr_no": 5773,
+        "bill_id": "d7871e27-a238-4edf-bf31-b6dda18cf9f2",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 624,
+        "bill_type": "retail",
+        "mobile": "9510137343",
+        "name": "TEJ",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 1150,
+        "discount": 0,
+        "advance": 1150,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5774,
+        "bill_id": "c8331427-c4ad-47f1-af27-7a118850b9b3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 626,
+        "bill_type": "retail",
+        "mobile": "9664689344",
+        "name": "RAKESH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 650,
+        "discount": 0,
+        "advance": 650,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5775,
+        "bill_id": "70c3b121-42e7-4a1e-960e-39ce19069a5c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 627,
+        "bill_type": "retail",
+        "mobile": "8849712082",
+        "name": "HARISH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2024-12-29T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 1100,
+        "discount": 0,
+        "advance": 1100,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5776,
+        "bill_id": "63b1acf4-fe84-40ca-bc60-daf0f27b46db",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 628,
+        "bill_type": "retail",
+        "mobile": "9904323455",
+        "name": "SUNIL",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 4,
+        "sub_total": 2130,
+        "discount": 0,
+        "advance": 2130,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5777,
+        "bill_id": "2eab17e7-dbd2-40f3-b59a-aae54c44582e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 629,
+        "bill_type": "retail",
+        "mobile": "9687781605",
+        "name": "HITESH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 70,
+        "discount": 0,
+        "advance": 70,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5778,
+        "bill_id": "97e41da6-55f3-4854-818d-b6731468663f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 630,
+        "bill_type": "retail",
+        "mobile": "9904701855",
+        "name": "MAHESH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 745,
+        "discount": 0,
+        "advance": 745,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5779,
+        "bill_id": "508a0877-8b85-41cb-b339-dd5e65cc761d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 631,
+        "bill_type": "retail",
+        "mobile": "8200868591",
+        "name": "HARSH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 525,
+        "discount": 0,
+        "advance": 525,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5780,
+        "bill_id": "ae312f9c-3f82-4f3b-a7ab-74c6435c7e3b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 632,
+        "bill_type": "retail",
+        "mobile": "9904961799",
+        "name": "SAILESH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 6,
+        "sub_total": 1225,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 1225
+    },
+    {
+        "sr_no": 5781,
+        "bill_id": "f46c6f31-166e-4a6b-b228-6bd5edbf974a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 633,
+        "bill_type": "retail",
+        "mobile": "9725819196",
+        "name": "BHAVESH (ARHAM)",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2024-12-29T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 6,
+        "sub_total": 4350,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 4350
+    },
+    {
+        "sr_no": 5782,
+        "bill_id": "40f6fc62-446a-41e6-8adb-acacdb80666d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 634,
+        "bill_type": "retail",
+        "mobile": "9723395087",
+        "name": "CHINTAN",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2024-12-29T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 6,
+        "sub_total": 5700,
+        "discount": 0,
+        "advance": 5700,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5783,
+        "bill_id": "6bad27d2-cda0-4069-a495-d03301b7e770",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 635,
+        "bill_type": "retail",
+        "mobile": "9924512210",
+        "name": "NISHANT",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 4,
+        "sub_total": 875,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 875
+    },
+    {
+        "sr_no": 5784,
+        "bill_id": "91955918-1f20-405f-b8a0-ef18535429a4",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 636,
+        "bill_type": "retail",
+        "mobile": "9978550604",
+        "name": "SANJAY",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-01T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 525,
+        "discount": 0,
+        "advance": 525,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5785,
+        "bill_id": "0be82697-9439-49fd-a418-6e6f3db83ec0",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 637,
+        "bill_type": "retail",
+        "mobile": "9328468859",
+        "name": "OM",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 4,
+        "sub_total": 875,
+        "discount": 0,
+        "advance": 875,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5786,
+        "bill_id": "d339cb07-ae5e-42b3-9202-af015d74d43d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 638,
+        "bill_type": "retail",
+        "mobile": "8238070733",
+        "name": "PARESH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2024-12-29T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 650,
+        "discount": 0,
+        "advance": 650,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5787,
+        "bill_id": "b63948c6-eca3-4914-93ea-bdfeafa887d9",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 639,
+        "bill_type": "retail",
+        "mobile": "7600003094",
+        "name": "BHARAT",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 875,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 875
+    },
+    {
+        "sr_no": 5788,
+        "bill_id": "42137f96-5f63-40a9-aa0d-f6e058d58be7",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 640,
+        "bill_type": "retail",
+        "mobile": "9998753823",
+        "name": "KAMLESH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 1605,
+        "discount": 0,
+        "advance": 1605,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5789,
+        "bill_id": "0320226b-9b43-40fc-9b1e-f7023b771bd4",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 641,
+        "bill_type": "retail",
+        "mobile": "9925100624",
+        "name": "ISHAAN",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 200,
+        "total_due": 150
+    },
+    {
+        "sr_no": 5790,
+        "bill_id": "f27b877e-89e6-4008-bada-926b72b31de7",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 642,
+        "bill_type": "retail",
+        "mobile": "9714253256",
+        "name": "HIREN",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 4,
+        "sub_total": 1795,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 1795
+    },
+    {
+        "sr_no": 5791,
+        "bill_id": "2eb19d10-e6bc-44f5-b700-dd012ad7275a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 643,
+        "bill_type": "retail",
+        "mobile": "9824183096",
+        "name": "HEMU (SOCIETY)",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2024-12-29T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 650,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 650
+    },
+    {
+        "sr_no": 5792,
+        "bill_id": "b21f30a6-1e2b-47a4-92ed-bb3319c4f5ca",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 644,
+        "bill_type": "retail",
+        "mobile": "8980935026",
+        "name": "PRATIK",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 525,
+        "discount": 0,
+        "advance": 525,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5793,
+        "bill_id": "7abcc654-5557-4478-bc05-6d89e0fb19dd",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 645,
+        "bill_type": "retail",
+        "mobile": "9574246351",
+        "name": "DIVYESH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 525,
+        "discount": 0,
+        "advance": 525,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5794,
+        "bill_id": "4c34b6b7-6b03-46cb-9c98-824a196947f7",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 646,
+        "bill_type": "retail",
+        "mobile": "9428754752",
+        "name": "TIRTH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 175,
+        "discount": 0,
+        "advance": 175,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5795,
+        "bill_id": "71c9ca90-552d-4e77-8d7c-59d044f8aed3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 647,
+        "bill_type": "retail",
+        "mobile": "7990170610",
+        "name": "DINESH BHAI",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 1050,
+        "discount": 0,
+        "advance": 500,
+        "total_due": 550
+    },
+    {
+        "sr_no": 5796,
+        "bill_id": "04e45f32-ef23-48d3-af4a-c07802f70038",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 648,
+        "bill_type": "retail",
+        "mobile": "9714819877",
+        "name": "BONY",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 350,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5797,
+        "bill_id": "7fbe6da8-a5f7-43bc-8e84-cfc87eb5a1cf",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 649,
+        "bill_type": "retail",
+        "mobile": "9028611460",
+        "name": "SAYED",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 1050,
+        "discount": 0,
+        "advance": 1050,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5798,
+        "bill_id": "56855f7a-9b1a-4b60-8e06-20cfacb12197",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 650,
+        "bill_type": "retail",
+        "mobile": "9428741149",
+        "name": "PAL",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 220,
+        "discount": 0,
+        "advance": 220,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5799,
+        "bill_id": "c298ce15-e1f5-4f71-944d-26a635fffbba",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 651,
+        "bill_type": "retail",
+        "mobile": "7862046422",
+        "name": "RAJ",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 440,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 440
+    },
+    {
+        "sr_no": 5800,
+        "bill_id": "eaeca7fe-e301-40e0-b314-aa572e138e1c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 652,
+        "bill_type": "retail",
+        "mobile": "8140034123",
+        "name": "KARTIK",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2024-12-29T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 1100,
+        "discount": 0,
+        "advance": 1100,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5801,
+        "bill_id": "9d1e7c84-890f-41c3-afd0-093490da78b6",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 653,
+        "bill_type": "retail",
+        "mobile": "9376091092",
+        "name": "BHAIRAV",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 1525,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 1525
+    },
+    {
+        "sr_no": 5802,
+        "bill_id": "8e0605eb-c118-4eb1-8ace-0ff20007a646",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 654,
+        "bill_type": "retail",
+        "mobile": "8238686910",
+        "name": "PRASANT",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 350
+    },
+    {
+        "sr_no": 5803,
+        "bill_id": "47d8a4bb-6e48-498e-a7ab-ec6ed91a1a0d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 655,
+        "bill_type": "retail",
+        "mobile": "9023774050",
+        "name": "NISARG",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 525,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 525
+    },
+    {
+        "sr_no": 5804,
+        "bill_id": "1b47f9db-a9bf-4736-b785-35640c87364c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 656,
+        "bill_type": "retail",
+        "mobile": "7801800018",
+        "name": "HAPPY",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 525,
+        "discount": 0,
+        "advance": 525,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5805,
+        "bill_id": "a49af75b-ed9d-4009-956b-f1b40700bc4b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 657,
+        "bill_type": "retail",
+        "mobile": "7043129008",
+        "name": "RAHUL",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 2050,
+        "discount": 0,
+        "advance": 2050,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5806,
+        "bill_id": "d0ff5edd-7132-42c2-b490-c430abbfbdb3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 658,
+        "bill_type": "retail",
+        "mobile": "8490083213",
+        "name": "ASHISH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 1575,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 1575
+    },
+    {
+        "sr_no": 5807,
+        "bill_id": "610e8774-0831-46f1-9441-cf2dbeccd48c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 659,
+        "bill_type": "retail",
+        "mobile": "9824701337",
+        "name": "LALIT",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 420,
+        "discount": 0,
+        "advance": 200,
+        "total_due": 220
+    },
+    {
+        "sr_no": 5808,
+        "bill_id": "4c1fec8c-9d78-4ce5-92c8-928e4b39f884",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 660,
+        "bill_type": "retail",
+        "mobile": "8160938662",
+        "name": "VANSH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 470,
+        "discount": 0,
+        "advance": 470,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5809,
+        "bill_id": "4da5d403-4845-4f64-94fe-10f92f6be227",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 661,
+        "bill_type": "retail",
+        "mobile": "7984233842",
+        "name": "DEEP",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 7,
+        "sub_total": 3735,
+        "discount": 0,
+        "advance": 1500,
+        "total_due": 2235
+    },
+    {
+        "sr_no": 5810,
+        "bill_id": "b41436b9-a48e-4115-986e-cefbc4856d21",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 662,
+        "bill_type": "retail",
+        "mobile": "9099648952",
+        "name": "DEEEPAK",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 2050,
+        "discount": 0,
+        "advance": 2050,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5811,
+        "bill_id": "65c14caf-0279-4e56-bbf4-360b8e005295",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 663,
+        "bill_type": "retail",
+        "mobile": "6355780321",
+        "name": "SAHIL",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2024-12-29T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 1100,
+        "discount": 0,
+        "advance": 1100,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5812,
+        "bill_id": "0684258f-419c-404f-a2f4-75fd49fd3056",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 664,
+        "bill_type": "retail",
+        "mobile": "9375827334",
+        "name": "RAKESH BHAI",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 5,
+        "sub_total": 700,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 700
+    },
+    {
+        "sr_no": 5813,
+        "bill_id": "e2e0343e-6654-49c0-b9d2-35d27bf5c98a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 665,
+        "bill_type": "retail",
+        "mobile": "9898593285",
+        "name": "KRUMAL",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 525,
+        "discount": 225,
+        "advance": 300,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5814,
+        "bill_id": "cbfa23cd-2926-4a71-ba4f-0ef1ea503a39",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 666,
+        "bill_type": "retail",
+        "mobile": "8511308091",
+        "name": "BHAVIK",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 700,
+        "discount": 0,
+        "advance": 700,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5815,
+        "bill_id": "e455b036-3938-42ee-bd71-5a1642588d03",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 667,
+        "bill_type": "retail",
+        "mobile": "9313952829",
+        "name": "SAHIL",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 220,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 220
+    },
+    {
+        "sr_no": 5816,
+        "bill_id": "9b137a65-ed7c-4ee3-b49c-c04924aea124",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 668,
+        "bill_type": "retail",
+        "mobile": "7567717188",
+        "name": "KARAN",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 2050,
+        "discount": 0,
+        "advance": 500,
+        "total_due": 1550
+    },
+    {
+        "sr_no": 5817,
+        "bill_id": "04dc79cc-f39c-4e7c-9d8f-f2b001a7a203",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 669,
+        "bill_type": "retail",
+        "mobile": "7778880838",
+        "name": "JANAK",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 6,
+        "sub_total": 1575,
+        "discount": 0,
+        "advance": 1575,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5818,
+        "bill_id": "107a159c-7625-4fa7-ba4d-7845bc0ea4cb",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 670,
+        "bill_type": "retail",
+        "mobile": "9825495129",
+        "name": "DHARMA",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 6,
+        "sub_total": 1635,
+        "discount": 0,
+        "advance": 1635,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5819,
+        "bill_id": "c673f495-ce1e-4212-bc18-67ba557dd7c7",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 671,
+        "bill_type": "retail",
+        "mobile": "9427014462",
+        "name": "PARTH",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 4,
+        "sub_total": 700,
+        "discount": 0,
+        "advance": 700,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5820,
+        "bill_id": "ffa4e0ac-f95c-499e-976f-f74c395cfd4e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 672,
+        "bill_type": "retail",
+        "mobile": "9924799809",
+        "name": "MANTHAN",
+        "address": "ST",
+        "order_date": "2024-12-29T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 175,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 175
+    },
+    {
+        "sr_no": 5821,
+        "bill_id": "59b8cbdc-fc5d-41e6-bd40-27d544b8fd21",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 673,
+        "bill_type": "retail",
+        "mobile": "7778963825",
+        "name": "niharika",
+        "address": "st",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 525,
+        "discount": 0,
+        "advance": 525,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5822,
+        "bill_id": "6a83023c-80c7-4c4d-b1cf-68dfb1a830ef",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 675,
+        "bill_type": "retail",
+        "mobile": "9898079464",
+        "name": "BAKUL",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2024-12-30T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 8,
+        "sub_total": 7100,
+        "discount": 0,
+        "advance": 7100,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5823,
+        "bill_id": "2562cbba-256b-434c-941f-2bcf4eba3967",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 677,
+        "bill_type": "retail",
+        "mobile": "9898079464",
+        "name": "BAKUL",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2024-12-30T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 400,
+        "discount": 0,
+        "advance": 400,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5824,
+        "bill_id": "dfb885ae-8387-4aa3-bff2-6a12dcc40ee6",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 678,
+        "bill_type": "retail",
+        "mobile": "7990209552",
+        "name": "RANA BHAI",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 700,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 700
+    },
+    {
+        "sr_no": 5825,
+        "bill_id": "1e62be2a-aa44-48ff-b67e-5d4a01f19e3f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 679,
+        "bill_type": "retail",
+        "mobile": "7228906002",
+        "name": "UTSAV",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2024-12-30T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 175,
+        "discount": 0,
+        "advance": 175,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5826,
+        "bill_id": "65515fcb-5897-4131-8ec6-096b3fb4eb7c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 680,
+        "bill_type": "retail",
+        "mobile": "9586060867",
+        "name": "JENISH",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 350,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5827,
+        "bill_id": "70ad62a3-86e9-4f98-bc34-6c3640b77b62",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 681,
+        "bill_type": "retail",
+        "mobile": "9978643661",
+        "name": "RACHIT",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 175,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 175
+    },
+    {
+        "sr_no": 5828,
+        "bill_id": "eb5360e3-90db-4642-abd2-4f8b7d46fb60",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 682,
+        "bill_type": "retail",
+        "mobile": "8200334296",
+        "name": "UJASH",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2024-12-30T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 8,
+        "sub_total": 6550,
+        "discount": 0,
+        "advance": 6550,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5829,
+        "bill_id": "f3fb9c7d-25b4-4fe3-8954-2b943f94d0e3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 683,
+        "bill_type": "retail",
+        "mobile": "9601815840",
+        "name": "DIPAKBHAI",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 1080,
+        "discount": 0,
+        "advance": 1080,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5830,
+        "bill_id": "bbb2a6e7-be1b-4b0d-a6d7-e2341c07b9b8",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 684,
+        "bill_type": "retail",
+        "mobile": "7600714006",
+        "name": "NILAY",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2024-12-30T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 1500,
+        "discount": 0,
+        "advance": 1500,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5831,
+        "bill_id": "9a663fe5-d739-4407-a2b5-0fd5d540032a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 686,
+        "bill_type": "retail",
+        "mobile": "6351210753",
+        "name": "PRAVIN",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 175,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 175
+    },
+    {
+        "sr_no": 5832,
+        "bill_id": "2fc677a9-3291-4431-ac91-3dd8e12a8675",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 687,
+        "bill_type": "retail",
+        "mobile": "7575098476",
+        "name": "YASH",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 1050,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 1050
+    },
+    {
+        "sr_no": 5833,
+        "bill_id": "325f4af6-93e3-49bd-bf84-446512442fa4",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 688,
+        "bill_type": "retail",
+        "mobile": "9913750744",
+        "name": "MANISH",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 280,
+        "discount": 0,
+        "advance": 280,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5834,
+        "bill_id": "d1a4e987-f1b9-49fd-ac4c-d452cedd9a57",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 689,
+        "bill_type": "retail",
+        "mobile": "9913335632",
+        "name": "MODI",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 350
+    },
+    {
+        "sr_no": 5835,
+        "bill_id": "1b7e1b8c-386e-45c6-bc21-6b793beab903",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 690,
+        "bill_type": "retail",
+        "mobile": "8141692883",
+        "name": "MODI DIPU",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 350
+    },
+    {
+        "sr_no": 5836,
+        "bill_id": "de0f6029-d5e8-4512-beca-5ad2ec590d6f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 691,
+        "bill_type": "retail",
+        "mobile": "7600673663",
+        "name": "HERRY",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 470,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 470
+    },
+    {
+        "sr_no": 5837,
+        "bill_id": "a131d6ae-d565-45c5-92f4-0759b9021d52",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 692,
+        "bill_type": "retail",
+        "mobile": "7202022000",
+        "name": "RAJENDAR",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 1775,
+        "discount": 0,
+        "advance": 1190,
+        "total_due": 585
+    },
+    {
+        "sr_no": 5838,
+        "bill_id": "c08e7e8d-3108-488a-b91b-6678ce54894c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 693,
+        "bill_type": "retail",
+        "mobile": "9979266298",
+        "name": "NILESH",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 4,
+        "sub_total": 875,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 875
+    },
+    {
+        "sr_no": 5839,
+        "bill_id": "30f92611-3a7f-48f8-b01e-d3e96cd5c2be",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 694,
+        "bill_type": "retail",
+        "mobile": "9723631058",
+        "name": "MEET",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 5,
+        "sub_total": 1225,
+        "discount": 0,
+        "advance": 1225,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5840,
+        "bill_id": "19932583-b292-486d-902c-e4063a00a33b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 696,
+        "bill_type": "retail",
+        "mobile": "9512548096",
+        "name": "NIKUNJ",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 175,
+        "discount": 0,
+        "advance": 175,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5841,
+        "bill_id": "a2943110-5448-4da3-9d90-6c256886fd61",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 697,
+        "bill_type": "retail",
+        "mobile": "8401277595",
+        "name": "PINKESH",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 7,
+        "sub_total": 1810,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 1810
+    },
+    {
+        "sr_no": 5842,
+        "bill_id": "048ed4b6-cf1b-43e6-8d63-77faee53e790",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 698,
+        "bill_type": "retail",
+        "mobile": "9879882668",
+        "name": "HANIF",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2024-12-30T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 350,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5843,
+        "bill_id": "2a38031a-d48d-4fa1-b145-6bb06c472e97",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 699,
+        "bill_type": "retail",
+        "mobile": "6353932389",
+        "name": "JEMISH",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2024-12-30T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 350,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5844,
+        "bill_id": "dd059243-c4fb-4f6f-bdab-aa46006522d9",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 700,
+        "bill_type": "retail",
+        "mobile": "9879945642",
+        "name": "PRATIK ",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 4,
+        "sub_total": 2100,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5845,
+        "bill_id": "d0c3430b-b58e-47a9-b3e8-95dd847b12a3",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 701,
+        "bill_type": "retail",
+        "mobile": "9909990554",
+        "name": "LAKDAWALA",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 4,
+        "sub_total": 700,
+        "discount": 0,
+        "advance": 700,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5846,
+        "bill_id": "34ee3518-87e8-40c3-8407-4a74d5482d1b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 702,
+        "bill_type": "retail",
+        "mobile": "9033712176",
+        "name": "BHAVIN ",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 585,
+        "discount": 0,
+        "advance": 585,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5847,
+        "bill_id": "772f9a73-d2b2-423c-963e-da6d11a0fd50",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 703,
+        "bill_type": "retail",
+        "mobile": "9662512726",
+        "name": "HIREN",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 1000,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 1000
+    },
+    {
+        "sr_no": 5848,
+        "bill_id": "dc015c52-cc10-491c-97d5-d44b418f6019",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 704,
+        "bill_type": "retail",
+        "mobile": "8460521028",
+        "name": "KETAN",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 585,
+        "discount": 0,
+        "advance": 585,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5849,
+        "bill_id": "ac9c8931-b894-4543-a174-73802decdf80",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 705,
+        "bill_type": "retail",
+        "mobile": "8000397677",
+        "name": "JIGAR",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2024-12-30T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 1950,
+        "discount": 0,
+        "advance": 1950,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5850,
+        "bill_id": "6f0f2e5f-468b-460b-95e0-5b9ed0956611",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 706,
+        "bill_type": "retail",
+        "mobile": "9825987275",
+        "name": "VISHAL ",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 1000,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 1000
+    },
+    {
+        "sr_no": 5851,
+        "bill_id": "0b274451-7581-4eaa-83f4-c037617485fd",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 708,
+        "bill_type": "retail",
+        "mobile": "9913117107",
+        "name": "JAY",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 1000,
+        "discount": 0,
+        "advance": 500,
+        "total_due": 500
+    },
+    {
+        "sr_no": 5852,
+        "bill_id": "ba9a7dbf-7651-4a9b-a1a0-1b0205afefd4",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 709,
+        "bill_type": "retail",
+        "mobile": "9879515120",
+        "name": "PATEL",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 350,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5853,
+        "bill_id": "44d022dc-6dc3-401b-b68b-45a773e5c8cb",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 710,
+        "bill_type": "retail",
+        "mobile": "9879144133",
+        "name": "SAHIL",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 175,
+        "discount": 0,
+        "advance": 175,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5854,
+        "bill_id": "1d581032-2ec2-4ed8-be9a-b8d01e15656c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 711,
+        "bill_type": "retail",
+        "mobile": "9825011194",
+        "name": "PRAGNESH",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 2100,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 2100
+    },
+    {
+        "sr_no": 5855,
+        "bill_id": "d1034e58-6e64-4e7d-948a-162a2351b932",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 712,
+        "bill_type": "retail",
+        "mobile": "8469076006",
+        "name": "HARSH",
+        "address": "ST",
+        "order_date": "2025-01-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 700,
+        "discount": 0,
+        "advance": 700,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5856,
+        "bill_id": "2838d9a4-457a-4946-8717-b87b6b286714",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 713,
+        "bill_type": "retail",
+        "mobile": "9313412370",
+        "name": "PARTH",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 2160,
+        "discount": 0,
+        "advance": 1500,
+        "total_due": 660
+    },
+    {
+        "sr_no": 5857,
+        "bill_id": "2a858212-fb96-41f1-9679-da5d6b4399f7",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 714,
+        "bill_type": "retail",
+        "mobile": "9825124535",
+        "name": "KETAN",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 4,
+        "sub_total": 700,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 700
+    },
+    {
+        "sr_no": 5858,
+        "bill_id": "95f1d740-0c7a-42f9-b48a-5efc3cd07f78",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 715,
+        "bill_type": "retail",
+        "mobile": "8141035528",
+        "name": "VIPUL",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 350
+    },
+    {
+        "sr_no": 5859,
+        "bill_id": "5e790814-3c0f-4124-af7a-65221e9e55e6",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 717,
+        "bill_type": "retail",
+        "mobile": "7990566704",
+        "name": "PRINCE",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 350,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5860,
+        "bill_id": "bb765733-cc3b-4448-a000-40e962b5a1e4",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 718,
+        "bill_type": "retail",
+        "mobile": "7859947422",
+        "name": "BHAVESH",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 175,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 175
+    },
+    {
+        "sr_no": 5861,
+        "bill_id": "5c1da7d0-4369-4388-90df-310fee04e2b5",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 719,
+        "bill_type": "retail",
+        "mobile": "9638110149",
+        "name": "PRATIK",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 1050,
+        "discount": 0,
+        "advance": 1050,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5862,
+        "bill_id": "16e5e1e7-3a28-4f62-acff-0a331d566a42",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 720,
+        "bill_type": "retail",
+        "mobile": "8487875858",
+        "name": "MAYUR",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 525,
+        "discount": 0,
+        "advance": 525,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5863,
+        "bill_id": "2f72d12f-463c-41e3-9793-9907e7f55998",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 721,
+        "bill_type": "retail",
+        "mobile": "9727380961",
+        "name": "MEET",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 175,
+        "discount": 0,
+        "advance": 175,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5864,
+        "bill_id": "0738e748-6ed6-4b1f-9681-775450b5744d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 722,
+        "bill_type": "retail",
+        "mobile": "9727380961",
+        "name": "MEET",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 1575,
+        "discount": 0,
+        "advance": 1575,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5865,
+        "bill_id": "9c3c4dc2-4508-4b64-906b-57babf5b0b02",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 723,
+        "bill_type": "retail",
+        "mobile": "9727741888",
+        "name": "DIVYANG",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 5,
+        "sub_total": 4150,
+        "discount": 0,
+        "advance": 4150,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5866,
+        "bill_id": "c049a03c-e8e9-4817-80d9-271988d1da41",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 724,
+        "bill_type": "retail",
+        "mobile": "8849675988",
+        "name": "YASH",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 175,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 175
+    },
+    {
+        "sr_no": 5867,
+        "bill_id": "d735ca57-a31f-4d67-ad92-ce3b3bc7e567",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 725,
+        "bill_type": "retail",
+        "mobile": "7096859498",
+        "name": "HAESHIL",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 350
+    },
+    {
+        "sr_no": 5868,
+        "bill_id": "2fae74c2-ea0c-446c-a077-0eccaec4ccff",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 726,
+        "bill_type": "retail",
+        "mobile": "9033640795",
+        "name": "HENISH",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2024-12-30T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 1950,
+        "discount": 0,
+        "advance": 1950,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5869,
+        "bill_id": "f03e9938-88ae-44e7-84b8-2771c4be4a9b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 727,
+        "bill_type": "retail",
+        "mobile": "9879070510",
+        "name": "KAMLESH",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 350
+    },
+    {
+        "sr_no": 5870,
+        "bill_id": "f53c4469-330e-4263-b2f7-3da7a42b2a20",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 728,
+        "bill_type": "retail",
+        "mobile": "9879389741",
+        "name": "PRAGNESH",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 525,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 525
+    },
+    {
+        "sr_no": 5871,
+        "bill_id": "637cc075-b377-42fb-8f0d-afe6f5c9e116",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 730,
+        "bill_type": "retail",
+        "mobile": "9824773760",
+        "name": "MAHESH",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 470,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 470
+    },
+    {
+        "sr_no": 5872,
+        "bill_id": "807c20c4-7cd2-4390-94c6-fd70f7122999",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 731,
+        "bill_type": "retail",
+        "mobile": "9924699442",
+        "name": "JIGNESH",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 175,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 175
+    },
+    {
+        "sr_no": 5873,
+        "bill_id": "92959dd6-5761-4896-bce9-70c24173ab81",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 732,
+        "bill_type": "retail",
+        "mobile": "9099002464",
+        "name": "KETAN",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2024-12-30T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 4,
+        "sub_total": 3050,
+        "discount": 0,
+        "advance": 3050,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5874,
+        "bill_id": "86403513-1e92-441a-9354-a621534301e2",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 733,
+        "bill_type": "retail",
+        "mobile": "9924699442",
+        "name": "JIGO",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 585,
+        "discount": 0,
+        "advance": 200,
+        "total_due": 385
+    },
+    {
+        "sr_no": 5875,
+        "bill_id": "8407a6fb-0c6b-4f04-869d-a31c5f7d8a12",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 734,
+        "bill_type": "retail",
+        "mobile": "9974629388",
+        "name": "DHAWAL",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 235,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 235
+    },
+    {
+        "sr_no": 5876,
+        "bill_id": "7f5c6bd3-b813-47c9-9869-02d9b1635898",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 735,
+        "bill_type": "retail",
+        "mobile": "9375037227",
+        "name": "VIPUL",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 1605,
+        "discount": 0,
+        "advance": 1605,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5877,
+        "bill_id": "0bdfb3e4-640a-461b-bd4a-ebddb408526e",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 736,
+        "bill_type": "retail",
+        "mobile": "8200707330",
+        "name": "PRIYANK",
+        "address": "ST",
+        "order_date": "2025-01-03T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 1825,
+        "discount": 0,
+        "advance": 1825,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5878,
+        "bill_id": "f5c7327e-c4fd-4748-b595-13ae0c9fe279",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 737,
+        "bill_type": "retail",
+        "mobile": "6353744680",
+        "name": "TANMAY",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 175,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 175
+    },
+    {
+        "sr_no": 5879,
+        "bill_id": "6cf92a99-c3e4-426c-957d-572de020a2ec",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 738,
+        "bill_type": "retail",
+        "mobile": "9879988131",
+        "name": "SHAILESH",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 350
+    },
+    {
+        "sr_no": 5880,
+        "bill_id": "c1984772-b0cf-4ee6-8f66-7bd7d9e16ab8",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 739,
+        "bill_type": "retail",
+        "mobile": "9428670817",
+        "name": "HOME",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 1000,
+        "discount": 0,
+        "advance": 1000,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5881,
+        "bill_id": "e1090241-b519-4af3-8d4b-0ede30fccf52",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 740,
+        "bill_type": "retail",
+        "mobile": "7698996949",
+        "name": "DIVYANG",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 350
+    },
+    {
+        "sr_no": 5882,
+        "bill_id": "7d0179d5-c91d-4f1a-a805-9ad0a695b60b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 741,
+        "bill_type": "retail",
+        "mobile": "9512914609",
+        "name": "OM",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 1695,
+        "discount": 0,
+        "advance": 1695,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5883,
+        "bill_id": "9fdb739a-ac08-43be-90d9-a82ae2f9739a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 742,
+        "bill_type": "retail",
+        "mobile": "9727002302",
+        "name": "RAVI",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 6,
+        "sub_total": 1050,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 1050
+    },
+    {
+        "sr_no": 5884,
+        "bill_id": "011919be-8996-4da7-a5c5-0d68b1f3692b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 743,
+        "bill_type": "retail",
+        "mobile": "9879870507",
+        "name": "VEER",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 220,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 220
+    },
+    {
+        "sr_no": 5885,
+        "bill_id": "220f44fe-a913-4fdc-ab4b-39155fd1d6f8",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 744,
+        "bill_type": "retail",
+        "mobile": "7802041641",
+        "name": "AAYUSH",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 2000,
+        "discount": 0,
+        "advance": 1000,
+        "total_due": 1000
+    },
+    {
+        "sr_no": 5886,
+        "bill_id": "01a2ce7d-e0c6-427e-8cdc-f8dadc992fbd",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 745,
+        "bill_type": "retail",
+        "mobile": "9824573740",
+        "name": "ATUL BHAI ",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 525,
+        "discount": 0,
+        "advance": 525,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5887,
+        "bill_id": "e3ce37fd-929b-4c40-8014-07edb9975bfb",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 747,
+        "bill_type": "retail",
+        "mobile": "7359900059",
+        "name": "HITESH",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 1050,
+        "discount": 0,
+        "advance": 1050,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5888,
+        "bill_id": "6d8b9147-fbbc-429a-9545-99f046119cf2",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 748,
+        "bill_type": "retail",
+        "mobile": "9427909995",
+        "name": "KASHYAB",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 525,
+        "discount": 0,
+        "advance": 525,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5889,
+        "bill_id": "9e98b433-127b-4c39-8380-85c3eec2303a",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 749,
+        "bill_type": "retail",
+        "mobile": "9016067543",
+        "name": "HAIMIL",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 350
+    },
+    {
+        "sr_no": 5890,
+        "bill_id": "eb06b05a-5e15-4024-a82b-e789f85fbc8d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 750,
+        "bill_type": "retail",
+        "mobile": "9725014225",
+        "name": "AKSHAY",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-02T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 875,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 875
+    },
+    {
+        "sr_no": 5891,
+        "bill_id": "1978e54e-52be-4473-a893-a7a6713545b4",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 751,
+        "bill_type": "retail",
+        "mobile": "8141285599",
+        "name": "CHETAN",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 2250,
+        "discount": 0,
+        "advance": 1000,
+        "total_due": 1250
+    },
+    {
+        "sr_no": 5892,
+        "bill_id": "5ea9477b-8791-490e-b773-1d14ac7b76d5",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 753,
+        "bill_type": "retail",
+        "mobile": "7990240148",
+        "name": "MEHUL",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 525,
+        "discount": 0,
+        "advance": 525,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5893,
+        "bill_id": "710318ae-e713-408e-a25e-3e2a818a6552",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 754,
+        "bill_type": "retail",
+        "mobile": "8511711912",
+        "name": "VIJAY",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 2,
+        "sub_total": 1525,
+        "discount": 0,
+        "advance": 1525,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5894,
+        "bill_id": "02266cef-0588-40d0-857b-5e7f084d247c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 755,
+        "bill_type": "retail",
+        "mobile": "9979322005",
+        "name": "DHRUVIN",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 1525,
+        "discount": 0,
+        "advance": 500,
+        "total_due": 1025
+    },
+    {
+        "sr_no": 5895,
+        "bill_id": "93677139-666c-4da5-a3bc-bb31582ef53b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 756,
+        "bill_type": "retail",
+        "mobile": "9687338292",
+        "name": "PRASHANT",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 6,
+        "sub_total": 1225,
+        "discount": 0,
+        "advance": 1225,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5896,
+        "bill_id": "8399243d-8b23-4b2e-9481-c6db6ff99871",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 757,
+        "bill_type": "retail",
+        "mobile": "9099888922",
+        "name": "BIPIN",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 4,
+        "sub_total": 2280,
+        "discount": 0,
+        "advance": 700,
+        "total_due": 1580
+    },
+    {
+        "sr_no": 5897,
+        "bill_id": "42405501-a87e-4a3a-a690-12d4b8172bb6",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 758,
+        "bill_type": "retail",
+        "mobile": "7984322905",
+        "name": "KISHAN",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 1050,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 1050
+    },
+    {
+        "sr_no": 5898,
+        "bill_id": "5ce4bd5f-24a1-4891-a901-1f459d8ab3c2",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 759,
+        "bill_type": "retail",
+        "mobile": "9099789224",
+        "name": "HIMMAT BHAI",
+        "address": "ST",
+        "order_date": "2024-12-30T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 525,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 525
+    },
+    {
+        "sr_no": 5899,
+        "bill_id": "880a880d-2648-478f-9b54-7f44bad00278",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 760,
+        "bill_type": "retail",
+        "mobile": "9737476770",
+        "name": "RAJESH",
+        "address": "ST",
+        "order_date": "2024-12-31T00:00:00.000Z",
+        "delivery_date": "2024-12-31T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 12,
+        "sub_total": 3930,
+        "discount": 0,
+        "advance": 3930,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5900,
+        "bill_id": "42b4f464-31b1-415b-bde0-04885658a989",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 761,
+        "bill_type": "retail",
+        "mobile": "9328341465",
+        "name": "RAJ",
+        "address": "ST",
+        "order_date": "2024-12-31T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 175,
+        "discount": 0,
+        "advance": 175,
+        "total_due": 0
+    },
+    {
+        "sr_no": 5901,
+        "bill_id": "de55006a-37f7-45f9-97c1-198c6b251cca",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 762,
+        "bill_type": "retail",
+        "mobile": "7600949100",
+        "name": "JEET",
+        "address": "ST",
+        "order_date": "2024-12-31T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 6,
+        "sub_total": 900,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 900
+    },
+    {
+        "sr_no": 5902,
+        "bill_id": "b5dcb3af-4017-4602-9f85-92bdb134be21",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 763,
+        "bill_type": "retail",
+        "mobile": "7874736755",
+        "name": "JENISH",
+        "address": "ST",
+        "order_date": "2024-12-31T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 1,
+        "sub_total": 350,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 350
+    },
+    {
+        "sr_no": 5903,
+        "bill_id": "ae72eba0-9a97-4826-a487-1049a63afe70",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 764,
+        "bill_type": "retail",
+        "mobile": "8000888987",
+        "name": "DR",
+        "address": "ST",
+        "order_date": "2024-12-31T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 3,
+        "sub_total": 700,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 700
+    },
+    {
+        "sr_no": 5904,
+        "bill_id": "68c673f4-a27d-44d2-a550-94d3b8bf8778",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
+        "bill_no": 765,
+        "bill_type": "retail",
+        "mobile": "9023280729",
+        "name": "HARSHIL",
+        "address": "ST",
+        "order_date": "2024-12-31T00:00:00.000Z",
+        "delivery_date": "2025-01-03T00:00:00.000Z",
+        "notes": "",
+        "total_firki": 11,
+        "sub_total": 2530,
+        "discount": 0,
+        "advance": 0,
+        "total_due": 2530
     }
-];
+]
 
-const collection_id = '4c7a0ac8-8633-4dde-97de-f9e393001b6f';
+const collection_id = '79c68672-77d0-493a-bbce-6553303f18cc';
+
+const createdBill = {};
 
 // CREATE TABLE bills (
 // 	   sr_no SERIAL PRIMARY KEY,
@@ -31720,13 +43210,17 @@ const collection_id = '4c7a0ac8-8633-4dde-97de-f9e393001b6f';
 // `;
 
 // wholeSaleBills.forEach((bill, index) => {
-//     insertBillsQuery += `('${collection_id}', ${bill.BillNo}, 'retail', '${bill.mobileNumber}', '${bill.name}', '${bill.address}', '${bill.orderDate}', '${bill.deliveryDate}', '${bill.notes}', ${bill.totalFirki}, ${bill.subTotal}, ${bill.discount}, ${bill.advance}, ${bill.totalDue})`;
+//     insertBillsQuery += `('${collection_id}', ${bill.BillNo}, 'wholesale', '${bill.mobileNumber}', '${bill.name}', '${bill.address}', '${bill.orderDate}', '${bill.deliveryDate}', '${bill.notes}', ${bill.totalFirki}, ${bill.subTotal}, ${bill.discount}, ${bill.advance}, ${bill.totalDue})`;
 
 //     if (index !== wholeSaleBills.length - 1) {
 //         insertBillsQuery += ',';
 //     }
 // });
 // retailBills.forEach((bill, index) => {
+//     if (createdBill[bill.BillNo]) {
+//         return;
+//     }
+//     createdBill[bill.BillNo] = true;
 //     insertBillsQuery += `('${collection_id}', ${bill.BillNo}, 'retail', '${bill.mobileNumber}', '${bill.name}', '${bill.address}', '${bill.orderDate}', '${bill.deliveryDate}', '${bill.notes}', ${bill.totalFirki}, ${bill.subTotal}, ${bill.discount}, ${bill.advance}, ${bill.totalDue})`;
 
 //     if (index !== retailBills.length - 1) {
@@ -31738,29 +43232,33 @@ const collection_id = '4c7a0ac8-8633-4dde-97de-f9e393001b6f';
 
 let insertBillItemsQuery = `INSERT INTO bill_items (bill_id, product_id, quantity, price) VALUES`;
 
-wholeSaleBills.forEach((bill) => {
-    const matchedBill = bills.find((b) => b.bill_no === bill.BillNo && b.bill_type === 'wholesale');
-    bill.products.forEach((product, index) => {
-        const matchedProduct = products.find((p) => p.product_name === product.productName?.trim());
-        insertBillItemsQuery += `('${matchedBill.bill_id}', '${matchedProduct.product_id}', ${product.quantity}, ${product.price}),`;
-        // if (index !== bill.products.length - 1) {
-        //     insertBillItemsQuery += ',';
-        // }
-    });
-});
-// retailBills.forEach((bill) => {
-//     const matchedBill = bills.find((b) => b.bill_no === bill.BillNo && b.bill_type === 'retail');
+// wholeSaleBills.forEach((bill) => {
+//     const matchedBill = bills.find((b) => b.bill_no === bill.BillNo && b.bill_type === 'wholesale');
 //     bill.products.forEach((product, index) => {
-//         const matchedProduct = products.find((p) => p.product_name === product.productName?.trim());
-//         if (!matchedProduct) {
-//             console.log(bill.BillNo, product.productName);
-//             return;
-//         }
+//         const matchedProduct = products.find((p) => p.product_name?.trim() === product.productName?.trim());
 //         insertBillItemsQuery += `('${matchedBill.bill_id}', '${matchedProduct.product_id}', ${product.quantity}, ${product.price}),`;
 //         // if (index !== bill.products.length - 1) {
 //         //     insertBillItemsQuery += ',';
 //         // }
 //     });
 // });
+retailBills.forEach((bill) => {
+    if (createdBill[bill.BillNo]) {
+        return;
+    }
+    createdBill[bill.BillNo] = true;
+    const matchedBill = bills.find((b) => b.bill_no === bill.BillNo && b.bill_type === 'retail');
+    bill.products.forEach((product, index) => {
+        const matchedProduct = products.find((p) => p.product_name === product.productName?.trim());
+        if (!matchedProduct) {
+            console.log(bill.BillNo, product.productName);
+            return;
+        }
+        insertBillItemsQuery += `('${matchedBill.bill_id}', '${matchedProduct.product_id}', ${product.quantity}, ${product.price}),`;
+        // if (index !== bill.products.length - 1) {
+        //     insertBillItemsQuery += ',';
+        // }
+    });
+});
 
 console.log(insertBillItemsQuery);

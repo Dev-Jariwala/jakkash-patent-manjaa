@@ -257,7 +257,6 @@ export const getAllBills = async (req, res) => {
 export const getBillReport = async (req, res) => {
   const { collection_id, bill_type } = req.params;
   const { fromBillNo, toBillNo } = req.query;
-  console.log({ collection_id, bill_type, fromBillNo, toBillNo });
   try {
     let billsQuery = `
       select bill_no, name, total_firki from bills where collection_id = $1 AND bill_type = $2

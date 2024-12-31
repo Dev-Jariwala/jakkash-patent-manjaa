@@ -28,6 +28,8 @@ import { Pencil } from "lucide-react";
 import { useDebounce, useLocalStorage } from "@uidotdev/usehooks";
 import { toast } from "react-toastify";
 import { getStocksByCollectionId } from "@/services/stocks";
+import { FaFileAlt } from "react-icons/fa";
+import { format } from "date-fns";
 
 
 const columnHelper = createColumnHelper();
@@ -35,7 +37,7 @@ const columnsDef = [
     columnHelper.accessor("date", {
         header: "Date",
         cell: (info) => {
-            return new Date(info.getValue()).toLocaleDateString();
+            return info.getValue() ? format(new Date(info.getValue()), "dd/MM/yyyy") : "-";
         }
     }),
     columnHelper.accessor("product_name", {
@@ -97,6 +99,10 @@ const StocksTable = () => {
                         className="tw-w-56"
                     />
                 </div>
+                <Link to={`/stocks/report`} className="tw-flex tw-items-center tw-space-x-2 tw-border tw-rounded-lg tw-px-2 tw-cursor-pointer hover:tw-bg-gray-100 tw-py-1 tw-text-gray-700">
+                    <FaFileAlt />
+                    <span className=" tw-text-sm tw-font-semibold">Report</span>
+                </Link>
             </div>
             {isStockDataLoading ? (
                 <div className="tw-flex tw-justify-center tw-items-center tw-h-64">

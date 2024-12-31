@@ -45,3 +45,13 @@ export const getPurchaseById = async ({ activeCollection, purchase_id }) => {
     });
     return response;
 };
+
+// router.get("/:collection_id/purchases/report", purchaseControllers.getPurchasesReport);
+
+export const getPurchasesReport = async ({ collection_id }) => {
+    const response = await axios({
+        method: "GET",
+        url: `${import.meta.env.VITE_BACKEND_URL}collections/${collection_id}/purchases/report`,
+    });
+    return response;
+}

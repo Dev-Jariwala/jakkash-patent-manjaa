@@ -77,7 +77,7 @@ const stocks = [
         "productId": "65bde88769acedb394df246e",
         "productName": "9/250 READY FIRKI",
         "addStock": 400,
-        "date": "2024-04-23T00:00:00.000Z",
+        "date": "+020224-04-23T00:00:00.000Z",
         "__v": 0
     },
     {
@@ -1438,14 +1438,140 @@ const stocks = [
         "addStock": 50,
         "date": "2024-12-28T12:49:50.656Z",
         "__v": 0
+    },
+    {
+        "_id": "6770e71cfb29a1224ffb26b9",
+        "collectionId": "65bde88669acedb394df2464",
+        "productId": "65bde88769acedb394df2467",
+        "productName": "ONLY FIRKI 1000",
+        "addStock": 480,
+        "date": "2024-12-29T06:07:24.085Z",
+        "__v": 0
+    },
+    {
+        "_id": "67712aa22d072353fcdf1a85",
+        "collectionId": "65bde88669acedb394df2464",
+        "productId": "65bde88769acedb394df2472",
+        "productName": "12/500 READY FIRKI",
+        "addStock": 13,
+        "date": "2024-12-29T10:55:30.940Z",
+        "__v": 0
+    },
+    {
+        "_id": "67713c5fe8f5b3f72b720e73",
+        "collectionId": "65bde88669acedb394df2464",
+        "productId": "65bde88769acedb394df2475",
+        "productName": "9/500 BOBIN",
+        "addStock": 10,
+        "date": "2024-12-29T12:11:11.276Z",
+        "__v": 0
+    },
+    {
+        "_id": "67713f17b672b4f413823a4d",
+        "collectionId": "65bde88669acedb394df2464",
+        "productId": "65bde88769acedb394df2474",
+        "productName": "9/250 BOBIN",
+        "addStock": 10,
+        "date": "2024-12-29T12:22:47.406Z",
+        "__v": 0
+    },
+    {
+        "_id": "67714ead99e9d29226738ab3",
+        "collectionId": "65bde88669acedb394df2464",
+        "productId": "65bde88769acedb394df2474",
+        "productName": "9/250 BOBIN",
+        "addStock": 10,
+        "date": "2024-12-29T13:29:17.899Z",
+        "__v": 0
+    },
+    {
+        "_id": "67715b7b1bd55821db1f84c2",
+        "collectionId": "65bde88669acedb394df2464",
+        "productId": "65bde88769acedb394df2474",
+        "productName": "9/250 BOBIN",
+        "addStock": 20,
+        "date": "2024-12-29T14:23:55.806Z",
+        "__v": 0
+    },
+    {
+        "_id": "67716240f5b4a0ae2df30261",
+        "collectionId": "65bde88669acedb394df2464",
+        "productId": "65bde88769acedb394df2467",
+        "productName": "ONLY FIRKI 1000",
+        "addStock": 120,
+        "date": "2024-12-29T14:52:48.821Z",
+        "__v": 0
+    },
+    {
+        "_id": "67716247f5b4a0ae2df3081f",
+        "collectionId": "65bde88669acedb394df2464",
+        "productId": "65bde88769acedb394df2468",
+        "productName": "ONLY FIRKI 2500",
+        "addStock": 120,
+        "date": "2024-12-29T14:52:55.500Z",
+        "__v": 0
+    },
+    {
+        "_id": "67722724d44b481e4a7d93a3",
+        "collectionId": "65bde88669acedb394df2464",
+        "productId": "65bde88769acedb394df2471",
+        "productName": "12/250 READY FIRKI",
+        "addStock": 10,
+        "date": "2024-12-30T04:52:52.013Z",
+        "__v": 0
+    },
+    {
+        "_id": "677227a6e358aaa85ddc093e",
+        "collectionId": "65bde88669acedb394df2464",
+        "productId": "65bde88769acedb394df2470",
+        "productName": "12/900 READY FIRKI",
+        "addStock": 1,
+        "date": "2024-12-30T04:55:02.035Z",
+        "__v": 0
+    },
+    {
+        "_id": "677227afe358aaa85ddc0948",
+        "collectionId": "65bde88669acedb394df2464",
+        "productId": "65bde88769acedb394df2470",
+        "productName": "12/900 READY FIRKI",
+        "addStock": 4,
+        "date": "2024-12-30T04:55:11.446Z",
+        "__v": 0
+    },
+    {
+        "_id": "6772819b318be23cdf4859b9",
+        "collectionId": "65bde88669acedb394df2464",
+        "productId": "65bde88769acedb394df2474",
+        "productName": "9/250 BOBIN",
+        "addStock": 5,
+        "date": "2024-12-30T11:18:51.168Z",
+        "__v": 0
+    },
+    {
+        "_id": "677294a0ee7c7bf6258a3faf",
+        "collectionId": "65bde88669acedb394df2464",
+        "productId": "65bde88769acedb394df2475",
+        "productName": "9/500 BOBIN",
+        "addStock": 30,
+        "date": "2024-12-30T12:40:00.614Z",
+        "__v": 0
+    },
+    {
+        "_id": "6772a1f687f188b38e4a24d6",
+        "collectionId": "65bde88669acedb394df2464",
+        "productId": "65bde88769acedb394df2474",
+        "productName": "9/250 BOBIN",
+        "addStock": 50,
+        "date": "2024-12-30T13:36:54.297Z",
+        "__v": 0
     }
-];
+]
 
 const products = [
     {
-        "sr_no": 22,
-        "product_id": "0e230aae-c1cf-4970-bde8-05833325908e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 51,
+        "product_id": "0edd7969-20bc-44ec-9e2c-33165873be3f",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "product_name": "12/900 BOBIN",
         "wholesale_price": 0,
         "retail_price": 200,
@@ -1453,13 +1579,13 @@ const products = [
         "total_stock": 0,
         "is_labour": false,
         "is_delete": false,
-        "created_at": "2024-12-28T18:55:08.250Z",
+        "created_at": "2024-12-31T04:23:50.069Z",
         "updated_at": null
     },
     {
-        "sr_no": 21,
-        "product_id": "3e58682e-673e-45e2-8b23-541219d121ac",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 50,
+        "product_id": "16b9aa1a-8aa1-4044-b27e-c8d6d0d0355c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "product_name": "BOX",
         "wholesale_price": 30,
         "retail_price": 30,
@@ -1467,13 +1593,13 @@ const products = [
         "total_stock": 0,
         "is_labour": false,
         "is_delete": false,
-        "created_at": "2024-12-28T18:54:47.836Z",
+        "created_at": "2024-12-31T04:23:32.636Z",
         "updated_at": null
     },
     {
-        "sr_no": 20,
-        "product_id": "2c81c3f7-9515-463f-aae3-ac19a96cb7e2",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 49,
+        "product_id": "38e8ab43-4b16-4bb9-8624-79e1796eb841",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "product_name": "LABOUR 500 GM RIL",
         "wholesale_price": 250,
         "retail_price": 350,
@@ -1481,13 +1607,13 @@ const products = [
         "total_stock": 0,
         "is_labour": false,
         "is_delete": false,
-        "created_at": "2024-12-28T18:54:31.109Z",
+        "created_at": "2024-12-31T04:23:10.865Z",
         "updated_at": null
     },
     {
-        "sr_no": 19,
-        "product_id": "73343500-42da-4901-8702-248a7d0aeaee",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 48,
+        "product_id": "f05f98ca-ce93-4fc8-a406-4fdffbc50567",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "product_name": "LABOUR 250 GM RIL",
         "wholesale_price": 125,
         "retail_price": 175,
@@ -1495,13 +1621,13 @@ const products = [
         "total_stock": 0,
         "is_labour": false,
         "is_delete": false,
-        "created_at": "2024-12-28T18:54:16.191Z",
+        "created_at": "2024-12-31T04:22:50.504Z",
         "updated_at": null
     },
     {
-        "sr_no": 18,
-        "product_id": "f665f4e3-599d-4e67-85a8-682e6e722384",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 47,
+        "product_id": "2be8d5fa-b1fa-416c-811d-e0bc958bbc12",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "product_name": "LABOUR 900 MTR RIL",
         "wholesale_price": 50,
         "retail_price": 70,
@@ -1509,13 +1635,13 @@ const products = [
         "total_stock": 0,
         "is_labour": false,
         "is_delete": false,
-        "created_at": "2024-12-28T18:53:55.158Z",
+        "created_at": "2024-12-31T04:22:30.186Z",
         "updated_at": null
     },
     {
-        "sr_no": 17,
-        "product_id": "5843d333-fbf6-4900-8193-707f8feaccc3",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 46,
+        "product_id": "4fb6efb6-d996-4997-b418-ffa29bd60721",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "product_name": "12/500 BOBIN",
         "wholesale_price": 0,
         "retail_price": 800,
@@ -1523,13 +1649,13 @@ const products = [
         "total_stock": 0,
         "is_labour": false,
         "is_delete": false,
-        "created_at": "2024-12-28T18:53:38.428Z",
+        "created_at": "2024-12-31T04:22:02.298Z",
         "updated_at": null
     },
     {
-        "sr_no": 16,
-        "product_id": "e474185f-6e10-4cf5-8264-47b7f338121e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 45,
+        "product_id": "e1e8a849-e7cc-4d33-98e4-7a026524eaaa",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "product_name": "12/250 BOBIN",
         "wholesale_price": 0,
         "retail_price": 400,
@@ -1537,13 +1663,13 @@ const products = [
         "total_stock": 0,
         "is_labour": false,
         "is_delete": false,
-        "created_at": "2024-12-28T18:53:22.064Z",
-        "updated_at": null
+        "created_at": "2024-12-31T04:21:01.123Z",
+        "updated_at": "2024-12-31T04:21:15.637Z"
     },
     {
-        "sr_no": 15,
-        "product_id": "24ec49fc-5816-4616-b5f7-e3e39b1534de",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 44,
+        "product_id": "63250654-2050-4978-a634-e9c2c51a9f12",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "product_name": "9/500 BOBIN",
         "wholesale_price": 0,
         "retail_price": 650,
@@ -1551,13 +1677,13 @@ const products = [
         "total_stock": 0,
         "is_labour": false,
         "is_delete": false,
-        "created_at": "2024-12-28T18:52:18.765Z",
+        "created_at": "2024-12-31T04:20:37.286Z",
         "updated_at": null
     },
     {
-        "sr_no": 14,
-        "product_id": "2c1a2a84-81a9-493a-96a6-99c39f498bc6",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 43,
+        "product_id": "0e61cd4e-6d91-4784-b575-c46302135a55",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "product_name": "9/250 BOBIN",
         "wholesale_price": 0,
         "retail_price": 350,
@@ -1565,13 +1691,13 @@ const products = [
         "total_stock": 0,
         "is_labour": false,
         "is_delete": false,
-        "created_at": "2024-12-28T18:52:02.206Z",
+        "created_at": "2024-12-31T04:20:11.383Z",
         "updated_at": null
     },
     {
-        "sr_no": 13,
-        "product_id": "ed847d23-53f7-4ca0-81bf-2439448f9dd3",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 42,
+        "product_id": "739179a5-4c2f-4dc6-9c9b-5260d7194bec",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "product_name": "9/900 BOBIN",
         "wholesale_price": 0,
         "retail_price": 150,
@@ -1579,27 +1705,27 @@ const products = [
         "total_stock": 0,
         "is_labour": false,
         "is_delete": false,
-        "created_at": "2024-12-28T18:51:43.913Z",
+        "created_at": "2024-12-31T04:19:59.608Z",
         "updated_at": null
     },
     {
-        "sr_no": 12,
-        "product_id": "536e8eca-e869-4264-a154-4aeb80c78b91",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 41,
+        "product_id": "11a78d7a-2f91-4d2d-b874-dac53ad5d027",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "product_name": "12/500 READY FIRKI",
-        "wholesale_price": 850,
+        "wholesale_price": 650,
         "retail_price": 1300,
         "stock_in_hand": 0,
         "total_stock": 0,
         "is_labour": false,
         "is_delete": false,
-        "created_at": "2024-12-28T18:50:57.766Z",
+        "created_at": "2024-12-31T04:19:37.666Z",
         "updated_at": null
     },
     {
-        "sr_no": 11,
-        "product_id": "5478a623-8836-452a-9ade-b0c55111cb31",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 40,
+        "product_id": "00bc1088-e982-428a-ab1a-9034c0eaf38c",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "product_name": "12/250 READY FIRKI",
         "wholesale_price": 490,
         "retail_price": 750,
@@ -1607,13 +1733,13 @@ const products = [
         "total_stock": 0,
         "is_labour": false,
         "is_delete": false,
-        "created_at": "2024-12-28T18:50:29.750Z",
-        "updated_at": "2024-12-28T18:51:15.865Z"
+        "created_at": "2024-12-31T04:19:22.514Z",
+        "updated_at": null
     },
     {
-        "sr_no": 10,
-        "product_id": "c523f527-de2a-416b-b703-b2b5ef24f7f0",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 39,
+        "product_id": "e279bf60-5a4a-49be-b6e9-ef27737e32d8",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "product_name": "12/900 READY FIRKI",
         "wholesale_price": 260,
         "retail_price": 400,
@@ -1621,13 +1747,13 @@ const products = [
         "total_stock": 0,
         "is_labour": false,
         "is_delete": false,
-        "created_at": "2024-12-28T18:49:38.488Z",
+        "created_at": "2024-12-31T04:18:56.338Z",
         "updated_at": null
     },
     {
-        "sr_no": 9,
-        "product_id": "16f57eff-1f12-43ee-8e54-62f3ba420fe3",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 38,
+        "product_id": "99ba2c97-0ddf-4cc6-850d-f3f5767d7f9d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "product_name": "9/500 READY FIRKI",
         "wholesale_price": 700,
         "retail_price": 1100,
@@ -1635,13 +1761,13 @@ const products = [
         "total_stock": 0,
         "is_labour": false,
         "is_delete": false,
-        "created_at": "2024-12-28T18:49:10.731Z",
+        "created_at": "2024-12-31T04:18:38.394Z",
         "updated_at": null
     },
     {
-        "sr_no": 8,
-        "product_id": "7c5de16f-8a4c-4fa6-bde1-3c2a17805bf3",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 37,
+        "product_id": "0fb89653-e6d2-4816-ba10-8859e34341c0",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "product_name": "9/250 READY FIRKI",
         "wholesale_price": 410,
         "retail_price": 650,
@@ -1649,13 +1775,13 @@ const products = [
         "total_stock": 0,
         "is_labour": false,
         "is_delete": false,
-        "created_at": "2024-12-28T18:48:48.560Z",
+        "created_at": "2024-12-31T04:18:10.904Z",
         "updated_at": null
     },
     {
-        "sr_no": 7,
-        "product_id": "a967d9a4-035f-46e2-ba4d-6f3d2fe6a60e",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 36,
+        "product_id": "6fd589e2-f3e6-4e1c-9114-87507fb541a2",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "product_name": "9/900 READY FIRKI",
         "wholesale_price": 210,
         "retail_price": 350,
@@ -1663,13 +1789,13 @@ const products = [
         "total_stock": 0,
         "is_labour": false,
         "is_delete": false,
-        "created_at": "2024-12-28T18:48:29.283Z",
+        "created_at": "2024-12-31T04:17:49.458Z",
         "updated_at": null
     },
     {
-        "sr_no": 6,
-        "product_id": "61e1afc1-358f-4a3d-a87f-182a8b9f67b7",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 35,
+        "product_id": "384ab505-c39c-49e3-b049-ce9496a1e8b2",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "product_name": "6/500 REDY FIRKI",
         "wholesale_price": 680,
         "retail_price": 1000,
@@ -1677,13 +1803,13 @@ const products = [
         "total_stock": 0,
         "is_labour": false,
         "is_delete": false,
-        "created_at": "2024-12-28T18:48:07.671Z",
+        "created_at": "2024-12-31T04:17:29.998Z",
         "updated_at": null
     },
     {
-        "sr_no": 5,
-        "product_id": "2fc23c3b-ac41-478f-b7cd-8c5c76ca1e56",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 34,
+        "product_id": "3a968fa6-8d0b-4c16-8302-4f11076a4cb9",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "product_name": "6/250 READY FIRKI",
         "wholesale_price": 400,
         "retail_price": 600,
@@ -1691,27 +1817,27 @@ const products = [
         "total_stock": 0,
         "is_labour": false,
         "is_delete": false,
-        "created_at": "2024-12-28T18:47:09.045Z",
+        "created_at": "2024-12-31T04:17:08.352Z",
         "updated_at": null
     },
     {
-        "sr_no": 4,
-        "product_id": "e5048be0-cf64-4d5c-8764-f5fb36f6e511",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 33,
+        "product_id": "f1d74e12-07bc-4d75-b9b2-4a4bb201496d",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "product_name": "6/900 READY FIRKI",
-        "wholesale_price": 220,
+        "wholesale_price": 222,
         "retail_price": 320,
         "stock_in_hand": 0,
         "total_stock": 0,
         "is_labour": false,
         "is_delete": false,
-        "created_at": "2024-12-28T18:46:47.662Z",
+        "created_at": "2024-12-31T04:16:48.121Z",
         "updated_at": null
     },
     {
-        "sr_no": 3,
-        "product_id": "e4aa70db-1459-4c2c-a57a-46f6100abc28",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 32,
+        "product_id": "fcb57160-fca8-488c-a1b4-3863622e808b",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "product_name": "ONLY FIRKI 5000",
         "wholesale_price": 55,
         "retail_price": 80,
@@ -1719,13 +1845,13 @@ const products = [
         "total_stock": 0,
         "is_labour": false,
         "is_delete": false,
-        "created_at": "2024-12-28T18:46:20.332Z",
+        "created_at": "2024-12-31T04:16:15.884Z",
         "updated_at": null
     },
     {
-        "sr_no": 2,
-        "product_id": "79fe4274-1b7f-4d84-982b-785fd1c28a35",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 31,
+        "product_id": "65ea3e26-52ab-4e7e-92ae-c0a8fc1fde99",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "product_name": "ONLY FIRKI 2500",
         "wholesale_price": 48,
         "retail_price": 60,
@@ -1733,13 +1859,13 @@ const products = [
         "total_stock": 0,
         "is_labour": false,
         "is_delete": false,
-        "created_at": "2024-12-28T18:45:51.543Z",
+        "created_at": "2024-12-31T04:15:55.015Z",
         "updated_at": null
     },
     {
-        "sr_no": 1,
-        "product_id": "4435a183-444d-49a2-be2b-b9124b4eedb3",
-        "collection_id": "4c7a0ac8-8633-4dde-97de-f9e393001b6f",
+        "sr_no": 30,
+        "product_id": "6f60effb-d9dc-4735-8559-d218b1eb1026",
+        "collection_id": "79c68672-77d0-493a-bbce-6553303f18cc",
         "product_name": "ONLY FIRKI 1000",
         "wholesale_price": 45,
         "retail_price": 50,
@@ -1747,7 +1873,7 @@ const products = [
         "total_stock": 0,
         "is_labour": false,
         "is_delete": false,
-        "created_at": "2024-12-28T18:45:29.340Z",
+        "created_at": "2024-12-31T04:15:29.983Z",
         "updated_at": null
     }
 ]
@@ -1756,7 +1882,7 @@ const productsOptions = products.map(product => ({ product_name: product.product
 console.log(productsOptions);
 
 const stocksValues = stocks.map(stock => {
-    const product = productsOptions.find(product => product.product_name === stock.productName.trim());
+    const product = productsOptions.find(product => product.product_name.trim() === stock.productName.trim());
     return {
         product_id: product.product_id,
         quantity: stock.addStock,
@@ -1789,6 +1915,6 @@ stocksValues.forEach((stock, index) => {
     }
 });
 
-// console.log(insertQuery);
+console.log(insertQuery);
 
 `INSERT INTO stocks(product_id, collection_id, quantity, date) VALUES('a967d9a4-035f-46e2-ba4d-6f3d2fe6a60e', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 50, '2024-04-06T05:02:20.312Z'),('7c5de16f-8a4c-4fa6-bde1-3c2a17805bf3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 312, '2024-04-06T00:00:00.000Z'),('7c5de16f-8a4c-4fa6-bde1-3c2a17805bf3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 350, '2024-04-07T00:00:00.000Z'),('7c5de16f-8a4c-4fa6-bde1-3c2a17805bf3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 324, '2024-10-04T00:00:00.000Z'),('7c5de16f-8a4c-4fa6-bde1-3c2a17805bf3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 342, '2024-12-04T00:00:00.000Z'),('7c5de16f-8a4c-4fa6-bde1-3c2a17805bf3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 408, '2024-04-15T00:00:00.000Z'),('7c5de16f-8a4c-4fa6-bde1-3c2a17805bf3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 442, '2024-04-17T00:00:00.000Z'),('7c5de16f-8a4c-4fa6-bde1-3c2a17805bf3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 250, '2024-04-22T00:00:00.000Z'),('7c5de16f-8a4c-4fa6-bde1-3c2a17805bf3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 400, '2024-04-23T00:00:00.000Z'),('7c5de16f-8a4c-4fa6-bde1-3c2a17805bf3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 175, '2024-04-24T00:00:00.000Z'),('16f57eff-1f12-43ee-8e54-62f3ba420fe3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 347, '2024-04-25T00:00:00.000Z'),('16f57eff-1f12-43ee-8e54-62f3ba420fe3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 150, '2024-04-26T00:00:00.000Z'),('16f57eff-1f12-43ee-8e54-62f3ba420fe3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 150, '2024-04-28T00:00:00.000Z'),('16f57eff-1f12-43ee-8e54-62f3ba420fe3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 225, '2024-05-01T00:00:00.000Z'),('16f57eff-1f12-43ee-8e54-62f3ba420fe3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 120, '2024-05-02T00:00:00.000Z'),('16f57eff-1f12-43ee-8e54-62f3ba420fe3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 120, '2024-05-03T00:00:00.000Z'),('16f57eff-1f12-43ee-8e54-62f3ba420fe3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 140, '2024-05-04T00:00:00.000Z'),('16f57eff-1f12-43ee-8e54-62f3ba420fe3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 100, '2024-05-05T00:00:00.000Z'),('16f57eff-1f12-43ee-8e54-62f3ba420fe3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 140, '2024-05-08T00:00:00.000Z'),('16f57eff-1f12-43ee-8e54-62f3ba420fe3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 160, '2024-05-10T00:00:00.000Z'),('a967d9a4-035f-46e2-ba4d-6f3d2fe6a60e', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 150, '2024-05-17T00:00:00.000Z'),('a967d9a4-035f-46e2-ba4d-6f3d2fe6a60e', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 180, '2024-05-20T00:00:00.000Z'),('a967d9a4-035f-46e2-ba4d-6f3d2fe6a60e', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 320, '2024-05-21T00:00:00.000Z'),('a967d9a4-035f-46e2-ba4d-6f3d2fe6a60e', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 325, '2024-05-22T00:00:00.000Z'),('a967d9a4-035f-46e2-ba4d-6f3d2fe6a60e', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 490, '2024-05-23T00:00:00.000Z'),('a967d9a4-035f-46e2-ba4d-6f3d2fe6a60e', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 875, '2024-05-30T00:00:00.000Z'),('7c5de16f-8a4c-4fa6-bde1-3c2a17805bf3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 300, '2024-05-31T00:00:00.000Z'),('7c5de16f-8a4c-4fa6-bde1-3c2a17805bf3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 320, '2024-06-01T00:00:00.000Z'),('7c5de16f-8a4c-4fa6-bde1-3c2a17805bf3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 159, '2024-06-04T00:00:00.000Z'),('16f57eff-1f12-43ee-8e54-62f3ba420fe3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 120, '2024-05-11T00:00:00.000Z'),('16f57eff-1f12-43ee-8e54-62f3ba420fe3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 160, '2024-05-12T00:00:00.000Z'),('16f57eff-1f12-43ee-8e54-62f3ba420fe3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 150, '2024-05-14T00:00:00.000Z'),('16f57eff-1f12-43ee-8e54-62f3ba420fe3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 206, '2024-05-15T00:00:00.000Z'),('a967d9a4-035f-46e2-ba4d-6f3d2fe6a60e', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 525, '2024-11-20T00:00:00.000Z'),('7c5de16f-8a4c-4fa6-bde1-3c2a17805bf3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 2150, '2024-11-20T00:00:00.000Z'),('16f57eff-1f12-43ee-8e54-62f3ba420fe3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1000, '2024-11-20T06:57:42.944Z'),('e5048be0-cf64-4d5c-8764-f5fb36f6e511', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 250, '2024-11-20T00:00:00.000Z'),('2fc23c3b-ac41-478f-b7cd-8c5c76ca1e56', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 250, '2024-11-20T00:00:00.000Z'),('61e1afc1-358f-4a3d-a87f-182a8b9f67b7', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 225, '2024-11-20T07:06:19.573Z'),('c523f527-de2a-416b-b703-b2b5ef24f7f0', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 245, '2024-11-20T00:00:00.000Z'),('5478a623-8836-452a-9ade-b0c55111cb31', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 412, '2024-11-20T07:06:51.525Z'),('536e8eca-e869-4264-a154-4aeb80c78b91', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 115, '2024-11-20T07:07:13.155Z'),('3e58682e-673e-45e2-8b23-541219d121ac', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 10000, '2024-11-20T00:00:00.000Z'),('e5048be0-cf64-4d5c-8764-f5fb36f6e511', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 50, '2024-11-20T07:30:01.397Z'),('4435a183-444d-49a2-be2b-b9124b4eedb3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 300, '2024-11-20T09:48:16.211Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 600, '2024-11-20T09:48:28.347Z'),('f665f4e3-599d-4e67-85a8-682e6e722384', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1000, '2024-11-20T00:00:00.000Z'),('73343500-42da-4901-8702-248a7d0aeaee', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 3000, '2024-11-20T00:00:00.000Z'),('2c81c3f7-9515-463f-aae3-ac19a96cb7e2', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 2500, '2024-11-20T00:00:00.000Z'),('4435a183-444d-49a2-be2b-b9124b4eedb3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 720, '2024-11-24T06:09:58.948Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 360, '2024-11-24T06:10:16.610Z'),('e4aa70db-1459-4c2c-a57a-46f6100abc28', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 420, '2024-11-24T06:10:35.631Z'),('ed847d23-53f7-4ca0-81bf-2439448f9dd3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 672, '2024-11-24T00:00:00.000Z'),('24ec49fc-5816-4616-b5f7-e3e39b1534de', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 50, '2024-11-24T00:00:00.000Z'),('2c1a2a84-81a9-493a-96a6-99c39f498bc6', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 157, '2024-11-24T00:00:00.000Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 720, '2024-11-25T05:52:31.439Z'),('4435a183-444d-49a2-be2b-b9124b4eedb3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 120, '2024-11-26T00:00:00.000Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 350, '2024-11-26T00:00:00.000Z'),('e4aa70db-1459-4c2c-a57a-46f6100abc28', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 120, '2024-11-26T00:00:00.000Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 10, '2024-11-26T00:00:00.000Z'),('4435a183-444d-49a2-be2b-b9124b4eedb3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 216, '2024-11-27T00:00:00.000Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 492, '2024-11-27T00:00:00.000Z'),('e4aa70db-1459-4c2c-a57a-46f6100abc28', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 222, '2024-11-29T00:00:00.000Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 138, '2024-11-29T00:00:00.000Z'),('4435a183-444d-49a2-be2b-b9124b4eedb3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 240, '2024-11-29T00:00:00.000Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 72, '2024-12-01T00:00:00.000Z'),('e4aa70db-1459-4c2c-a57a-46f6100abc28', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 30, '2024-12-01T00:00:00.000Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1, '2024-12-01T11:40:49.457Z'),('e4aa70db-1459-4c2c-a57a-46f6100abc28', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 5, '2024-12-01T11:40:57.327Z'),('4435a183-444d-49a2-be2b-b9124b4eedb3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 492, '2024-12-01T11:42:34.466Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 24, '2024-12-01T11:43:09.675Z'),('e4aa70db-1459-4c2c-a57a-46f6100abc28', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 456, '2024-12-02T00:00:00.000Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 6, '2024-12-03T00:00:00.000Z'),('4435a183-444d-49a2-be2b-b9124b4eedb3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 570, '2024-12-04T00:00:00.000Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 90, '2024-12-04T00:00:00.000Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1, '2024-12-04T00:00:00.000Z'),('e4aa70db-1459-4c2c-a57a-46f6100abc28', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1, '2024-12-04T00:00:00.000Z'),('e4aa70db-1459-4c2c-a57a-46f6100abc28', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 3, '2024-12-05T07:11:34.986Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 599, '2024-12-05T00:00:00.000Z'),('4435a183-444d-49a2-be2b-b9124b4eedb3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 150, '2024-12-07T00:00:00.000Z'),('e4aa70db-1459-4c2c-a57a-46f6100abc28', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 336, '2024-12-07T00:00:00.000Z'),('4435a183-444d-49a2-be2b-b9124b4eedb3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 50, '2024-12-08T00:00:00.000Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 60, '2024-12-08T00:00:00.000Z'),('e4aa70db-1459-4c2c-a57a-46f6100abc28', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 6, '2024-12-08T00:00:00.000Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 10, '2024-12-08T00:00:00.000Z'),('4435a183-444d-49a2-be2b-b9124b4eedb3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 504, '2024-12-08T00:00:00.000Z'),('e4aa70db-1459-4c2c-a57a-46f6100abc28', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 324, '2024-12-09T00:00:00.000Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 504, '2024-12-10T14:12:50.667Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 2, '2024-12-11T00:00:00.000Z'),('e4aa70db-1459-4c2c-a57a-46f6100abc28', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1, '2024-12-11T09:40:08.106Z'),('536e8eca-e869-4264-a154-4aeb80c78b91', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 2, '2024-12-11T13:51:54.549Z'),('4435a183-444d-49a2-be2b-b9124b4eedb3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 360, '2024-12-11T00:00:00.000Z'),('e4aa70db-1459-4c2c-a57a-46f6100abc28', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 10, '2024-12-11T00:00:00.000Z'),('a967d9a4-035f-46e2-ba4d-6f3d2fe6a60e', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1115, '2024-12-14T00:00:00.000Z'),('7c5de16f-8a4c-4fa6-bde1-3c2a17805bf3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1840, '2024-12-14T00:00:00.000Z'),('16f57eff-1f12-43ee-8e54-62f3ba420fe3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 815, '2024-12-14T00:00:00.000Z'),('5478a623-8836-452a-9ade-b0c55111cb31', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1, '2024-12-14T08:04:58.463Z'),('536e8eca-e869-4264-a154-4aeb80c78b91', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 50, '2024-12-14T08:05:13.254Z'),('e5048be0-cf64-4d5c-8764-f5fb36f6e511', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 200, '2024-12-14T08:11:46.577Z'),('2fc23c3b-ac41-478f-b7cd-8c5c76ca1e56', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 100, '2024-12-14T08:11:54.367Z'),('61e1afc1-358f-4a3d-a87f-182a8b9f67b7', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 100, '2024-12-14T08:12:01.033Z'),('2fc23c3b-ac41-478f-b7cd-8c5c76ca1e56', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 75, '2024-12-14T08:14:38.266Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1, '2024-12-14T12:33:32.100Z'),('e474185f-6e10-4cf5-8264-47b7f338121e', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1, '2024-12-14T12:45:09.373Z'),('5843d333-fbf6-4900-8193-707f8feaccc3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1, '2024-12-14T12:56:37.668Z'),('0e230aae-c1cf-4970-bde8-05833325908e', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 29, '2024-12-15T03:58:57.925Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1, '2024-12-16T11:15:31.648Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 26, '2024-12-16T12:26:35.076Z'),('5843d333-fbf6-4900-8193-707f8feaccc3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1, '2024-12-16T15:33:07.552Z'),('5843d333-fbf6-4900-8193-707f8feaccc3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 2, '2024-12-16T15:47:42.045Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 2, '2024-12-16T16:02:45.122Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1, '2024-12-16T16:09:39.172Z'),('5478a623-8836-452a-9ade-b0c55111cb31', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1, '2024-12-18T06:03:55.268Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1, '2024-12-18T06:33:01.590Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 50, '2024-12-18T06:35:40.470Z'),('e4aa70db-1459-4c2c-a57a-46f6100abc28', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 45, '2024-12-18T06:35:59.840Z'),('5843d333-fbf6-4900-8193-707f8feaccc3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 2, '2024-12-18T09:34:47.381Z'),('536e8eca-e869-4264-a154-4aeb80c78b91', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 3, '2024-12-18T09:47:31.327Z'),('e5048be0-cf64-4d5c-8764-f5fb36f6e511', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 10, '2024-12-18T12:31:46.235Z'),('5843d333-fbf6-4900-8193-707f8feaccc3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1, '2024-12-18T15:35:21.872Z'),('e474185f-6e10-4cf5-8264-47b7f338121e', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 5, '2024-12-20T10:52:07.960Z'),('5478a623-8836-452a-9ade-b0c55111cb31', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 2, '2024-12-20T12:57:57.992Z'),('5478a623-8836-452a-9ade-b0c55111cb31', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 3, '2024-12-22T04:40:01.990Z'),('7c5de16f-8a4c-4fa6-bde1-3c2a17805bf3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 10, '2024-12-22T10:09:41.622Z'),('7c5de16f-8a4c-4fa6-bde1-3c2a17805bf3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1630, '2024-12-22T00:00:00.000Z'),('16f57eff-1f12-43ee-8e54-62f3ba420fe3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 635, '2024-12-22T00:00:00.000Z'),('a967d9a4-035f-46e2-ba4d-6f3d2fe6a60e', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 295, '2024-12-22T00:00:00.000Z'),('536e8eca-e869-4264-a154-4aeb80c78b91', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 2, '2024-12-22T12:14:57.290Z'),('5843d333-fbf6-4900-8193-707f8feaccc3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 2, '2024-12-22T13:10:52.247Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 10, '2024-12-23T08:48:17.021Z'),('0e230aae-c1cf-4970-bde8-05833325908e', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 2, '2024-12-23T08:49:04.933Z'),('e4aa70db-1459-4c2c-a57a-46f6100abc28', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 540, '2024-12-23T15:16:10.012Z'),('24ec49fc-5816-4616-b5f7-e3e39b1534de', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 10, '2024-12-23T16:11:47.706Z'),('e474185f-6e10-4cf5-8264-47b7f338121e', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 2, '2024-12-24T07:12:22.198Z'),('536e8eca-e869-4264-a154-4aeb80c78b91', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1, '2024-12-24T12:18:06.927Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1, '2024-12-24T12:57:49.164Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 10, '2024-12-24T14:46:19.673Z'),('24ec49fc-5816-4616-b5f7-e3e39b1534de', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 10, '2024-12-25T04:19:07.790Z'),('e474185f-6e10-4cf5-8264-47b7f338121e', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1, '2024-12-25T05:21:49.702Z'),('e474185f-6e10-4cf5-8264-47b7f338121e', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 2, '2024-12-25T05:21:56.268Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 100, '2024-12-25T07:18:31.357Z'),('e4aa70db-1459-4c2c-a57a-46f6100abc28', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 100, '2024-12-25T07:18:38.819Z'),('79fe4274-1b7f-4d84-982b-785fd1c28a35', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 198, '2024-12-25T07:29:22.241Z'),('5843d333-fbf6-4900-8193-707f8feaccc3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 10, '2024-12-25T07:40:47.127Z'),('e5048be0-cf64-4d5c-8764-f5fb36f6e511', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 2, '2024-12-25T07:56:44.883Z'),('2fc23c3b-ac41-478f-b7cd-8c5c76ca1e56', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 2, '2024-12-25T07:56:58.829Z'),('c523f527-de2a-416b-b703-b2b5ef24f7f0', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 3, '2024-12-25T07:58:00.071Z'),('5478a623-8836-452a-9ade-b0c55111cb31', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 4, '2024-12-25T07:58:20.229Z'),('24ec49fc-5816-4616-b5f7-e3e39b1534de', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 50, '2024-12-25T10:25:15.172Z'),('e474185f-6e10-4cf5-8264-47b7f338121e', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 10, '2024-12-25T15:20:37.700Z'),('5478a623-8836-452a-9ade-b0c55111cb31', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1, '2024-12-25T16:13:38.621Z'),('2c81c3f7-9515-463f-aae3-ac19a96cb7e2', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1, '2024-12-26T08:15:33.909Z'),('536e8eca-e869-4264-a154-4aeb80c78b91', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 5, '2024-12-26T13:57:43.162Z'),('536e8eca-e869-4264-a154-4aeb80c78b91', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 10, '2024-12-26T14:48:27.312Z'),('5478a623-8836-452a-9ade-b0c55111cb31', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 12, '2024-12-26T14:49:09.868Z'),('c523f527-de2a-416b-b703-b2b5ef24f7f0', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 1, '2024-12-27T06:06:51.104Z'),('5478a623-8836-452a-9ade-b0c55111cb31', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 10, '2024-12-27T09:51:01.513Z'),('2c1a2a84-81a9-493a-96a6-99c39f498bc6', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 20, '2024-12-28T03:43:56.861Z'),('5843d333-fbf6-4900-8193-707f8feaccc3', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 10, '2024-12-28T03:44:09.296Z'),('2c1a2a84-81a9-493a-96a6-99c39f498bc6', '4c7a0ac8-8633-4dde-97de-f9e393001b6f', 50, '2024-12-28T12:49:50.656Z');`
