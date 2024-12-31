@@ -60,3 +60,13 @@ export const getBillReport = async ({ collection_id, bill_type, fromBillNo, toBi
     });
     return response;
 }
+
+// router.get('/:collection_id/:mobile/wholesale-bills', billsControllers.getAllBillsByMobile);
+
+export const getWholeSaleBillsByMobile = async ({ collection_id, mobile }) => {
+    const response = await axios({
+        method: "GET",
+        url: `${import.meta.env.VITE_BACKEND_URL}collections/${collection_id}/${mobile}/wholesale-bills`,
+    });
+    return response;
+}

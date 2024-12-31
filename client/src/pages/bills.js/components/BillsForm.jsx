@@ -189,13 +189,15 @@ const BillsForm = () => {
             form.setValue('products', products?.filter(product => product?.[`${bill.bill_type}_price`] > 0)?.map(product => {
                 console.log({ product, bill });
                 const billItem = bill.bill_items.find(item => item.product_id === product.product_id);
+                const price = product[`${bill.bill_type}_price`];
+                const quantity = billItem?.quantity || 0;
                 return {
                     product_id: product.product_id,
                     stock_in_hand: product.stock_in_hand,
                     is_labour: product?.is_labour,
-                    price: product[`${bill.bill_type}_price`],
-                    quantity: billItem?.quantity || 0,
-                    total: billItem?.total || 0,
+                    price,
+                    quantity,
+                    total: (price * quantity).toFixed(2),
                 };
             }) || []);
             form.setValue('notes', bill.notes);

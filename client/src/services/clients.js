@@ -25,3 +25,13 @@ export const getClientByMobileNumber = async (mobile) => {
     });
     return response;
 }
+
+// router.get("/all", clientControllers.getAllClients);
+
+export const getAllClients = async () => {
+    const response = await axios({
+        method: "GET",
+        url: `${import.meta.env.VITE_BACKEND_URL}clients/all`,
+    });
+    return response;
+}

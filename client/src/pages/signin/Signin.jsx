@@ -16,12 +16,14 @@ import { signIn } from "@/controllers/users";
 import { useAuth } from "@/hooks/authProvider";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 const schema = yup.object({
   username: yup.string().required("Username is required"),
   password: yup.string().required("Password is required"),
 });
 const Signin = () => {
   const { setToken } = useAuth();
+  const [isSubmiting, setIsSubmiting] = useState(false);
   const navigate = useNavigate();
   const form = useForm({
     resolver: yupResolver(schema),
@@ -31,13 +33,20 @@ const Signin = () => {
     },
   });
   const onSubmit = async (data) => {
-    const res = await signIn(data);
-    if (res.token) {
-      setToken(res.token);
-      toast.success("Signed in successfully");
-      navigate("/");
-    } else {
+    setIsSubmiting(true);
+    try {
+      const res = await signIn(data);
+      if (res.token) {
+        setToken(res.token);
+        toast.success("Signed in successfully");
+        navigate("/");
+      } else {
+        toast.error("Invalid credentials");
+      }
+    } catch (error) {
       toast.error("Invalid credentials");
+    } finally {
+      setIsSubmiting(false);
     }
   };
   return (
@@ -82,7 +91,7 @@ const Signin = () => {
                   </FormItem>
                 )}
               />
-              <Button className="tw-w-full" type="submit">
+              <Button className="tw-w-full" type="submit" disabled={isSubmiting} isLoading={isSubmiting} loadingText="Signing in...">
                 Signin
               </Button>
             </form>{" "}

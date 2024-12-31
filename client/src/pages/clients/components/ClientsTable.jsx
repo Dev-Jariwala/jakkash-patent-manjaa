@@ -23,12 +23,13 @@ import {
     MdKeyboardDoubleArrowRight,
 } from "react-icons/md";
 import { Input } from "@/components/ui/input";
-import { Link } from "react-router-dom";
-import { Pencil } from "lucide-react";
-import { useDebounce, useLocalStorage } from "@uidotdev/usehooks";
+import { useDebounce } from "@uidotdev/usehooks";
 import { toast } from "react-toastify";
-import { getStocksByCollectionId } from "@/services/stocks";
-import { getClients } from "@/services/clients";
+import { getAllClients, getClients } from "@/services/clients";
+import { Link } from "react-router-dom";
+import { Download, Eye } from "lucide-react";
+import { CSVLink } from "react-csv";
+import { Spinner } from "@/components/ui/spinner";
 
 
 const columnHelper = createColumnHelper();
@@ -58,6 +59,13 @@ const ClientsTable = () => {
         queryFn: async () => {
             const response = await getClients({ pagination, debouncedSearch });
             return response.data;
+        }
+    });
+    const { data: clients, error: clientsError, isLoading: isClientsLoading } = useQuery({
+        queryKey: ["clients"],
+        queryFn: async () => {
+            const response = await getAllClients();
+            return response.data?.clients ?? [];
         },
     });
 
@@ -80,7 +88,10 @@ const ClientsTable = () => {
         if (clientsDataError) {
             toast.error(`Error getting bills`)
         }
-    }, [clientsDataError])
+        if (clientsError) {
+            toast.error(`Error getting clients`)
+        }
+    }, [clientsDataError, clientsError])
 
     return (
         <>
@@ -93,117 +104,131 @@ const ClientsTable = () => {
                         className="tw-w-56"
                     />
                 </div>
-            </div>
-            {isClientsDataLoading ? (
-                <div className="tw-flex tw-items-center tw-justify-center tw-h-64">
-                    <div className="basic-loader"></div>
-                </div>
-            ) : <>
-                <ScrollArea className="tw-w-full tw-overflow-y-auto">
-                    <div className="tw-mt-3">
-                        <Table>
-                            <TableHeader>
-                                {table.getHeaderGroups().map((headerGroup) => (
-                                    <TableRow className="tw-border-t" key={headerGroup.id}>
-                                        {headerGroup.headers.map((header) => {
-                                            return (
-                                                <TableHead
-                                                    key={header.id}
-                                                    className="tw-text-slate-700 tw-whitespace-nowrap"
-                                                >
-                                                    {header.isPlaceholder
-                                                        ? null
-                                                        : flexRender(
-                                                            header.column.columnDef.header,
-                                                            header.getContext()
-                                                        )}
-                                                </TableHead>
-                                            );
-                                        })}
-                                        {/* <TableHead>Actions</TableHead> */}
-                                    </TableRow>
-                                ))}
-                            </TableHeader>
-                            <TableBody>
-                                {table.getRowModel().rows?.length ? (
-                                    table.getRowModel().rows.map((row) => (
-                                        <TableRow
-                                            key={row.id}
-                                            data-state={row.getIsSelected() && "selected"}
-                                            className="hover:tw-bg-gray-100"
-                                        >
-                                            {row.getVisibleCells().map((cell) => (
-                                                <TableCell key={cell.id}>
-                                                    {flexRender(
-                                                        cell.column.columnDef.cell,
-                                                        cell.getContext()
-                                                    )}
-                                                </TableCell>
-                                            ))}
-                                            {/* <TableCell className="tw-flex tw-items-center tw-space-x-2">
-                                            <Link
-                                                to={`/stocks/update?stock_id=${row.original?.stock_id}`}
-                                                className="hover:tw-bg-gray-200 tw-rounded-full tw-size-8 tw-flex tw-items-center tw-justify-center"
-                                            >
-                                                <Pencil size={16} className="tw-text-green-500" />
-                                            </Link>
-                                        </TableCell> */}
+                <CSVLink
+                    data={clients ?? []}
+                    filename={"clients.csv"}
+                    headers={[
+                        { label: "Name", key: "name" },
+                        { label: "Mobile", key: "mobile" }
+                    ]}
+                >
+                    <div className="tw-flex tw-items-center tw-cursor-pointer tw-border tw-gap-x-3.5 tw-py-2 tw-px-3 tw-rounded-lg tw-text-sm tw-text-gray-600 hover:tw-bg-gray-100 focus:tw-outline-none focus:tw-bg-gray-100 dark:tw-text-gray-400 dark:hover:tw-bg-gray-700 dark:hover:tw-text-gray-300 dark:focus:tw-bg-gray-700">
+                        {isClientsLoading ? <Spinner /> : <Download size={16} />}
+                        CSV File
+                    </div>
+                </CSVLink>
+            </div >
+            {
+                isClientsDataLoading ? (
+                    <div className="tw-flex tw-items-center tw-justify-center tw-h-64" >
+                        <div className="basic-loader"></div>
+                    </div >
+                ) : <>
+                    <ScrollArea className="tw-w-full tw-overflow-y-auto">
+                        <div className="tw-mt-3">
+                            <Table>
+                                <TableHeader>
+                                    {table.getHeaderGroups().map((headerGroup) => (
+                                        <TableRow className="tw-border-t" key={headerGroup.id}>
+                                            {headerGroup.headers.map((header) => {
+                                                return (
+                                                    <TableHead
+                                                        key={header.id}
+                                                        className="tw-text-slate-700 tw-whitespace-nowrap"
+                                                    >
+                                                        {header.isPlaceholder
+                                                            ? null
+                                                            : flexRender(
+                                                                header.column.columnDef.header,
+                                                                header.getContext()
+                                                            )}
+                                                    </TableHead>
+                                                );
+                                            })}
+                                            <TableHead>Actions</TableHead>
                                         </TableRow>
-                                    ))
-                                ) : (
-                                    <TableRow>
-                                        <TableCell
-                                            colSpan={columns.length}
-                                            className="h-24 text-center"
-                                        >
-                                            No results.
-                                        </TableCell>
-                                    </TableRow>
-                                )}
-                            </TableBody>
-                        </Table>
+                                    ))}
+                                </TableHeader>
+                                <TableBody>
+                                    {table.getRowModel().rows?.length ? (
+                                        table.getRowModel().rows.map((row) => (
+                                            <TableRow
+                                                key={row.id}
+                                                data-state={row.getIsSelected() && "selected"}
+                                                className="hover:tw-bg-gray-100"
+                                            >
+                                                {row.getVisibleCells().map((cell) => (
+                                                    <TableCell key={cell.id}>
+                                                        {flexRender(
+                                                            cell.column.columnDef.cell,
+                                                            cell.getContext()
+                                                        )}
+                                                    </TableCell>
+                                                ))}
+                                                <TableCell className="tw-flex tw-items-center tw-space-x-2">
+                                                    <Link
+                                                        to={`/clients/report?mobile=${row.original?.mobile}`}
+                                                        className="hover:tw-bg-gray-200 tw-rounded-full tw-size-8 tw-flex tw-items-center tw-justify-center"
+                                                    >
+                                                        <Eye size={16} className="tw-text-blue-500" />
+                                                    </Link>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))
+                                    ) : (
+                                        <TableRow>
+                                            <TableCell
+                                                colSpan={columns.length}
+                                                className="h-24 text-center"
+                                            >
+                                                No results.
+                                            </TableCell>
+                                        </TableRow>
+                                    )}
+                                </TableBody>
+                            </Table>
+                        </div>
+                        <ScrollBar orientation="horizontal" />
+                    </ScrollArea>
+                    <div className="tw-flex tw-items-center tw-justify-between tw-p-4">
+                        <div className="">{table.getRowCount()} Clients</div>
+                        <div className="tw-flex tw-items-center tw-space-x-2 ">
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => table.setPageIndex(0)}
+                                disabled={!table.getCanPreviousPage()}
+                            >
+                                <MdKeyboardDoubleArrowLeft />
+                            </Button>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => table.previousPage()}
+                                disabled={!table.getCanPreviousPage()}
+                            >
+                                <IoIosArrowBack />
+                            </Button>
+                            <Button variant="outline">{pagination.pageIndex + 1}</Button>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => table.nextPage()}
+                                disabled={!table.getCanNextPage()}
+                            >
+                                <IoIosArrowForward />
+                            </Button>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+                                disabled={!table.getCanNextPage()}
+                            >
+                                <MdKeyboardDoubleArrowRight />
+                            </Button>
+                        </div>
                     </div>
-                    <ScrollBar orientation="horizontal" />
-                </ScrollArea>
-                <div className="tw-flex tw-items-center tw-justify-between tw-p-4">
-                    <div className="">{table.getRowCount()} Clients</div>
-                    <div className="tw-flex tw-items-center tw-space-x-2 ">
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => table.setPageIndex(0)}
-                            disabled={!table.getCanPreviousPage()}
-                        >
-                            <MdKeyboardDoubleArrowLeft />
-                        </Button>
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => table.previousPage()}
-                            disabled={!table.getCanPreviousPage()}
-                        >
-                            <IoIosArrowBack />
-                        </Button>
-                        <Button variant="outline">{pagination.pageIndex + 1}</Button>
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => table.nextPage()}
-                            disabled={!table.getCanNextPage()}
-                        >
-                            <IoIosArrowForward />
-                        </Button>
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-                            disabled={!table.getCanNextPage()}
-                        >
-                            <MdKeyboardDoubleArrowRight />
-                        </Button>
-                    </div>
-                </div>
-            </>}
+                </>}
         </>
     );
 };

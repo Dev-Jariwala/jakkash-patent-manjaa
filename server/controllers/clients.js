@@ -53,3 +53,12 @@ export const getClientByMobileNumber = async (req, res) => {
         handleError('getClientByMobileNumber', res, error);
     }
 }
+
+export const getAllClients = async (req, res) => {
+    try {
+        const clients = await query(`select name, mobile from clients`);
+        res.json({ clients });
+    } catch (error) {
+        handleError('getAllClients', res, error);
+    }
+}

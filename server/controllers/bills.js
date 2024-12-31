@@ -272,3 +272,73 @@ export const getBillReport = async (req, res) => {
     handleError('getBillReport', res, error);
   }
 };
+
+/*
+-- Table: products
+CREATE TABLE products (
+    sr_no SERIAL PRIMARY KEY,
+    product_id UUID NOT NULL UNIQUE DEFAULT gen_random_uuid(),
+    collection_id UUID NOT NULL REFERENCES collections(collection_id),
+    product_name VARCHAR(50) NOT NULL,
+    wholesale_price FLOAT,
+    retail_price FLOAT,
+    stock_in_hand INT NOT NULL,
+    total_stock INT NOT NULL,
+    is_labour BOOLEAN DEFAULT FALSE,
+    is_delete BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ
+);
+*/
+
+// CREATE TABLE bills (
+// 	   sr_no SERIAL PRIMARY KEY,
+//     bill_id UUID NOT NULL UNIQUE DEFAULT gen_random_uuid(),
+//     collection_id UUID NOT NULL REFERENCES collections(collection_id),
+//     bill_no INT NOT NULL,
+//     bill_type VARCHAR(50) CHECK (bill_type IN ('retail','wholesale')),
+//     UNIQUE (collection_id, bill_no, bill_type),
+//     mobile VARCHAR(20) NOT NULL,
+//     name VARCHAR(100) NOT NULL,
+//     address VARCHAR(500) NOT NULL,
+//     order_date TIMESTAMPTZ NOT NULL,
+//     delivery_date TIMESTAMPTZ NOT NULL,
+//     notes TEXT,
+//     total_firki INT NOT NULL,
+//     sub_total FLOAT NOT NULL,
+//     discount FLOAT NOT NULL,
+//     advance FLOAT NOT NULL,
+//     total_due FLOAT NOT NULL
+// );
+
+// CREATE TABLE bill_items (
+// 	   sr_no SERIAL PRIMARY KEY,
+//     bill_item_id UUID NOT NULL UNIQUE DEFAULT gen_random_uuid(),
+//     bill_id UUID NOT NULL REFERENCES bills(bill_id),
+//     product_id UUID NOT NULL REFERENCES products(product_id),
+//     quantity INT NOT NULL,
+//     price FLOAT NOT NULL,
+//     UNIQUE (bill_id , product_id)
+// );
+export const getWholeSaleBillsByMobile = async (req, res) => {
+  const { mobile, collection_id } = req.params;
+  console.log({ mobile, collection_id });
+  try {
+    const [client] = await query(`SELECT * FROM clients WHERE mobile = $1`, [mobile]) || {};
+    // SQL query to fetch bills with their items and product names
+    const bills = await query(`
+      SELECT 
+        b.*, 
+        json_agg(json_build_object('quantity', bi.quantity, 'price', bi.price, 'product_name', p.product_name, 'product_id', p.product_id)) AS bill_items
+      FROM bills b
+      LEFT JOIN bill_items bi ON b.bill_id = bi.bill_id
+      LEFT JOIN products p ON bi.product_id = p.product_id
+      WHERE b.mobile = $1 AND b.collection_id = $2 AND b.bill_type = 'wholesale'
+      GROUP BY b.bill_id, b.sr_no
+    `, [mobile, collection_id]);
+
+    res.status(200).json({ bills, ...client });
+  } catch (error) {
+    handleError('getAllBillsByClientMobile', res, error);
+  }
+};

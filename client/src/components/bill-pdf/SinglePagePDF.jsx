@@ -242,7 +242,7 @@ const SinglePagePDF = ({ bill }) => {
                       <Text>{product?.price}</Text>
                     </View>
                     <View style={styles.tableCell}>
-                      <Text>{product?.price * product?.quantity}</Text>
+                      <Text>{(product?.price * product?.quantity).toFixed(2)}</Text>
                     </View>
                     {/* Add more cells for additional data */}
                   </View>

@@ -22,6 +22,7 @@ import PurchasesReport from "@/pages/purchases/components/PurchasesReport";
 import ProductsReport from "@/pages/products/components/ProductsReport";
 import Collections from "@/pages/collections/Collections";
 import CollectionForm from "@/pages/collections/components/CollectionForm";
+import ClientReport from "@/pages/clients/components/ClientReport";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -119,6 +120,10 @@ const Routes = () => {
             {
               path: "/clients",
               element: <Clients />,
+            },
+            {
+              path: '/clients/report',
+              element: <ClientReport />
             },
             {
               path: '/purchases',

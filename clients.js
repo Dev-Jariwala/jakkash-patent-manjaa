@@ -726,11 +726,12 @@ const clients = [
         "address": "ST",
         "retailBills": [
             "675af1a47c4bff8f3cbc22d7",
-            "676bcd175ea5c06bde578860"
+            "676bcd175ea5c06bde578860",
+            "67740cbb18e92e19a254fe0c"
         ],
         "wholeSaleBills": [],
-        "__v": 2,
-        "retailDebt": 615,
+        "__v": 3,
+        "retailDebt": 1395,
         "wholeSaleDebt": 0
     },
     {
@@ -1409,10 +1410,11 @@ const clients = [
         "address": "ST",
         "retailBills": [
             "67604bcabb7fec8b5df7a00b",
-            "67642a0937ff59c196864a31"
+            "67642a0937ff59c196864a31",
+            "67740224bb87d3522e1b8c43"
         ],
         "wholeSaleBills": [],
-        "__v": 2,
+        "__v": 3,
         "retailDebt": 0,
         "wholeSaleDebt": 0
     },
@@ -1973,11 +1975,12 @@ const clients = [
         "name": "AASHISH",
         "address": "ST",
         "retailBills": [
-            "6763b108ced1a3da8c497816"
+            "6763b108ced1a3da8c497816",
+            "67739491dbae21564ee90e71"
         ],
         "wholeSaleBills": [],
-        "__v": 1,
-        "retailDebt": 175,
+        "__v": 2,
+        "retailDebt": 525,
         "wholeSaleDebt": 0
     },
     {
@@ -2765,11 +2768,12 @@ const clients = [
         "address": "st",
         "retailBills": [
             "6767af7fcfd53e13a26cad91",
-            "6767b29887e4b44d569f604d"
+            "6767b29887e4b44d569f604d",
+            "6773eb2aa226ecb0dd332b58"
         ],
         "wholeSaleBills": [],
-        "__v": 2,
-        "retailDebt": 530,
+        "__v": 3,
+        "retailDebt": 1930,
         "wholeSaleDebt": 0
     },
     {
@@ -5939,11 +5943,12 @@ const clients = [
         "address": "ST",
         "retailBills": [
             "676e9dcc376de82b7c3fcfa3",
-            "6772a057e146f9554e9fea46"
+            "6772a057e146f9554e9fea46",
+            "6773fcbfb08a347eed3fb006"
         ],
         "wholeSaleBills": [],
-        "__v": 2,
-        "retailDebt": 2275,
+        "__v": 3,
+        "retailDebt": 2450,
         "wholeSaleDebt": 0
     },
     {
@@ -6320,10 +6325,11 @@ const clients = [
         "name": "JATIN",
         "address": "ST",
         "retailBills": [
-            "676f8c21ecb9c2e2883a9857"
+            "676f8c21ecb9c2e2883a9857",
+            "6773a08e9fba459f05d33533"
         ],
         "wholeSaleBills": [],
-        "__v": 1,
+        "__v": 2,
         "retailDebt": 745,
         "wholeSaleDebt": 0
     },
@@ -10009,11 +10015,12 @@ const clients = [
         "name": "SUNIL",
         "address": "ST",
         "retailBills": [
-            "677375d0bd4217e88fd67c89"
+            "677375d0bd4217e88fd67c89",
+            "6773edd14abf7cb02436c9c0"
         ],
         "wholeSaleBills": [],
-        "__v": 1,
-        "retailDebt": 2740,
+        "__v": 2,
+        "retailDebt": 3740,
         "wholeSaleDebt": 0
     },
     {
@@ -10169,8 +10176,1062 @@ const clients = [
         "__v": 1,
         "retailDebt": 745,
         "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773824cc8532b4e0167ced8",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 7778014057,
+        "name": "NEEL",
+        "address": "ST",
+        "retailBills": [
+            "6773824cc8532b4e0167ceda"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "67738a8402a8e99d7347e32e",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9574647007,
+        "name": "MAULIK",
+        "address": "ST",
+        "retailBills": [
+            "67738a8402a8e99d7347e330"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "67738dd8084cc86f5bdd36e1",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9081753503,
+        "name": "ANISH",
+        "address": "ST",
+        "retailBills": [
+            "67738dd8084cc86f5bdd36e3"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 1525,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773902ce071f54f7ce0cde9",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9033994265,
+        "name": "DEEP",
+        "address": "ST",
+        "retailBills": [
+            "6773902ce071f54f7ce0cdeb"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773911aad28b77e62b900e6",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9924655688,
+        "name": "BHARAT",
+        "address": "ST",
+        "retailBills": [
+            "6773911aad28b77e62b900e8"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 470,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "677394083bec0d4c5c4a8988",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9377605004,
+        "name": "DIVYESH",
+        "address": "ST",
+        "retailBills": [
+            "677394083bec0d4c5c4a898a"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "67739612733bdd8fd880dbac",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9913090203,
+        "name": "RAJNIKANT",
+        "address": "ST",
+        "retailBills": [
+            "67739612733bdd8fd880dbae"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 525,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773971ecf87b54217e318e5",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9898576600,
+        "name": "KALPESH",
+        "address": "ST",
+        "retailBills": [
+            "6773971ecf87b54217e318e7"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "67739f28d403fa065ec12d20",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 8511261065,
+        "name": "ABHISEK",
+        "address": "ST",
+        "retailBills": [
+            "67739f28d403fa065ec12d22"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 585,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773a1dd55e5f0c1069979a3",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 8866338008,
+        "name": "JAYDEEP",
+        "address": "ST",
+        "retailBills": [
+            "6773a1dd55e5f0c1069979a5"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773a3cfaca66e7005a9b121",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9879865498,
+        "name": "JAGDISH",
+        "address": "ST",
+        "retailBills": [
+            "6773a3cfaca66e7005a9b123"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773a5bf4817c4b2b0dc804f",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9574221303,
+        "name": "DIPEN",
+        "address": "ST",
+        "retailBills": [
+            "6773a5bf4817c4b2b0dc8051"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773a74cf8213733ab3c38d1",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 7069438319,
+        "name": "DEV",
+        "address": "ST",
+        "retailBills": [
+            "6773a74cf8213733ab3c38d3"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 40,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773a867cbb0b1d1741e5773",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 7046394903,
+        "name": "AKSHAT",
+        "address": "ST",
+        "retailBills": [
+            "6773a867cbb0b1d1741e5775"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 745,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773ac7c88e06cf26cb2e1fa",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 7016481827,
+        "name": "VATSAL",
+        "address": "ST",
+        "retailBills": [
+            "6773ac7c88e06cf26cb2e1fc"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 350,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773accf89ec278489762adc",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 7016151135,
+        "name": "MEET",
+        "address": "ST",
+        "retailBills": [
+            "6773accf89ec278489762ade"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 350,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773ad5dde453b653a9888b1",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9726455861,
+        "name": "TEJAS",
+        "address": "ST",
+        "retailBills": [
+            "6773ad5dde453b653a9888b3"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 50,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773addd2230443f2cfec37a",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 7600669199,
+        "name": "DHRUVAL",
+        "address": "ST",
+        "retailBills": [
+            "6773addd2230443f2cfec37c"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 525,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773ae34009f38cc1e7ffe03",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9913352851,
+        "name": "PANTH",
+        "address": "ST",
+        "retailBills": [
+            "6773ae34009f38cc1e7ffe05"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 175,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773ae77549c602f67cffc44",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9978612123,
+        "name": "PREET",
+        "address": "ST",
+        "retailBills": [
+            "6773ae77549c602f67cffc46"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 175,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773b208fd2a1dff36ead626",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 6352653079,
+        "name": "KRISH",
+        "address": "ST",
+        "retailBills": [
+            "6773b208fd2a1dff36ead628"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773b4caef5b8052a5f91073",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9427649988,
+        "name": "ARYAN",
+        "address": "ST",
+        "retailBills": [
+            "6773b4caef5b8052a5f91075"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 350,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773bb8090163068c041e9f0",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9376976954,
+        "name": "priyansh",
+        "address": "st",
+        "retailBills": [
+            "6773bb8090163068c041e9f2"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 175,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773c3749800cab4382e02e5",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 7228092418,
+        "name": "PREM",
+        "address": "ST",
+        "retailBills": [
+            "6773c3749800cab4382e02e7"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 700,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773c58dde87bdb108f56e39",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9998899435,
+        "name": "NISHIT",
+        "address": "ST",
+        "retailBills": [
+            "6773c58dde87bdb108f56e3b",
+            "67740ba0f8595caaefe01abc"
+        ],
+        "wholeSaleBills": [],
+        "__v": 2,
+        "retailDebt": 1050,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773c721d0119b423a98a7c5",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9638215410,
+        "name": "JIGNESH",
+        "address": "ST",
+        "retailBills": [
+            "6773c721d0119b423a98a7c7"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 700,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773c7bc770ec36ce985da0e",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9879145999,
+        "name": "JITU BHAI",
+        "address": "ST",
+        "retailBills": [
+            "6773c7bc770ec36ce985da11"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773c83f80daadab1a9073b4",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9427779598,
+        "name": "HIREN",
+        "address": "ST",
+        "retailBills": [
+            "6773c83f80daadab1a9073b6"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773c957a1a2cf7fbcd08617",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9920190113,
+        "name": "JAYESH",
+        "address": "ST",
+        "retailBills": [
+            "6773c957a1a2cf7fbcd08619"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 650,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773cab82bb0dd958834b016",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 7874770973,
+        "name": "VISHAL",
+        "address": "ST",
+        "retailBills": [
+            "6773cab82bb0dd958834b018"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 1500,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773cb83ba922f93cab11408",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9427669709,
+        "name": "KALPESH",
+        "address": "ST",
+        "retailBills": [
+            "6773cb83ba922f93cab1140a",
+            "6773cba24a5e1c10bf80033f"
+        ],
+        "wholeSaleBills": [],
+        "__v": 2,
+        "retailDebt": 1350,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773cdd0235aba1a9a5a6b74",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 7016952944,
+        "name": "NAMAR",
+        "address": "ST",
+        "retailBills": [
+            "6773cdd0235aba1a9a5a6b77"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 175,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773ce5360aa86a1dc9d3e88",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9925714440,
+        "name": "SHUDHIRBHAI",
+        "address": "SR",
+        "retailBills": [
+            "6773ce5360aa86a1dc9d3e8b"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773ceeabc18ffb20c6c4887",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9725687130,
+        "name": "UMESH",
+        "address": "ST",
+        "retailBills": [
+            "6773ceeabc18ffb20c6c4889"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773cf5aab826b5eea2e9291",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 7990124375,
+        "name": "DEV",
+        "address": "ST",
+        "retailBills": [
+            "6773cf5aab826b5eea2e9293"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773d0101fa3e25f7718d7f1",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9714581195,
+        "name": "BANTI",
+        "address": "ST",
+        "retailBills": [
+            "6773d0101fa3e25f7718d7f3"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 580,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773d0a1b1648ef2f3a18eb7",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9978979793,
+        "name": "FENIL",
+        "address": "ST",
+        "retailBills": [
+            "6773d0a1b1648ef2f3a18eb9",
+            "6773d0b4288a2978fe88c4ba"
+        ],
+        "wholeSaleBills": [],
+        "__v": 2,
+        "retailDebt": 525,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773d459f7058bc6e889cbc2",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 8000904298,
+        "name": "PARDIP",
+        "address": "ST",
+        "retailBills": [
+            "6773d459f7058bc6e889cbc4"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773d9050777b1fd596318c1",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9924894023,
+        "name": "TIRTH",
+        "address": "ST",
+        "retailBills": [
+            "6773d9050777b1fd596318c3"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773dad057f5c4af0fc5f182",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 8980073864,
+        "name": "PIYUSH",
+        "address": "ST",
+        "retailBills": [
+            "6773dad057f5c4af0fc5f184"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773de913dd37cf4efd4afc1",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9016399068,
+        "name": "VIVEK",
+        "address": "ST",
+        "retailBills": [
+            "6773de913dd37cf4efd4afc3"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 525,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773e130e0e8e607888023bb",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 8487856689,
+        "name": "DARSHIL",
+        "address": "ST",
+        "retailBills": [
+            "6773e130e0e8e607888023bd"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773e2ef94ff64099886030b",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 7069341178,
+        "name": "BHAVIN",
+        "address": "ST",
+        "retailBills": [
+            "6773e2ef94ff64099886030d"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773e5158c75e3b74e50f387",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 7567677631,
+        "name": "NIKHIL",
+        "address": "ST",
+        "retailBills": [
+            "6773e5158c75e3b74e50f389"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 245,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773e7949dad9cb77cc4b1f9",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9316123788,
+        "name": "NIKUNJ",
+        "address": "ST",
+        "retailBills": [
+            "6773e7949dad9cb77cc4b1fb",
+            "6773e7feaa926e5897e4739e"
+        ],
+        "wholeSaleBills": [],
+        "__v": 2,
+        "retailDebt": 350,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773e84781691e6fb7063359",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9898000390,
+        "name": "HARSHIL",
+        "address": "ST",
+        "retailBills": [
+            "6773e84881691e6fb706335b"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773e8b8e2822cac41516160",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 6352733114,
+        "name": "JASH",
+        "address": "ST",
+        "retailBills": [
+            "6773e8b8e2822cac41516162"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 350,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773e91496aa1e94ce4195af",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 7016188064,
+        "name": "PALASH",
+        "address": "ST",
+        "retailBills": [
+            "6773e91496aa1e94ce4195b1"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 350,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773e98ff6fadb488e4efe08",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 8511554322,
+        "name": "KIRIT",
+        "address": "ST",
+        "retailBills": [
+            "6773e98ff6fadb488e4efe0a"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 525,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773e9d9b7c8371a25554a18",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9427669169,
+        "name": "HARSH",
+        "address": "ST",
+        "retailBills": [
+            "6773e9d9b7c8371a25554a1a"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 175,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773ea695f1b6b168da452ea",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9601181730,
+        "name": "NIKHIL",
+        "address": "ST",
+        "retailBills": [
+            "6773ea695f1b6b168da452ec"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773ebc2dfb1f18300105d01",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9099079311,
+        "name": "KRUNALBHAI",
+        "address": "ST",
+        "retailBills": [
+            "6773ebc2dfb1f18300105d03"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773ec985a2797c1f44f3520",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9429024532,
+        "name": "NAYAN",
+        "address": "ST",
+        "retailBills": [
+            "6773ec985a2797c1f44f3522"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773eea6efe6be272eb797ee",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9104256914,
+        "name": "DIVYESH",
+        "address": "ST",
+        "retailBills": [
+            "6773eea6efe6be272eb797f0"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 2025,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773efa652209f68521e7513",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9426436616,
+        "name": "PIYUSH",
+        "address": "ST",
+        "retailBills": [
+            "6773efa652209f68521e7516"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773f02fa3ecd95b26f59443",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 8141330748,
+        "name": "HITANSHU",
+        "address": "ST",
+        "retailBills": [
+            "6773f02fa3ecd95b26f59445"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 745,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773f20f9549b37b9031e6e1",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9558113769,
+        "name": "JAYDEEP",
+        "address": "ST",
+        "retailBills": [
+            "6773f20f9549b37b9031e6e3"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 75,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773f3c08f95e83010113134",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 7984206333,
+        "name": "DEV",
+        "address": "ST",
+        "retailBills": [
+            "6773f3c08f95e83010113136"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 700,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773f4ca8a34f42b428ebbe6",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 8460084053,
+        "name": "PANKAJ",
+        "address": "ST",
+        "retailBills": [
+            "6773f4ca8a34f42b428ebbe8"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773f59c1df6e6dcc1450d99",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 7621961460,
+        "name": "JOSHI",
+        "address": "ST",
+        "retailBills": [
+            "6773f59c1df6e6dcc1450d9b"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773f6743802dff4102b0be4",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9879589108,
+        "name": "NIRAVBHAI",
+        "address": "ST",
+        "retailBills": [
+            "6773f6743802dff4102b0be6"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773f72caa31ced7f121cda5",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9898556770,
+        "name": "KALPESHBHAI",
+        "address": "ST",
+        "retailBills": [
+            "6773f72caa31ced7f121cda7"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773f83e8da68c4e882afdf8",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 8320476711,
+        "name": "VEDANT",
+        "address": "ST",
+        "retailBills": [
+            "6773f83e8da68c4e882afdfa"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 650,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773f9afc8939e0d0d64cd85",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9898517434,
+        "name": "UMESHBHAI",
+        "address": "ST",
+        "retailBills": [
+            "6773f9afc8939e0d0d64cd87"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 700,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773fadd0d79b2f08b943e37",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 8733052852,
+        "name": "JAY",
+        "address": "ST",
+        "retailBills": [
+            "6773fadd0d79b2f08b943e39"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773fc02b453ffd9e67df88f",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 8849838483,
+        "name": "HEAT",
+        "address": "ST",
+        "retailBills": [
+            "6773fc02b453ffd9e67df891"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6773fe1d9928edd61e05ad18",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9924111608,
+        "name": "PARAM",
+        "address": "ST",
+        "retailBills": [
+            "6773fe1d9928edd61e05ad1a"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 1050,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6774057fa87862ea08a20178",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 6354468875,
+        "name": "RHYTHM",
+        "address": "ST",
+        "retailBills": [
+            "6774057fa87862ea08a2017a"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6774062973c8bac1358488c0",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9033121270,
+        "name": "BHAVESH",
+        "address": "ST",
+        "retailBills": [
+            "6774062973c8bac1358488c2"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "6774073db7c15b60a203631b",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9925757070,
+        "name": "TEJASHBHAI",
+        "address": "ST",
+        "retailBills": [
+            "6774073db7c15b60a203631d"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "67740841f4005378cfc9af03",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9357889964,
+        "name": "PARTIK",
+        "address": "ST",
+        "retailBills": [
+            "67740841f4005378cfc9af05"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "67740ab9c5897aefe14c6a09",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 9033114475,
+        "name": "VIVEK",
+        "address": "ST",
+        "retailBills": [
+            "67740ab9c5897aefe14c6a0b"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "67740d5bd35202d9f40fdcdb",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 6353202845,
+        "name": "KEVAL",
+        "address": "ST",
+        "retailBills": [
+            "67740d5bd35202d9f40fdcdd"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 0,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "67740e5635a903509fa14718",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 8401380138,
+        "name": "DIVYESH",
+        "address": "ST",
+        "retailBills": [
+            "67740e5635a903509fa1471a"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 350,
+        "wholeSaleDebt": 0
+    },
+    {
+        "_id": "67740e9874231ac159ffaef6",
+        "collectionId": "65bde88669acedb394df2464",
+        "mobileNumber": 7383555779,
+        "name": "JIMMY",
+        "address": "ST",
+        "retailBills": [
+            "67740e9874231ac159ffaef8"
+        ],
+        "wholeSaleBills": [],
+        "__v": 1,
+        "retailDebt": 2600,
+        "wholeSaleDebt": 0
     }
-];
+]
 
 const clientsOptions = clients.map(client => {
     return {
@@ -10202,5 +11263,3 @@ clientsOptions.forEach((client, index) => {
 });
 
 console.log(insertQuery);
-
-// let sample = `INSERT INTO clients (name, mobile, address) VALUES ('sangeeta enterprise', '9824080372', 'vadodra'), ('Dev Jariwala', '7990176865', 'Adajan'), ('Falguni Jariwala', '9925828460', 'Tadwadi'), ('Fake 1', '1236547890', 'fake 1 address'), ('JYOTI STORE', '9898820464', 'HARIJ'), ('VIMALNATH PATANG', '9879710991', 'BECHRAJI'), ('VIJAY SEASONABLE STORE', '9426754003', 'KALOL'), ('A.C.BODHANWALA', '9427882624', 'SURAT'), ('BARELI PATAANG BHANDAR', '9429238562', 'AHMADAWAD'), ('MAYUR SELS', '9879144867', 'ANAND'), ('MANSI SEASONABLE', '9727655780', 'AMD'), ('MEHUL MANOJ PATNI', '7623805050', 'AMD'), ('JK', '9978622476', 'ST'), ('fazilaben', '7016813280', 'surat'), ('pragnesh bhai', '9825295589', 'surat'), ('rupesh', '7265035038', 'st'), ('navnitbhai', '9427701801', 'st'), ('sanjay', '9925392162', 'st'), ('shyam', '8160328228', 'st'), ('MOHAN BHAI', '7016249889', 'KAPADVANJ'), ('AASHISH BHAI', '8320120021', 'PATAN'), ('MAHENDRA BHAI', '8320393524', 'KADI'), ('hirenbhai', '9104804372', 'st'), ('parimal kansara', '9898678008', 'surat'), ('vaghelabhai', '9898097737', 'st'), ('karanpatel', '9712942131', 'st'), ('TIRTH', '9909919536', 'AMD'), ('YASH', '8141917802', 'ST'), ('menex', '8160979610', 'st'), ('jigneshbhai', '9426141431', 'st'), ('ashokbhai', '9825480077', 'kim'), ('KEYUR', '8511118478', 'ST'), ('ABHI', '7283862150', 'ST'), ('KRISH', '9924747476', 'ST'), ('jignesahbhai', '9879395051', 'st'), ('RAHUL', '9879447001', 'ST'), ('dhiraj bhai', '9427893257', 'st'), ('pavan', '9714241304', 'st'), ('kripa', '9638223334', 'st'), ('BHAVESH', '9978544293', 'ST'), ('s', '9824183096', 's'), ('DHRUV', '7575077934', 'KADI'), ('JIGAR', '9023488201', 'ST'), ('kevin', '9898314623', 'st'), ('parth', '9313268033', 'st'), ('NAIMISH', '7383056053', 'ST'), ('RAJ', '8141314232', 'ST'), ('SAHIL', '9016487974', 'ST'), ('VIRAJ', '7862088449', 'ST'), ('AMIT', '9427123558', 'ST'), ('VISHAL', '9273600657', 'ST'), ('MANILAL', '9726490990', 'ST'), ('katlariwala', '9228701783', 'st'), ('harshil', '8141865708', 'st'), ('BHAVINBHAI', '8460050957', 'ST'), ('HIMAL BANDHARA', '9879146171', 'JAMBUSAR'), ('MUKESH BHAI ', '9979706558', 'BOPAL'), ('RAM BHAI', '9712982596', 'HIMMAT NAGAR'), ('NIKET', '8460479434', 'ST'), ('KISHAN', '9974730708', 'KADI'), ('TISHIN', '8469974063', 'SY'), ('SHADEV', '8980173905', 'ST'), ('BHAVESHPATEL', '9879746529', 'ST'), ('HEMANTABHAI', '9429427094', 'ST'), ('HARSH', '8238461075', 'ST'), ('BHAVIN', '9898494840', 'ST'), ('JASH', '8780526497', 'ST'), ('ANIL', '9974218690', 'ST'), ('ASHOKBHAI', '9228066537', 'ST'), ('divy', '9313606667', 'st'), ('ARESHBHAI', '9898038735', 'ST'), ('JAGDISHBHAI', '9825919622', 'ST'), ('PRADYUMAN', '8511006733', 'ST'), ('MANTHAN', '9924799809', 'ST'), ('VASU', '7990840645', 'ST'), ('M.N KHAN', '9427504882', 'ST'), ('SHAH', '9099747674', 'ST'), ('RAJDIPSINH', '9537011555', 'ST'), ('HARSH', '9898697705', 'ST'), ('MEHUL', '9427289583', 'ST'), ('BHAVESH', '6353444842', 'ST'), ('DIPAKBHAI', '9879746576', 'ST'), ('RAHUL', '8849377544', 'ST'), ('THAKORBHAI', '9909313145', 'ST'), ('pravin', '9898928228', 'st'), ('BHUSAN', '7600004138', 'ST'), ('NIPUN', '9909194969', 'ST'), ('KISHOR', '9925806663', 'ST'), ('TANMAY', '7567111103', 'ST'), ('MODI SARKAR', '6352077988', 'ST'), ('SANJAY', '9624742800', 'ST'), ('SAGAR', '8866778448', 'ST'), ('Janak Jariwala', '9909304569', 'Tadwadi'), ('SHREY', '9879779812', 'ST'), ('MEET', '8799159199', 'ST'), ('Jigar', '7405300842', 'st'), ('NANDU', '9825462434', 'ST'), ('MEHUL', '9586597048', 'ST'), ('VANSH', '7990314914', 'ST'), ('VIJAY DAVE', '9099754489', 'ST'), ('NIKESH', '9904386766', 'ST'), ('GAURANG', '9998710609', 'ST'), ('NARESHBHAI', '9924337958', 'ST'), ('JAYESH BHAI', '9824483724', 'KADI'), ('EBU', '7405330452', 'ST'), ('ANKIT', '9016961201', 'ST'), ('JIGNESHBHAI', '7622021211', 'ST'), ('JIGNESH', '9712547501', 'ST'), ('DEVANG', '9978937568', 'st'), ('HARSHAL', '9879593838', 'ST'), ('DARSAN', '7862000154', 'ST'), ('VAIBHAV', '9909447577', 'ST'), ('HERIN', '9033207114', 'ST'), ('SANJAY', '9825964744', 'ST'), ('AMAN BHAI', '9974854981', 'ST'), ('JAPAN', '8238944777', 'ST'), ('SUJAL', '8320507910', 'ST'), ('YASH', '7203042510', 'ST'), ('CHARMIN', '8320550961', 'ST'), ('NARESH BHAI', '9426336590', 'AMBAJI'), ('KASHI BHAI', '9825375424', 'ST'), ('MITESH', '9579624043', 'ST'), ('MAYUR', '9925690400', 'ST'), ('ABHISEKH', '9974458840', 'ST'), ('HOME', '7567560884', 'ST'), ('DEV', '8866079304', 'ST'), ('KAYAN', '9638837120', 'ST'), ('DEEP', '8780104378', 'ST'), ('KEVAL', '9909258261', 'ST'), ('smit', '9265702683', 'st'), ('DAKSH', '8401885356', 'ST'), ('VISHMAY', '9898905284', 'ST'), ('joy', '9726157249', 'ST'), ('SHANNY', '8160213496', 'ST'), ('JIGNESH', '9909242091', 'ST'), ('MEET', '9725297799', 'ST'), ('AASHISH', '9998188876', 'ST'), ('PRATHAM', '9315080824', 'ST'), ('AMIT', '9904203525', 'ST'), ('RUTAK', '7990073570', 'ST'), ('VED', '9586029159', 'ST'), ('VISHAL', '9909953752', 'ST'), ('VISHAL', '9913590709', 'ST'), ('LALU', '9265468184', 'ST'), ('LAVINA', '9106814544', 'ST'), ('PINAKIN', '9879168930', 'ST'), ('BHAVYA', '8690009003', 'ST'), ('piyush', '8141412424', 'ST'), ('B V M', '9898550462', 'KALOL'), ('ATUL', '9998099943', 'ST'), ('jimmy', '9016131597', 'st'), ('MEHUL', '9825118188', 'ST'), ('NAYTIK', '9879508617', 'ST'), ('NK SOLAR', '9879948155', 'ST'), ('HIREN', '8980497750', 'ST'), ('AKSHY', '8200245338', 'ST'), ('ROHIT', '6354727620', 'ST'), ('MOHAN KAKA', '9879088188', 'ST'), ('MAIPAL', '8448194941', 'ST'), ('KALPESH', '9687952341', 'ST'), ('DHARMENDRA', '9265213159', 'ST'), ('RINKESH', '9712220585', 'ST'), ('SUMAN', '9925246130', 'ST'), ('PARESH BHAI', '8238070733', 'ST'), ('BHAVESH', '8980401771', 'ST'), ('RAKESH', '8454940295', 'ST'), ('NIRAJ', '7984056328', 'ST'), ('ABHISHEK', '9712975024', 'ST'), ('SASNKET', '8128482444', 'ST'), ('SAVYAM', '6354720335', 'ST'), ('DEV', '9662967766', 'ST'), ('PARTIK', '9924846795', 'ST'), ('manthan', '9601133366', 'ST'), ('JAY', '9712756858', 'ST'), ('HEMANT', '9725500240', 'ST'), ('DISHANT', '8780535915', 'ST'), ('VINESH', '9879039216', 'ST'), ('RAVI', '8141285599', 'ST'), ('VISHAL', '7984820441', 'ST'), ('ABHISHEK', '9173664066', 'AMD'), ('RAKESH', '9712722670', 'KADI'), ('KAVAN', '7046653003', 'ST'), ('JAYESH', '7600003480', 'ST'), ('MEHULBHAI', '9687412050', 'ST'), ('PREET', '9978127775', 'ST'), ('SIDDHART', '9998001815', 'ST'), ('PRATHMESH DESAI', '9898056580', 'AMD'), ('AAKASH BHAI', '9824264573', 'AMD'), ('BHAVIN PATEL', '9586664717', 'AMD'), ('CHIRAG BHAI', '9824333124', 'AMD'), ('chetan', '9879101841', 'st'), ('bhavesh', '8735086009', 'st'), ('pranav', '6354927775', 'st'), ('PRINTESH', '9586853620', 'ST'), ('PARESH', '9725045744', 'ST'), ('AMIT', '9825716617', 'ST'), ('MANOJ', '9510496904', 'ST'), ('PRATEEK', '9106772921', 'ST'), ('PIYUSH', '7861918907', 'ST'), ('PRITHVIRAJ', '9664802475', 'ST'), ('PRATIK', '9099470502', 'ST'), ('BRIJESH', '9265984034', 'ST'), ('RAVI', '9328332290', 'ST'), ('KISHOR', '9727754296', 'ST'), ('GHANSHYAM', '8000243433', 'ST'), ('LAKDAWALA', '9724374570', 'ST'), ('KAMLESH', '9624532320', 'ST'), ('HEMRNDRE', '9825913690', 'ST'), ('PRADIP', '9879101840', 'ST'), ('DIVYESH', '9687781605', 'ST'), ('BHAVESH BHAI', '7016210544', 'ST'), ('RANJAN', '8460455889', 'ST'), ('HARDIL', '9909307247', 'ST'), ('ALPESH', '9979860076', 'ST'), ('AJAY', '7284865657', 'ST'), ('PRATHAM', '9898566800', 'ST'), ('HARSHIL', '8320822501', 'ST'), ('MEHUL', '9924309396', 'ST'), ('PRIYANSHU', '8200616859', 'ST'), ('ALKESH', '9825559792', 'ST'), ('SHAURYA', '9408666299', 'ST'), ('VIVEK', '7046796225', 'ST'), ('HIREN', '6352690941', 'ST'), ('SANDIP', '9712991360', 'ST'), ('MEHUL', '9099081799', 'ST'), ('ARAYAN', '9081314031', 'ST'), ('KRUNAL', '9898593285', 'ST'), ('DHAVAL', '8511168363', 'ST'), ('BUSHAN', '7016350474', 'ST'), ('KRISH', '9023880297', 'ST'), ('PARTH', '9023953577', 'ST'), ('RAVI', '8511444068', 'St'), ('AMIT', '7359400768', 'ST'), ('ARVIND', '9825105391', 'ST'), ('ROHIT', '7874237576', 'ST'), ('RAVI', '9726552006', 'ST'), ('SHIVAM', '9662494504', 'ST'), ('HITESH', '9913411825', 'ST'), ('MONTU', '8401131999', 'ST'), ('JEEL', '9723511528', 'ST'), ('MUKESH BHAI', '9879115259', 'ST'), ('KETAN BHAI', '9974952890', 'ST'), ('MUKESH BHAI', '9998218128', 'ST'), ('HIREN', '9662512736', 'SR'), ('PARAM', '8799098766', 'ST'), ('DHAVAL', '6354149447', 'ST'), ('BHAJIYAWALA', '9099120723', 'ST'), ('PRAGNESH', '9825011194', 'ST'), ('HARNISH', '9925355200', 'ST'), ('KIRAN', '9824729590', 'ST'), ('MAHESH', '7283834717', 'ST'), ('VISHAL', '8799160914', 'ST'), ('JAY', '9687145417', 'ST'), ('HARSH', '6359737351', 'ST'), ('SATISH', '7600242499', 'ST'), ('deep', '9033186344', 'st'), ('vishal', '9722339992', 'st'), ('ANISH', '9427886426', 'ST'), ('vinayak', '9898081410', 'st'), ('RAMNIK BHAI', '9712351177', 'ST'), ('JATIN BHAI', '9825749995', 'ST'), ('BHAGWAN BHAI', '9687288805', 'ST'), ('PRITESH BHAI ', '9909997451', 'AMD'), ('VRAJ', '9904755507', 'ST'), ('nishant', '7802013498', 'st'), ('DHAVAL', '9723198459', 'SR'), ('JITENDRA', '9974009135', 'ST'), ('JAY', '9979452844', 'ST'), ('KISHOR', '9574579935', 'ST'), ('DHARMESH', '9638878078', 'ST'), ('KRISH', '8155800222', 'ST'), ('MEET', '9925081920', 'ST'), ('YUG', '9904221924', 'ST'), ('JAIMIN', '9104446170', 'ST'), ('HOME', '9428670817', 'ST'), ('CHIRAG', '7265867644', 'ST'), ('CHANDU KAKA', '9825876556', 'ST'), ('ABDUL', '9723297244', 'ST'), ('VANSH', '8200022027', 'ST'), ('NANA BHAI', '9904441553', 'ST'), ('ASHOKBHAI', '9879748809', 'ST'), ('BHAVAY', '7874558130', 'ST'), ('JIGNESHBHAI', '8866982820', 'ST'), ('RAJ', '7202998291', 'ST'), ('DEEP', '7990242487', 'ST'), ('SWAYAM', '9978418194', 'ST'), ('DEVRAJ', '9687002210', 'ST'), ('DHARMESH', '9375565712', 'ST'), ('PARTH', '8758253399', 'ST'), ('SANDEEP', '9824616168', 'ST'), ('MONIK', '7283825743', 'ST'), ('PRITHVI', '9313419873', 'ST'), ('PARTIK', '9737370369', 'ST'), ('JAYESH', '9428150369', 'ST'), ('ANIKET', '7567752713', 'ST'), ('ANKUR', '9978360036', 'ST'), ('HITESH', '9429331937', 'ST'), ('KALP', '9173179356', 'ST'), ('KUMAL', '9510306463', 'ST'), ('HARSH', '8980977507', 'ST'), ('DARSHAK', '8469309382', 'ST'), ('CHETAN', '9227523585', 'ST'), ('MIHIR', '9879555040', 'ST'), ('RAJU BHAI', '8200122751', 'ST'), ('RAHUL', '9879078989', 'ST'), ('NEEL', '9898906191', 'ST'), ('MUKESH', '9924193766', 'ST'), ('DIPAK', '9327898059', 'ST'), ('ASHOK BHAI', '9925715748', 'ST'), ('JEET', '9712414832', 'ST'), ('SHUBHAM', '9316560467', 'ST'), ('RISHI', '8849773527', 'ST'), ('NEHANSH', '9898751566', 'ST'), ('SUDHIR', '9558965555', 'ST'), ('DHRUV', '9979334089', 'ST'), ('DAKSH', '6355944960', 'ST'), ('DHULABHAI', '9099081770', 'ST'), ('SHREY', '7801800990', 'ST'), ('BHAGAYRAJ', '7203868932', 'ST'), ('YUG', '9328551562', 'ST'), ('MEET ', '8906967777', 'ST'), ('SHIVAM', '9316038442', 'ST'), ('NIMESHBHAI', '9924862456', 'ST'), ('MUKESH', '7405758772', 'ST'), ('RISHI', '7043236817', 'ST'), ('ARAYAN', '9924892598', 'ST'), ('DAKSHBHAI', '7567230107', 'ST'), ('KANUDO', '8238280381', 'ST'), ('JAIMIN', '9624417879', 'ST'), ('meet', '7984901494', 'st'), ('MANTRAM', '9925957755', 'ST'), ('TARI', '9825487901', 'ST'), ('VISHAL', '7600002895', 'ST'), ('KRISH', '9875224839', 'ST'), ('KISHAN', '7984322905', 'ST'), ('DHEYEY', '9924501754', 'ST'), ('NAYAN', '8699208689', 'ST'), ('ANIL', '7778920204', 'ST'), ('SHANKAR', '9879552088', 'ST'), ('BRIJESH', '8141049237', 'ST'), ('CHETANBHAI', '9726720999', 'ST'), ('PRKASHBHAI', '8320049439', 'ST'), ('DHAVAL', '9727777881', 'ST'), ('DIPAKBGHAI', '9974062408', 'ST'), ('JAY', '7623838829', 'ST'), ('PREM', '7041312750', 'ST'), ('JEET', '8866113765', 'ST'), ('ARMAN', '8238662674', 'ST'), ('VATSALBHAI', '8160844944', 'ST'), ('KALPESH', '9099131834', 'ST'), ('BHUMESH', '9106425328', 'ST'), ('CHINTAN', '8758263503', 'ST'), ('JAYESH BHAGATWALA', '9825142411', 'ST'), ('MAHAR', '9925039118', 'ST'), ('JATIN', '9898393500', 'ST'), ('DHARMESHBHAI', '9825947774', 'ST'), ('MAYANK', '8866306716', 'ST'), ('NIKULBHAI', '9824528529', 'ST'), ('VINODBHAI', '9879100862', 'ST'), ('KIRAN ', '9825696467', 'ST'), ('ASHISH', '9638347939', 'ST'), ('ARYAN', '6352043595', 'ST'), ('HEMANT', '7567922274', 'ST'), ('PANKAJ', '9879637077', 'ST'), ('ALPESH', '9023930660', 'ST'), ('PRATHAM', '9313080824', 'ST'), ('JIGNESH', '9913885368', 'ST'), ('SAGAR', '9825826015', 'ST'), ('YASH', '9909911454', 'ST'), ('SHRENIK', '7567178787', 'ST'), ('SANDEEP', '8200645726', 'ST'), ('BAKUL', '8000891007', 'ST'), ('YUNUSH', '8866465308', 'ST'), ('DENISH', '9904111169', 'ST'), ('KARAN', '8780968596', 'ST'), ('ALPESH', '8980069098', 'ST'), ('JAYNISH', '9909918186', 'ST'), ('MANOJ', '9825122619', 'ST'), ('AAKASH', '9725159182', 'ST'), ('JASH', '7383949777', 'ST'), ('DHIREN', '9909985096', 'ST'), ('VISHAL', '9879525777', 'ST'), ('SAHIL', '8511622456', 'ST'), ('DHRUVIL', '8320751110', 'ST'), ('PRATIK', '8156010171', 'ST'), ('ROTLIWALA', '9712031822', 'ST'), ('PARTH MAVAWALA', '9998162626', 'ST'), ('anil', '7622007469', 'st'), ('BHARATBHAI', '9825905259', 'ST'), ('krish', '8320272085', 'st'), ('KETUL', '8866678102', 'ST'), ('SAHIL', '9313952829', 'ST'), ('AKSHAY', '9925808073', 'ST'), ('GOPAL', '9586339395', 'ST'), ('SMIT', '8758882638', 'ST'), ('BHaratbhai', '9724185925', 'st'), ('RUDHARESH', '9099604980', 'ST'), ('ASHVINBHAI', '7228044118', 'ST'), ('VIRAL ', '9558822388', 'ST'), ('SUNNY', '8097047668', 'ST'), ('MILAN', '9998218845', 'ST'), ('PRITESH', '7046127555', 'ST'), ('DINESHBHAI', '9825124277', 'ST'), ('KAMAL', '7990438305', 'ST'), ('PIUSH', '9925107773', 'ST'), ('SAMIT', '9313534805', 'ST'), ('DHRUV', '7862874392', 'ST'), ('ARAYAN', '9427554442', 'ST'), ('SARANG', '6355424520', 'ST'), ('DHRUV', '9924424269', 'ST'), ('JORNISHBHAI', '9727085050', 'ST'), ('VASU', '9662139987', 'ST'), ('SAHIL', '9773086216', 'ST'), ('DEV', '9054020421', 'ST'), ('MIHIR', '9725402884', 'ST'), ('JIGNESH', '9429861553', 'ST'), ('DHRUV', '9875286155', 'ST'), ('BHAVESH', '7859947422', 'ST'), ('PARAG', '9825051841', 'ST'), ('MAKWANA ARVIND', '9909941256', 'ST'), ('BHUPESH', '7383894721', 'ST'), ('YASH', '8849240482', 'ST'), ('KAMLESH', '9558434533', 'ST'), ('BHAVESH', '8460144561', 'ST'), ('PRAKASH', '9825193873', 'ST'), ('RISHI', '9638794550', 'ST'), ('KUSHAL', '9327476000', 'ST'), ('KALPESH', '9825908592', 'ST'), ('PARTIK', '9157889964', 'ST'), ('PRINSH', '7990566704', 'ST'), ('DARSHIL', '7016125365', 'ST'), ('HARSHIT', '9825289803', 'ST'), ('GAVRAV', '9033187800', 'ST'), ('PRASHANT', '9898253021', 'st'), ('vraj', '9712994762', 'st'), ('BHADRESH', '9979614013', 'ST'), ('SAHAJ', '7043354080', 'ST'), ('mohit', '9979131026', 'st'), ('MEET', '7623837457', 'ST'), ('HARESH', '9712894667', 'ST'), ('BHAVIN', '9727550777', 'ST'), ('ABHAY', '9909910350', 'ST'), ('DIVYA', '9016646700', 'ST'), ('HARDIK', '9998236316', 'ST'), ('JATIN', '9998949281', 'ST'), ('YESH', '9712132532', 'ST'), ('CHETAN', '9909409318', 'ST'), ('MEET', '9924301131', 'ST'), ('PRIYANK', '7622876873', 'ST'), ('NIMESHBHAI', '9879861187', 'ST'), ('BHARTIBEN', '8511830737', 'ST'), ('RAJDEEP', '9879666819', 'ST'), ('BIPIN', '7226041466', 'ST'), ('GIRISH', '9574691555', 'ST'), ('LAKSH', '9979461495', 'ST'), ('RAJENDRA', '9725425253', 'ST'), ('RAJ', '8866604877', 'ST'), ('YESH', '9173036116', 'ST'), ('BHSVIN', '9428390909', 'ST'), ('ARYAN', '8780061839', 'ST'), ('SAJAN', '9825879888', 'ST'), ('TEJASH', '9714333833', 'ST'), ('KARTIKBHAI', '8879265520', 'ST'), ('KUSH', '8866166327', 'ST'), ('SHIV', '9925778440', 'ST'), ('AMISH', '8347991420', 'ST'), ('HENISH', '9033640795', 'ST'), ('BHUTWAIA', '7990988306', 'ST'), ('REX', '9998502702', 'ST'), ('JAY', '9313219146', 'ST'), ('PARTIK', '8980598587', 'ST'), ('SWAPNIL', '9099201779', 'ST'), ('RUCHIT', '7359953837', 'ST'), ('RAKESH', '9727663888', 'ST'), ('ANIKET', '9714909484', 'ST'), ('DAKSH', '6354775113', 'ST'), ('VIJAY', '9624979374', 'ST'), ('VIGNESH', '9979526854', 'ST'), ('ISHAN', '7096446556', 'ST'), ('PRINCE', '9586127731', 'ST'), ('ARYAN', '9725053579', 'ST'), ('ARPAN', '8849848488', 'ST'), ('VIRAT', '7405589514', 'ST'), ('RIDDHESH', '9426043013', 'ST'), ('PIYUSH', '9879470227', 'ST'), ('AMIT', '9725048411', 'ST'), ('VIREN', '6353897548', 'ST'), ('VISHESH', '9979961116', 'ST'), ('TANAY', '7016605718', 'ST'), ('KUSHAL', '8141033341', 'ST'), ('JEMISH', '8866775890', 'ST'), ('DARSHAK', '9726678777', 'ST'), ('YESH', '8849494351', 'ST'), ('RISHI', '8866221437', 'ST'), ('SHAYLESH', '9558449434', 'ST'), ('HARSHIL', '7383644121', 'ST'), ('ISHWAR', '9898107993', 'ST'), ('PRAKSH BHAI', '9898294775', 'ST'), ('DHAVAL BHAI', '9586342609', 'ST'), ('RAKESH BHAI', '9979227955', 'ST'), ('SUNIL BHAI', '8866835677', 'ST'), ('NIRAV BHAI', '8000085177', 'ST'), ('DHRUVIN', '9978827073', 'ST'), ('OM', '7990539543', 'ST');`

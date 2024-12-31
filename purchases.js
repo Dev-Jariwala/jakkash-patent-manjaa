@@ -816,7 +816,7 @@ const purchases = [
     }
 ]
 
-const collection_id = '79c68672-77d0-493a-bbce-6553303f18cc';
+const collection_id = 'f3259b8a-600d-4d4a-b147-debb5b948479';
 
 // create table purchases (
 // 	sr_no serial primary key,
