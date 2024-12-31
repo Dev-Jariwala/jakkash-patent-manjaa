@@ -161,7 +161,7 @@ const BillsTable = () => {
                                                         <Eye size={16} className="tw-text-blue-500" />
                                                     </Link>
                                                     <Link
-                                                        to={`/bills/update/${row.original?.bill_id}`}
+                                                        to={`/bills/update/${row.original?.bill_id}?bill_type=${billType}`}
                                                         className="hover:tw-bg-gray-200 tw-rounded-full tw-size-8 tw-flex tw-items-center tw-justify-center"
                                                     >
                                                         <Pencil size={16} className="tw-text-green-500" />

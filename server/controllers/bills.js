@@ -74,27 +74,27 @@ export const createBill = async (req, res, next) => {
       if (!updatedProduct) {
         console.log({ message: `Error updating stock in createBill ${newBill?.bill_id}`, error: `Error updating stock in createBill ${newBill?.bill_id}` })
       }
-      let [client] = await query(
-        "select * from clients where mobile = $1",
-        [mobile]
+      return { billItem: newBillItem, product: updatedProduct };
+    }));
+    let [client] = await query(
+      "select * from clients where mobile = $1",
+      [mobile]
+    );
+    if (!client) {
+      // create client
+      const [newClient] = await query(
+        "insert into clients (name, mobile, address) values ($1, $2, $3) returning *",
+        [name, mobile, address]
       );
-      if (!client) {
-        // create client
-        const [newClient] = await query(
-          "insert into clients (name, mobile, address) values ($1, $2, $3) returning *",
-          [name, mobile, address]
-        );
-        client = newClient;
-      } else {
-        //   update client
-        const [updatedClient] = await query(
-          "update clients set name =$1, address =$2 where client_id =$3 returning *",
-          [name || client?.name, address || client?.address, client.client_id]
-        );
-        client = updatedClient;
-      }
-      return { billItem: newBillItem, product: updatedProduct, client };
-    }))
+      client = newClient;
+    } else {
+      //   update client
+      const [updatedClient] = await query(
+        "update clients set name =$1, address =$2 where client_id =$3 returning *",
+        [name || client?.name, address || client?.address, client.client_id]
+      );
+      client = updatedClient;
+    }
     res.status(201).json({ message: "Bill created successfully", bill: newBill, billItems });
   } catch (error) {
     handleError('createBill', res, error);
@@ -198,14 +198,16 @@ export const updateBillById = async (req, res) => {
 
     await Promise.all(itemsToDelete.map(async (product_id) => {
       const [deletedBillItem] = await query(`DELETE FROM bill_items WHERE bill_id = $1 AND product_id = $2 returning *`, [bill_id, product_id]);
+      console.log({ deletedBillItem });
       if (deletedBillItem) {
-        const prod = products.find(prod => prod.product_id === product_id);
+        const [prod] = await query("select * from products where product_id = $1 and collection_id =$2", [product_id, collection_id]);
+        console.log({ prod });
         await query("update products set stock_in_hand = $1 where product_id = $2 and collection_id =$3", [prod.stock_in_hand + deletedBillItem.quantity, product_id, collection_id]);
       }
     }));
 
     const billItems = await Promise.all(bill_items.map(async (bill_item) => {
-      const prod = products?.find(prod => prod.product_id === bill_item.product_id);
+      const [prod] = await query("select * from products where product_id = $1 and collection_id =$2", [bill_item.product_id, collection_id]);
       const price = prod[`${bill_type}_price`];
       const previousBillItem = previousBillItems.find(bi => bi.product_id === bill_item.product_id);
 

@@ -20,47 +20,6 @@ import ReactSelect from "@/components/ui/react-select/react-select";
 import { Textarea } from "@/components/ui/textarea";
 import { createBill, getBillById, getNextBillNo, updateBillById } from "@/services/bills";
 
-const schema = yup.object().shape({
-    bill_no: yup.number().required("Bill No is required").typeError("Bill No is required"),
-    mobile: yup.number().required("Mobile is required").typeError("Mobile is required").test('len', 'Mobile must be exactly 10 digits', val => val.toString().length === 10),
-    name: yup.string().required("Name is required"),
-    address: yup.string().required("Address is required"),
-    order_date: yup.date().required("Order Date is required").typeError("Order Date is required"),
-    delivery_date: yup.date().required("Delivery Date is required").typeError("Delivery Date is required"),
-    products: yup.array().of(
-        yup.object().shape({
-            product_id: yup.string().required("Product is required"),
-            stock_in_hand: yup.number().required("Stock in hand is required").typeError("Stock in hand is required"),
-            quantity: yup.number().optional().typeError("Quantity is required")
-                .max(yup.ref('stock_in_hand'), `Quantity must be less than or equal to stock.`),
-            price: yup.number().required("Price is required").typeError("Price is required"),
-        })
-    ),
-    notes: yup.string().optional(),
-    total_firki: yup.number().min(0, 'Total firki must be at least zero.').required("Total Firki is required").typeError("Total Firki is required"),
-    sub_total: yup.number().min(1, 'Sub Total must be at least one.').required("Sub Total is required").typeError("Sub Total is required")
-        .test('sum', 'Sub Total must be equal to Discount + Advance + Total Due', function (value) {
-            const { discount, advance, total_due, products } = this.parent;
-            const estimatedSubTotal = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
-            return value === (discount + advance + total_due) && value === estimatedSubTotal;
-        }),
-    discount: yup.number().min(0, 'Discount must be at least zero.').required("Discount is required").typeError("Discount is required")
-        .test('sum', 'Discount + Advance + Total Due must be equal to Sub Total', function (value) {
-            const { sub_total, advance, total_due } = this.parent;
-            return sub_total === (value + advance + total_due);
-        }),
-    advance: yup.number().min(0, 'Advance must be at least zero.').required("Advance is required").typeError("Advance is required")
-        .test('sum', 'Discount + Advance + Total Due must be equal to Sub Total', function (value) {
-            const { sub_total, discount, total_due } = this.parent;
-            return sub_total === (discount + value + total_due);
-        }),
-    total_due: yup.number().min(0, 'Total Due must be at least zero.').required("Total Due is required").typeError("Total Due is required")
-        .test('sum', 'Discount + Advance + Total Due must be equal to Sub Total', function (value) {
-            const { sub_total, discount, advance } = this.parent;
-            return sub_total === (discount + advance + value);
-        }),
-});
-
 const BillsForm = () => {
     const { bill_id } = useParams();
     const [activeCollection] = useLocalStorage("activeCollection", null);
@@ -70,6 +29,59 @@ const BillsForm = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const formType = location.pathname.split("/")[2];
+    const { data: bill, isLoading: isBillLoading, error: billError } = useQuery({
+        queryKey: ["bill", activeCollection, bill_id],
+        queryFn: async () => {
+            const response = await getBillById({ collection_id: activeCollection, bill_id });
+            return { ...response.data?.bill, bill_items: response.data?.billItems } || {};
+        },
+        enabled: !!activeCollection && !!bill_id,
+    });
+    const schema = yup.object().shape({
+        bill_no: yup.number().required("Bill No is required").typeError("Bill No is required"),
+        mobile: yup.number().required("Mobile is required").typeError("Mobile is required").test('len', 'Mobile must be exactly 10 digits', val => val.toString().length === 10),
+        name: yup.string().required("Name is required"),
+        address: yup.string().required("Address is required"),
+        order_date: yup.date().required("Order Date is required").typeError("Order Date is required"),
+        delivery_date: yup.date().required("Delivery Date is required").typeError("Delivery Date is required"),
+        products: yup.array().of(
+            yup.object().shape({
+                product_id: yup.string().required("Product is required"),
+                stock_in_hand: yup.number().required("Stock in hand is required").typeError("Stock in hand is required"),
+                quantity: yup.number().optional().typeError("Quantity is required")
+                    .test('maxQuantity', 'Quantity must be less than or equal to stock.', function (value) {
+                        const { stock_in_hand, product_id } = this.parent;
+                        const billItem = bill?.bill_items?.find(item => item.product_id === product_id);
+                        const maxQuantity = formType === 'update' && billItem ? stock_in_hand + billItem.quantity : stock_in_hand;
+                        return value <= maxQuantity;
+                    }),
+                price: yup.number().required("Price is required").typeError("Price is required"),
+            })
+        ),
+        notes: yup.string().optional(),
+        total_firki: yup.number().min(0, 'Total firki must be at least zero.').required("Total Firki is required").typeError("Total Firki is required"),
+        sub_total: yup.number().min(1, 'Sub Total must be at least one.').required("Sub Total is required").typeError("Sub Total is required")
+            .test('sum', 'Sub Total must be equal to Discount + Advance + Total Due', function (value) {
+                const { discount, advance, total_due, products } = this.parent;
+                const estimatedSubTotal = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
+                return value === (discount + advance + total_due) && value === estimatedSubTotal;
+            }),
+        discount: yup.number().min(0, 'Discount must be at least zero.').required("Discount is required").typeError("Discount is required")
+            .test('sum', 'Discount + Advance + Total Due must be equal to Sub Total', function (value) {
+                const { sub_total, advance, total_due } = this.parent;
+                return sub_total === (value + advance + total_due);
+            }),
+        advance: yup.number().min(0, 'Advance must be at least zero.').required("Advance is required").typeError("Advance is required")
+            .test('sum', 'Discount + Advance + Total Due must be equal to Sub Total', function (value) {
+                const { sub_total, discount, total_due } = this.parent;
+                return sub_total === (discount + value + total_due);
+            }),
+        total_due: yup.number().min(0, 'Total Due must be at least zero.').required("Total Due is required").typeError("Total Due is required")
+            .test('sum', 'Discount + Advance + Total Due must be equal to Sub Total', function (value) {
+                const { sub_total, discount, advance } = this.parent;
+                return sub_total === (discount + advance + value);
+            }),
+    });
     // const bill_id = searchParams.get("bill_id");
     const form = useForm({
         mode: "onChange", // Validate as the user types
@@ -91,14 +103,7 @@ const BillsForm = () => {
             total_due: 0,
         },
     });
-    const { data: bill, isLoading: isBillLoading, error: billError } = useQuery({
-        queryKey: ["bill", activeCollection, bill_id],
-        queryFn: async () => {
-            const response = await getBillById({ collection_id: activeCollection, bill_id });
-            return { ...response.data?.bill, bill_items: response.data?.billItems } || {};
-        },
-        enabled: !!activeCollection && !!bill_id,
-    });
+
     const { data: products, isLoading: isProductsLoading, error: productsError } = useQuery({
         queryKey: ["products", activeCollection],
         queryFn: async () => {
@@ -113,7 +118,7 @@ const BillsForm = () => {
             const response = await getNextBillNo({ collection_id: activeCollection, bill_type: billType });
             return response.data?.bill_no;
         },
-        enabled: !!activeCollection,
+        enabled: !!activeCollection && formType === "new",
     });
     const productsOptions = useMemo(() => products?.filter(product => product?.[`${billType}_price`] > 0)?.map(product => ({ label: product?.product_name, value: product?.product_id })) || [], [products]);
 
@@ -142,17 +147,19 @@ const BillsForm = () => {
     })
 
     const onSubmit = async (data) => {
+        if (createBillMutation.isPending || updateBillMutation.isPending) return;
         const filteredProducts = data.products.filter(product => product.quantity > 0);
         data.bill_items = filteredProducts;
-        data.bill_no = nextBillNo;
+        data.bill_no = formType === 'new' ? nextBillNo : data.bill_no;
         data.bill_type = billType;
         data.mobile = data.mobile.toString();
+        // alert('submit form');
         // console.log({ data });
         if (formType === "new") {
             createBillMutation.mutate({ collection_id: activeCollection, data });
         } else {
             console.log({ data });
-            // updateBillMutation.mutate({ collection_id: activeCollection, bill_id, data });
+            updateBillMutation.mutate({ collection_id: activeCollection, bill_id, data });
         }
     };
 
@@ -196,8 +203,10 @@ const BillsForm = () => {
     }, [bill, formType, products]);
 
     useEffect(() => {
-        form.setValue('bill_no', nextBillNo);
-        form.trigger('bill_no');
+        if (formType === 'new' && nextBillNo) {
+            form.setValue('bill_no', nextBillNo);
+            form.trigger('bill_no');
+        }
     }, [nextBillNo, form]);
 
     useEffect(() => {
@@ -437,7 +446,7 @@ const BillsForm = () => {
                                                 render={({ field }) => (
                                                     <FormItem>
                                                         <FormControl>
-                                                            {form.watch(`products.${index}.stock_in_hand`) > 0 ? <Input
+                                                            <Input
                                                                 className="tw-w-full"
                                                                 {...field}
                                                                 onChange={e => {
@@ -448,11 +457,7 @@ const BillsForm = () => {
                                                                     form.setValue('total_due', sub_total - form.watch('discount') - form.watch('advance'));
                                                                     form.trigger(['sub_total', 'total_due', 'discount', 'advance']);
                                                                 }}
-                                                            /> : <Input
-                                                                className="tw-w-full"
-                                                                value="Out of Stock"
-                                                                disabled
-                                                            />}
+                                                            />
                                                         </FormControl>
                                                         <FormMessage />
                                                     </FormItem>
@@ -598,7 +603,7 @@ const BillsForm = () => {
                             </div>
                             <div className="tw-w-full tw-mt-5 tw-flex tw-items-center tw-justify-center tw-col-span-5">
                                 <MutationError mutation={createBillMutation} />
-                                <Button variant="" disabled={createBillMutation.isPending} isLoading={createBillMutation.isPending} loadingText={formType === 'update' ? 'updating...' : 'creating...'} className="tw-bg-indigo-500 hover:tw-bg-indigo-600" type="submit">
+                                <Button variant="" disabled={createBillMutation.isPending || updateBillMutation.isPending} isLoading={createBillMutation.isPending || updateBillMutation.isPending} loadingText={formType === 'update' ? 'updating...' : 'creating...'} className="tw-bg-indigo-500 hover:tw-bg-indigo-600" type="submit">
                                     {formType === "update" ? "Update" : "Create"}{" "}
                                     Bill
                                 </Button>
