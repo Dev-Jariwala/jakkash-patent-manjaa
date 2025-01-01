@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils";
 import ReactSelect from "@/components/ui/react-select/react-select";
 import { Textarea } from "@/components/ui/textarea";
 import { createBill, getBillById, getNextBillNo, updateBillById } from "@/services/bills";
-import { handleDecimalInputChange, handleNumberInputChange } from "@/helper/formHelper";
+import { handleDecimalInputChange, handleNumberInputChange, productNamesOrder, sortProductsByNames } from "@/helper/formHelper";
 import { getClientByMobileNumber } from "@/services/clients";
 
 const BillsForm = () => {
@@ -175,7 +175,9 @@ const BillsForm = () => {
     };
 
     useEffect(() => {
-        form.setValue('products', products?.filter(product => product?.[`${billType}_price`] > 0)?.map(product => ({ product_id: product?.product_id, is_labour: product?.is_labour, quantity: 0, price: product[`${billType}_price`], stock_in_hand: product?.stock_in_hand, total: 0 })) || []);
+        const showProducts = products?.filter(product => product?.[`${billType}_price`] > 0)?.map(product => ({ product_id: product?.product_id, product_name: product?.product_name, is_labour: product?.is_labour, quantity: 0, price: product[`${billType}_price`], stock_in_hand: product?.stock_in_hand, total: 0 })) || [];
+        console.log({ showProducts });
+        form.setValue('products', sortProductsByNames(showProducts, productNamesOrder));
     }, [products, billType]);
 
     useEffect(() => {
@@ -186,20 +188,23 @@ const BillsForm = () => {
             form.setValue('address', bill.address);
             form.setValue('order_date', new Date(bill.order_date));
             form.setValue('delivery_date', new Date(bill.delivery_date));
-            form.setValue('products', products?.filter(product => product?.[`${bill.bill_type}_price`] > 0)?.map(product => {
+            const showProducts = products?.filter(product => product?.[`${bill.bill_type}_price`] > 0)?.map(product => {
                 console.log({ product, bill });
                 const billItem = bill.bill_items.find(item => item.product_id === product.product_id);
                 const price = product[`${bill.bill_type}_price`];
                 const quantity = billItem?.quantity || 0;
                 return {
                     product_id: product.product_id,
+                    product_name: product.product_name,
                     stock_in_hand: product.stock_in_hand,
                     is_labour: product?.is_labour,
                     price,
                     quantity,
                     total: (price * quantity).toFixed(2),
                 };
-            }) || []);
+            }) || [];
+            // console.log({ showProducts });
+            form.setValue('products', sortProductsByNames(showProducts, productNamesOrder));
             form.setValue('notes', bill.notes);
             form.setValue('total_firki', bill.total_firki);
             form.setValue('sub_total', bill.sub_total);

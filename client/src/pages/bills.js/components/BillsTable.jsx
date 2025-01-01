@@ -15,6 +15,7 @@ import { getBillsByCollectionId } from "@/services/bills";
 import { toast } from "react-toastify";
 import { FaFileAlt } from "react-icons/fa";
 import { format } from "date-fns";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const columnHelper = createColumnHelper();
 const columnsDef = [
@@ -103,10 +104,24 @@ const BillsTable = () => {
                         className="tw-w-56"
                     />
                 </div>
-                <Link to={`/bills/${billType}/report`} className="tw-flex tw-items-center tw-space-x-2 tw-border tw-rounded-lg tw-px-2 tw-cursor-pointer hover:tw-bg-gray-100 tw-py-1 tw-text-gray-700">
-                    <FaFileAlt />
-                    <span className=" tw-text-sm tw-font-semibold">Report</span>
-                </Link>
+
+                <div className="tw-flex tw-items-center tw-space-x-5">
+                    <Link to={`/bills/${billType}/report`} className="tw-flex tw-items-center tw-space-x-2 tw-border tw-rounded-lg tw-px-2 tw-cursor-pointer hover:tw-bg-gray-100 tw-py-1 tw-text-gray-700">
+                        <FaFileAlt />
+                        <span className=" tw-text-sm tw-font-semibold">Report</span>
+                    </Link>
+                    <Select value={pagination.pageSize} onValueChange={(value) => setPagination((prev) => ({ ...prev, pageSize: value }))}>
+                        <SelectTrigger className="tw-w-24">
+                            <SelectValue placeholder="Page Size" />
+                        </SelectTrigger>
+                        <SelectContent align="end" >
+                            <SelectItem value={5}>5</SelectItem>
+                            <SelectItem value={10}>10</SelectItem>
+                            <SelectItem value={20}>20</SelectItem>
+                            <SelectItem value={50}>50</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
             </div>
             {isBillsDataLoading ? <div className="tw-flex tw-justify-center tw-items-center tw-h-64">
                 <div className="basic-loader"></div>

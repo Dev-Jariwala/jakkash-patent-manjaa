@@ -30,6 +30,7 @@ import { Link } from "react-router-dom";
 import { Download, Eye } from "lucide-react";
 import { CSVLink } from "react-csv";
 import { Spinner } from "@/components/ui/spinner";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 
 const columnHelper = createColumnHelper();
@@ -104,19 +105,33 @@ const ClientsTable = () => {
                         className="tw-w-56"
                     />
                 </div>
-                <CSVLink
-                    data={clients ?? []}
-                    filename={"clients.csv"}
-                    headers={[
-                        { label: "Name", key: "name" },
-                        { label: "Mobile", key: "mobile" }
-                    ]}
-                >
-                    <div className="tw-flex tw-items-center tw-cursor-pointer tw-border tw-gap-x-3.5 tw-py-2 tw-px-3 tw-rounded-lg tw-text-sm tw-text-gray-600 hover:tw-bg-gray-100 focus:tw-outline-none focus:tw-bg-gray-100 dark:tw-text-gray-400 dark:hover:tw-bg-gray-700 dark:hover:tw-text-gray-300 dark:focus:tw-bg-gray-700">
-                        {isClientsLoading ? <Spinner /> : <Download size={16} />}
-                        CSV File
-                    </div>
-                </CSVLink>
+
+                <div className="tw-flex tw-items-center tw-space-x-5">
+                    <CSVLink
+                        data={clients ?? []}
+                        filename={"clients.csv"}
+                        headers={[
+                            { label: "Name", key: "name" },
+                            { label: "Mobile", key: "mobile" }
+                        ]}
+                    >
+                        <div className="tw-flex tw-items-center tw-cursor-pointer tw-border tw-gap-x-3.5 tw-py-2 tw-px-3 tw-rounded-lg tw-text-sm tw-text-gray-600 hover:tw-bg-gray-100 focus:tw-outline-none focus:tw-bg-gray-100 dark:tw-text-gray-400 dark:hover:tw-bg-gray-700 dark:hover:tw-text-gray-300 dark:focus:tw-bg-gray-700">
+                            {isClientsLoading ? <Spinner /> : <Download size={16} />}
+                            CSV File
+                        </div>
+                    </CSVLink>
+                    <Select value={pagination.pageSize} onValueChange={(value) => setPagination((prev) => ({ ...prev, pageSize: value }))}>
+                        <SelectTrigger className="tw-w-24">
+                            <SelectValue placeholder="Page Size" />
+                        </SelectTrigger>
+                        <SelectContent align="end" >
+                            <SelectItem value={5}>5</SelectItem>
+                            <SelectItem value={10}>10</SelectItem>
+                            <SelectItem value={20}>20</SelectItem>
+                            <SelectItem value={50}>50</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
             </div >
             {
                 isClientsDataLoading ? (

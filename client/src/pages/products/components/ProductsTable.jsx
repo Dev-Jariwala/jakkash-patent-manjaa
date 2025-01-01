@@ -1,27 +1,11 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import {
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  getPaginationRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+import { useQuery } from "@tanstack/react-query";
+import { createColumnHelper, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable, } from "@tanstack/react-table";
 import { useEffect, useMemo, useState } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import {
-  MdKeyboardDoubleArrowLeft,
-  MdKeyboardDoubleArrowRight,
-} from "react-icons/md";
+import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight, } from "react-icons/md";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import { Pencil } from "lucide-react";
@@ -30,6 +14,8 @@ import { useDebounce, useLocalStorage } from "@uidotdev/usehooks";
 import { getProductsByCollectionId } from "@/services/products";
 import { toast } from "react-toastify";
 import { FaFileAlt } from "react-icons/fa";
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const columnHelper = createColumnHelper();
 const columnsDef = [
@@ -120,10 +106,23 @@ const ProductsTable = () => {
           placeholder="Search product name..."
           className="tw-max-w-64"
         />
-        <Link to={`/products/report`} className="tw-flex tw-items-center tw-space-x-2 tw-border tw-rounded-lg tw-px-2 tw-cursor-pointer hover:tw-bg-gray-100 tw-py-1 tw-text-gray-700">
-          <FaFileAlt />
-          <span className=" tw-text-sm tw-font-semibold">Report</span>
-        </Link>
+        <div className="tw-flex tw-items-center tw-space-x-5">
+          <Link to={`/products/report`} className="tw-flex tw-items-center tw-space-x-2 tw-border tw-rounded-lg tw-px-2 tw-cursor-pointer hover:tw-bg-gray-100 tw-py-1 tw-text-gray-700">
+            <FaFileAlt />
+            <span className=" tw-text-sm tw-font-semibold">Report</span>
+          </Link>
+          <Select value={pagination.pageSize} onValueChange={(value) => setPagination((prev) => ({ ...prev, pageSize: value }))}>
+            <SelectTrigger className="tw-w-24">
+              <SelectValue placeholder="Page Size" />
+            </SelectTrigger>
+            <SelectContent align="end" >
+              <SelectItem value={5}>5</SelectItem>
+              <SelectItem value={10}>10</SelectItem>
+              <SelectItem value={20}>20</SelectItem>
+              <SelectItem value={50}>50</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
       {isProductDataLoading ? <div className="tw-flex tw-justify-center tw-items-center tw-h-64">
         <div className="basic-loader"></div>
