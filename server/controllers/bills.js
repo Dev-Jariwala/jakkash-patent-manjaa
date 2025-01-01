@@ -122,12 +122,22 @@ export const getBills = async (req, res) => {
     // Add search filter (assuming search applies to bill_no, name, or mobile)
     let billsParams = [collection_id, bill_type];
     if (search) {
-      billsQuery += ` AND ( c.name ILIKE $3 OR b.mobile ILIKE $3)`;
+      billsQuery += ` AND ( c.name ILIKE $3 OR b.mobile ILIKE $3 OR b.bill_no::text ILIKE $3)`;
       billsParams.push(`%${search}%`);
     }
 
     // Add sorting
-    billsQuery += ` ORDER BY ${sortField} ${sortOrder}  LIMIT ${limit} OFFSET ${offset}`;
+    // billsQuery += ` ORDER BY ${sortField} ${sortOrder}  LIMIT ${limit} OFFSET ${offset}`;
+    billsQuery += `
+      ORDER BY 
+        CASE 
+          WHEN b.bill_no::text = '${search}' THEN 0
+          ELSE 1
+        END,
+        ${sortField} ${sortOrder}
+      LIMIT ${limit} OFFSET ${offset}
+    `;
+    console.log({ billsQuery, billsParams });
 
     // Execute the billsQuery
     const bills = await query(billsQuery, billsParams);
@@ -136,7 +146,7 @@ export const getBills = async (req, res) => {
     let totalCountQuery = `SELECT COUNT(*) as total_count FROM bills WHERE collection_id =$1 AND bill_type = $2`;
     const totalCountParams = [collection_id, bill_type]
     if (search) {
-      totalCountQuery += ` AND ( name ILIKE $3 OR mobile ILIKE $3)`;
+      totalCountQuery += ` AND ( name ILIKE $3 OR mobile ILIKE $3 OR bill_no::text ILIKE $3)`;
       totalCountParams.push(`%${search}%`);
     }
     const [{ total_count }] = await query(totalCountQuery, totalCountParams);
