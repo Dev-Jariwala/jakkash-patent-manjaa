@@ -14,19 +14,21 @@ import { toast } from "react-toastify";
 import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
 import { Calendar } from "@/components/ui/calendar"
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ReactSelect from "@/components/ui/react-select/react-select";
 import { Textarea } from "@/components/ui/textarea";
 import { createBill, getBillById, getNextBillNo, updateBillById } from "@/services/bills";
 import { handleDecimalInputChange, handleNumberInputChange, productNamesOrder, sortProductsByNames } from "@/helper/formHelper";
 import { getClientByMobileNumber } from "@/services/clients";
+import AddStockModal from "./AddStockModal";
 
 const BillsForm = () => {
     const { bill_id } = useParams();
     const [activeCollection] = useLocalStorage("activeCollection", null);
     const [searchParams] = useSearchParams();
     const billType = searchParams.get("bill_type");
+    const product_id = searchParams.get("product_id");
     const queryClient = useQueryClient();
     const navigate = useNavigate();
     const location = useLocation();
@@ -136,7 +138,7 @@ const BillsForm = () => {
     const createBillMutation = useMutation({
         mutationFn: createBill,
         onSuccess: (res) => {
-            navigate(`/bills/view?bill_id=${res.data?.bill?.bill_id}`);
+            navigate(`/bills/${billType}?bill_id=${res.data?.bill?.bill_id}`);
             queryClient.invalidateQueries(["bills", activeCollection]);
             toast.success("Bill created successfully");
         },
@@ -148,7 +150,7 @@ const BillsForm = () => {
     const updateBillMutation = useMutation({
         mutationFn: updateBillById,
         onSuccess: (res) => {
-            navigate(`/bills/view?bill_id=${res.data?.bill?.bill_id}`);
+            navigate(`/bills/${billType}?bill_id=${res.data?.bill?.bill_id}`);
             queryClient.invalidateQueries(["bills", activeCollection]);
             toast.success("Bill updated successfully");
         },
@@ -175,7 +177,11 @@ const BillsForm = () => {
     };
 
     useEffect(() => {
-        const showProducts = products?.filter(product => product?.[`${billType}_price`] > 0)?.map(product => ({ product_id: product?.product_id, product_name: product?.product_name, is_labour: product?.is_labour, quantity: 0, price: product[`${billType}_price`], stock_in_hand: product?.stock_in_hand, total: 0 })) || [];
+        const oldsProducts = form.getValues('products');
+        const showProducts = products?.filter(product => product?.[`${billType}_price`] > 0)?.map(product => {
+            const oldProd = oldsProducts?.find(p => p.product_id === product?.product_id);
+            return ({ product_id: product?.product_id, product_name: product?.product_name, is_labour: product?.is_labour, quantity: oldProd?.quantity || 0, price: product[`${billType}_price`], stock_in_hand: product?.stock_in_hand, total: oldProd?.total || 0 })
+        }) || [];
         console.log({ showProducts });
         form.setValue('products', sortProductsByNames(showProducts, productNamesOrder));
     }, [products, billType]);
@@ -244,6 +250,7 @@ const BillsForm = () => {
     }, [clientDetails])
     return (
         <>
+            {product_id && <AddStockModal open={!!product_id} onClose={() => navigate(-1)} />}
             {isProductsLoading || isNextBillNoLoading || isBillLoading ?
                 <div className="tw-flex tw-justify-center tw-items-center tw-h-64">
                     <div className="basic-loader"></div>
@@ -413,23 +420,28 @@ const BillsForm = () => {
                                     </div>
                                     {form.watch('products')?.map((product, index) => (
                                         <div key={product?.product_id} className="tw-grid tw-grid-cols-5 tw-gap-3 tw-border-t tw-pt-4">
-                                            <FormField
-                                                control={form.control}
-                                                name={`products.${index}.product_id`}
-                                                render={({ field }) => (
-                                                    <FormItem>
-                                                        <FormControl>
-                                                            <ReactSelect
-                                                                options={productsOptions}
-                                                                placeholder=""
-                                                                value={productsOptions ? productsOptions?.find((option) => option?.value === field?.value) : null}
-                                                                isDisabled
-                                                            />
-                                                        </FormControl>
-                                                        <FormMessage />
-                                                    </FormItem>
-                                                )}
-                                            />
+                                            <div className="tw-flex tw-items-center">
+                                                <FormField
+                                                    control={form.control}
+                                                    name={`products.${index}.product_id`}
+                                                    render={({ field }) => (
+                                                        <FormItem className="tw-w-full">
+                                                            <FormControl>
+                                                                <ReactSelect
+                                                                    options={productsOptions}
+                                                                    placeholder=""
+                                                                    value={productsOptions ? productsOptions?.find((option) => option?.value === field?.value) : null}
+                                                                    isDisabled
+                                                                />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                                <Button className="tw-px-2 tw-ml-2" tabIndex="-1" type="button" onClick={() => formType === 'new' ? navigate(`/bills/${formType}?bill_type=${billType}&product_id=${product?.product_id}`) : navigate(`/bills/${formType}/${bill_id}?bill_type=${billType}&product_id=${product?.product_id}`)}>
+                                                    <Plus size={16} />
+                                                </Button>
+                                            </div>
                                             <FormField
                                                 control={form.control}
                                                 name={`products.${index}.stock_in_hand`}
@@ -522,13 +534,13 @@ const BillsForm = () => {
                                         )}
                                     />
                                 </div>
-                                <div className="tw-flex tw-items-center " onClick={() => {
-                                    // here we need to find the total quantity of all products and set it to total_firki
-                                    const total_firki = form.watch('products')?.reduce((acc, product) => acc + parseInt(product.quantity), 0) || 0;
-                                    form.setValue('total_firki', total_firki);
-                                    form.trigger(['total_firki']);
-                                }}>
-                                    <Button variant="" className="tw-bg-indigo-500 hover:tw-bg-indigo-600" type="button">Calculate</Button>
+                                <div className="tw-flex tw-items-center ">
+                                    <Button variant="" className="tw-bg-indigo-500 hover:tw-bg-indigo-600" type="button" onClick={() => {
+                                        // here we need to find the total quantity of all products and set it to total_firki
+                                        const total_firki = form.watch('products')?.reduce((acc, product) => acc + parseInt(product.quantity), 0) || 0;
+                                        form.setValue('total_firki', total_firki);
+                                        form.trigger(['total_firki']);
+                                    }}>Calculate</Button>
                                 </div>
                             </div>
                             <div className="tw-grid tw-grid-cols-5 tw-gap-3 tw-mt-5">

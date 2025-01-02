@@ -16,7 +16,6 @@ import Purchases from "@/pages/purchases/Purchases";
 import Analytics from "@/pages/analytics/Analytics";
 import PurchaseForm from "@/pages/purchases/components/PurchaseForm";
 import BillsReport from "@/pages/bills.js/components/BillsReport";
-import Sidebar from "@/components/ui/sidebar/Sidebar";
 import StocksReport from "@/pages/stocks/components/StocksReport";
 import PurchasesReport from "@/pages/purchases/components/PurchasesReport";
 import ProductsReport from "@/pages/products/components/ProductsReport";

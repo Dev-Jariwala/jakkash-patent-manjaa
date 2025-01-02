@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight, } from "react-icons/md";
 import { Input } from "@/components/ui/input";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Eye, Pencil } from "lucide-react";
 import { Chip } from "@/components/ui/chip";
 import { useDebounce, useLocalStorage } from "@uidotdev/usehooks";
@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 import { FaFileAlt } from "react-icons/fa";
 import { format } from "date-fns";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import BillsPdfModal from "./BillsPdfModal";
 
 const columnHelper = createColumnHelper();
 const columnsDef = [
@@ -55,6 +56,7 @@ const columnsDef = [
 // eslint-disable-next-line react/prop-types
 const BillsTable = () => {
     const { billType } = useParams();
+    const navigate = useNavigate();
     const [activeCollection] = useLocalStorage("activeCollection", null);
     const [pagination, setPagination] = useState({
         pageIndex: 0,
@@ -62,6 +64,8 @@ const BillsTable = () => {
     });
     const [search, setSearch] = useState("");
     const debouncedSearch = useDebounce(search, 300);
+    const [searchParams] = useSearchParams();
+    const bill_id = searchParams.get("bill_id");
 
     const { data: billsData, error: billsDataError, isLoading: isBillsDataLoading } = useQuery({
         queryKey: ["bills", activeCollection, pagination, debouncedSearch, billType],
@@ -95,6 +99,7 @@ const BillsTable = () => {
 
     return (
         <>
+            {bill_id && <BillsPdfModal open={!!bill_id} onClose={() => navigate(`/bills/${billType}`)} />}
             <div className="tw-flex tw-items-center tw-justify-between tw-px-4">
                 <div className="tw-flex tw-items-center tw-space-x-4">
                     <Input
@@ -170,7 +175,7 @@ const BillsTable = () => {
                                                 ))}
                                                 <TableCell className="tw-flex tw-items-center tw-space-x-2">
                                                     <Link
-                                                        to={`/bills/view?bill_id=${row.original?.bill_id}`}
+                                                        to={`/bills/${billType}?bill_id=${row.original?.bill_id}`}
                                                         className="hover:tw-bg-gray-200 tw-rounded-full tw-size-8 tw-flex tw-items-center tw-justify-center"
                                                     // target="_blank"
                                                     >
