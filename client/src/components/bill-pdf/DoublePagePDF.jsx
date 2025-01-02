@@ -9,6 +9,7 @@ import {
   PDFViewer,
   Font,
 } from "@react-pdf/renderer";
+import { format } from "date-fns";
 const styles = StyleSheet.create({
   // Add a new style for bold text within billHead
   boldText: {
@@ -172,13 +173,13 @@ const DoublePagePDF = ({ bill }) => {
                   <View style={styles.bdRow}>
                     <Text style={styles.bdCol}> DATE:</Text>
                     <Text style={styles.bdCol}>
-                      {order_date?.slice(0, 10).split("-").reverse().join("-")}
+                      {order_date ? format(new Date(order_date), "dd/MM/yyyy") : "-"}
                     </Text>
                   </View>
                   <View style={styles.bdRow}>
                     <Text style={styles.bdCol}> DELIVERY DATE:</Text>
                     <Text style={styles.bdCol}>
-                      {delivery_date.slice(0, 10).split("-").reverse().join("-")}
+                      {delivery_date ? format(new Date(delivery_date), "dd/MM/yyyy") : "-"}
                     </Text>
                   </View>
                 </View>
@@ -393,13 +394,13 @@ const DoublePagePDF = ({ bill }) => {
                   <View style={styles.bdRow}>
                     <Text style={styles.bdCol}> DATE:</Text>
                     <Text style={styles.bdCol}>
-                      {order_date?.slice(0, 10).split("-").reverse().join("-")}
+                      {order_date ? format(new Date(order_date), "dd/MM/yyyy") : "-"}
                     </Text>
                   </View>
                   <View style={styles.bdRow}>
                     <Text style={styles.bdCol}> DELIVERY DATE:</Text>
                     <Text style={styles.bdCol}>
-                      {delivery_date?.slice(0, 10)?.split("-")?.reverse()?.join("-")}
+                      {delivery_date ? format(new Date(delivery_date), "dd/MM/yyyy") : "-"}
                     </Text>
                   </View>
                 </View>
