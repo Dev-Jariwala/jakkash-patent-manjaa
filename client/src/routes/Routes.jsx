@@ -3,7 +3,7 @@ import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom"
 import { ProtectedRoute } from "./ProtectedRoute";
 import { useAuth } from "@/hooks/authProvider";
 import Signin from "@/pages/signin/Signin";
-import Layout from "@/components/sidebar/Layout";
+// import Layout from "@/components/sidebar/Layout";
 import Products from "@/pages/products/Products";
 import ProductForm from "@/pages/products/components/ProductForm";
 import Bills from "@/pages/bills.js/Bills";
@@ -22,6 +22,7 @@ import ProductsReport from "@/pages/products/components/ProductsReport";
 import Collections from "@/pages/collections/Collections";
 import CollectionForm from "@/pages/collections/components/CollectionForm";
 import ClientReport from "@/pages/clients/components/ClientReport";
+import Sidebar from "@/components/ui/sidebar/Sidebar";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -38,7 +39,7 @@ const Routes = () => {
   const routesForAuthenticatedOnly = [
     {
       path: "/",
-      element: <Layout />,
+      element: <Sidebar />,
       children: [
         {
           path: "/",

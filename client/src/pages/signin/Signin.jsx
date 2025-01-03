@@ -54,7 +54,7 @@ const Signin = () => {
       <div className="tw-w-full tw-max-h-dvh">
         <div className="tw-mx-auto tw-w-[350px] tw-flex tw-flex-col tw-items-center tw-justify-center tw-mt-10 tw-space-y-5">
           <img
-            src={`${import.meta.env.VITE_BACKEND_URL}imgs/logo.png`}
+            src={`/logo.png`}
             className="tw-size-40 tw-rounded-full"
           />
           <div className="tw-font-bold tw-text-gray-700 tw-text-2xl">

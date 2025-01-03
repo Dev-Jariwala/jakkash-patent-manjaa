@@ -20,6 +20,7 @@ import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import ReactSelect from "@/components/ui/react-select/react-select";
 import { toast } from "react-toastify";
+import { handleNumberInputChange } from "@/helper/formHelper";
 
 const schema = yup.object().shape({
     product_id: yup.string().required("Product ID is required").typeError("Product ID is required"),
@@ -214,7 +215,7 @@ const StocksForm = () => {
                                         Quantity <sup className="tw-text-red-500 tw-text-base -tw-top-0">*</sup>
                                     </FormLabel>
                                     <FormControl>
-                                        <Input variant='ringShadow' {...field} />
+                                        <Input variant='ringShadow' {...field} onChange={(e) => handleNumberInputChange(e, field)} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

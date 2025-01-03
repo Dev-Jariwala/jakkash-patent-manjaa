@@ -7,6 +7,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import ReactSelect from "@/components/ui/react-select/react-select";
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/tremor-dialog"
+import { handleNumberInputChange } from "@/helper/formHelper";
 import { getProductsByCollectionId } from "@/services/products";
 import { createStock } from "@/services/stocks";
 import { Popover, PopoverButton, PopoverPanel, Transition } from "@headlessui/react";
@@ -181,7 +182,7 @@ const AddStockModal = ({ open, onClose }) => {
                                                 Quantity <sup className="tw-text-red-500 tw-text-base -tw-top-0">*</sup>
                                             </FormLabel>
                                             <FormControl>
-                                                <Input variant='ringShadow' {...field} />
+                                                <Input variant='ringShadow' {...field} onChange={(e) => handleNumberInputChange(e, field)} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>

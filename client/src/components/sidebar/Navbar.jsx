@@ -6,15 +6,15 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/authProvider";
 import ActiveCollectionSelect from "./components/ActiveCollectionSelect";
+import { useSidebar } from "../ui/sidebar";
 
-const Navbar = ({ toggleSidebar }) => {
+const Navbar = () => {
   const { setToken } = useAuth();
+  const { toggleSidebar } = useSidebar();
   return (
     <div className=" tw-text-gray-800 tw-sticky tw-z-99 tw-bg-white tw-top-0 tw-left-0 tw-border-b tw-border-gray-200 tw-h-16 tw-flex tw-items-center tw-justify-between tw-px-4">
       <div className="tw-flex tw-items-center tw-space-x-3">
@@ -32,9 +32,6 @@ const Navbar = ({ toggleSidebar }) => {
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>Profile</DropdownMenuItem>
           <DropdownMenuItem onClick={() => setToken()}>Logout</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

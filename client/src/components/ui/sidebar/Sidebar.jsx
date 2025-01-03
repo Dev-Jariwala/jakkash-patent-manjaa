@@ -18,6 +18,7 @@ import BillSvg from "@/components/svgs/BillSvg";
 import ClientSvg from "@/components/svgs/ClientSvg";
 import PurchaseSvg from "@/components/svgs/PurchaseSvg";
 import AnalyticsSvg from "@/components/svgs/AnalyticsSvg";
+import { cn } from "@/lib/utils";
 
 
 const data = {
@@ -98,29 +99,28 @@ const Sidebar = () => {
     return (
         <SidebarProvider>
             <SidebarComponent className='tw-shadow-xl' collapsible="icon" style={{ fontFamily: 'Nunito, "Segoe UI", arial' }} >
-                <SidebarHeader>
+                <SidebarHeader className="tw-mb-3">
                     <SidebarMenu>
-                        <SidebarMenuItem>
-                            <div className={`tw-flex tw-items-center tw-animate-fade tw-animate-duration-300 tw-justify-start tw-space-x-5`}>
-                                <span className="tw-text-3xl">
-                                    <Avatar>
-                                        <AvatarImage
-                                            src={`${import.meta.env.VITE_BACKEND_URL}imgs/logo.png`}
-                                        />
-                                        <AvatarFallback></AvatarFallback>
-                                    </Avatar>
-                                </span>
-                                <span className={`tw-block tw-text-2xl tw-animate-fade tw-animate-duration-300`}>
-                                    Jakkash
-                                </span>
-                            </div>
+                        <SidebarMenuItem asChild>
+                            <Link className="tw-flex tw-items-center tw-gap-1 hover:tw-bg-gray-200 tw-rounded-lg tw-h-12 tw-cursor-pointer">
+                                <Avatar className="tw-w-9 tw-h-9 tw-mx-2 tw-border-2 tw-border-gray-400">
+                                    <AvatarImage
+                                        src={`${import.meta.env.VITE_BACKEND_URL}imgs/logo.png`}
+                                    />
+                                    <AvatarFallback></AvatarFallback>
+                                </Avatar>
+                                <div className="group-data-[collapsible=icon]:tw-hidden">
+                                    <div className={`tw-font-semibold tw-text-xl`}>Jakkash</div>
+                                    {/* <div className={`tw-text-xs`}>patent manja</div> */}
+                                </div>
+                            </Link>
                         </SidebarMenuItem>
                     </SidebarMenu>
                 </SidebarHeader>
                 <SidebarContent>
                     <SidebarGroup>
-                        <SidebarGroupLabel></SidebarGroupLabel>
-                        <SidebarMenu>
+                        {/* <SidebarGroupLabel>Collections</SidebarGroupLabel> */}
+                        <SidebarMenu className="tw-space-y-">
                             {data.navMain.map((item) => (
                                 <React.Fragment key={item.title}>
                                     {item.isCollapsible ? (
@@ -155,9 +155,11 @@ const Sidebar = () => {
                                                 isActive={isActive(item.link)}
                                                 tooltip={item.title}
                                             >
-                                                <Link className="tw-no-underline tw-text-inherit" to={item.link}>
-                                                    {item.icon && <item.icon />}
-                                                    <span>{item.title}</span>
+                                                <Link className={cn("tw-no-underline tw-text-inherit !tw-h-10 ", isActive(item.link) ? '!tw-bg-indigo-200 !tw-text-gray-700' : 'hover:!tw-bg-gray-200')} to={item.link}>
+                                                    <span className="tw-mx-1">
+                                                        {item.icon && <item.icon />}
+                                                    </span>
+                                                    <span className=" tw-animate-fade tw-animate-duration-300">{item.title}</span>
                                                 </Link>
                                             </SidebarMenuButton>
                                         </SidebarMenuItem>

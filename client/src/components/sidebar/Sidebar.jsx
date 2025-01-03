@@ -41,7 +41,7 @@ const Sidebar = ({ isOpen, setIsOpen, toggleSidebar, tabs = [] }) => {
             <span className="tw-text-3xl">
               <Avatar>
                 <AvatarImage
-                  src={`${import.meta.env.VITE_BACKEND_URL}imgs/logo.png`}
+                  src={`/logo.png`}
                 />
                 <AvatarFallback></AvatarFallback>
               </Avatar>
