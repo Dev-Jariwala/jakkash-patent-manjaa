@@ -105,7 +105,7 @@ const Sidebar = () => {
                             <Link className="tw-flex tw-items-center tw-gap-1 hover:tw-bg-gray-200 tw-rounded-lg tw-h-12 tw-cursor-pointer">
                                 <Avatar className="tw-w-9 tw-h-9 tw-mx-2 tw-border-2 tw-border-gray-400">
                                     <AvatarImage
-                                        src={`${import.meta.env.VITE_BACKEND_URL}imgs/logo.png`}
+                                        src={`/logo.png`}
                                     />
                                     <AvatarFallback></AvatarFallback>
                                 </Avatar>
