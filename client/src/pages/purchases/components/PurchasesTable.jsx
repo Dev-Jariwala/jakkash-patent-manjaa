@@ -31,6 +31,7 @@ import { getPurchases } from "@/services/purchases";
 import { FaFileAlt } from "react-icons/fa";
 import { format } from "date-fns";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 
 const columnHelper = createColumnHelper();
@@ -118,9 +119,11 @@ const PurchasesTable = () => {
                     />
                 </div>
                 <div className="tw-flex tw-items-center tw-space-x-5">
-                    <Link to={`/purchases/report`} className="tw-flex tw-items-center tw-space-x-2 tw-border tw-rounded-lg tw-px-2 tw-cursor-pointer hover:tw-bg-gray-100 tw-py-1 tw-text-gray-700">
-                        <FaFileAlt />
-                        <span className=" tw-text-sm tw-font-semibold">Report</span>
+                    <Link to={`/purchases/report`} className="tw-flex tw-items-center tw-space-x-2 tw-border tw-border-red-500 tw-rounded-lg tw-px-2 tw-cursor-pointer hover:tw-bg-red-100 tw-py-1 tw-text-red-700">
+                        <Avatar className="tw-w-6 tw-h-6 tw-rounded-none">
+                            <AvatarImage src={`/pdf.svg`} />
+                        </Avatar>
+                        <span className=" tw-text-sm"> Report</span>
                     </Link>
                     <Select value={pagination.pageSize} onValueChange={(value) => setPagination((prev) => ({ ...prev, pageSize: value }))}>
                         <SelectTrigger className="tw-w-24">

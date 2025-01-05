@@ -31,6 +31,7 @@ import { Download, Eye } from "lucide-react";
 import { CSVLink } from "react-csv";
 import { Spinner } from "@/components/ui/spinner";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 
 const columnHelper = createColumnHelper();
@@ -115,8 +116,10 @@ const ClientsTable = () => {
                             { label: "Mobile", key: "mobile" }
                         ]}
                     >
-                        <div className="tw-flex tw-items-center tw-cursor-pointer tw-border tw-gap-x-3.5 tw-py-2 tw-px-3 tw-rounded-lg tw-text-sm tw-text-gray-600 hover:tw-bg-gray-100 focus:tw-outline-none focus:tw-bg-gray-100 dark:tw-text-gray-400 dark:hover:tw-bg-gray-700 dark:hover:tw-text-gray-300 dark:focus:tw-bg-gray-700">
-                            {isClientsLoading ? <Spinner /> : <Download size={16} />}
+                        <div className="tw-flex tw-items-center tw-cursor-pointer tw-border tw-gap-x-3.5 tw-py-2 tw-px-3 tw-rounded-lg tw-text-sm tw-text-green-600 hover:tw-bg-green-100 focus:tw-outline-none focus:tw-bg-green-100 dark:tw-text-green-400 dark:hover:tw-bg-green-700 dark:hover:tw-text-green-300 dark:focus:tw-bg-green-700">
+                            {isClientsLoading ? <Spinner /> : <Avatar className="tw-w-6 tw-h-6 tw-rounded-none">
+                                <AvatarImage src={`/csv.svg`} />
+                            </Avatar>}
                             CSV File
                         </div>
                     </CSVLink>

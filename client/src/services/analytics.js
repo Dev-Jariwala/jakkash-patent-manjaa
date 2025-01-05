@@ -9,3 +9,11 @@ export const getAnalytics = async ({ collection_id }) => {
     });
     return response;
 }
+
+export const getTotalCounts = async ({ collection_id }) => {
+    const response = await axios({
+        method: "GET",
+        url: `${import.meta.env.VITE_BACKEND_URL}collections/${collection_id}/counts`,
+    });
+    return response;
+};

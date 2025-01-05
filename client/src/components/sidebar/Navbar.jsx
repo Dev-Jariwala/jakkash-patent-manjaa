@@ -18,7 +18,7 @@ const Navbar = () => {
   return (
     <div className=" tw-text-gray-800 tw-sticky tw-z-99 tw-bg-white tw-top-0 tw-left-0 tw-border-b tw-border-gray-200 tw-h-16 tw-flex tw-items-center tw-justify-between tw-px-4">
       <div className="tw-flex tw-items-center tw-space-x-3">
-        <button onClick={toggleSidebar} className="tw-text-lg tw-font-semibold">
+        <button onClick={toggleSidebar} className="tw-text-lg tw-font-semibold hover:tw-bg-gray-200 tw-p-2 tw-rounded-full">
           <AiOutlineMenu />
         </button>
         <ActiveCollectionSelect />
@@ -26,8 +26,8 @@ const Navbar = () => {
 
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" />
+          <Avatar className="tw-shadow-lg tw-border-2 tw-border-gray-500">
+            <AvatarImage src="/logo.png" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>

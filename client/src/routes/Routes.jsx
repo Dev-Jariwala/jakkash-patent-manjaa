@@ -23,6 +23,7 @@ import Collections from "@/pages/collections/Collections";
 import CollectionForm from "@/pages/collections/components/CollectionForm";
 import ClientReport from "@/pages/clients/components/ClientReport";
 import Sidebar from "@/components/ui/sidebar/Sidebar";
+import Dashboard from "@/pages/dashboard/Dashboard";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -47,7 +48,7 @@ const Routes = () => {
           children: [
             {
               path: "/",
-              element: <div>Home</div>,
+              element: <Dashboard />,
             },
             {
               path: '/collections',

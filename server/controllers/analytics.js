@@ -118,3 +118,24 @@ export const getAnalytics = async (req, res) => {
     }
 
 };
+
+export const getTotalCounts = async (req, res) => {
+    const { collection_id } = req.params;
+    try {
+        // get total products count from products table
+        const totalProducts = await query(`SELECT COUNT(*) as total_products FROM products WHERE collection_id = $1`, [collection_id]);
+        // get total clients count from clients table
+        const totalClients = await query(`SELECT COUNT(*) as total_clients FROM clients`);
+        // get total bills count from bills table
+        const totalBills = await query(`SELECT COUNT(*) as total_bills FROM bills WHERE collection_id = $1`, [collection_id]);
+        // get total purchases count from purchases table
+        const totalPurchases = await query(`SELECT COUNT(*) as total_purchases FROM purchases WHERE collection_id = $1`, [collection_id]);
+        // get total stocks count from stocks table
+        const totalStocks = await query(`SELECT COUNT(*) as total_stocks FROM stocks WHERE collection_id = $1`, [collection_id]);
+        // get total collections count from collections table
+        const totalCollections = await query(`SELECT COUNT(*) as total_collections FROM collections`);
+        res.status(200).json({ totalProducts: totalProducts[0].total_products, totalClients: totalClients[0].total_clients, totalBills: totalBills[0].total_bills, totalPurchases: totalPurchases[0].total_purchases, totalStocks: totalStocks[0].total_stocks, totalCollections: totalCollections[0].total_collections });
+    } catch (error) {
+        handleError('getTotalCounts', error, res);
+    }
+};

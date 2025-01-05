@@ -19,6 +19,7 @@ import ClientSvg from "@/components/svgs/ClientSvg";
 import PurchaseSvg from "@/components/svgs/PurchaseSvg";
 import AnalyticsSvg from "@/components/svgs/AnalyticsSvg";
 import { cn } from "@/lib/utils";
+import CollectionsSvg from "@/components/svgs/Collections";
 
 
 const data = {
@@ -27,6 +28,12 @@ const data = {
             title: 'Dashboard',
             icon: DashboardSvg,
             link: '/',
+            isCollapsible: false,
+        },
+        {
+            title: 'Collections',
+            icon: CollectionsSvg,
+            link: '/collections',
             isCollapsible: false,
         },
         {
