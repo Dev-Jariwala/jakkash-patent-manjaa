@@ -6,6 +6,7 @@ import React, { useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ClientReportPDF from './ClientReportPDF';
+import TypeWritterLoader from '@/components/loaders/typewritter/TypeWritterLoader';
 
 const ClientReport = () => {
     const [activeCollection] = useLocalStorage("activeCollection");
@@ -26,9 +27,13 @@ const ClientReport = () => {
     }, [billDataError]);
     return (
         <div className="my-3 tw-h-full tw-w-full tw-flex tw-justify-center tw-items-center">
-            <PDFViewer width="100%" height="100%">
-                <ClientReportPDF client={billData || { name: "", address: "", mobile: "", bills: [] }} />
-            </PDFViewer>
+            {isBillDataLoading ? <div className="tw-flex tw-items-center tw-justify-between tw-h-64">
+                <TypeWritterLoader />
+            </div>
+                :
+                <PDFViewer width="100%" height="100%">
+                    <ClientReportPDF client={billData || { name: "", address: "", mobile: "", bills: [] }} />
+                </PDFViewer>}
         </div>
     )
 }

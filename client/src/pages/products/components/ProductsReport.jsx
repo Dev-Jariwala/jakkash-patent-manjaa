@@ -1,5 +1,6 @@
 import ExportPDF from "@/components/bill-pdf/ExportPDF";
 import TypeWritterLoader from "@/components/loaders/typewritter/TypeWritterLoader";
+import { productNamesOrder, sortProductsByNames } from "@/helper/formHelper";
 import { getProductsReport } from "@/services/products";
 import { PDFViewer } from "@react-pdf/renderer";
 import { useQuery } from "@tanstack/react-query";
@@ -25,13 +26,14 @@ const ProductsReport = () => {
         queryKey: ["prodcutsReport", { collection_id: activeCollection }],
         queryFn: async () => {
             const res = await getProductsReport({ collection_id: activeCollection });
-            return res.data?.products?.map(product => {
+            const showProducts = res.data?.products?.map(product => {
                 return {
                     ...product,
                     total_quantity: Number(product.wholesale_quantity) + Number(product.retail_quantity),
                     total_amount: Number(product.wholesale_amount) + Number(product.retail_amount),
                 }
             }) || [];
+            return sortProductsByNames(showProducts, productNamesOrder)
         }
     });
 

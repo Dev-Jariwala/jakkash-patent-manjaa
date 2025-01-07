@@ -108,7 +108,7 @@ const ProductsTable = () => {
           className="tw-max-w-64"
         />
         <div className="tw-flex tw-items-center tw-space-x-5">
-          <Link to={`/products/report`} className="tw-flex tw-items-center tw-space-x-2 tw-border tw-border-red-500 tw-rounded-lg tw-px-2 tw-cursor-pointer hover:tw-bg-red-100 tw-py-1 tw-text-red-700">
+          <Link to={`/products/report`} className="tw-flex tw-items-center tw-space-x-2 tw-border tw-border-red-200 tw-rounded-lg tw-px-2 tw-cursor-pointer hover:tw-bg-red-100 tw-py-1 tw-text-red-700">
             <Avatar className="tw-w-6 tw-h-6 tw-rounded-none">
               <AvatarImage src={`/pdf.svg`} />
             </Avatar>

@@ -59,7 +59,7 @@ const Analytics = () => {
 
     if (!isAuthenticated) {
         return (
-            <div className="tw-flex tw-items-center tw-justify-center tw-min-h-screen tw-p-4">
+            <div className="tw-flex tw-items-center tw-justify-center tw-min-h-[calc(100dvh-64px)] tw-p-4">
                 <Card className="tw-w-full tw-max-w-md tw-border tw-p-10">
                     <CardHeader>
                         <CardTitle>Enter Password</CardTitle>

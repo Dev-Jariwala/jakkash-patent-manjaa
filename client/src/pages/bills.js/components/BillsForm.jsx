@@ -182,7 +182,6 @@ const BillsForm = () => {
             const oldProd = oldsProducts?.find(p => p.product_id === product?.product_id);
             return ({ product_id: product?.product_id, product_name: product?.product_name, is_labour: product?.is_labour, quantity: oldProd?.quantity || 0, price: product[`${billType}_price`], stock_in_hand: product?.stock_in_hand, total: oldProd?.total || 0 })
         }) || [];
-        console.log({ showProducts });
         form.setValue('products', sortProductsByNames(showProducts, productNamesOrder));
     }, [products, billType]);
 
