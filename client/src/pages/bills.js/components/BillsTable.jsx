@@ -1,4 +1,4 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { createColumnHelper, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable, } from "@tanstack/react-table";
 import { useEffect, useMemo, useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
@@ -11,13 +11,28 @@ import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom"
 import { Eye, Pencil } from "lucide-react";
 import { Chip } from "@/components/ui/chip";
 import { useDebounce, useLocalStorage } from "@uidotdev/usehooks";
-import { getBillsByCollectionId } from "@/services/bills";
+import { getBillsByCollectionId, getWholesaleBillsCsvReport } from "@/services/bills";
 import { toast } from "react-toastify";
-import { FaFileAlt } from "react-icons/fa";
 import { format } from "date-fns";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import BillsPdfModal from "./BillsPdfModal";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { CSVLink } from "react-csv";
+import { Spinner } from "@/components/ui/spinner";
+
+const headers = [
+    { label: "Bill No.", key: "bill_no" },
+    { label: "Name", key: "name" },
+    { label: "Total Firki", key: "total_firki" },
+    { label: "Mobile", key: "mobile" },
+    { label: "Address", key: "address" },
+    { label: "Order Date", key: "order_date" },
+    { label: "Delivery Date", key: "delivery_date" },
+    { label: "Sub Total", key: "sub_total" },
+    { label: "Discount", key: "discount" },
+    { label: "Advance", key: "advance" },
+    { label: "Total Due", key: "total_due" },
+];
 
 const columnHelper = createColumnHelper();
 const columnsDef = [
@@ -77,6 +92,21 @@ const BillsTable = () => {
         enabled: !!activeCollection,
     });
 
+    const { data: wholesaleBills, error: wholesaleBillsError, isLoading: isWholesaleBillsLoading, refetch } = useQuery({
+        queryKey: ["wholesaleBills", activeCollection],
+        queryFn: async () => {
+            const response = await getWholesaleBillsCsvReport({ collection_id: activeCollection });
+            return response.data?.wholesale_bills?.map(bill => {
+                return {
+                    ...bill,
+                    order_date: format(new Date(bill.order_date), "dd/MM/yyyy"),
+                    delivery_date: format(new Date(bill.delivery_date), "dd/MM/yyyy"),
+                }
+            }) || [];
+        },
+        enabled: false
+    });
+
     const data = useMemo(() => billsData?.bills ?? [], [billsData]);
     const columns = useMemo(() => columnsDef, []);
     const table = useReactTable({
@@ -96,7 +126,10 @@ const BillsTable = () => {
         if (billsDataError) {
             toast.error(`Error getting bills`)
         }
-    }, [billsDataError])
+        if (wholesaleBillsError) {
+            toast.error(`Error getting wholesale bills`)
+        }
+    }, [billsDataError, wholesaleBillsError]);
 
     return (
         <>
@@ -112,6 +145,22 @@ const BillsTable = () => {
                 </div>
 
                 <div className="tw-flex tw-items-center tw-space-x-5">
+                    {billType === 'wholesale' && <CSVLink
+                        data={wholesaleBills ?? []}
+                        filename={"wholesale-bills.csv"}
+                        headers={headers}
+                        onClick={async (e, done) => {
+                            await refetch();
+                            done();
+                        }}
+                    >
+                        <Button variant="none" className="tw-flex tw-items-center tw-cursor-pointer tw-border tw-border-green-200 tw-gap-x-3.5 tw-py-1 tw-px-2 tw-rounded-lg tw-text-sm tw-text-green-600 hover:tw-bg-green-100 focus:tw-outline-none focus:tw-bg-green-100 tw-font-normal" disabled={isWholesaleBillsLoading} >
+                            {isWholesaleBillsLoading ? <Spinner /> : <Avatar className="tw-w-6 tw-h-6 tw-rounded-none">
+                                <AvatarImage src={`/csv.svg`} />
+                            </Avatar>}
+                            CSV File
+                        </Button>
+                    </CSVLink>}
                     <Link to={`/bills/${billType}/report`} className="tw-flex tw-items-center tw-space-x-2 tw-border tw-border-red-200 tw-rounded-lg tw-px-2 tw-cursor-pointer hover:tw-bg-red-100 tw-py-1 tw-text-red-700">
                         <Avatar className="tw-w-6 tw-h-6 tw-rounded-none">
                             <AvatarImage src={`/pdf.svg`} />

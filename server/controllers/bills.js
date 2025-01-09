@@ -352,3 +352,18 @@ export const getWholeSaleBillsByMobile = async (req, res) => {
     handleError('getAllBillsByClientMobile', res, error);
   }
 };
+
+export const getWholesaleBillsCsvReport = async (req, res) => {
+  const { collection_id } = req.params;
+  try {
+    const wholesale_bills = await query(`
+      SELECT *
+      FROM bills
+      WHERE collection_id = $1 AND bill_type = 'wholesale'
+    `, [collection_id]);
+
+    res.status(200).json({ message: 'Bills retrieved successfully', wholesale_bills });
+  } catch (error) {
+    handleError('getWholesaleBillsCsvReport', res, error);
+  }
+};

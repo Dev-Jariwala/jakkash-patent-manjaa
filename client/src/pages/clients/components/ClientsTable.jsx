@@ -63,12 +63,13 @@ const ClientsTable = () => {
             return response.data;
         }
     });
-    const { data: clients, error: clientsError, isLoading: isClientsLoading } = useQuery({
+    const { data: clients, error: clientsError, isLoading: isClientsLoading, refetch } = useQuery({
         queryKey: ["clients"],
         queryFn: async () => {
             const response = await getAllClients();
             return response.data?.clients ?? [];
         },
+        enabled: false
     });
 
     const data = useMemo(() => clientsData?.clients ?? [], [clientsData]);
@@ -108,7 +109,7 @@ const ClientsTable = () => {
                 </div>
 
                 <div className="tw-flex tw-items-center tw-space-x-5">
-                    <CSVLink
+                    {/* <CSVLink
                         data={clients ?? []}
                         filename={"clients.csv"}
                         headers={[
@@ -122,6 +123,25 @@ const ClientsTable = () => {
                             </Avatar>}
                             CSV File
                         </div>
+                    </CSVLink> */}
+                    <CSVLink
+                        data={clients ?? []}
+                        filename={"clients.csv"}
+                        headers={[
+                            { label: "Name", key: "name" },
+                            { label: "Mobile", key: "mobile" }
+                        ]}
+                        onClick={async (e, done) => {
+                            await refetch();
+                            done();
+                        }}
+                    >
+                        <Button variant="none" className="tw-flex tw-items-center tw-cursor-pointer tw-border tw-border-green-200 tw-gap-x-3.5 tw-py-1 tw-px-2 tw-rounded-lg tw-text-sm tw-text-green-600 hover:tw-bg-green-100 focus:tw-outline-none focus:tw-bg-green-100 tw-font-normal" disabled={isClientsLoading} >
+                            {isClientsLoading ? <Spinner /> : <Avatar className="tw-w-6 tw-h-6 tw-rounded-none">
+                                <AvatarImage src={`/csv.svg`} />
+                            </Avatar>}
+                            CSV File
+                        </Button>
                     </CSVLink>
                     <Select value={pagination.pageSize} onValueChange={(value) => setPagination((prev) => ({ ...prev, pageSize: value }))}>
                         <SelectTrigger className="tw-w-24">

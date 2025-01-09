@@ -66,7 +66,17 @@ export const getBillReport = async ({ collection_id, bill_type, fromBillNo, toBi
 export const getWholeSaleBillsByMobile = async ({ collection_id, mobile }) => {
     const response = await axios({
         method: "GET",
-        url: `${import.meta.env.VITE_BACKEND_URL}collections/${collection_id}/${mobile}/wholesale-bills`,
+        url: `${import.meta.env.VITE_BACKEND_URL}collections/${collection_id}/bills/wholesale-bills/pdf-report/${mobile}`,
+    });
+    return response;
+}
+
+// router.get('/:collection_id/bills/wholesale-bills/csv-report', billsControllers.getWholesaleBillsCsvReport);
+
+export const getWholesaleBillsCsvReport = async ({ collection_id }) => {
+    const response = await axios({
+        method: "GET",
+        url: `${import.meta.env.VITE_BACKEND_URL}collections/${collection_id}/bills/wholesale-bills/csv-report`,
     });
     return response;
 }
