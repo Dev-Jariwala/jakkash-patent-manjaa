@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import FormatePrice from "@/helper/FormatPrice";
 import {
   Page,
   View,
@@ -240,10 +241,10 @@ const SinglePagePDF = ({ bill }) => {
                       <Text>{product?.quantity}</Text>
                     </View>
                     <View style={styles.tableCell}>
-                      <Text>{product?.price}</Text>
+                      <Text><FormatePrice price={product?.price} showRupee={false} /></Text>
                     </View>
                     <View style={styles.tableCell}>
-                      <Text>{(product?.price * product?.quantity).toFixed(2)}</Text>
+                      <Text><FormatePrice price={(product?.price * product?.quantity).toFixed(2)} showRupee={false} /></Text>
                     </View>
                     {/* Add more cells for additional data */}
                   </View>
@@ -278,12 +279,12 @@ const SinglePagePDF = ({ bill }) => {
                     <Text>Total</Text>
                   </View>
                   <View style={{ ...styles.tableCell, fontSize: 10 }}>
-                    <Text>{sub_total}</Text>
+                    <Text><FormatePrice price={sub_total} showRupee={false} /></Text>
                   </View>
                   {/* Add more cells for additional data */}
                 </View>
                 {/* Discount */}
-                <View
+                {discount > 0 && <View
                   style={{
                     ...styles.tableRow,
                     borderBottom: "1px solid #ccc",
@@ -308,10 +309,10 @@ const SinglePagePDF = ({ bill }) => {
                     <Text>Discount</Text>
                   </View>
                   <View style={{ ...styles.tableCell, fontSize: 10 }}>
-                    <Text>{discount}</Text>
+                    <Text><FormatePrice price={discount} showRupee={false} /></Text>
                   </View>
                   {/* Add more cells for additional data */}
-                </View>
+                </View>}
                 {/* Advance */}
                 <View
                   style={{
@@ -338,7 +339,7 @@ const SinglePagePDF = ({ bill }) => {
                     <Text>Advance</Text>
                   </View>
                   <View style={{ ...styles.tableCell, fontSize: 10 }}>
-                    <Text>{advance}</Text>
+                    <Text><FormatePrice price={advance} showRupee={false} /></Text>
                   </View>
                   {/* Add more cells for additional data */}
                 </View>
@@ -368,7 +369,7 @@ const SinglePagePDF = ({ bill }) => {
                     <Text>Due</Text>
                   </View>
                   <View style={{ ...styles.tableCell, fontSize: 10 }}>
-                    <Text>{total_due}</Text>
+                    <Text><FormatePrice price={total_due} showRupee={false} /></Text>
                   </View>
                   {/* Add more cells for additional data */}
                 </View>

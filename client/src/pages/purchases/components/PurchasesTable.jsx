@@ -1,38 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
-import {
-    createColumnHelper,
-    flexRender,
-    getCoreRowModel,
-    getPaginationRowModel,
-    useReactTable,
-} from "@tanstack/react-table";
+import { createColumnHelper, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable, } from "@tanstack/react-table";
 import { useEffect, useMemo, useState } from "react";
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import {
-    MdKeyboardDoubleArrowLeft,
-    MdKeyboardDoubleArrowRight,
-} from "react-icons/md";
+import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight, } from "react-icons/md";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import { Pencil } from "lucide-react";
 import { useDebounce, useLocalStorage } from "@uidotdev/usehooks";
 import { toast } from "react-toastify";
 import { getPurchases } from "@/services/purchases";
-import { FaFileAlt } from "react-icons/fa";
 import { format } from "date-fns";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-
+import { DataTableViewOptions } from "@/components/ui/data-table-view-options";
+import FormatePrice from "@/helper/FormatPrice";
 
 const columnHelper = createColumnHelper();
 const columnsDef = [
@@ -53,6 +37,9 @@ const columnsDef = [
     }),
     columnHelper.accessor("rate", {
         header: "Rate",
+        cell: (info) => {
+            return <FormatePrice price={info.getValue()} />;
+        }
     }),
     columnHelper.accessor("quantity", {
         header: "Quantity",
@@ -61,18 +48,20 @@ const columnsDef = [
         header: "Total",
         cell: (info) => {
             // return rate * quantity
-            return info.row.original.rate * info.row.original.quantity;
+            return <FormatePrice price={(info.row.original.rate * info.row.original.quantity).toFixed(2)} />;
         }
     }),
 ];
-
+const headers = {};
+columnsDef.forEach((column) => {
+    headers[column.accessorKey] = column.header;
+});
 // eslint-disable-next-line react/prop-types
 const PurchasesTable = () => {
     const [activeCollection] = useLocalStorage("activeCollection", null);
-    const [pagination, setPagination] = useState({
-        pageIndex: 0,
-        pageSize: 5,
-    });
+    const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 5, });
+    const [columnVisibility, setColumnVisibility] = useState({});
+    const [columnOrder, setColumnOrder] = useState([]);
     const [search, setSearch] = useState("");
     const debouncedSearch = useDebounce(search, 300);
 
@@ -95,8 +84,12 @@ const PurchasesTable = () => {
         rowCount: purchasesData?.totalPurchases ?? -1,
         state: {
             pagination,
+            columnVisibility,
+            columnOrder,
         },
         onPaginationChange: setPagination,
+        onColumnOrderChange: setColumnOrder,
+        onColumnVisibilityChange: setColumnVisibility,
         getPaginationRowModel: getPaginationRowModel(),
         manualPagination: true,
     });
@@ -125,11 +118,12 @@ const PurchasesTable = () => {
                         </Avatar>
                         <span className=" tw-text-sm"> Report</span>
                     </Link>
+                    <DataTableViewOptions table={table} headers={headers} />
                     <Select value={pagination.pageSize} onValueChange={(value) => setPagination((prev) => ({ ...prev, pageSize: value }))}>
-                        <SelectTrigger className="tw-w-24">
+                        <SelectTrigger className="tw-w-16 tw-py-1.5">
                             <SelectValue placeholder="Page Size" />
                         </SelectTrigger>
-                        <SelectContent align="end" >
+                        <SelectContent align="end" className="tw-min-w-[3rem]" >
                             <SelectItem value={5}>5</SelectItem>
                             <SelectItem value={10}>10</SelectItem>
                             <SelectItem value={20}>20</SelectItem>

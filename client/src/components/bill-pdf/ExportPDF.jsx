@@ -1,5 +1,6 @@
 import React from "react";
 import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+import FormatePrice from "@/helper/FormatPrice";
 
 const styles = StyleSheet.create({
   page: {
@@ -85,7 +86,8 @@ const ExportPDF = ({ exportData = [], headers = [], title }) => {
                 <View style={styles.tR} key={index}>
                   {headers.map((head) => (
                     <Text key={`${index}-${head.key}`} style={styles.tD}>
-                      {data[head.key] ?? "-"}
+                      {/* {data[head.key] ?? "-"} */}
+                      {head.price ? <FormatePrice price={data[head.key]} showRupee={false} /> : data[head.key] ?? "-"}
                     </Text>
                   ))}
                 </View>

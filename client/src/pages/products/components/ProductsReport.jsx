@@ -12,11 +12,11 @@ const headers = [
     // { label: "Product Name", key: "product_id" },
     { label: "Product Name", key: "product_name" },
     { label: "Wholesale Quantity", key: "wholesale_quantity" },
-    { label: "Wholesale Amount", key: "wholesale_amount" },
+    { label: "Wholesale Amount", key: "wholesale_amount", price: true },
     { label: "Retail Quantity", key: "retail_quantity" },
-    { label: "Retail Amount", key: "retail_amount" },
+    { label: "Retail Amount", key: "retail_amount", price: true },
     { label: "Total Quantity", key: "total_quantity" },
-    { label: "Total Amount", key: "total_amount" },
+    { label: "Total Amount", key: "total_amount", price: true },
 ];
 
 const ProductsReport = () => {

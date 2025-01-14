@@ -19,8 +19,10 @@ import BillsPdfModal from "./BillsPdfModal";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { CSVLink } from "react-csv";
 import { Spinner } from "@/components/ui/spinner";
+import { DataTableViewOptions } from "@/components/ui/data-table-view-options";
+import FormatePrice from "@/helper/FormatPrice";
 
-const headers = [
+const csvHeaders = [
     { label: "Bill No.", key: "bill_no" },
     { label: "Name", key: "name" },
     { label: "Total Firki", key: "total_firki" },
@@ -45,11 +47,41 @@ const columnsDef = [
             return info.getValue() ? format(new Date(info.getValue()), "dd/MM/yyyy") : "-";
         }
     }),
+    columnHelper.accessor("delivery_date", {
+        header: "Delivery Date",
+        cell: (info) => {
+            return info.getValue() ? format(new Date(info.getValue()), "dd/MM/yyyy") : "-";
+        }
+    }),
     columnHelper.accessor("name", {
         header: "Client Name",
     }),
+    columnHelper.accessor('mobile', {
+        header: "Mobile",
+    }),
+    columnHelper.accessor("address", {
+        header: "Address",
+    }),
+    columnHelper.accessor("total_firki", {
+        header: "Total Firki",
+    }),
     columnHelper.accessor("sub_total", {
         header: "Total",
+        cell: (info) => {
+            return <FormatePrice price={info.getValue()} />;
+        }
+    }),
+    columnHelper.accessor('discount', {
+        header: "Discount",
+        cell: (info) => {
+            return <FormatePrice price={info.getValue()} />;
+        }
+    }),
+    columnHelper.accessor("advance", {
+        header: "Advance",
+        cell: (info) => {
+            return <FormatePrice price={info.getValue()} />;
+        }
     }),
     columnHelper.accessor("total_due", {
         header: "Status",
@@ -62,22 +94,38 @@ const columnsDef = [
                     color={info.getValue() > 0 ? "red" : "green"}
                     className={''}
                 >
-                    {info.getValue() > 0 ? info.getValue() : "Paid"}
+                    {info.getValue() > 0 ? <FormatePrice price={info.getValue()} /> : "Paid"}
                 </Chip>
             );
         },
     }),
 ];
 
+const headers = {};
+columnsDef.forEach((column) => {
+    headers[column.accessorKey] = column.header;
+});
+
 // eslint-disable-next-line react/prop-types
 const BillsTable = () => {
     const { billType } = useParams();
     const navigate = useNavigate();
     const [activeCollection] = useLocalStorage("activeCollection", null);
-    const [pagination, setPagination] = useState({
-        pageIndex: 0,
-        pageSize: 5,
+    const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 5, });
+    const [columnVisibility, setColumnVisibility] = useState({
+        bill_no: true,
+        order_date: true,
+        delivery_date: false,
+        name: true,
+        mobile: false,
+        address: false,
+        total_firki: false,
+        sub_total: true,
+        discount: false,
+        advance: false,
+        total_due: true,
     });
+    const [columnOrder, setColumnOrder] = useState([]);
     const [search, setSearch] = useState("");
     const debouncedSearch = useDebounce(search, 300);
     const [searchParams] = useSearchParams();
@@ -116,8 +164,12 @@ const BillsTable = () => {
         rowCount: billsData?.pagination?.totalItems ?? -1,
         state: {
             pagination,
+            columnOrder,
+            columnVisibility,
         },
         onPaginationChange: setPagination,
+        onColumnOrderChange: setColumnOrder,
+        onColumnVisibilityChange: setColumnVisibility,
         getPaginationRowModel: getPaginationRowModel(),
         manualPagination: true,
     });
@@ -148,7 +200,7 @@ const BillsTable = () => {
                     {billType === 'wholesale' && <CSVLink
                         data={wholesaleBills ?? []}
                         filename={"wholesale-bills.csv"}
-                        headers={headers}
+                        headers={csvHeaders}
                         onClick={async (e, done) => {
                             await refetch();
                             done();
@@ -167,11 +219,12 @@ const BillsTable = () => {
                         </Avatar>
                         <span className=" tw-text-sm"> Report</span>
                     </Link>
+                    <DataTableViewOptions table={table} headers={headers} />
                     <Select value={pagination.pageSize} onValueChange={(value) => setPagination((prev) => ({ ...prev, pageSize: value }))}>
-                        <SelectTrigger className="tw-w-24">
+                        <SelectTrigger className="tw-w-16 tw-py-1.5">
                             <SelectValue placeholder="Page Size" />
                         </SelectTrigger>
-                        <SelectContent align="end" >
+                        <SelectContent align="end" className="tw-min-w-[3rem]" >
                             <SelectItem value={5}>5</SelectItem>
                             <SelectItem value={10}>10</SelectItem>
                             <SelectItem value={20}>20</SelectItem>

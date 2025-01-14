@@ -110,10 +110,10 @@ const StocksTable = () => {
                         <span className=" tw-text-sm"> Report</span>
                     </Link>
                     <Select value={pagination.pageSize} onValueChange={(value) => setPagination((prev) => ({ ...prev, pageSize: value }))}>
-                        <SelectTrigger className="tw-w-24">
+                        <SelectTrigger className="tw-w-16 tw-py-1.5">
                             <SelectValue placeholder="Page Size" />
                         </SelectTrigger>
-                        <SelectContent align="end" >
+                        <SelectContent align="end" className="tw-min-w-[3rem]" >
                             <SelectItem value={5}>5</SelectItem>
                             <SelectItem value={10}>10</SelectItem>
                             <SelectItem value={20}>20</SelectItem>

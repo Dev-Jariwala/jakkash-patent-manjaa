@@ -1,38 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
-import {
-    createColumnHelper,
-    flexRender,
-    getCoreRowModel,
-    getPaginationRowModel,
-    useReactTable,
-} from "@tanstack/react-table";
+import { createColumnHelper, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable, } from "@tanstack/react-table";
 import { useEffect, useMemo, useState } from "react";
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import {
-    MdKeyboardDoubleArrowLeft,
-    MdKeyboardDoubleArrowRight,
-} from "react-icons/md";
+import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight, } from "react-icons/md";
 import { Input } from "@/components/ui/input";
 import { useDebounce } from "@uidotdev/usehooks";
 import { toast } from "react-toastify";
 import { getAllClients, getClients } from "@/services/clients";
 import { Link } from "react-router-dom";
-import { Download, Eye } from "lucide-react";
+import { Eye } from "lucide-react";
 import { CSVLink } from "react-csv";
 import { Spinner } from "@/components/ui/spinner";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-
+import { DataTableViewOptions } from "@/components/ui/data-table-view-options";
 
 const columnHelper = createColumnHelper();
 const columnsDef = [
@@ -47,12 +31,16 @@ const columnsDef = [
     }),
 ];
 
+const headers = {};
+columnsDef.forEach((column) => {
+  headers[column.accessorKey] = column.header;
+});
+
 // eslint-disable-next-line react/prop-types
 const ClientsTable = () => {
-    const [pagination, setPagination] = useState({
-        pageIndex: 0,
-        pageSize: 5,
-    });
+    const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 5, });
+    const [columnVisibility, setColumnVisibility] = useState({});
+    const [columnOrder, setColumnOrder] = useState([]);
     const [search, setSearch] = useState("");
     const debouncedSearch = useDebounce(search, 300);
 
@@ -81,8 +69,12 @@ const ClientsTable = () => {
         rowCount: clientsData?.totalClients ?? -1,
         state: {
             pagination,
+            columnVisibility,
+            columnOrder,
         },
         onPaginationChange: setPagination,
+        onColumnVisibilityChange: setColumnVisibility,
+        onColumnOrderChange: setColumnOrder,
         getPaginationRowModel: getPaginationRowModel(),
         manualPagination: true,
     });
@@ -109,21 +101,6 @@ const ClientsTable = () => {
                 </div>
 
                 <div className="tw-flex tw-items-center tw-space-x-5">
-                    {/* <CSVLink
-                        data={clients ?? []}
-                        filename={"clients.csv"}
-                        headers={[
-                            { label: "Name", key: "name" },
-                            { label: "Mobile", key: "mobile" }
-                        ]}
-                    >
-                        <div className="tw-flex tw-items-center tw-cursor-pointer tw-border tw-gap-x-3.5 tw-py-2 tw-px-3 tw-rounded-lg tw-text-sm tw-text-green-600 hover:tw-bg-green-100 focus:tw-outline-none focus:tw-bg-green-100 dark:tw-text-green-400 dark:hover:tw-bg-green-700 dark:hover:tw-text-green-300 dark:focus:tw-bg-green-700">
-                            {isClientsLoading ? <Spinner /> : <Avatar className="tw-w-6 tw-h-6 tw-rounded-none">
-                                <AvatarImage src={`/csv.svg`} />
-                            </Avatar>}
-                            CSV File
-                        </div>
-                    </CSVLink> */}
                     <CSVLink
                         data={clients ?? []}
                         filename={"clients.csv"}
@@ -131,9 +108,11 @@ const ClientsTable = () => {
                             { label: "Name", key: "name" },
                             { label: "Mobile", key: "mobile" }
                         ]}
-                        onClick={async (e, done) => {
-                            await refetch();
-                            done();
+                        asyncOnClick={true}
+                        onClick={(e, done) => {
+                            refetch().then(() => {
+                                done();
+                            });
                         }}
                     >
                         <Button variant="none" className="tw-flex tw-items-center tw-cursor-pointer tw-border tw-border-green-200 tw-gap-x-3.5 tw-py-1 tw-px-2 tw-rounded-lg tw-text-sm tw-text-green-600 hover:tw-bg-green-100 focus:tw-outline-none focus:tw-bg-green-100 tw-font-normal" disabled={isClientsLoading} >
@@ -143,11 +122,12 @@ const ClientsTable = () => {
                             CSV File
                         </Button>
                     </CSVLink>
+                    <DataTableViewOptions table={table} headers={headers} />
                     <Select value={pagination.pageSize} onValueChange={(value) => setPagination((prev) => ({ ...prev, pageSize: value }))}>
-                        <SelectTrigger className="tw-w-24">
+                        <SelectTrigger className="tw-w-16 tw-py-1.5">
                             <SelectValue placeholder="Page Size" />
                         </SelectTrigger>
-                        <SelectContent align="end" >
+                        <SelectContent align="end" className="tw-min-w-[3rem]" >
                             <SelectItem value={5}>5</SelectItem>
                             <SelectItem value={10}>10</SelectItem>
                             <SelectItem value={20}>20</SelectItem>

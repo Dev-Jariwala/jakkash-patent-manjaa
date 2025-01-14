@@ -13,10 +13,10 @@ import { Chip } from "@/components/ui/chip";
 import { useDebounce, useLocalStorage } from "@uidotdev/usehooks";
 import { getProductsByCollectionId } from "@/services/products";
 import { toast } from "react-toastify";
-import { FaFileAlt } from "react-icons/fa";
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { DataTableViewOptions } from "@/components/ui/data-table-view-options";
+import FormatePrice from "@/helper/FormatPrice";
 
 const columnHelper = createColumnHelper();
 const columnsDef = [
@@ -31,9 +31,15 @@ const columnsDef = [
   }),
   columnHelper.accessor("retail_price", {
     header: "Retail Price",
+    cell: (info) => {
+      return <FormatePrice price={info.getValue()} />;
+    }
   }),
   columnHelper.accessor("wholesale_price", {
     header: "Wholesale Price",
+    cell: (info) => {
+      return <FormatePrice price={info.getValue()} />;
+    }
   }),
   columnHelper.accessor("stock_in_hand", {
     header: "Stock In Hand",
@@ -59,12 +65,16 @@ const columnsDef = [
   }),
 ];
 
+const headers = {};
+columnsDef.forEach((column) => {
+  headers[column.accessorKey] = column.header;
+});
+
 const ProductsTable = () => {
   const [activeCollection] = useLocalStorage("activeCollection", null);
-  const [pagination, setPagination] = useState({
-    pageIndex: 0,
-    pageSize: 5,
-  });
+  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 5, });
+  const [columnVisibility, setColumnVisibility] = useState({});
+  const [columnOrder, setColumnOrder] = useState([]);
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 300);
 
@@ -86,8 +96,12 @@ const ProductsTable = () => {
     rowCount: productData?.totalProducts ?? -1,
     state: {
       pagination,
+      columnVisibility,
+      columnOrder,
     },
     onPaginationChange: setPagination,
+    onColumnVisibilityChange: setColumnVisibility,
+    onColumnOrderChange: setColumnOrder,
     getPaginationRowModel: getPaginationRowModel(),
     manualPagination: true,
   });
@@ -114,11 +128,12 @@ const ProductsTable = () => {
             </Avatar>
             <span className=" tw-text-sm"> Report</span>
           </Link>
+          <DataTableViewOptions table={table} headers={headers} />
           <Select value={pagination.pageSize} onValueChange={(value) => setPagination((prev) => ({ ...prev, pageSize: value }))}>
-            <SelectTrigger className="tw-w-24">
+            <SelectTrigger className="tw-w-16 tw-py-1.5">
               <SelectValue placeholder="Page Size" />
             </SelectTrigger>
-            <SelectContent align="end" >
+            <SelectContent align="end" className="tw-min-w-[3rem]" >
               <SelectItem value={5}>5</SelectItem>
               <SelectItem value={10}>10</SelectItem>
               <SelectItem value={20}>20</SelectItem>

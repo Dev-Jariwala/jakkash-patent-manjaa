@@ -13,9 +13,9 @@ const headers = [
     { label: "Invoice No.", key: "invoice_no" },
     { label: "Supplier Name", key: "supplier_name" },
     { label: "Item Description", key: "item_description" },
-    { label: "Rate", key: "rate" },
+    { label: "Rate", key: "rate", price: true },
     { label: "Quantity", key: "quantity" },
-    { label: "Total", key: "total" },
+    { label: "Total", key: "total", price: true },
 ];
 
 const PurchasesReport = () => {
