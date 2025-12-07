@@ -51,19 +51,19 @@ const Signin = () => {
   };
   return (
     <>
-      <div className="tw-w-full tw-max-h-dvh">
-        <div className="tw-mx-auto tw-w-[350px] tw-flex tw-flex-col tw-items-center tw-justify-center tw-mt-10 tw-space-y-5">
+      <div className="w-full max-h-dvh">
+        <div className="mx-auto w-[350px] flex flex-col items-center justify-center mt-10 space-y-5">
           <img
             src={`/logo.png`}
-            className="tw-size-40 tw-rounded-full"
+            className="size-40 rounded-full"
           />
-          <div className="tw-font-bold tw-text-gray-700 tw-text-2xl">
+          <div className="font-bold text-gray-700 text-2xl">
             Sign in to Jakkash
           </div>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="tw-space-y-8 tw-w-full"
+              className="space-y-8 w-full"
             >
               <FormField
                 control={form.control}
@@ -91,7 +91,7 @@ const Signin = () => {
                   </FormItem>
                 )}
               />
-              <Button className="tw-w-full" type="submit" disabled={isSubmiting} isLoading={isSubmiting} loadingText="Signing in...">
+              <Button className="w-full" type="submit" disabled={isSubmiting} isLoading={isSubmiting} loadingText="Signing in...">
                 Signin
               </Button>
             </form>{" "}

@@ -17,9 +17,9 @@ export const TagList = ({
         <>
             {!includeTagsInInput ? (
                 <div
-                    className={cn('tw-rounded-md tw-w-full', className, {
-                        'tw-flex tw-flex-wrap tw-gap-2': direction === 'row',
-                        'tw-flex tw-flex-col tw-gap-2': direction === 'column',
+                    className={cn('rounded-md w-full', className, {
+                        'flex flex-wrap gap-2': direction === 'row',
+                        'flex flex-col gap-2': direction === 'column',
                     })}
                 >
 

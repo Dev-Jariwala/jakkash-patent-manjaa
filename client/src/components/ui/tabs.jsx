@@ -5,15 +5,15 @@ import { cn } from "../../lib/utils";
 import { cva } from "class-variance-authority";
 
 const TabsTriggerVariants = cva(
-  "tw-inline-flex tw-items-center tw-justify-center tw-whitespace-nowrap tw-px-3 tw-py-1.5 tw-text-sm tw-font-semibold tw-transition-all data-[state=active]:tw-rounded-sm tw-ring-offset-background focus-visible:tw-outline-none focus-visible:tw-ring-1 focus-visible:tw-ring-ring focus-visible:tw-ring-offset-1 disabled:tw-pointer-events-none disabled:tw-opacity-50 ",
+  "inline-flex items-center justify-center whitespace-nowrap px-3 py-1.5 text-sm font-semibold transition-all data-[state=active]:rounded-sm ring-offset-background focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-1 disabled:pointer-events-none disabled:opacity-50 ",
   {
     variants: {
       variant: {
         default:
-          "data-[state=active]:tw-bg-background data-[state=active]:tw-text-foreground data-[state=active]:tw-shadow-sm",
-        team: "tw-border-b hover:tw-bg-accent hover:tw-rounded tw-py-2",
+          "data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm",
+        team: "border-b hover:bg-accent hover:rounded py-2",
         sliding:
-          "tw-text-base tw-px-4 tw-py-2 tw-text-gray-700 tw-mx-1 tw-rounded-sm tw-relative data-[state=active]:tw-text-indigo-500 data-[state=active]:tw-shadow-indigo-500 data-[state=active]:focus:tw-relative hover:tw-bg-accent",
+          "text-base px-4 py-2 text-gray-700 mx-1 rounded-sm relative data-[state=active]:text-indigo-500 data-[state=active]:shadow-indigo-500 data-[state=active]:focus:relative hover:bg-accent",
       },
     },
     defaultVariants: {
@@ -28,7 +28,7 @@ const TabsList = React.forwardRef(({ className, ...props }, ref) => (
   <TabsPrimitive.List
     ref={ref}
     className={cn(
-      "tw-inline-flex tw-gap-1 tw-items-center tw-bg-card tw-py-1 tw-px-2 tw-text-muted-foreground",
+      "inline-flex gap-1 items-center bg-card py-1 px-2 text-muted-foreground",
       className
     )}
     {...props}
@@ -51,7 +51,7 @@ const TabsContent = React.forwardRef(({ className, ...props }, ref) => (
   <TabsPrimitive.Content
     ref={ref}
     className={cn(
-      "tw-mt-2 tw-ring-offset-background focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-ring focus-visible:tw-ring-offset-2",
+      "mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
       className
     )}
     {...props}

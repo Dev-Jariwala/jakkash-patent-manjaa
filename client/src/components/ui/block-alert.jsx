@@ -14,12 +14,12 @@ export const BlockAlert = ({ title, open, onOpenChange, description, onConfirm, 
                     <AlertDialogTitle>{title}</AlertDialogTitle>
                 </AlertDialogHeader>
                 <AlertDialogDescription>
-                    <div className='tw-flex tw-flex-col tw-items-center tw-gap-4'>
+                    <div className='flex flex-col items-center gap-4'>
                         <BlockSvg />
-                        <p className='tw-text-center tw-text-xl tw-text-gray-800'>{description}</p>
+                        <p className='text-center text-xl text-gray-800'>{description}</p>
                     </div>
                 </AlertDialogDescription>
-                <AlertDialogFooter className='sm:tw-justify-start'>
+                <AlertDialogFooter className='sm:justify-start'>
                     <AlertDialogAction size='sm' onClick={onConfirm} variant='none' intent='red' >Close</AlertDialogAction>
                     <AlertDialogCancel size='sm' onClick={onCancel}>Cancel</AlertDialogCancel>
                 </AlertDialogFooter>

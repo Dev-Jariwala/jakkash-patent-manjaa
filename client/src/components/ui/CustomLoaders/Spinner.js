@@ -10,9 +10,9 @@ const Spinner = ({
 }) => {
     //using tailwindcss
     return (
-        <div className={cn('tw-inline-flex tw-gap-2 tw-items-center tw-justify-center', className)}>
+        <div className={cn('inline-flex gap-2 items-center justify-center', className)}>
             <div aria-label="Loading..." role="status" style={{ ...style }} >
-                <svg class="tw-animate-spin tw-w-4 tw-h-4" viewBox="0 0 256 256" style={{ stroke: color }} >
+                <svg class="animate-spin w-4 h-4" viewBox="0 0 256 256" style={{ stroke: color }} >
                     <line x1="128" y1="32" x2="128" y2="64" strokeLinecap="round" strokeLinejoin="round" strokeWidth="24">
                     </line>
                     <line x1="195.9" y1="60.1" x2="173.3" y2="82.7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="24">
@@ -31,7 +31,7 @@ const Spinner = ({
                     </line>
                 </svg>
             </div>
-            {text && <div className={cn('tw-text-white', textClassName)}>{text}</div>}
+            {text && <div className={cn('text-white', textClassName)}>{text}</div>}
         </div>
     )
 }

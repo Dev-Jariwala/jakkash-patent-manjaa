@@ -2,12 +2,12 @@ import * as React from "react"
 import { cva } from "class-variance-authority";
 import { cn } from "../../lib/utils"
 
-const inputvariants = cva("tw-flex tw-w-full tw-rounded-md tw-border tw-border-input tw-px-3 tw-py-2 tw-text-sm tw-transition tw-duration-200 tw-ease-in-out tw-ring-offset-background placeholder:tw-text-muted-foreground focus-visible:tw-outline-none focus-visible:tw-ring-ring focus-visible:tw-outline-none disabled:tw-cursor-not-allowed disabled:tw-opacity-50", {
+const inputvariants = cva("flex w-full rounded-md border border-input px-3 py-2 text-sm transition duration-200 ease-in-out ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50", {
   variants: {
     variant: {
-      default: "focus-visible:tw-border-ring",
-      ringed: "focus-visible:tw-ring-2 focus-visible:tw-ring-ring focus-visible:tw-ring-offset-2",
-      ringShadow: "hover:tw-border-indigo-400 focus-visible:tw-border-ring focus-visible:tw-ring-2 focus-visible:tw-ring-indigo-200/80 focus-visible:dark:tw-ring-indigo-700/30",
+      default: "focus-visible:border-ring",
+      ringed: "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+      ringShadow: "hover:border-indigo-400 focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-indigo-200/80 focus-visible:dark:ring-indigo-700/30",
     },
   },
   defaultVariants: {

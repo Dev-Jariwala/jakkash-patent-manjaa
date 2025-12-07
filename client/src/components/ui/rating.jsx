@@ -11,14 +11,14 @@ const RatingItem = React.forwardRef(({ className, value, selectedValue, Icon = S
       ref={ref}
       value={value}
       className={cn(
-        "tw-aspect-square tw-fill-transparent tw-px-1 tw-text-primary tw-ring-offset-background focus:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-ring focus-visible:tw-ring-offset-2 disabled:tw-cursor-not-allowed disabled:tw-opacity-50 [&>svg]:tw-stroke-yellow-500",
-        props["aria-readonly"] && "tw-pointer-events-none",
-        selectedValue >= Number(value) && "[&>svg]:tw-fill-yellow-500",
+        "aspect-square fill-transparent px-1 text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>svg]:stroke-yellow-500",
+        props["aria-readonly"] && "pointer-events-none",
+        selectedValue >= Number(value) && "[&>svg]:fill-yellow-500",
         className
       )}
       {...props}
     >
-      <Icon className="tw-size-6 tw-fill-transparent tw-stroke-transparent tw-stroke-[1.5]" />
+      <Icon className="size-6 fill-transparent stroke-transparent stroke-[1.5]" />
     </RadioGroupPrimitive.Item>
   )
 })
@@ -46,8 +46,8 @@ const RatingGroup = React.forwardRef(
     return (
       <RadioGroupPrimitive.Root
         className={cn(
-          "tw-flex tw-items-center",
-          props.disabled && "tw-pointer-events-none",
+          "flex items-center",
+          props.disabled && "pointer-events-none",
           className
         )}
         {...props}
@@ -69,7 +69,7 @@ const RatingGroup = React.forwardRef(
             aria-readonly={readonly}
           />
         ))}
-       {showLabel && <p className={cn("tw-ml-2", !customLabel && "tw-w-14")}>
+       {showLabel && <p className={cn("ml-2", !customLabel && "w-14")}>
           {customLabel ? customLabel : `(${selectedValue} / ${ratingSteps})`}
         </p>}
       </RadioGroupPrimitive.Root>

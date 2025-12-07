@@ -28,12 +28,12 @@ const Dashboard = () => {
     });
 
     const stats = [
-        { title: 'Total Products', value: data?.totalProducts, link: '/products', icon: <ProductSvg />, color: "tw-bg-blue-100 tw-text-blue-600" },
-        { title: 'Total Bills', value: data?.totalBills, link: '/bills', icon: <BillSvg />, color: "tw-bg-green-100 tw-text-green-600" },
-        { title: 'Total Purchases', value: data?.totalPurchases, link: '/purchases', icon: <PurchaseSvg />, color: "tw-bg-yellow-100 tw-text-yellow-600" },
-        { title: 'Total Clients', value: data?.totalClients, link: '/clients', icon: <ClientSvg />, color: "tw-bg-purple-100 tw-text-purple-600" },
-        { title: 'Total Stocks', value: data?.totalStocks, link: '/stocks', icon: <StocksSvg />, color: "tw-bg-red-100 tw-text-red-600" },
-        { title: 'Total Collections', value: data?.totalCollections, link: '/collections', icon: <CollectionsSvg />, color: "tw-bg-indigo-100 tw-text-indigo-600" },
+        { title: 'Total Products', value: data?.totalProducts, link: '/products', icon: <ProductSvg />, color: "bg-blue-100 text-blue-600" },
+        { title: 'Total Bills', value: data?.totalBills, link: '/bills', icon: <BillSvg />, color: "bg-green-100 text-green-600" },
+        { title: 'Total Purchases', value: data?.totalPurchases, link: '/purchases', icon: <PurchaseSvg />, color: "bg-yellow-100 text-yellow-600" },
+        { title: 'Total Clients', value: data?.totalClients, link: '/clients', icon: <ClientSvg />, color: "bg-purple-100 text-purple-600" },
+        { title: 'Total Stocks', value: data?.totalStocks, link: '/stocks', icon: <StocksSvg />, color: "bg-red-100 text-red-600" },
+        { title: 'Total Collections', value: data?.totalCollections, link: '/collections', icon: <CollectionsSvg />, color: "bg-indigo-100 text-indigo-600" },
     ]
 
     useEffect(() => {
@@ -43,14 +43,14 @@ const Dashboard = () => {
     }, [statsError]);
 
     return (
-        <div className="tw-p-6 tw-bg-gray-50">
+        <div className="p-6 bg-gray-50">
             {isStatsLoading ? (
-                <div className="tw-flex tw-items-center tw-justify-center tw-h-64">
+                <div className="flex items-center justify-center h-64">
                     <div className="basic-loader"></div>
                 </div>
             ) : (
                 <div
-                    className="tw-grid tw-gap-6 md:tw-grid-cols-2 lg:tw-grid-cols-3"
+                    className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
                 >
                     {stats.map((stat, index) => (
                         <StatCard key={stat.title} {...stat} index={index} />
@@ -87,15 +87,15 @@ function StatCard({ title, value, icon, color, index, link }) {
     const navigate = useNavigate();
     return (
 
-        <Card className="tw-overflow-hidden tw-transition-all tw-duration-300 hover:tw-shadow-lg hover:tw-transform hover:tw-scale-105 tw-cursor-pointer" onClick={() => navigate(link)} >
-            <CardHeader className={`tw-flex tw-flex-row tw-items-center tw-justify-between tw-space-y-0 tw-p-2 tw-px-4 ${color} tw-rounded-t-lg`}>
-                <CardTitle className="tw-text-sm tw-font-semibold tw-tracking-wide">{title}</CardTitle>
-                <div className="tw-p-2 tw-bg-white tw-rounded-full tw-shadow-md">
+        <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg hover:transform hover:scale-105 cursor-pointer" onClick={() => navigate(link)} >
+            <CardHeader className={`flex flex-row items-center justify-between space-y-0 p-2 px-4 ${color} rounded-t-lg`}>
+                <CardTitle className="text-sm font-semibold tracking-wide">{title}</CardTitle>
+                <div className="p-2 bg-white rounded-full shadow-md">
                     {icon}
                 </div>
             </CardHeader>
-            <CardContent className="tw-p-4">
-                <div className="tw-text-3xl tw-font-bold tw-mt-2 tw-text-gray-800">
+            <CardContent className="p-4">
+                <div className="text-3xl font-bold mt-2 text-gray-800">
                     {/* {value?.toLocaleString() || '0'} */}
                     {useCountUp(value)}
                 </div>

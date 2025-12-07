@@ -3,13 +3,13 @@ import ReactTextareaAutosize from "react-textarea-autosize"
 import { cva } from "class-variance-authority";
 
 
-const textAreavariants = cva("tw-bg-background tw-ring-offset-background placeholder:tw-text-muted-foreground focus-visible:tw-ring-ring tw-flex tw-w-full tw-resize-none tw-rounded-md tw-border tw-border-input tw-px-3 tw-py-2 tw-text-sm focus-visible:tw-outline-none disabled:tw-cursor-not-allowed disabled:tw-opacity-50", {
+const textAreavariants = cva("bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex w-full resize-none rounded-md border border-input px-3 py-2 text-sm focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50", {
     variants: {
         variant: {
-            default: "focus-visible:tw-border-ring",
-            ringShadow: "hover:tw-border-indigo-400 focus-visible:tw-border-ring focus-visible:tw-ring-2 focus-visible:tw-ring-indigo-200/80 focus-visible:dark:tw-ring-indigo-700/30",
-            shadow: "focus-visible:tw-border-ring focus-visible:tw-shadow-input",
-            ringed: "focus-visible:tw-ring-2 focus-visible:tw-ring-ring focus-visible:tw-ring-offset-2"
+            default: "focus-visible:border-ring",
+            ringShadow: "hover:border-indigo-400 focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-indigo-200/80 focus-visible:dark:ring-indigo-700/30",
+            shadow: "focus-visible:border-ring focus-visible:shadow-input",
+            ringed: "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         },
     },
     defaultVariants: {

@@ -33,7 +33,7 @@ const ActiveCollectionSelect = () => {
   }, [collectionsOptions, activeCollection]);
   return (
     <>
-      <div className="tw-w-40">
+      <div className="w-40">
         {!isLoading && !isError && (
           <Select
             value={activeCollection}

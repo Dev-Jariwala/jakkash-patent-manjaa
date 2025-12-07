@@ -8,7 +8,7 @@ export const ColumnResizer = ({
             {...{
                 onMouseDown: header?.getResizeHandler(),
                 onTouchStart: header?.getResizeHandler(),
-                className: `tw-absolute tw-top-0 tw-right-0 tw-cursor-col-resize tw-w-px tw-h-full tw-bg-gray-300 hover:tw-bg-gray-400 hover:tw-w-1.5`,
+                className: `absolute top-0 right-0 cursor-col-resize w-px h-full bg-gray-300 hover:bg-gray-400 hover:w-1.5`,
                 style: {
                     userSelect: "none",
                     touchAction: "none",

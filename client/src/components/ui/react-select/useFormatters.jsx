@@ -2,19 +2,19 @@ export const useFormatters = () => {
 
     // useful for CreatableSelect
     const formatCreateLabel = (label) => (
-        <span className={'tw-text-sm'}>
+        <span className={'text-sm'}>
             Add
-            <span className={'tw-font-semibold'}>{` "${label}"`}</span>
+            <span className={'font-semibold'}>{` "${label}"`}</span>
         </span>
     );
 
     // useful for GroupedOptions
     const formatGroupLabel = (data) => (
-        <div className={'tw-flex tw-justify-between tw-items-center'}>
+        <div className={'flex justify-between items-center'}>
             <span>{data.label}</span>
             <span
                 className={
-                    'tw-rounded-md tw-text-xs tw-font-normal tw-text-secondary-foreground tw-bg-secondary tw-shadow-sm tw-px-1'
+                    'rounded-md text-xs font-normal text-secondary-foreground bg-secondary shadow-sm px-1'
                 }
             >
                 {data.options.length}

@@ -71,7 +71,7 @@ export const Autocomplete = ({
                             {autocompleteOptions.map((option) => (
                                 <CommandItem key={option.id} className="cursor-pointer">
                                     <div
-                                        className="tw-w-full flex items-center gap-2"
+                                        className="w-full flex items-center gap-2"
                                         onClick={() => {
                                             if (maxTags && tags.length >= maxTags) return;
                                             if (!allowDuplicates && tags.some((tag) => tag.text === option.text)) return;

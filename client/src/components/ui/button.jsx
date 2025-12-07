@@ -6,50 +6,50 @@ import { cn } from "../../lib/utils"
 import { Loader } from "lucide-react";
 
 const buttonVariants = cva(
-  "tw-inline-flex tw-items-center tw-justify-center tw-rounded-md md:tw-text-sm tw-text-xs tw-font-medium tw-ring-offset-background tw-transition-colors focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-ring focus-visible:tw-ring-offset-2 disabled:tw-pointer-events-none disabled:tw-opacity-50",
+  "inline-flex items-center justify-center rounded-md md:text-sm text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        default: "tw-bg-primary tw-text-primary-foreground hover:tw-bg-primary/90",
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
         destructive:
-          "tw-bg-destructive tw-text-destructive-foreground hover:tw-bg-destructive/90",
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
-          "tw-border tw-border-input tw-bg-background hover:tw-bg-accent hover:tw-text-accent-foreground",
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
         secondary:
-          "tw-bg-secondary tw-text-secondary-foreground hover:tw-bg-secondary/90",
-        ghost: "hover:tw-bg-accent hover:tw-text-accent-foreground",
-        link: "tw-text-blue-500 tw-underline-offset-4 hover:tw-underline",
-        cancel: "tw-bg-gray-200 tw-text-gray-600 hover:tw-bg-gray-300",
-        none: "tw-text-primary",
-        gradient: "tw-bg-gradient-to-r tw-from-indigo-500 tw-to-purple-600 tw-text-white hover:tw-from-indigo-600 hover:tw-to-purple-700 hover:tw-shadow-xl",
-        grey: "tw-bg-accent tw-text-accent-foreground tw-shadow-sm hover:tw-bg-accent",
+          "bg-secondary text-secondary-foreground hover:bg-secondary/90",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "text-blue-500 underline-offset-4 hover:underline",
+        cancel: "bg-gray-200 text-gray-600 hover:bg-gray-300",
+        none: "text-primary",
+        gradient: "bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:from-indigo-600 hover:to-purple-700 hover:shadow-xl",
+        grey: "bg-accent text-accent-foreground shadow-sm hover:bg-accent",
         indigo:
-          "tw-border tw-border-input tw-bg-background enabled:hover:tw-bg-accent enabled:hover:tw-text-accent-foreground tw-w-fit tw-text-nowrap tw-text-indigo-500 tw-gap-2 tw-border tw-bg-white tw-self-end md:tw-self-center hover:!tw-text-white tw-border-indigo-500 enabled:hover:tw-bg-indigo-500",
+          "border border-input bg-background enabled:hover:bg-accent enabled:hover:text-accent-foreground w-fit text-nowrap text-indigo-500 gap-2 border bg-white self-end md:self-center hover:!text-white border-indigo-500 enabled:hover:bg-indigo-500",
       },
       size: {
-        default: "tw-px-4 tw-py-2",
-        sm: " tw-rounded-md tw-px-3 tw-py-1.5",
-        lg: "tw-rounded-md tw-px-5 tw-py-3",
-        icon: "tw-h-8 tw-w-8",
-        xs: "tw-text-xs tw-px-2 tw-py-2",
+        default: "px-4 py-2",
+        sm: " rounded-md px-3 py-1.5",
+        lg: "rounded-md px-5 py-3",
+        icon: "h-8 w-8",
+        xs: "text-xs px-2 py-2",
       },
       intent: {
-        indigo: "tw-bg-indigo-500 hover:tw-bg-indigo-600 tw-text-white",
-        green: "tw-bg-green-500 hover:tw-bg-green-600 tw-text-white",
-        red: "tw-bg-red-500 hover:tw-bg-red-600 tw-text-white",
-        yellow: "tw-bg-yellow-500 hover:tw-bg-yellow-600 tw-text-white",
-        teal: "tw-bg-teal-500 hover:tw-bg-teal-600 tw-text-white",
-        emerald: "tw-bg-emerald-500 hover:tw-bg-emerald-600 tw-text-white",
+        indigo: "bg-indigo-500 hover:bg-indigo-600 text-white",
+        green: "bg-green-500 hover:bg-green-600 text-white",
+        red: "bg-red-500 hover:bg-red-600 text-white",
+        yellow: "bg-yellow-500 hover:bg-yellow-600 text-white",
+        teal: "bg-teal-500 hover:bg-teal-600 text-white",
+        emerald: "bg-emerald-500 hover:bg-emerald-600 text-white",
       },
       border: {
-        default: " tw-border-input",
+        default: " border-input",
         none: "",
-        indigo: "tw-border tw-border-indigo-500 hover:tw-border-indigo-600 tw-text-indigo-600 hover:tw-text-indigo-800 hover:tw-bg-indigo-100",
-        green: "tw-border tw-border-green-500 hover:tw-border-green-600 tw-text-green-600 hover:tw-text-green-800 hover:tw-bg-green-100",
-        red: "tw-border tw-border-red-500 hover:tw-border-red-600 tw-text-red-600 hover:tw-text-red-800 hover:tw-bg-red-100",
-        yellow: "tw-border tw-border-yellow-500 hover:tw-border-yellow-600 tw-text-yellow-600 hover:tw-text-yellow-800 hover:tw-bg-yellow-100",
-        teal: "tw-border tw-border-teal-500 hover:tw-border-teal-600 tw-text-teal-600 hover:tw-text-teal-800 hover:tw-bg-teal-100",
-        emerald: "tw-border tw-border-emerald-500 hover:tw-border-emerald-600 tw-text-emerald-600 hover:tw-text-emerald-800 hover:tw-bg-emerald-100",
+        indigo: "border border-indigo-500 hover:border-indigo-600 text-indigo-600 hover:text-indigo-800 hover:bg-indigo-100",
+        green: "border border-green-500 hover:border-green-600 text-green-600 hover:text-green-800 hover:bg-green-100",
+        red: "border border-red-500 hover:border-red-600 text-red-600 hover:text-red-800 hover:bg-red-100",
+        yellow: "border border-yellow-500 hover:border-yellow-600 text-yellow-600 hover:text-yellow-800 hover:bg-yellow-100",
+        teal: "border border-teal-500 hover:border-teal-600 text-teal-600 hover:text-teal-800 hover:bg-teal-100",
+        emerald: "border border-emerald-500 hover:border-emerald-600 text-emerald-600 hover:text-emerald-800 hover:bg-emerald-100",
       },
 
     },
@@ -69,12 +69,12 @@ const Button = React.forwardRef(({ className, intent, variant, border, size, dis
       ref={ref}
       {...props} >
       {isLoading ? (
-        <span className="tw-pointer-events-none tw-flex tw-shrink-0 tw-items-center tw-justify-center tw-gap-1.5">
+        <span className="pointer-events-none flex shrink-0 items-center justify-center gap-1.5">
           <Loader
-            className={cn("tw-size-4 tw-shrink-0 tw-animate-spin", loaderClassname)}
+            className={cn("size-4 shrink-0 animate-spin", loaderClassname)}
             aria-hidden="true"
           />
-          <span className="tw-sr-only">
+          <span className="sr-only">
             {loadingText ? loadingText : "Loading..."}
           </span>
           {loadingText ? loadingText : children}

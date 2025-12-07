@@ -2,7 +2,7 @@
 
 @layer base {
   img {
-    @apply tw-inline-block;
+    @apply inline-block;
   }
 
   :root {
@@ -229,11 +229,11 @@ body p {
 
 @layer base {
   * {
-    @apply tw-border-border;
+    @apply border-border;
   }
 
   body {
-    @apply tw-bg-background tw-text-foreground;
+    @apply bg-background text-foreground;
   }
 }
 

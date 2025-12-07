@@ -6,7 +6,7 @@ import { cn } from '../../../lib/utils';
 export const DropdownIndicator = (props) => {
     return (
         <components.DropdownIndicator {...props}>
-            <ChevronDown className={'tw-h-4 tw-w-4 tw-opacity-50'} />
+            <ChevronDown className={'h-4 w-4 opacity-50'} />
         </components.DropdownIndicator>
     );
 };
@@ -14,15 +14,15 @@ export const DropdownIndicator = (props) => {
 export const ClearIndicator = (props) => {
     return (
         <components.ClearIndicator {...props}>
-            <X className={'tw-h-3.5 tw-w-3.5 tw-opacity-50'} />
+            <X className={'h-3.5 w-3.5 opacity-50'} />
         </components.ClearIndicator>
     );
 };
 
 export const MultiValueRemove = (props) => {
     return (
-        <components.MultiValueRemove className='tw-bg-red-100' {...props}>
-            <X className={'tw-h-3 tw-w-3 tw-opacity-50'} />
+        <components.MultiValueRemove className='bg-red-100' {...props}>
+            <X className={'h-3 w-3 opacity-50'} />
         </components.MultiValueRemove>
     );
 };
@@ -30,7 +30,7 @@ export const MultiValueRemove = (props) => {
 export const Option = (props) => {
     return (
         <components.Option {...props}>
-            <div className={cn("tw-flex tw-items-center tw-justify-between", props.isSelected && '')}>
+            <div className={cn("flex items-center justify-between", props.isSelected && '')}>
                 <div>{props.data.label}</div>
                 {props.isSelected && <Check size={16} />}
             </div>

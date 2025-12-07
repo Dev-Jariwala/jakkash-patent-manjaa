@@ -24,6 +24,7 @@ import CollectionForm from "@/pages/collections/components/CollectionForm";
 import ClientReport from "@/pages/clients/components/ClientReport";
 import Sidebar from "@/components/ui/sidebar/Sidebar";
 import Dashboard from "@/pages/dashboard/Dashboard";
+import Landing from "@/pages/landing/Landing";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -154,6 +155,10 @@ const Routes = () => {
 
   // Define routes accessible only to non-authenticated users
   const routesForNotAuthenticatedOnly = [
+    {
+      path: "/",
+      element: <Landing />
+    },
     {
       path: "/signin",
       element: <Signin />,

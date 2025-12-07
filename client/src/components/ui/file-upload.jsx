@@ -204,10 +204,10 @@ export const FileUploader = forwardRef(
           tabIndex={0}
           onKeyDownCapture={handleKeyDown}
           className={cn(
-            "tw-grid tw-w-full focus:tw-outline-none tw-overflow-hidden ",
+            "grid w-full focus:outline-none overflow-hidden ",
             className,
             {
-              "tw-gap-2": value && value.length > 0,
+              "gap-2": value && value.length > 0,
             }
           )}
           dir={dir}
@@ -229,7 +229,7 @@ export const FileUploaderContent = forwardRef(
 
     return (
       <div
-        className={cn("tw-w-full tw-px-1")}
+        className={cn("w-full px-1")}
         ref={containerRef}
         aria-description="content file holder"
       >
@@ -237,10 +237,10 @@ export const FileUploaderContent = forwardRef(
           {...props}
           ref={ref}
           className={cn(
-            "tw-flex tw-rounded-xl tw-gap-1",
+            "flex rounded-xl gap-1",
             orientation === "horizontal"
-              ? "tw-flex-row tw-flex-wrap"
-              : "tw-flex-col",
+              ? "flex-row flex-wrap"
+              : "flex-col",
             className
           )}
         >
@@ -262,28 +262,28 @@ export const FileUploaderItem = forwardRef(
         ref={ref}
         className={cn(
           buttonVariants({ variant: "ghost" }),
-          "tw-h-6 tw-p-1 tw-justify-between tw-cursor-pointer tw-relative",
+          "h-6 p-1 justify-between cursor-pointer relative",
           className,
           isSelected ? "bg-muted" : ""
         )}
         {...props}
       >
-        <div className="tw-font-medium tw-leading-none tw-tracking-tight tw-flex tw-items-center tw-justify-center tw-gap-1.5 h-full tw-w-full">
+        <div className="font-medium leading-none tracking-tight flex items-center justify-center gap-1.5 h-full w-full">
           {children}
         </div>
         <button
           type="button"
           className={cn(
-            "tw-absolute",
+            "absolute",
             deleteButtonClassname,
-            direction === "rtl" ? "tw-top-1 tw-left-1" : "tw-top-1 tw-right-1"
+            direction === "rtl" ? "top-1 left-1" : "top-1 right-1"
           )}
           onClick={() => removeFileFromSet(index)}
         >
-          <span className="tw-sr-only">remove item {index}</span>
+          <span className="sr-only">remove item {index}</span>
           <Trash2
             size={14}
-            className="hover:tw-stroke-destructive tw-duration-200 tw-ease-in-out"
+            className="hover:stroke-destructive duration-200 ease-in-out"
           />
         </button>
       </div>
@@ -301,19 +301,19 @@ export const FileInput = forwardRef(
       <div
         ref={ref}
         {...props}
-        className={`tw-relative tw-w-full ${
-          isLOF ? "tw-opacity-50 tw-cursor-not-allowed " : "tw-cursor-pointer "
+        className={`relative w-full ${
+          isLOF ? "opacity-50 cursor-not-allowed " : "cursor-pointer "
         }`}
       >
         <div
           className={cn(
-            `tw-w-full tw-rounded-lg tw-duration-300 tw-ease-in-out
+            `w-full rounded-lg duration-300 ease-in-out
          ${
            dropzoneState.isDragAccept
-             ? "tw-border-green-500"
+             ? "border-green-500"
              : dropzoneState.isDragReject || isFileTooBig
-             ? "tw-border-red-500"
-             : "tw-border-gray-300"
+             ? "border-red-500"
+             : "border-gray-300"
          }`,
             className
           )}
@@ -325,7 +325,7 @@ export const FileInput = forwardRef(
           ref={dropzoneState.inputRef}
           disabled={isLOF}
           {...dropzoneState.getInputProps()}
-          className={`${isLOF ? "tw-cursor-not-allowed" : ""}`}
+          className={`${isLOF ? "cursor-not-allowed" : ""}`}
         />
       </div>
     );

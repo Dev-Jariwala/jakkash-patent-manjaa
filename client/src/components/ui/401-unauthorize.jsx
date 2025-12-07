@@ -4,12 +4,12 @@ import { ReactComponent as UnauthorizeSVG } from '../../assets/SVGS/status/401-u
 
 const Unauthorize = () => {
   return (
-    <div className="tw-flex tw-flex-col tw-items-center tw-justify-center tw-h-full tw-w-full tw-p-12">
-      <div className="tw-flex tw-flex-col tw-items-center tw-justify-center tw-space-y-4">
-        <UnauthorizeSVG className="tw-w-60 tw-h-tw-w-60" />
-        <h1 className="tw-text-2xl tw-font-bold tw-text-center">401 Unauthorized</h1>
-        <p className="tw-text-center">You are not authorized to access this page.</p>
-        <Link to="/" className="tw-text-blue-500 hover:tw-text-blue-600 tw-text-sm tw-font-semibold tw-underline">Go back to home</Link>
+    <div className="flex flex-col items-center justify-center h-full w-full p-12">
+      <div className="flex flex-col items-center justify-center space-y-4">
+        <UnauthorizeSVG className="w-60 h-w-60" />
+        <h1 className="text-2xl font-bold text-center">401 Unauthorized</h1>
+        <p className="text-center">You are not authorized to access this page.</p>
+        <Link to="/" className="text-blue-500 hover:text-blue-600 text-sm font-semibold underline">Go back to home</Link>
       </div>
     </div>
   )

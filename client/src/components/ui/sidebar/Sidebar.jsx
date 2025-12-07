@@ -105,20 +105,20 @@ const Sidebar = () => {
 
     return (
         <SidebarProvider>
-            <SidebarComponent className='tw-shadow-xl' collapsible="icon" style={{ fontFamily: 'Nunito, "Segoe UI", arial' }} >
-                <SidebarHeader className="tw-mb-3">
+            <SidebarComponent className='shadow-xl' collapsible="icon" style={{ fontFamily: 'Nunito, "Segoe UI", arial' }} >
+                <SidebarHeader className="mb-3">
                     <SidebarMenu>
                         <SidebarMenuItem asChild>
-                            <Link className="tw-flex tw-items-center tw-gap-1 hover:tw-bg-gray-200 tw-rounded-lg tw-h-12 tw-cursor-pointer">
-                                <Avatar className="tw-w-9 tw-h-9 tw-mx-2 tw-border-2 tw-border-gray-400">
+                            <Link className="flex items-center gap-1 hover:bg-gray-200 rounded-lg h-12 cursor-pointer">
+                                <Avatar className="w-9 h-9 mx-2 border-2 border-gray-400">
                                     <AvatarImage
                                         src={`/logo.png`}
                                     />
                                     <AvatarFallback></AvatarFallback>
                                 </Avatar>
-                                <div className="group-data-[collapsible=icon]:tw-hidden">
-                                    <div className={`tw-font-semibold tw-text-xl`}>Jakkash</div>
-                                    {/* <div className={`tw-text-xs`}>patent manja</div> */}
+                                <div className="group-data-[collapsible=icon]:hidden">
+                                    <div className={`font-semibold text-xl`}>Jakkash</div>
+                                    {/* <div className={`text-xs`}>patent manja</div> */}
                                 </div>
                             </Link>
                         </SidebarMenuItem>
@@ -127,17 +127,17 @@ const Sidebar = () => {
                 <SidebarContent>
                     <SidebarGroup>
                         {/* <SidebarGroupLabel>Collections</SidebarGroupLabel> */}
-                        <SidebarMenu className="tw-space-y-">
+                        <SidebarMenu className="space-y-">
                             {data.navMain.map((item) => (
                                 <React.Fragment key={item.title}>
                                     {item.isCollapsible ? (
-                                        <Collapsible asChild defaultOpen={isActive(item.link)} className="tw-group/collapsible">
+                                        <Collapsible asChild defaultOpen={isActive(item.link)} className="group/collapsible">
                                             <SidebarMenuItem>
                                                 <CollapsibleTrigger asChild>
                                                     <SidebarMenuButton tooltip={item.title} isActive={isActive(item.link)}>
                                                         {item.icon && <item.icon />}
                                                         <span>{item.title}</span>
-                                                        <ChevronRight className="tw-ml-auto tw-transition-transform tw-duration-200 group-data-[state=open]/collapsible:tw-rotate-90" />
+                                                        <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                                                     </SidebarMenuButton>
                                                 </CollapsibleTrigger>
                                                 <CollapsibleContent>
@@ -145,7 +145,7 @@ const Sidebar = () => {
                                                         {item.items?.map((subItem) => (
                                                             <SidebarMenuSubItem key={subItem.title}>
                                                                 <SidebarMenuSubButton asChild isActive={isActiveSubMenu(subItem.link)} aria-disabled={subItem.isDisabled}>
-                                                                    <Link className="tw-no-underline" to={subItem.link}>
+                                                                    <Link className="no-underline" to={subItem.link}>
                                                                         <span>{subItem.title}</span>
                                                                     </Link>
                                                                 </SidebarMenuSubButton>
@@ -162,11 +162,11 @@ const Sidebar = () => {
                                                 isActive={isActive(item.link)}
                                                 tooltip={item.title}
                                             >
-                                                <Link className={cn("tw-no-underline tw-text-inherit !tw-h-10 ", isActive(item.link) ? '!tw-bg-indigo-200 !tw-text-gray-700' : 'hover:!tw-bg-gray-200')} to={item.link}>
-                                                    <span className="tw-mx-1">
+                                                <Link className={cn("no-underline text-inherit !h-10 ", isActive(item.link) ? '!bg-indigo-200 !text-gray-700' : 'hover:!bg-gray-200')} to={item.link}>
+                                                    <span className="mx-1">
                                                         {item.icon && <item.icon />}
                                                     </span>
-                                                    <span className=" tw-animate-fade tw-animate-duration-300">{item.title}</span>
+                                                    <span className=" animate-fade animate-duration-300">{item.title}</span>
                                                 </Link>
                                             </SidebarMenuButton>
                                         </SidebarMenuItem>
@@ -178,9 +178,9 @@ const Sidebar = () => {
                 </SidebarContent>
                 <SidebarRail />
             </SidebarComponent>
-            <SidebarInset className='tw-flex tw-flex-col tw-relative tw-w-full tw-h-[100dvh]'>
+            <SidebarInset className='flex flex-col relative w-full h-[100dvh]'>
                 <Navbar />
-                <main className=" tw-flex-1 tw-overflow-y-auto tw-h-[calc(100dvh-4rem)]">
+                <main className=" flex-1 overflow-y-auto h-[calc(100dvh-4rem)]">
                     <Outlet />
                 </main>
             </SidebarInset>

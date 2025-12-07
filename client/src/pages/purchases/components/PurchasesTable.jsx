@@ -102,28 +102,28 @@ const PurchasesTable = () => {
 
     return (
         <>
-            <div className="tw-flex tw-items-center tw-justify-between tw-px-4">
-                <div className="tw-flex tw-items-center tw-space-x-4">
+            <div className="flex items-center justify-between px-4">
+                <div className="flex items-center space-x-4">
                     <Input
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         placeholder="Search product name..."
-                        className="tw-w-56"
+                        className="w-56"
                     />
                 </div>
-                <div className="tw-flex tw-items-center tw-space-x-5">
-                    <Link to={`/purchases/report`} className="tw-flex tw-items-center tw-space-x-2 tw-border tw-border-red-200 tw-rounded-lg tw-px-2 tw-cursor-pointer hover:tw-bg-red-100 tw-py-1 tw-text-red-700">
-                        <Avatar className="tw-w-6 tw-h-6 tw-rounded-none">
+                <div className="flex items-center space-x-5">
+                    <Link to={`/purchases/report`} className="flex items-center space-x-2 border border-red-200 rounded-lg px-2 cursor-pointer hover:bg-red-100 py-1 text-red-700">
+                        <Avatar className="w-6 h-6 rounded-none">
                             <AvatarImage src={`/pdf.svg`} />
                         </Avatar>
-                        <span className=" tw-text-sm"> Report</span>
+                        <span className=" text-sm"> Report</span>
                     </Link>
                     <DataTableViewOptions table={table} headers={headers} />
                     <Select value={pagination.pageSize} onValueChange={(value) => setPagination((prev) => ({ ...prev, pageSize: value }))}>
-                        <SelectTrigger className="tw-w-16 tw-py-1.5">
+                        <SelectTrigger className="w-16 py-1.5">
                             <SelectValue placeholder="Page Size" />
                         </SelectTrigger>
-                        <SelectContent align="end" className="tw-min-w-[3rem]" >
+                        <SelectContent align="end" className="min-w-[3rem]" >
                             <SelectItem value={5}>5</SelectItem>
                             <SelectItem value={10}>10</SelectItem>
                             <SelectItem value={20}>20</SelectItem>
@@ -134,22 +134,22 @@ const PurchasesTable = () => {
 
             </div>
             {isPurchaseDataLoading ? (
-                <div className="tw-flex tw-items-center tw-justify-center tw-h-64">
+                <div className="flex items-center justify-center h-64">
                     <div className="basic-loader"></div>
                 </div>
             ) : (
                 <>
-                    <ScrollArea className="tw-w-full tw-overflow-y-auto">
-                        <div className="tw-mt-3">
+                    <ScrollArea className="w-full overflow-y-auto">
+                        <div className="mt-3">
                             <Table>
                                 <TableHeader>
                                     {table.getHeaderGroups().map((headerGroup) => (
-                                        <TableRow className="tw-border-t" key={headerGroup.id}>
+                                        <TableRow className="border-t" key={headerGroup.id}>
                                             {headerGroup.headers.map((header) => {
                                                 return (
                                                     <TableHead
                                                         key={header.id}
-                                                        className="tw-text-slate-700 tw-whitespace-nowrap"
+                                                        className="text-slate-700 whitespace-nowrap"
                                                     >
                                                         {header.isPlaceholder
                                                             ? null
@@ -170,7 +170,7 @@ const PurchasesTable = () => {
                                             <TableRow
                                                 key={row.id}
                                                 data-state={row.getIsSelected() && "selected"}
-                                                className="hover:tw-bg-gray-100"
+                                                className="hover:bg-gray-100"
                                             >
                                                 {row.getVisibleCells().map((cell) => (
                                                     <TableCell key={cell.id}>
@@ -180,12 +180,12 @@ const PurchasesTable = () => {
                                                         )}
                                                     </TableCell>
                                                 ))}
-                                                <TableCell className="tw-flex tw-items-center tw-space-x-2">
+                                                <TableCell className="flex items-center space-x-2">
                                                     <Link
                                                         to={`/purchases/update?purchase_id=${row.original?.purchase_id}`}
-                                                        className="hover:tw-bg-gray-200 tw-rounded-full tw-size-8 tw-flex tw-items-center tw-justify-center"
+                                                        className="hover:bg-gray-200 rounded-full size-8 flex items-center justify-center"
                                                     >
-                                                        <Pencil size={16} className="tw-text-green-500" />
+                                                        <Pencil size={16} className="text-green-500" />
                                                     </Link>
                                                 </TableCell>
                                             </TableRow>
@@ -205,9 +205,9 @@ const PurchasesTable = () => {
                         </div>
                         <ScrollBar orientation="horizontal" />
                     </ScrollArea>
-                    <div className="tw-flex tw-items-center tw-justify-between tw-p-4">
+                    <div className="flex items-center justify-between p-4">
                         <div className="">{table.getRowCount()} Purchases</div>
-                        <div className="tw-flex tw-items-center tw-space-x-2 ">
+                        <div className="flex items-center space-x-2 ">
                             <Button
                                 variant="outline"
                                 size="sm"

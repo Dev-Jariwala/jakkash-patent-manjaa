@@ -8,13 +8,13 @@ const InputOTP = React.forwardRef(({ className, containerClassName, ...props }, 
   <OTPInput
     ref={ref}
     containerClassName={cn("flex items-center gap-2 has-[:disabled]:opacity-50", containerClassName)}
-    className={cn("disabled:tw-cursor-not-allowed", className)}
+    className={cn("disabled:cursor-not-allowed", className)}
     {...props} />
 ))
 InputOTP.displayName = "InputOTP"
 
 const InputOTPGroup = React.forwardRef(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("tw-flex tw-items-center", className)} {...props} />
+  <div ref={ref} className={cn("flex items-center", className)} {...props} />
 ))
 InputOTPGroup.displayName = "InputOTPGroup"
 
@@ -26,18 +26,18 @@ const InputOTPSlot = React.forwardRef(({ index, className, placeholder, ...props
     (<div
       ref={ref}
       className={cn(
-        "tw-relative tw-flex tw-h-10 tw-w-10 tw-items-center tw-justify-center tw-border-y tw-border-r tw-border-input tw-text-sm tw-transition-all first:tw-rounded-l-md first:tw-border-l last:tw-rounded-r-md",
-        isActive && "tw-z-10 tw-ring-2 tw-ring-ring tw-ring-offset-background",
-        char ? "" : "tw-bg-background tw-text-gray-400",
+        "relative flex h-10 w-10 items-center justify-center border-y border-r border-input text-sm transition-all first:rounded-l-md first:border-l last:rounded-r-md",
+        isActive && "z-10 ring-2 ring-ring ring-offset-background",
+        char ? "" : "bg-background text-gray-400",
         className
       )}
       {...props}>
       {char || placeholder}
       {hasFakeCaret && (
         <div
-          className="tw-pointer-events-none tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center">
+          className="pointer-events-none absolute inset-0 flex items-center justify-center">
           <div
-            className="tw-h-4 tw-w-px tw-animate-caret-blink tw-bg-foreground tw-duration-1000" />
+            className="h-4 w-px animate-caret-blink bg-foreground duration-1000" />
         </div>
       )}
     </div>)

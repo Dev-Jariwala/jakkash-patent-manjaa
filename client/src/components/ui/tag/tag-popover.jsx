@@ -36,14 +36,14 @@ export const TagPopover = ({ children, tags, customTagRenderer, activeTagIndex, 
                 })}
             </PopoverTrigger>
             <PopoverContent
-                className="tw-w-full tw-space-y-3 tw-max-w-[450px]"
+                className="w-full space-y-3 max-w-[450px]"
                 style={{
                     width: `${popoverWidth}px`,
                 }}
             >
-                <div className="tw-space-y-1">
-                    <h4 className="tw-text-sm tw-font-medium tw-leading-none">Entered Tags</h4>
-                    <p className="tw-text-sm tw-text-muted-foreground tw-text-left">These are the tags you&apos;ve entered.</p>
+                <div className="space-y-1">
+                    <h4 className="text-sm font-medium leading-none">Entered Tags</h4>
+                    <p className="text-sm text-muted-foreground text-left">These are the tags you&apos;ve entered.</p>
                 </div>
                 <TagList tags={tags} customTagRenderer={customTagRenderer} activeTagIndex={activeTagIndex} setActiveTagIndex={setActiveTagIndex} {...tagProps} />
             </PopoverContent>

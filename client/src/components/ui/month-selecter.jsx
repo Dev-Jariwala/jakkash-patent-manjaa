@@ -43,25 +43,25 @@ export default function MonthSelecter({ currentMonth, onMonthChange, className }
     }
 
     return (
-        <div className={cn("tw-p-3 tw-w-full", className)}>
-            <div className="tw-space-y-4 tw-grid tw-items-center tw-justify-center">
-                <div className="tw-flex tw-items-center tw-justify-between tw-pt-1 tw-px-2">
+        <div className={cn("p-3 w-full", className)}>
+            <div className="space-y-4 grid items-center justify-center">
+                <div className="flex items-center justify-between pt-1 px-2">
                     <Button
                         name="previous-year"
                         aria-label="Go to previous year"
                         variant="outline"
 
                         className={cn(
-                            'tw-h-7 tw-w-7 tw-bg-transparent tw-p-0 hover:tw-opacity-100',
-                            'tw-left-1'
+                            'h-7 w-7 bg-transparent p-0 hover:opacity-100',
+                            'left-1'
                         )}
                         type="button"
                         onClick={previousYear}
                     >
-                        <ChevronLeft className="tw-h-4 tw-w-4" />
+                        <ChevronLeft className="h-4 w-4" />
                     </Button>
                     <div
-                        className="tw-text-sm tw-font-medium"
+                        className="text-sm font-medium"
                         aria-live="polite"
                         role="presentation"
                         id="month-picker"
@@ -73,37 +73,37 @@ export default function MonthSelecter({ currentMonth, onMonthChange, className }
                         aria-label="Go to next year"
                         variant="outline"
                         className={cn(
-                            'tw-h-7 tw-w-7 tw-bg-transparent tw-p-0 hover:tw-opacity-100',
-                            'tw-right-1 tw-disabled:tw-bg-slate-100'
+                            'h-7 w-7 bg-transparent p-0 hover:opacity-100',
+                            'right-1 disabled:bg-slate-100'
                         )}
                         type="button"
                         disabled={isFuture(add(firstDayCurrentYear, { years: 1 }))}
                         onClick={nextYear}
                     >
-                        <ChevronRight className="tw-h-4 tw-w-4" />
+                        <ChevronRight className="h-4 w-4" />
                     </Button>
                 </div>
                 <div
-                    className="tw-grid tw-w-full tw-grid-cols-3 tw-gap-2"
+                    className="grid w-full grid-cols-3 gap-2"
                     role="grid"
                     aria-labelledby="month-picker"
                 >
                     {months.map((month) => (
                         <div
                             key={month.toString()}
-                            className="tw-flex tw-items-center tw-justify-center tw-h-9 tw-w-12"
+                            className="flex items-center justify-center h-9 w-12"
                             role="presentation"
                         >
                             <Button
                                 name="day"
                                 variant='none'
                                 className={cn(
-                                    'tw-h-9 tw-w-12 tw-p-0 hover:tw-bg-slate-100 hover:tw-text-slate-900 focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-slate-400 focus-visible:tw-ring-offset-2 dark:tw-ring-offset-slate-950 dark:hover:tw-bg-slate-800 dark:hover:tw-text-slate-50 dark:focus-visible:tw-ring-slate-800',
+                                    'h-9 w-12 p-0 hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2 dark:ring-offset-slate-950 dark:hover:bg-slate-800 dark:hover:text-slate-50 dark:focus-visible:ring-slate-800',
                                     isEqual(month, currentMonth) &&
-                                    'tw-bg-indigo-500 tw-text-slate-50 hover:tw-bg-indigo-600 hover:tw-text-slate-50 focus:tw-bg-indigo-600 focus:tw-text-slate-50 dark:tw-bg-slate-50 dark:tw-text-slate-900 dark:hover:tw-bg-slate-50 dark:hover:tw-text-slate-900 dark:focus:tw-bg-slate-50 dark:focus:tw-text-slate-900',
+                                    'bg-indigo-500 text-slate-50 hover:bg-indigo-600 hover:text-slate-50 focus:bg-indigo-600 focus:text-slate-50 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50 dark:hover:text-slate-900 dark:focus:bg-slate-50 dark:focus:text-slate-900',
                                     !isEqual(month, currentMonth) &&
                                     isEqual(month, getStartOfCurrentMonth()) &&
-                                    'tw-bg-slate-100 tw-text-slate-900 dark:tw-bg-slate-800 dark:tw-text-slate-50'
+                                    'bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-50'
                                 )}
                                 disabled={isFuture(month)}
                                 role="gridcell"

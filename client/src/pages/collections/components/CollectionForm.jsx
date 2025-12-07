@@ -92,15 +92,15 @@ const CollectionForm = () => {
 
     if (!collection && formType === "update") {
         return (
-            <div className="tw-text-center tw-text-xl tw-text-red-500 tw-font-medium">
+            <div className="text-center text-xl text-red-500 font-medium">
                 This product does not belong to this collection.
             </div>
         );
     }
     return (
         <div className="">
-            <div className="tw-flex tw-items-center tw-justify-between tw-px-5 tw-border-b tw-border-gray-200 tw-py-4 tw-mb-3">
-                <div className="tw-text-xl tw-text-gray-700 tw-font-semibold">
+            <div className="flex items-center justify-between px-5 border-b border-gray-200 py-4 mb-3">
+                <div className="text-xl text-gray-700 font-semibold">
                     <BreadCrum
                         path={[
                             { path: "/", label: "Dashboard" },
@@ -114,22 +114,22 @@ const CollectionForm = () => {
                 </div>
             </div>
             {isLoading ? (
-                <div className="tw-flex tw-justify-center tw-items-center tw-h-64">
+                <div className="flex justify-center items-center h-64">
                     <div className="basic-loader"></div>
                 </div>
             ) : <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="tw-w-full tw-px-5"
+                    className="w-full px-5"
                 >
-                    <div className=" tw-grid lg:tw-grid-cols-3 tw-gap-5">
+                    <div className=" grid lg:grid-cols-3 gap-5">
                         <FormField
                             control={form.control}
                             name="collection_name"
                             render={({ field }) => (
                                 <FormItem className="">
                                     <FormLabel>
-                                        Collection Name <sup className="tw-text-red-500 tw-text-base -tw-top-0">*</sup>
+                                        Collection Name <sup className="text-red-500 text-base -top-0">*</sup>
                                     </FormLabel>
                                     <FormControl>
                                         <Input variant='ringShadow' {...field} />
@@ -142,15 +142,15 @@ const CollectionForm = () => {
                             control={form.control}
                             name="copy_collection_id"
                             render={({ field }) => (
-                                <FormItem className="tw-flex tw-flex-row tw-items-center tw-space-x-3 tw-space-y-0 tw-rounded-md tw-border tw-px-4 tw-shadow">
+                                <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md border px-4 shadow">
                                     <FormControl>
                                         <Checkbox
-                                            className="tw-space-y-0"
+                                            className="space-y-0"
                                             checked={!!field.value}
                                             onCheckedChange={(value) => field.onChange(value ? activeCollection : "")}
                                         />
                                     </FormControl>
-                                    <div className=" tw-leading-none">
+                                    <div className=" leading-none">
                                         <FormLabel>
                                             {`Inclue all products from "${collections?.find(c => c.value === activeCollection)?.label}" collection`}
                                         </FormLabel>
@@ -160,12 +160,12 @@ const CollectionForm = () => {
                         />}
 
                     </div>
-                    <div className="tw-w-full tw-mt-5">
+                    <div className="w-full mt-5">
                         <MutationError mutation={createCollectionMutation} />
                         {isError && !isLoading && (
-                            <QueryError className={"tw-mb-5"} error={error} />
+                            <QueryError className={"mb-5"} error={error} />
                         )}
-                        <Button variant="" disabled={createCollectionMutation?.isPending || updateCollectionMutation.isPending} isLoading={createCollectionMutation?.isPending || updateCollectionMutation.isPending} loadingText={formType === 'update' ? 'updating...' : 'creating...'} className="tw-bg-indigo-500 hover:tw-bg-indigo-600" type="submit">
+                        <Button variant="" disabled={createCollectionMutation?.isPending || updateCollectionMutation.isPending} isLoading={createCollectionMutation?.isPending || updateCollectionMutation.isPending} loadingText={formType === 'update' ? 'updating...' : 'creating...'} className="bg-indigo-500 hover:bg-indigo-600" type="submit">
                             {collection_id && formType === "update" ? "Update" : "Create"}{" "}
                             Collection
                         </Button>

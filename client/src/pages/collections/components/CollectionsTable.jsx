@@ -59,21 +59,21 @@ const ProductsTable = () => {
 
     return (
         <>
-            {isCollectionsLoading ? <div className="tw-flex tw-justify-center tw-items-center tw-h-64">
+            {isCollectionsLoading ? <div className="flex justify-center items-center h-64">
                 <div className="basic-loader"></div>
             </div> :
                 <>
-                    <ScrollArea className="tw-w-full tw-overflow-y-auto">
-                        <div className="tw-mt-3">
+                    <ScrollArea className="w-full overflow-y-auto">
+                        <div className="mt-3">
                             <Table>
                                 <TableHeader>
                                     {table.getHeaderGroups().map((headerGroup) => (
-                                        <TableRow className="tw-border-t" key={headerGroup.id}>
+                                        <TableRow className="border-t" key={headerGroup.id}>
                                             {headerGroup.headers.map((header) => {
                                                 return (
                                                     <TableHead
                                                         key={header.id}
-                                                        className="tw-text-slate-700 tw-whitespace-nowrap"
+                                                        className="text-slate-700 whitespace-nowrap"
                                                     >
                                                         {header.isPlaceholder
                                                             ? null
@@ -94,7 +94,7 @@ const ProductsTable = () => {
                                             <TableRow
                                                 key={row.id}
                                                 data-state={row.getIsSelected() && "selected"}
-                                                className="hover:tw-bg-gray-100"
+                                                className="hover:bg-gray-100"
                                             >
                                                 {row.getVisibleCells().map((cell) => (
                                                     <TableCell key={cell.id}>
@@ -104,12 +104,12 @@ const ProductsTable = () => {
                                                         )}
                                                     </TableCell>
                                                 ))}
-                                                <TableCell className="tw-flex tw-items-center tw-space-x-2">
+                                                <TableCell className="flex items-center space-x-2">
                                                     <Link
                                                         to={`/collections/update?collection_id=${row.original?.collection_id}`}
-                                                        className="hover:tw-bg-gray-200 tw-rounded-full tw-size-8 tw-flex tw-items-center tw-justify-center"
+                                                        className="hover:bg-gray-200 rounded-full size-8 flex items-center justify-center"
                                                     >
-                                                        <Pencil size={16} className="tw-text-green-500" />
+                                                        <Pencil size={16} className="text-green-500" />
                                                     </Link>
                                                 </TableCell>
                                             </TableRow>
@@ -129,9 +129,9 @@ const ProductsTable = () => {
                         </div>
                         <ScrollBar orientation="horizontal" />
                     </ScrollArea>
-                    <div className="tw-flex tw-items-center tw-justify-between tw-p-4">
+                    <div className="flex items-center justify-between p-4">
                         <div className="">{table.getRowCount()} Products</div>
-                        <div className="tw-flex tw-items-center tw-space-x-2 ">
+                        <div className="flex items-center space-x-2 ">
                             <Button
                                 variant="outline"
                                 size="sm"

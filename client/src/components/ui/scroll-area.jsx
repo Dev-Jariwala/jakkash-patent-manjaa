@@ -6,9 +6,9 @@ import { cn } from "../../lib/utils"
 const ScrollArea = React.forwardRef(({ className, children, ...props }, ref) => (
   <ScrollAreaPrimitive.Root
     ref={ref}
-    className={cn("tw-relative tw-overflow-hidden", className)}
+    className={cn("relative overflow-hidden", className)}
     {...props}>
-    <ScrollAreaPrimitive.Viewport className="tw-h-full tw-w-full tw-rounded-[inherit]">
+    <ScrollAreaPrimitive.Viewport className="h-full w-full rounded-[inherit]">
       {children}
     </ScrollAreaPrimitive.Viewport>
     <ScrollBar />
@@ -22,16 +22,16 @@ const ScrollBar = React.forwardRef(({ className, orientation = "vertical", ...pr
     ref={ref}
     orientation={orientation}
     className={cn(
-      "tw-flex tw-touch-none tw-select-none tw-transition-colors",
+      "flex touch-none select-none transition-colors",
       orientation === "vertical" &&
-      "tw-h-full tw-w-2.5 tw-border-l tw-border-l-transparent tw-p-[1px]",
+      "h-full w-2.5 border-l border-l-transparent p-[1px]",
       orientation === "horizontal" &&
-      "tw-h-2.5 tw-border-t tw-border-t-transparent tw-p-[1px]",
+      "h-2.5 border-t border-t-transparent p-[1px]",
       className
     )}
     {...props}>
     <ScrollAreaPrimitive.ScrollAreaThumb
-      className={cn("tw-relative tw-rounded-full tw-bg-border", orientation === "vertical" && "tw-flex-1")} />
+      className={cn("relative rounded-full bg-border", orientation === "vertical" && "flex-1")} />
   </ScrollAreaPrimitive.ScrollAreaScrollbar>
 ))
 ScrollBar.displayName = ScrollAreaPrimitive.ScrollAreaScrollbar.displayName

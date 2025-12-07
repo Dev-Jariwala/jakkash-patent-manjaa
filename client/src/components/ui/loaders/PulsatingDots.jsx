@@ -3,10 +3,10 @@ import { cn } from '../../../lib/utils'
 
 export default function PulsatingDots({ className }) {
     return (
-        <div className="tw-flex tw-items-center tw-justify-center">
-            <div className="tw-flex tw-space-x-2">
+        <div className="flex items-center justify-center">
+            <div className="flex space-x-2">
                 <motion.div
-                    className={cn("tw-size-3 tw-rounded-full tw-bg-indigo-500", className)}
+                    className={cn("size-3 rounded-full bg-indigo-500", className)}
                     animate={{
                         scale: [1, 1.5, 1],
                         opacity: [0.5, 1, 0.5],
@@ -18,7 +18,7 @@ export default function PulsatingDots({ className }) {
                     }}
                 />
                 <motion.div
-                    className={cn("tw-size-3 tw-rounded-full tw-bg-indigo-500", className)}
+                    className={cn("size-3 rounded-full bg-indigo-500", className)}
                     animate={{
                         scale: [1, 1.5, 1],
                         opacity: [0.5, 1, 0.5],
@@ -31,7 +31,7 @@ export default function PulsatingDots({ className }) {
                     }}
                 />
                 <motion.div
-                    className={cn("tw-size-3 tw-rounded-full tw-bg-indigo-500", className)}
+                    className={cn("size-3 rounded-full bg-indigo-500", className)}
                     animate={{
                         scale: [1, 1.5, 1],
                         opacity: [0.5, 1, 0.5],

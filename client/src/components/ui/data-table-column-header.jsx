@@ -26,36 +26,36 @@ export function DataTableColumnHeader({
     }
 
     return (
-        <div className={cn("tw-flex tw-items-center tw-space-x-2", className)}>
+        <div className={cn("flex items-center space-x-2", className)}>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button
                         variant="ghost"
                         size="sm"
-                        className="tw--ml-3 tw-h-8 data-[state=open]:tw-bg-accent"
+                        className="-ml-3 h-8 data-[state=open]:bg-accent"
                     >
                         <b className={cn(titleClassName)}>{title}</b>
                         {column.getIsSorted() === "desc" ? (
-                            <ArrowDown className="tw-ml-2 tw-h-4 tw-w-4" />
+                            <ArrowDown className="ml-2 h-4 w-4" />
                         ) : column.getIsSorted() === "asc" ? (
-                            <ArrowUp className="tw-ml-2 tw-h-4 tw-w-4" />
+                            <ArrowUp className="ml-2 h-4 w-4" />
                         ) : (
-                            <ChevronsUpDown className="tw-ml-2 tw-h-4 tw-w-4" />
+                            <ChevronsUpDown className="ml-2 h-4 w-4" />
                         )}
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
                     <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
-                        <ArrowUp className="tw-mr-2 tw-h-3.5 tw-w-3.5 tw-text-muted-foreground/70" />
+                        <ArrowUp className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
                         Asc
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
-                        <ArrowDown className="tw-mr-2 tw-h-3.5 tw-w-3.5 tw-text-muted-foreground/70" />
+                        <ArrowDown className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
                         Desc
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
-                        <EyeOff className="tw-mr-2 tw-h-3.5 tw-w-3.5 tw-text-muted-foreground/70" />
+                        <EyeOff className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
                         Hide
                     </DropdownMenuItem>
                 </DropdownMenuContent>

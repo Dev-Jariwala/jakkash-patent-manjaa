@@ -70,16 +70,16 @@ const Layout = () => {
   ];
   return (
     <>
-      <div className="tw-flex">
+      <div className="flex">
         <Sidebar
           isOpen={isSidebarOpen}
           setIsOpen={setIsSidebarOpen}
           tabs={tabs}
           toggleSidebar={toggleSidebar}
         />
-        <div className="tw-flex tw-flex-col tw-relative tw-w-full tw-h-[100dvh]">
+        <div className="flex flex-col relative w-full h-[100dvh]">
           <Navbar toggleSidebar={toggleSidebar} />
-          <main className=" tw-flex-1 tw-overflow-y-auto tw-h-[calc(100dvh-4rem)]">
+          <main className=" flex-1 overflow-y-auto h-[calc(100dvh-4rem)]">
             <Outlet />
           </main>
         </div>

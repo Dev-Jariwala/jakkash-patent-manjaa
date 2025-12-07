@@ -27,7 +27,7 @@ const BillsView = () => {
     return (
         <div className="">
             {isLoading ? (
-                <div className="tw-flex tw-items-center tw-justify-center tw-h-64">
+                <div className="flex items-center justify-center h-64">
                     <TypeWritterLoader />
                 </div>
             ) : (

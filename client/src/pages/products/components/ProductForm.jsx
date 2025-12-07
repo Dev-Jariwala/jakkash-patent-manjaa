@@ -119,15 +119,15 @@ const ProductForm = () => {
 
   if (product && product?.collection_id !== activeCollection) {
     return (
-      <div className="tw-text-center tw-text-xl tw-text-red-500 tw-font-medium">
+      <div className="text-center text-xl text-red-500 font-medium">
         This product does not belong to this collection.
       </div>
     );
   }
   return (
     <div className="">
-      <div className="tw-flex tw-items-center tw-justify-between tw-px-5 tw-border-b tw-border-gray-200 tw-py-4 tw-mb-3">
-        <div className="tw-text-xl tw-text-gray-700 tw-font-semibold">
+      <div className="flex items-center justify-between px-5 border-b border-gray-200 py-4 mb-3">
+        <div className="text-xl text-gray-700 font-semibold">
           <BreadCrum
             path={[
               { path: "/", label: "Dashboard" },
@@ -140,15 +140,15 @@ const ProductForm = () => {
           />
         </div>
       </div>
-      {isLoading ? <div className="tw-flex tw-justify-center tw-items-center tw-h-64">
+      {isLoading ? <div className="flex justify-center items-center h-64">
         <div className="basic-loader"></div>
       </div> :
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="tw-w-full tw-px-5"
+            className="w-full px-5"
           >
-            <div className=" tw-grid lg:tw-grid-cols-3 tw-gap-5">
+            <div className=" grid lg:grid-cols-3 gap-5">
               <FormField
                 control={form.control}
                 name="product_name"
@@ -213,12 +213,12 @@ const ProductForm = () => {
                 )}
               />
             </div>
-            <div className="tw-w-full tw-mt-5">
+            <div className="w-full mt-5">
               <MutationError mutation={createProductMutation} />
               {isError && !isLoading && (
-                <QueryError className={"tw-mb-5"} error={error} />
+                <QueryError className={"mb-5"} error={error} />
               )}
-              <Button variant="" disabled={createProductMutation?.isPending || updateProductMutation?.isPending} isLoading={createProductMutation?.isPending || updateProductMutation?.isPending} loadingText={formType === 'update' ? 'updating...' : 'creating...'} className="tw-bg-indigo-500 hover:tw-bg-indigo-600" type="submit">
+              <Button variant="" disabled={createProductMutation?.isPending || updateProductMutation?.isPending} isLoading={createProductMutation?.isPending || updateProductMutation?.isPending} loadingText={formType === 'update' ? 'updating...' : 'creating...'} className="bg-indigo-500 hover:bg-indigo-600" type="submit">
                 {product_id && formType === "update" ? "Update" : "Create"}{" "}
                 Product
               </Button>

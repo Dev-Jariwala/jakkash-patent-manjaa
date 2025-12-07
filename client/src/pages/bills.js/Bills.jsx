@@ -14,8 +14,8 @@ const Bills = () => {
     }
     return (
         <div className="">
-            <div className="tw-flex tw-items-center tw-justify-between tw-px-5 tw-border-b tw-border-gray-200 tw-py-3 tw-mb-3">
-                <div className="tw-text-xl tw-text-gray-700 tw-font-semibold">
+            <div className="flex items-center justify-between px-5 border-b border-gray-200 py-3 mb-3">
+                <div className="text-xl text-gray-700 font-semibold">
                     <BreadCrum
                         path={[
                             { path: "/", label: "Dashboard" },
@@ -28,14 +28,14 @@ const Bills = () => {
                     size="sm"
                     onClick={() => navigate(`/bills/new?bill_type=${billType}`)}
                 >
-                    <Plus className="tw-size-4" />
+                    <Plus className="size-4" />
                     <div className="">New {billType} bill</div>
                 </Button>
             </div>
             <Tabs value={billType} onValueChange={handleTabChange}>
-                <TabsList className='tw-w-1/2 tw-gap-2 tw-border-b tw-pb-0 tw-border-gray-300'>
-                    <TabsTrigger className='tw-border-b-2 tw-w-1/2 tw-border-transparent data-[state=active]:tw-rounded-none data-[state=active]:tw-border-b-indigo-500' variant='sliding' value="retail">Retail Bills</TabsTrigger>
-                    <TabsTrigger className='tw-border-b-2 tw-w-1/2 tw-border-transparent data-[state=active]:tw-rounded-none data-[state=active]:tw-border-b-indigo-500' variant='sliding' value="wholesale">Wholesale Bills</TabsTrigger>
+                <TabsList className='w-1/2 gap-2 border-b pb-0 border-gray-300'>
+                    <TabsTrigger className='border-b-2 w-1/2 border-transparent data-[state=active]:rounded-none data-[state=active]:border-b-indigo-500' variant='sliding' value="retail">Retail Bills</TabsTrigger>
+                    <TabsTrigger className='border-b-2 w-1/2 border-transparent data-[state=active]:rounded-none data-[state=active]:border-b-indigo-500' variant='sliding' value="wholesale">Wholesale Bills</TabsTrigger>
                 </TabsList>
                 <TabsContent value={billType} >
                     <BillsTable />

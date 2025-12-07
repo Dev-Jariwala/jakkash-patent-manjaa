@@ -56,16 +56,16 @@ const BillsReport = () => {
     }, [reportError])
 
     return (
-        <div className="tw-w-full tw-flex tw-flex-col tw-items-center">
-            <div className="tw-flex tw-items-center tw-space-x-5 tw-w-[50%] tw-my-5">
-                <div className="tw-space-y-2">
+        <div className="w-full flex flex-col items-center">
+            <div className="flex items-center space-x-5 w-[50%] my-5">
+                <div className="space-y-2">
                     <Input
                         value={fromBillNo}
                         placeholder="From Bill No"
                         onChange={(e) => setFromBillNo(e.target.value)}
                     />
                 </div>
-                <div className="tw-space-y-2">
+                <div className="space-y-2">
                     <Input
                         value={toBillNo}
                         placeholder="To Bill No"
@@ -77,7 +77,7 @@ const BillsReport = () => {
                 </Button>
             </div>
             {isReportLoading ?
-                <div className="tw-flex tw-items-center tw-justify-between tw-h-64">
+                <div className="flex items-center justify-between h-64">
                     <TypeWritterLoader />
                 </div>
                 : <>

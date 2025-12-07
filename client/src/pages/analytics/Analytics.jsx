@@ -59,15 +59,15 @@ const Analytics = () => {
 
     if (!isAuthenticated) {
         return (
-            <div className="tw-flex tw-items-center tw-justify-center tw-min-h-[calc(100dvh-64px)] tw-p-4">
-                <Card className="tw-w-full tw-max-w-md tw-border tw-p-10">
+            <div className="flex items-center justify-center min-h-[calc(100dvh-64px)] p-4">
+                <Card className="w-full max-w-md border p-10">
                     <CardHeader>
                         <CardTitle>Enter Password</CardTitle>
                         <CardDescription>Please enter the password to view analytics</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)} className="tw-space-y-4">
+                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                                 <FormField
                                     control={form.control}
                                     name="password"
@@ -81,7 +81,7 @@ const Analytics = () => {
                                         </FormItem>
                                     )}
                                 />
-                                <Button type="submit" className="tw-w-full">Submit</Button>
+                                <Button type="submit" className="w-full">Submit</Button>
                             </form>
                         </Form>
                     </CardContent>
@@ -93,12 +93,12 @@ const Analytics = () => {
     return (
         <>
             {isLoading ? (
-                <div className="tw-flex tw-justify-center tw-items-center tw-h-64">
+                <div className="flex justify-center items-center h-64">
                     <div className="basic-loader"></div>
                 </div>
             ) : (
-                <main className="tw-container tw-mx-auto tw-px-6 tw-py-8">
-                    <div className="tw-grid tw-grid-cols-1 sm:tw-grid-cols-2 lg:tw-grid-cols-4 tw-gap-6">
+                <main className="container mx-auto px-6 py-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         <MetricCard
                             title="Total Investment"
                             value={analytics?.totalPurchaseAmount}
@@ -138,18 +138,18 @@ function MetricCard({ title, value = 0, icon, trend, percentage }) {
     const animatedValue = useCountUp(value);
 
     return (
-        <Card className="tw-transition-all tw-duration-300 tw-ease-in-out tw-transform hover:tw-scale-105 hover:tw-shadow-lg tw-border">
-            <CardContent className="tw-flex tw-items-center tw-p-6">
-                <div className="tw-mr-4 tw-rounded-full tw-p-3 tw-bg-indigo-100 tw-text-indigo-600 tw-transition-all tw-duration-300 tw-ease-in-out tw-transform group-hover:tw-scale-110">
+        <Card className="transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg border">
+            <CardContent className="flex items-center p-6">
+                <div className="mr-4 rounded-full p-3 bg-indigo-100 text-indigo-600 transition-all duration-300 ease-in-out transform group-hover:scale-110">
                     {icon}
                 </div>
                 <div>
-                    <p className="tw-text-sm tw-font-medium tw-text-gray-500">{title}</p>
-                    <h3 className="tw-text-2xl tw-font-semibold tw-text-gray-900">
+                    <p className="text-sm font-medium text-gray-500">{title}</p>
+                    <h3 className="text-2xl font-semibold text-gray-900">
                         ₹{animatedValue?.toLocaleString()}
                     </h3>
                     <p
-                        className={`tw-text-sm ${trend === "up" ? "tw-text-green-600" : "tw-text-red-600"
+                        className={`text-sm ${trend === "up" ? "text-green-600" : "text-red-600"
                             }`}
                     >
                         {trend === "up" ? "↑" : "↓"} {percentage}

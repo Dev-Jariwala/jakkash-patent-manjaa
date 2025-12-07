@@ -20,12 +20,12 @@ const Spinner = React.forwardRef((props, ref) => {
     const { className, colorClassName, ...otherProps } = props;
 
     return (
-        <div ref={ref} className={cn("tw-h-5 tw-w-5", className)} {...otherProps}>
-            <div className="tw-relative tw-left-1/2 tw-top-1/2 tw-h-full">
+        <div ref={ref} className={cn("h-5 w-5", className)} {...otherProps}>
+            <div className="relative left-1/2 top-1/2 h-full">
                 {spinnerBars.map((bar) => (
                     <div
                         key={bar.rotate}
-                        className={cn("tw-absolute tw-left-[-10%] tw-top-[-3.9%] tw-h-[8%] tw-w-[24%] tw-animate-spinner tw-rounded-md tw-bg-black", colorClassName)}
+                        className={cn("absolute left-[-10%] top-[-3.9%] h-[8%] w-[24%] animate-spinner rounded-md bg-black", colorClassName)}
                         style={{
                             animationDelay: `${bar.animationDelay}s`,
                             transform: `rotate(${bar.rotate}deg) translate(146%)`,

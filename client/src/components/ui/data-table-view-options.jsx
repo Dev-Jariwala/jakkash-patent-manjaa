@@ -38,14 +38,14 @@ export function DataTableViewOptions({ table, headers }) {
                 <Button
                     variant="outline"
                     size="sm"
-                    className="tw-ml-auto tw-h-8 lg:tw-flex tw-text-gray-600 hover:tw-text-gray-700"
+                    className="ml-auto h-8 lg:flex text-gray-600 hover:text-gray-700"
                 >
-                    <Settings2 className="tw-mr-2 tw-h-4 tw-w-4" />
+                    <Settings2 className="mr-2 h-4 w-4" />
                     View
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-[200px]">
-                <DropdownMenuLabel className="tw-text-gray-600" >Display properties</DropdownMenuLabel>
+                <DropdownMenuLabel className="text-gray-600" >Display properties</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DndContext
                     sensors={sensors}
@@ -87,10 +87,10 @@ function SortableItem({ id, column, headers }) {
     };
 
     return (
-        <div className="tw-flex tw-items-center tw-justify-between tw-space-x-4" ref={setNodeRef}
+        <div className="flex items-center justify-between space-x-4" ref={setNodeRef}
             style={style}>
             <DropdownMenuCheckboxItem
-                className="tw-capitalize tw-w-full"
+                className="capitalize w-full"
                 checked={column.getIsVisible()}
                 onCheckedChange={(value) => column.toggleVisibility(!!value)}
                 onSelect={(e) => e.preventDefault()}
@@ -101,9 +101,9 @@ function SortableItem({ id, column, headers }) {
 
                 {...attributes}
                 {...listeners}
-                className="tw-cursor-grab "
+                className="cursor-grab "
             >
-                <GripVertical className="tw-mr-2 tw-h-4 tw-w-4 hover:tw-bg-gray-200 tw-rounded" />
+                <GripVertical className="mr-2 h-4 w-4 hover:bg-gray-200 rounded" />
             </span>
         </div>
     );

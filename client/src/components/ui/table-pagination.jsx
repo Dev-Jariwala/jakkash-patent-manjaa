@@ -40,11 +40,11 @@ function Pagination({ table, maxPageNumbers = 5 }) {
     }
 
     return (
-        <div className="tw-flex tw-justify-center tw-space-x-1 sm:tw-space-x-2 tw-px-1 sm:tw-px-2">
+        <div className="flex justify-center space-x-1 sm:space-x-2 px-1 sm:px-2">
             {startPage > 0 && (
                 <>
-                    <Button variant="outline" className='tw-px-1 sm:tw-px-2 tw-py-1 tw-text-xs sm:tw-text-sm' onClick={() => table.setPageIndex(0)}>1</Button>
-                    {startPage > 1 && <span className="tw-text-xs sm:tw-text-sm">...</span>}
+                    <Button variant="outline" className='px-1 sm:px-2 py-1 text-xs sm:text-sm' onClick={() => table.setPageIndex(0)}>1</Button>
+                    {startPage > 1 && <span className="text-xs sm:text-sm">...</span>}
                 </>
             )}
             {pages.map(page => (
@@ -52,8 +52,8 @@ function Pagination({ table, maxPageNumbers = 5 }) {
                     key={page}
                     variant="outline"
                     onClick={() => table.setPageIndex(page)}
-                    className={cn('tw-px-1 sm:tw-px-2 tw-py-1 tw-transition-none tw-text-xs sm:tw-text-sm', {
-                        'tw-font-bold tw-bg-indigo-500 tw-text-white tw-border-indigo-500 enabled:hover:tw-text-white enabled:hover:tw-bg-indigo-500 enabled:hover:tw-border-indigo-500': pageIndex === page
+                    className={cn('px-1 sm:px-2 py-1 transition-none text-xs sm:text-sm', {
+                        'font-bold bg-indigo-500 text-white border-indigo-500 enabled:hover:text-white enabled:hover:bg-indigo-500 enabled:hover:border-indigo-500': pageIndex === page
                     })}
                 >
                     {page + 1}
@@ -61,8 +61,8 @@ function Pagination({ table, maxPageNumbers = 5 }) {
             ))}
             {endPage < pageCount - 1 && (
                 <>
-                    {endPage < pageCount - 2 && <span className="tw-text-xs sm:tw-text-sm">...</span>}
-                    <Button variant="outline" className='tw-px-1 sm:tw-px-2 tw-py-1 tw-text-xs sm:tw-text-sm' onClick={() => table.setPageIndex(pageCount - 1)}>{pageCount}</Button>
+                    {endPage < pageCount - 2 && <span className="text-xs sm:text-sm">...</span>}
+                    <Button variant="outline" className='px-1 sm:px-2 py-1 text-xs sm:text-sm' onClick={() => table.setPageIndex(pageCount - 1)}>{pageCount}</Button>
                 </>
             )}
         </div>
@@ -74,24 +74,24 @@ export function DataTablePagination({ table, count, customPerPageOptions }) {
     const perPageOptions = customPerPageOptions || pageOptions;
 
     return (
-        <div className="tw-flex tw-flex-col sm:tw-flex-row tw-items-center tw-justify-between tw-px-2 tw-pb-4 tw-space-y-2 sm:tw-space-y-0">
-            <div className="tw-text-xs sm:tw-text-sm tw-text-muted-foreground tw-order-2 sm:tw-order-1">
+        <div className="flex flex-col sm:flex-row items-center justify-between px-2 pb-4 space-y-2 sm:space-y-0">
+            <div className="text-xs sm:text-sm text-muted-foreground order-2 sm:order-1">
                 showing {
                     table?.getState().pagination.pageIndex * table?.getState().pagination.pageSize + 1
                 } to {
                     table?.getState().pagination.pageIndex * table?.getState().pagination.pageSize + table?.getState().pagination.pageSize
                 } of {count} rows
             </div>
-            <div className="tw-flex tw-flex-col sm:tw-flex-row tw-items-center tw-space-y-2 sm:tw-space-y-0 sm:tw-space-x-4 lg:tw-space-x-8 tw-order-1 sm:tw-order-2">
-                <div className="tw-flex tw-items-center tw-space-x-2">
-                    <p className="tw-text-xs sm:tw-text-sm tw-font-medium tw-m-0">Rows per page</p>
+            <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 lg:space-x-8 order-1 sm:order-2">
+                <div className="flex items-center space-x-2">
+                    <p className="text-xs sm:text-sm font-medium m-0">Rows per page</p>
                     <Select
                         value={`${table?.getState().pagination.pageSize}`}
                         onValueChange={(value) => {
                             table?.setPageSize(Number(value));
                         }}
                     >
-                        <SelectTrigger className="tw-h-8 !tw-w-[60px] sm:!tw-w-[70px]">
+                        <SelectTrigger className="h-8 !w-[60px] sm:!w-[70px]">
                             <SelectValue placeholder={table?.getState().pagination.pageSize} />
                         </SelectTrigger>
                         <SelectContent side="top">
@@ -103,46 +103,46 @@ export function DataTablePagination({ table, count, customPerPageOptions }) {
                         </SelectContent>
                     </Select>
                 </div>
-                <div className="tw-flex tw-items-center tw-space-x-1 sm:tw-space-x-2">
-                    <div className="tw-hidden sm:tw-flex tw-w-[100px] tw-items-center tw-justify-center tw-text-sm tw-font-medium">
+                <div className="flex items-center space-x-1 sm:space-x-2">
+                    <div className="hidden sm:flex w-[100px] items-center justify-center text-sm font-medium">
                         Page {table?.getState().pagination.pageIndex + 1} of{" "}
                         {table?.getPageCount()}
                     </div>
                     <Button
                         variant="outline"
-                        className='tw-p-1'
+                        className='p-1'
                         onClick={() => table?.setPageIndex(0)}
                         disabled={!table?.getCanPreviousPage()}
                     >
-                        <span className="tw-sr-only">Go to first page</span>
+                        <span className="sr-only">Go to first page</span>
                         <ChevronsLeft size={16} />
                     </Button>
                     <Button
                         variant="outline"
-                        className='tw-p-1'
+                        className='p-1'
                         onClick={() => table?.previousPage()}
                         disabled={!table?.getCanPreviousPage()}
                     >
-                        <span className="tw-sr-only">Go to previous page</span>
+                        <span className="sr-only">Go to previous page</span>
                         <ChevronLeft size={16} />
                     </Button>
                     <Pagination table={table} maxPageNumbers={3} />
                     <Button
                         variant="outline"
-                        className='tw-p-1'
+                        className='p-1'
                         onClick={() => table?.nextPage()}
                         disabled={!table?.getCanNextPage()}
                     >
-                        <span className="tw-sr-only">Go to next page</span>
+                        <span className="sr-only">Go to next page</span>
                         <ChevronRight size={16} />
                     </Button>
                     <Button
                         variant="outline"
-                        className='tw-p-1'
+                        className='p-1'
                         onClick={() => table?.setPageIndex(table?.getPageCount() - 1)}
                         disabled={!table?.getCanNextPage()}
                     >
-                        <span className="tw-sr-only">Go to last page</span>
+                        <span className="sr-only">Go to last page</span>
                         <ChevronsRight size={16} />
                     </Button>
                 </div>

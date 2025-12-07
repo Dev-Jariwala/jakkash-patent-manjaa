@@ -105,7 +105,7 @@ const BillPDF2 = ({ bill }) => {
   return (
     <>
       {bill && bill?.products?.length > 0 &&
-        <div className="tw-h-[calc(100dvh-64px)] tw-w-full">
+        <div className="h-[calc(100dvh-64px)] w-full">
           <PDFViewer height={"100%"} width={"100%"}>
             <Document>
               {bill?.products?.length < 18 && <SinglePagePDF bill={bill} />}

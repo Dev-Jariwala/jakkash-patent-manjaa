@@ -64,7 +64,7 @@ const ProgressCircle = React.forwardRef((props, ref) => {
       <div
         ref={ref}
         className={cn(
-          "tw-flex tw-flex-col tw-items-center tw-justify-center",
+          "flex flex-col items-center justify-center",
           className,
         )}
         {...other}
@@ -76,7 +76,7 @@ const ProgressCircle = React.forwardRef((props, ref) => {
           width={radius * 2}
           height={radius * 2}
           viewBox={`0 0 ${radius * 2} ${radius * 2}`}
-          className="tw-transform -tw-rotate-90"
+          className="transform -rotate-90"
         >
           <circle
             r={normalizedRadius}
@@ -87,7 +87,7 @@ const ProgressCircle = React.forwardRef((props, ref) => {
             stroke="#e5e7eb"
             strokeOpacity="0.25"
             strokeLinecap="round"
-            className="tw-transition-colors tw-ease-linear"
+            className="transition-colors ease-linear"
           />
           {value >= 0 ? (
             <circle
@@ -101,13 +101,13 @@ const ProgressCircle = React.forwardRef((props, ref) => {
               stroke={value < 75 ? "#ef4444" : "#22c55e"}
               strokeLinecap="round"
               className={cn(
-                "tw-transition-colors tw-ease-linear",
-                showAnimation ? "tw-transition-all tw=duration-300 tw-ease-in-out" : "",
+                "transition-colors ease-linear",
+                showAnimation ? "transition-all tw=duration-300 ease-in-out" : "",
               )}
             />
           ) : null}
         </svg>
-        <div className={cn("tw-absolute tw-flex")}>{children} <span>{value}%</span></div>
+        <div className={cn("absolute flex")}>{children} <span>{value}%</span></div>
       </div>
     </>
   );

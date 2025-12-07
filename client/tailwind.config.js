@@ -3,7 +3,7 @@ import tailwindcssTypography from '@tailwindcss/typography';
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  prefix: 'tw-',
+  prefix: '',
   important: false,
   darkMode: ['class', '[class="dark"]'],
   content: [

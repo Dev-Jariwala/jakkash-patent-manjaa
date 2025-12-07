@@ -9,11 +9,11 @@ const MutationError = ({ mutation }) => {
 
   return (
     <div
-      className="tw-bg-red-100 tw-border tw-border-red-400 tw-text-red-700 tw-px-4 tw-py-3 tw-rounded"
+      className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded"
       role="alert"
     >
-      <strong className="tw-font-bold">Error: </strong>
-      <span className="tw-block tw-sm:inline">{errorMessage}</span>
+      <strong className="font-bold">Error: </strong>
+      <span className="block sm:inline">{errorMessage}</span>
     </div>
   );
 };

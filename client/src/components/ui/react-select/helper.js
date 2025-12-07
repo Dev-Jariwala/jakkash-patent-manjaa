@@ -1,34 +1,34 @@
 import { cn } from "../../../lib/utils";
 
 const controlStyles = {
-    base: 'tw-flex !tw-min-h-9 tw-w-full tw-rounded-md tw-border tw-border-input tw-bg-transparent tw-pl-3 tw-py-1 tw-pr-1 tw-gap-1 tw-text-sm tw-shadow-sm tw-transition-colors hover:tw-cursor-pointer hover:tw-border-indigo-400',
-    focus: 'tw-outline-none tw-border-ring',
-    disabled: 'tw-cursor-not-allowed tw-opacity-50'
+    base: 'flex !min-h-9 w-full rounded-md border border-input bg-transparent pl-3 py-1 pr-1 gap-1 text-sm shadow-sm transition-colors hover:cursor-pointer hover:border-indigo-400',
+    focus: 'outline-none border-ring',
+    disabled: 'cursor-not-allowed opacity-50'
 };
-const placeholderStyles = 'tw-text-sm tw-text-muted-foreground';
-const valueContainerStyles = 'tw-gap-1';
+const placeholderStyles = 'text-sm text-muted-foreground';
+const valueContainerStyles = 'gap-1';
 const multiValueStyles =
-    'tw-inline-flex tw-items-center tw-gap-2 tw-rounded-md tw-border tw-border-transparent tw-bg-gray-200 tw-text-secondary-foreground hover:tw-bg-gray-200/80 tw-px-1.5 tw-py-0.5 tw-text-xs tw-font-semibold tw-transition-colors focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-ring focus:tw-ring-offset-2';
-const multiValueRemoveStyles = 'hover:tw-bg-red-200 hover:tw-text-red-500';
-const indicatorsContainerStyles = 'tw-gap-1';
-const clearIndicatorStyles = 'tw-p-1 tw-rounded-md hover:tw-bg-red-50 hover:tw-text-red-500';
-const indicatorSeparatorStyles = 'tw-bg-border';
-const dropdownIndicatorStyles = 'tw-p-1 tw-rounded-md';
+    'inline-flex items-center gap-2 rounded-md border border-transparent bg-gray-200 text-secondary-foreground hover:bg-gray-200/80 px-1.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2';
+const multiValueRemoveStyles = 'hover:bg-red-200 hover:text-red-500';
+const indicatorsContainerStyles = 'gap-1';
+const clearIndicatorStyles = 'p-1 rounded-md hover:bg-red-50 hover:text-red-500';
+const indicatorSeparatorStyles = 'bg-border';
+const dropdownIndicatorStyles = 'p-1 rounded-md';
 const menuStyles =
-    'tw-p-1 tw-mt-1 tw-border tw-bg-popover tw-shadow-md tw-rounded-md tw-text-popover-foreground';
+    'p-1 mt-1 border bg-popover shadow-md rounded-md text-popover-foreground';
 const groupHeadingStyles =
-    'tw-py-2 tw-px-1 tw-text-secondary-foreground tw-text-sm tw-font-semibold';
+    'py-2 px-1 text-secondary-foreground text-sm font-semibold';
 const optionStyles = {
-    base: 'hover:tw-cursor-pointer hover:tw-bg-accent hover:tw-text-accent-foreground tw-px-2 tw-py-1.5 tw-rounded-sm !tw-text-sm !tw-cursor-default !tw-select-none !tw-outline-none',
-    focus: 'active:tw-bg-accent/90 tw-bg-accent tw-text-accent-foreground',
-    disabled: 'tw-pointer-events-none tw-opacity-50',
-    selected: 'tw-bg-indigo-100 hover:tw-bg-indigo-100 tw-font-semibold'
+    base: 'hover:cursor-pointer hover:bg-accent hover:text-accent-foreground px-2 py-1.5 rounded-sm !text-sm !cursor-default !select-none !outline-none',
+    focus: 'active:bg-accent/90 bg-accent text-accent-foreground',
+    disabled: 'pointer-events-none opacity-50',
+    selected: 'bg-indigo-100 hover:bg-indigo-100 font-semibold'
 };
 const noOptionsMessageStyles =
-    'tw-text-accent-foreground tw-p-2 tw-bg-accent tw-border tw-border-dashed tw-border-border tw-rounded-sm';
+    'text-accent-foreground p-2 bg-accent border border-dashed border-border rounded-sm';
 const loadingIndicatorStyles =
-    'tw-flex tw-items-center tw-justify-center tw-h-4 tw-w-4 tw-opacity-50';
-const loadingMessageStyles = 'tw-text-accent-foreground tw-p-2 tw-bg-accent';
+    'flex items-center justify-center h-4 w-4 opacity-50';
+const loadingMessageStyles = 'text-accent-foreground p-2 bg-accent';
 
 export const createClassNames = (classNames) => {
     return {

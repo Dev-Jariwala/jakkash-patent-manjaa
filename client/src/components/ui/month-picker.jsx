@@ -17,13 +17,13 @@ export default function MonthPicker({ currentMonth, onMonthChange, className, pl
             <PopoverTrigger asChild>
                 <Button
                     variant={variant || "outline"}
-                    className={cn("tw-min-w-48 tw-justify-start tw-gap-2", className, !currentMonth && "tw-text-muted-foreground")}
+                    className={cn("min-w-48 justify-start gap-2", className, !currentMonth && "text-muted-foreground")}
                 >
-                    <Calendar className="tw-size-4" />
+                    <Calendar className="size-4" />
                     {currentMonth ? format(currentMonth, "MMMM yyyy") : placeholder}
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="tw-w-full p-0" style={{ fontFamily: 'Nunito, "Segoe UI", arial' }}>
+            <PopoverContent className="w-full p-0" style={{ fontFamily: 'Nunito, "Segoe UI", arial' }}>
                 <MonthSelecter currentMonth={currentMonth} onMonthChange={onMonthChange} className={selecterClassName} />
             </PopoverContent>
         </Popover>

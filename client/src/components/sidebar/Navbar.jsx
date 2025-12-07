@@ -16,9 +16,9 @@ const Navbar = () => {
   const { setToken } = useAuth();
   const { toggleSidebar } = useSidebar();
   return (
-    <div className=" tw-text-gray-800 tw-sticky tw-z-99 tw-bg-white tw-top-0 tw-left-0 tw-border-b tw-border-gray-200 tw-h-16 tw-flex tw-items-center tw-justify-between tw-px-4">
-      <div className="tw-flex tw-items-center tw-space-x-3">
-        <button onClick={toggleSidebar} className="tw-text-lg tw-font-semibold hover:tw-bg-gray-200 tw-p-2 tw-rounded-full">
+    <div className=" text-gray-800 sticky z-99 bg-white top-0 left-0 border-b border-gray-200 h-16 flex items-center justify-between px-4">
+      <div className="flex items-center space-x-3">
+        <button onClick={toggleSidebar} className="text-lg font-semibold hover:bg-gray-200 p-2 rounded-full">
           <AiOutlineMenu />
         </button>
         <ActiveCollectionSelect />
@@ -26,7 +26,7 @@ const Navbar = () => {
 
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <Avatar className="tw-shadow-lg tw-border-2 tw-border-gray-500">
+          <Avatar className="shadow-lg border-2 border-gray-500">
             <AvatarImage src="/logo.png" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>

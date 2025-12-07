@@ -251,12 +251,12 @@ const BillsForm = () => {
         <>
             {product_id && <AddStockModal open={!!product_id} onClose={() => navigate(-1)} />}
             {isProductsLoading || isNextBillNoLoading || isBillLoading ?
-                <div className="tw-flex tw-justify-center tw-items-center tw-h-64">
+                <div className="flex justify-center items-center h-64">
                     <div className="basic-loader"></div>
                 </div> :
                 <div className="">
-                    <div className="tw-flex tw-items-center tw-justify-between tw-px-5 tw-border-b tw-border-gray-200 tw-py-4 tw-mb-3">
-                        <div className="tw-text-xl tw-text-gray-700 tw-font-semibold">
+                    <div className="flex items-center justify-between px-5 border-b border-gray-200 py-4 mb-3">
+                        <div className="text-xl text-gray-700 font-semibold">
                             <BreadCrum
                                 path={[
                                     { path: "/", label: "Dashboard" },
@@ -272,9 +272,9 @@ const BillsForm = () => {
                     <Form {...form}>
                         <form
                             onSubmit={form.handleSubmit(onSubmit)}
-                            className="tw-w-full tw-px-5"
+                            className="w-full px-5"
                         >
-                            <div className="tw-grid lg:tw-grid-cols-3 tw-gap-5">
+                            <div className="grid lg:grid-cols-3 gap-5">
                                 <div className="">
                                     <FormField
                                         control={form.control}
@@ -291,7 +291,7 @@ const BillsForm = () => {
                                     />
                                 </div>
                             </div>
-                            <div className=" tw-grid lg:tw-grid-cols-3 tw-gap-5 tw-mt-5">
+                            <div className=" grid lg:grid-cols-3 gap-5 mt-5">
                                 <FormField
                                     control={form.control}
                                     name="mobile"
@@ -335,7 +335,7 @@ const BillsForm = () => {
                                     control={form.control}
                                     name="order_date"
                                     render={({ field }) => (
-                                        <FormItem className="tw-flex tw-flex-col">
+                                        <FormItem className="flex flex-col">
                                             <FormLabel>Date</FormLabel>
                                             <Popover>
                                                 <PopoverTrigger asChild>
@@ -343,8 +343,8 @@ const BillsForm = () => {
                                                         <Button
                                                             variant={"outline"}
                                                             className={cn(
-                                                                "tw-w-full tw-pl-3 tw-text-left tw-font-normal",
-                                                                !field.value && "tw-text-muted-foreground"
+                                                                "w-full pl-3 text-left font-normal",
+                                                                !field.value && "text-muted-foreground"
                                                             )}
                                                         >
                                                             {field.value ? (
@@ -352,11 +352,11 @@ const BillsForm = () => {
                                                             ) : (
                                                                 <span>Pick a date</span>
                                                             )}
-                                                            <CalendarIcon className="tw-ml-auto tw-h-4 tw-w-4 tw-opacity-50" />
+                                                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                                         </Button>
                                                     </FormControl>
                                                 </PopoverTrigger>
-                                                <PopoverContent className="tw-w-auto tw-p-0" align="start">
+                                                <PopoverContent className="w-auto p-0" align="start">
                                                     <Calendar
                                                         mode="single"
                                                         selected={field.value}
@@ -373,7 +373,7 @@ const BillsForm = () => {
                                     control={form.control}
                                     name="delivery_date"
                                     render={({ field }) => (
-                                        <FormItem className="tw-flex tw-flex-col">
+                                        <FormItem className="flex flex-col">
                                             <FormLabel>Delivery Date</FormLabel>
                                             <Popover>
                                                 <PopoverTrigger asChild>
@@ -381,8 +381,8 @@ const BillsForm = () => {
                                                         <Button
                                                             variant={"outline"}
                                                             className={cn(
-                                                                "tw-w-full tw-pl-3 tw-text-left tw-font-normal",
-                                                                !field.value && "tw-text-muted-foreground"
+                                                                "w-full pl-3 text-left font-normal",
+                                                                !field.value && "text-muted-foreground"
                                                             )}
                                                         >
                                                             {field.value ? (
@@ -390,11 +390,11 @@ const BillsForm = () => {
                                                             ) : (
                                                                 <span>Pick a date</span>
                                                             )}
-                                                            <CalendarIcon className="tw-ml-auto tw-h-4 tw-w-4 tw-opacity-50" />
+                                                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                                         </Button>
                                                     </FormControl>
                                                 </PopoverTrigger>
-                                                <PopoverContent className="tw-w-auto tw-p-0" align="start">
+                                                <PopoverContent className="w-auto p-0" align="start">
                                                     <Calendar
                                                         mode="single"
                                                         selected={field.value}
@@ -408,23 +408,23 @@ const BillsForm = () => {
                                     )}
                                 />
                             </div>
-                            <div className="tw-mt-5">
-                                <div className="tw-grid tw-gap-4 tw-mt-2">
-                                    <div className="tw-grid tw-grid-cols-5 tw-gap-5 tw-bg-gray-200 tw-py-3 tw-px-5">
-                                        <div className="tw-text-sm tw-font-medium tw-text-gray-700">Product</div>
-                                        <div className="tw-text-sm tw-font-medium tw-text-gray-700">Stock in Hand</div>
-                                        <div className="tw-text-sm tw-font-medium tw-text-gray-700">Price</div>
-                                        <div className="tw-text-sm tw-font-medium tw-text-gray-700">Quantity</div>
-                                        <div className="tw-text-sm tw-font-medium tw-text-gray-700">Total</div>
+                            <div className="mt-5">
+                                <div className="grid gap-4 mt-2">
+                                    <div className="grid grid-cols-5 gap-5 bg-gray-200 py-3 px-5">
+                                        <div className="text-sm font-medium text-gray-700">Product</div>
+                                        <div className="text-sm font-medium text-gray-700">Stock in Hand</div>
+                                        <div className="text-sm font-medium text-gray-700">Price</div>
+                                        <div className="text-sm font-medium text-gray-700">Quantity</div>
+                                        <div className="text-sm font-medium text-gray-700">Total</div>
                                     </div>
                                     {form.watch('products')?.map((product, index) => (
-                                        <div key={product?.product_id} className="tw-grid tw-grid-cols-5 tw-gap-3 tw-border-t tw-pt-4">
-                                            <div className="tw-flex tw-items-center">
+                                        <div key={product?.product_id} className="grid grid-cols-5 gap-3 border-t pt-4">
+                                            <div className="flex items-center">
                                                 <FormField
                                                     control={form.control}
                                                     name={`products.${index}.product_id`}
                                                     render={({ field }) => (
-                                                        <FormItem className="tw-w-full">
+                                                        <FormItem className="w-full">
                                                             <FormControl>
                                                                 <ReactSelect
                                                                     options={productsOptions}
@@ -437,7 +437,7 @@ const BillsForm = () => {
                                                         </FormItem>
                                                     )}
                                                 />
-                                                <Button className="tw-px-2 tw-ml-2" tabIndex="-1" type="button" onClick={() => formType === 'new' ? navigate(`/bills/${formType}?bill_type=${billType}&product_id=${product?.product_id}`) : navigate(`/bills/${formType}/${bill_id}?bill_type=${billType}&product_id=${product?.product_id}`)}>
+                                                <Button className="px-2 ml-2" tabIndex="-1" type="button" onClick={() => formType === 'new' ? navigate(`/bills/${formType}?bill_type=${billType}&product_id=${product?.product_id}`) : navigate(`/bills/${formType}/${bill_id}?bill_type=${billType}&product_id=${product?.product_id}`)}>
                                                     <Plus size={16} />
                                                 </Button>
                                             </div>
@@ -448,7 +448,7 @@ const BillsForm = () => {
                                                     <FormItem>
                                                         <FormControl>
                                                             <Input
-                                                                className="tw-w-full"
+                                                                className="w-full"
                                                                 {...field}
                                                                 disabled
                                                             />
@@ -464,7 +464,7 @@ const BillsForm = () => {
                                                     <FormItem>
                                                         <FormControl>
                                                             <Input
-                                                                className="tw-w-full"
+                                                                className="w-full"
                                                                 {...field}
                                                                 disabled
                                                             />
@@ -480,7 +480,7 @@ const BillsForm = () => {
                                                     <FormItem>
                                                         <FormControl>
                                                             <Input
-                                                                className="tw-w-full"
+                                                                className="w-full"
                                                                 {...field}
                                                                 onChange={e => {
                                                                     const quantity = handleNumberInputChange(e, field);
@@ -503,7 +503,7 @@ const BillsForm = () => {
                                                     <FormItem>
                                                         <FormControl>
                                                             {<Input
-                                                                className="tw-w-full"
+                                                                className="w-full"
                                                                 {...field}
                                                                 disabled
                                                             />}
@@ -517,8 +517,8 @@ const BillsForm = () => {
 
                                 </div>
                             </div>
-                            <div className=" tw-grid tw-grid-cols-5 tw-gap-3 tw-mt-5">
-                                <div className="tw-col-span-3">
+                            <div className=" grid grid-cols-5 gap-3 mt-5">
+                                <div className="col-span-3">
                                     <FormField
                                         control={form.control}
                                         name="notes"
@@ -526,15 +526,15 @@ const BillsForm = () => {
                                             <FormItem>
                                                 <FormLabel>Notes</FormLabel>
                                                 <FormControl>
-                                                    <Textarea className="tw-bg-white" {...field} />
+                                                    <Textarea className="bg-white" {...field} />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
                                         )}
                                     />
                                 </div>
-                                <div className="tw-flex tw-items-center ">
-                                    <Button variant="" className="tw-bg-indigo-500 hover:tw-bg-indigo-600" type="button" onClick={() => {
+                                <div className="flex items-center ">
+                                    <Button variant="" className="bg-indigo-500 hover:bg-indigo-600" type="button" onClick={() => {
                                         // here we need to find the total quantity of all products and set it to total_firki
                                         const total_firki = form.watch('products')?.reduce((acc, product) => acc + parseInt(product.quantity), 0) || 0;
                                         form.setValue('total_firki', total_firki);
@@ -542,8 +542,8 @@ const BillsForm = () => {
                                     }}>Calculate</Button>
                                 </div>
                             </div>
-                            <div className="tw-grid tw-grid-cols-5 tw-gap-3 tw-mt-5">
-                                <div className="tw-col-span-3">
+                            <div className="grid grid-cols-5 gap-3 mt-5">
+                                <div className="col-span-3">
 
                                 </div>
                                 <div className="">
@@ -578,9 +578,9 @@ const BillsForm = () => {
                                 </div>
                             </div>
 
-                            <div className="tw-grid tw-grid-cols-5 tw-gap-5 tw-mt-5">
-                                <div className="tw-col-span-4"></div>
-                                <div className="tw-space-y-5">
+                            <div className="grid grid-cols-5 gap-5 mt-5">
+                                <div className="col-span-4"></div>
+                                <div className="space-y-5">
                                     <FormField
                                         control={form.control}
                                         name="discount"
@@ -634,9 +634,9 @@ const BillsForm = () => {
                                     />
                                 </div>
                             </div>
-                            <div className="tw-w-full tw-mt-5 tw-flex tw-items-center tw-justify-center tw-col-span-5 tw-mb-20">
+                            <div className="w-full mt-5 flex items-center justify-center col-span-5 mb-20">
                                 <MutationError mutation={createBillMutation} />
-                                <Button variant="" disabled={createBillMutation.isPending || updateBillMutation.isPending} isLoading={createBillMutation.isPending || updateBillMutation.isPending} loadingText={formType === 'update' ? `updating ${form.watch("bill_no")}...` : `creating ${form.watch("bill_no")}...`} className="tw-bg-indigo-500 hover:tw-bg-indigo-600" type="submit">
+                                <Button variant="" disabled={createBillMutation.isPending || updateBillMutation.isPending} isLoading={createBillMutation.isPending || updateBillMutation.isPending} loadingText={formType === 'update' ? `updating ${form.watch("bill_no")}...` : `creating ${form.watch("bill_no")}...`} className="bg-indigo-500 hover:bg-indigo-600" type="submit">
                                     {formType === "update" ? "Update" : "Create"}{" "}
                                     Bill No. {form.watch("bill_no")}
                                 </Button>

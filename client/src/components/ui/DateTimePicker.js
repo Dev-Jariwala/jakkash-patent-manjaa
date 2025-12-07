@@ -93,17 +93,17 @@ const DateTimePicker = ({
             <PopoverTrigger className={calendarInputClass} asChild>
                 <Button
                     variant="outline"
-                    /* className={cn(`tw-w-full tw-justify-start tw-text-left tw-font-normal ${!value && 'text-muted-foreground'
+                    /* className={cn(`w-full justify-start text-left font-normal ${!value && 'text-muted-foreground'
                         } ${className}`} */
-                    className={cn('tw-w-full tw-justify-start tw-text-left tw-font-normal', !value && 'text-muted-foreground', className)}
+                    className={cn('w-full justify-start text-left font-normal', !value && 'text-muted-foreground', className)}
                     disabled={disabled}
                 >
-                    <CalendarIcon className="tw-mr-2 tw-size-4" />
+                    <CalendarIcon className="mr-2 size-4" />
                     {formattedDisplayValue || placeholder}
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="tw-w-auto tw-p-0 tw-z-[9999]" onFocusOutside={(e) => e.preventDefault()} style={{ fontFamily: 'Nunito, "Segoe UI", arial' }}>
-                <div className="tw-flex tw-items-stretch tw-gap-0.5 tw-divide-x">
+            <PopoverContent className="w-auto p-0 z-[9999]" onFocusOutside={(e) => e.preventDefault()} style={{ fontFamily: 'Nunito, "Segoe UI", arial' }}>
+                <div className="flex items-stretch gap-0.5 divide-x">
                     <Calendar
                         mode="single"
                         selected={parseDateTime(value)}
@@ -112,7 +112,7 @@ const DateTimePicker = ({
                         className={calendarClassName}
                         disabled={disabledDates}
                     />
-                    <div className="tw-p-3 tw-flex-grow">
+                    <div className="p-3 flex-grow">
                         <TimePicker
                             value={parseDateTime(value)}
                             onChange={handleTimeChange}
@@ -125,7 +125,7 @@ const DateTimePicker = ({
                     </div>
                 </div>
 
-                <div className="tw-flex tw-justify-end tw-px-4 tw-py-2 tw-gap-2 tw-border-t">
+                <div className="flex justify-end px-4 py-2 gap-2 border-t">
                     {clearable && (
                         <Button variant="outline" onClick={handleClear}>
                             Clear

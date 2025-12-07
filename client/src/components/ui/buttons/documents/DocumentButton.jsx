@@ -1,12 +1,12 @@
 const DocumentButton = ({ name, ...props }) => {
     return (
         <button
-            className="tw-flex tw-items-center tw-justify-start tw-w-fit tw-h-10 tw-px-2.5 tw-border tw-border-gray-500 tw-rounded tw-cursor-pointer tw-gap-2.5 tw-transition-transform tw-duration-300 tw-active:scale-95 tw-hover:bg-gray-700"
+            className="flex items-center justify-start w-fit h-10 px-2.5 border border-gray-500 rounded cursor-pointer gap-2.5 transition-transform duration-300 active:scale-95 hover:bg-gray-700"
             {...props}
         >
-            <span className="tw-relative tw-flex tw-flex-col tw-items-center tw-justify-end tw-w-10">
+            <span className="relative flex flex-col items-center justify-end w-10">
                 <svg
-                    className="tw-z-[1] tw-w-[80%] tw-h-auto"
+                    className="z-[1] w-[80%] h-auto"
                     width="146"
                     height="113"
                     viewBox="0 0 146 113"
@@ -32,7 +32,7 @@ const DocumentButton = ({ name, ...props }) => {
                     </defs>
                 </svg>
                 <svg
-                    className="tw-absolute tw-z-[2] tw-w-[50%] tw-h-auto tw-transition-transform tw-duration-300 tw-ease-out tw-hover:translate-y-[-5px]"
+                    className="absolute z-[2] w-[50%] h-auto transition-transform duration-300 ease-out hover:translate-y-[-5px]"
                     width="88"
                     height="99"
                     viewBox="0 0 88 99"
@@ -59,7 +59,7 @@ const DocumentButton = ({ name, ...props }) => {
                     </defs>
                 </svg>
                 <svg
-                    className="tw-absolute tw-z-[3] tw-w-[85%] tw-h-auto tw-opacity-95 tw-origin-bottom tw-transition-transform tw-duration-300 tw-ease-out tw-hover:rotate-x-[30deg]"
+                    className="absolute z-[3] w-[85%] h-auto opacity-95 origin-bottom transition-transform duration-300 ease-out hover:rotate-x-[30deg]"
                     width="160"
                     height="79"
                     viewBox="0 0 160 79"
@@ -85,7 +85,7 @@ const DocumentButton = ({ name, ...props }) => {
                     </defs>
                 </svg>
             </span>
-            <p className="tw-text-gray-500 tw-font-semibold">{name}</p>
+            <p className="text-gray-500 font-semibold">{name}</p>
         </button>
     );
 };

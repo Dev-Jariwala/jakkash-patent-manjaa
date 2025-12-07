@@ -96,15 +96,15 @@ const PurchaseForm = () => {
 
     if (purchase && purchase?.collection_id !== activeCollection) {
         return (
-            <div className="tw-text-center tw-text-xl tw-text-red-500 tw-font-medium">
+            <div className="text-center text-xl text-red-500 font-medium">
                 This purchase does not belong to this collection.
             </div>
         );
     }
     return (
         <div className="">
-            <div className="tw-flex tw-items-center tw-justify-between tw-px-5 tw-border-b tw-border-gray-200 tw-py-4 tw-mb-3">
-                <div className="tw-text-xl tw-text-gray-700 tw-font-semibold">
+            <div className="flex items-center justify-between px-5 border-b border-gray-200 py-4 mb-3">
+                <div className="text-xl text-gray-700 font-semibold">
                     <BreadCrum
                         path={[
                             { path: "/", label: "Dashboard" },
@@ -118,29 +118,29 @@ const PurchaseForm = () => {
                 </div>
             </div>
             {isLoading ? (
-                <div className="tw-flex tw-items-center tw-justify-center tw-h-64">
+                <div className="flex items-center justify-center h-64">
                     <div className="basic-loader"></div>
                 </div>
             ) : <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="tw-w-full tw-px-5"
+                    className="w-full px-5"
                 >
-                    <div className=" tw-grid lg:tw-grid-cols-3 tw-gap-5">
+                    <div className=" grid lg:grid-cols-3 gap-5">
                         <FormField
                             control={form.control}
                             name="purchase_date"
                             render={({ field }) => (
-                                <FormItem className="tw-flex tw-flex-col">
-                                    <FormLabel>Date <sup className="tw-text-red-500 tw-text-base -tw-top-0">*</sup></FormLabel>
+                                <FormItem className="flex flex-col">
+                                    <FormLabel>Date <sup className="text-red-500 text-base -top-0">*</sup></FormLabel>
                                     <Popover>
                                         <PopoverTrigger asChild>
                                             <FormControl>
                                                 <Button
                                                     variant={"outline"}
                                                     className={cn(
-                                                        "tw-w-full tw-pl-3 tw-text-left tw-font-normal",
-                                                        !field.value && "tw-text-muted-foreground"
+                                                        "w-full pl-3 text-left font-normal",
+                                                        !field.value && "text-muted-foreground"
                                                     )}
                                                 >
                                                     {field.value ? (
@@ -148,11 +148,11 @@ const PurchaseForm = () => {
                                                     ) : (
                                                         <span>Pick a date</span>
                                                     )}
-                                                    <CalendarIcon className="tw-ml-auto tw-h-4 tw-w-4 tw-opacity-50" />
+                                                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                                 </Button>
                                             </FormControl>
                                         </PopoverTrigger>
-                                        <PopoverContent className="tw-w-auto tw-p-0" align="start">
+                                        <PopoverContent className="w-auto p-0" align="start">
                                             <Calendar
                                                 mode="single"
                                                 selected={field.value}
@@ -170,7 +170,7 @@ const PurchaseForm = () => {
                             name="invoice_no"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Invoice No <sup className="tw-text-red-500 tw-text-base -tw-top-0">*</sup></FormLabel>
+                                    <FormLabel>Invoice No <sup className="text-red-500 text-base -top-0">*</sup></FormLabel>
                                     <FormControl>
                                         <Input className="" {...field} />
                                     </FormControl>
@@ -183,7 +183,7 @@ const PurchaseForm = () => {
                             name="supplier_name"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Supplier Name <sup className="tw-text-red-500 tw-text-base -tw-top-0">*</sup></FormLabel>
+                                    <FormLabel>Supplier Name <sup className="text-red-500 text-base -top-0">*</sup></FormLabel>
                                     <FormControl>
                                         <Input className="" {...field} />
                                     </FormControl>
@@ -196,7 +196,7 @@ const PurchaseForm = () => {
                             name="rate"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Rate <sup className="tw-text-red-500 tw-text-base -tw-top-0">*</sup></FormLabel>
+                                    <FormLabel>Rate <sup className="text-red-500 text-base -top-0">*</sup></FormLabel>
                                     <FormControl>
                                         <Input className="" {...field} onChange={e => handleDecimalInputChange(e, field)} />
                                     </FormControl>
@@ -209,7 +209,7 @@ const PurchaseForm = () => {
                             name="quantity"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Quantity <sup className="tw-text-red-500 tw-text-base -tw-top-0">*</sup></FormLabel>
+                                    <FormLabel>Quantity <sup className="text-red-500 text-base -top-0">*</sup></FormLabel>
                                     <FormControl>
                                         <Input className="" {...field} onChange={e => handleNumberInputChange(e, field)} />
                                     </FormControl>
@@ -224,19 +224,19 @@ const PurchaseForm = () => {
                                 <FormItem>
                                     <FormLabel>Item Description</FormLabel>
                                     <FormControl>
-                                        <Textarea className="tw-bg-white" {...field} />
+                                        <Textarea className="bg-white" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
                     </div>
-                    <div className="tw-w-full tw-mt-5">
+                    <div className="w-full mt-5">
                         <MutationError mutation={createPurchaseMutation} />
                         {isError && !isLoading && (
-                            <QueryError className={"tw-mb-5"} error={error} />
+                            <QueryError className={"mb-5"} error={error} />
                         )}
-                        <Button variant="" disabled={createPurchaseMutation.isPending || updatePurchaseMutation.isPending} isLoading={createPurchaseMutation.isPending || updatePurchaseMutation.isPending} loadingText={formType === 'update' ? 'updating...' : 'creating...'} className="tw-bg-indigo-500 hover:tw-bg-indigo-600" type="submit">
+                        <Button variant="" disabled={createPurchaseMutation.isPending || updatePurchaseMutation.isPending} isLoading={createPurchaseMutation.isPending || updatePurchaseMutation.isPending} loadingText={formType === 'update' ? 'updating...' : 'creating...'} className="bg-indigo-500 hover:bg-indigo-600" type="submit">
                             {purchase_id && formType === "update" ? "Update" : "Create"}{" "}
                             Purchase
                         </Button>

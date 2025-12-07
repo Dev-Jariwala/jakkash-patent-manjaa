@@ -91,41 +91,41 @@ const AddStockModal = ({ open, onClose }) => {
 
     return (
         <Dialog open={open} onOpenChange={onClose}>
-            <DialogContent className="sm:tw-max-w-3xl tw-p-0 " style={{ fontFamily: 'Nunito, "Segoe UI", arial' }}>
-                <DialogHeader className='tw-flex-row tw-justify-between tw-px-4 tw-py-2 tw-border-b'>
-                    <DialogTitle className='tw-text-base'>Add Stock</DialogTitle>
+            <DialogContent className="sm:max-w-3xl p-0 " style={{ fontFamily: 'Nunito, "Segoe UI", arial' }}>
+                <DialogHeader className='flex-row justify-between px-4 py-2 border-b'>
+                    <DialogTitle className='text-base'>Add Stock</DialogTitle>
                     <DialogClose>
                         <X size={20} />
                     </DialogClose>
                 </DialogHeader>
-                <div className="tw-px-5 tw-pb-10 tw-pt-5">
+                <div className="px-5 pb-10 pt-5">
                     <Form {...form}>
                         <form
                             onSubmit={form.handleSubmit(onSubmit)}
-                            className="tw-w-full tw-px-5"
+                            className="w-full px-5"
                         >
-                            <div className=" tw-grid lg:tw-grid-cols-3 tw-gap-5">
+                            <div className=" grid lg:grid-cols-3 gap-5">
                                 <FormField
                                     control={form.control}
                                     name="date"
                                     render={({ field }) => (
                                         <FormItem className="">
-                                            <FormLabel>Date <sup className="tw-text-red-500 tw-text-base -tw-top-0">*</sup></FormLabel>
+                                            <FormLabel>Date <sup className="text-red-500 text-base -top-0">*</sup></FormLabel>
                                             <FormControl>
-                                                <Popover className="tw-relative">
+                                                <Popover className="relative">
                                                     {({ open }) => (
                                                         <>
-                                                            <PopoverButton className="tw-inline-flex tw-w-full tw-items-center tw-justify-between tw-rounded-md tw-text-sm tw-font- tw-ring-offset-background tw-transition-colors tw-border tw-border-input tw-bg-background hover:tw-bg-accent tw-text-gray-600 tw-py-2 tw-px-3">
-                                                                {field.value ? format(field.value, "dd/MM/yyyy") : <span className='tw-text-gray-400'> </span>}
+                                                            <PopoverButton className="inline-flex w-full items-center justify-between rounded-md text-sm font- ring-offset-background transition-colors border border-input bg-background hover:bg-accent text-gray-600 py-2 px-3">
+                                                                {field.value ? format(field.value, "dd/MM/yyyy") : <span className='text-gray-400'> </span>}
                                                                 <CalendarDays size={16} />
                                                             </PopoverButton>
-                                                            <Transition as={Fragment} show={open} enter="tw-transition tw-ease-out tw-duration-100" enterFrom="tw-opacity-0 tw-translate-y-1" enterTo="tw-opacity-100 tw-translate-y-0" leave="tw-transition tw-ease-in tw-duration-75" leaveFrom="tw-opacity-100 tw-translate-y-0" leaveTo="tw-opacity-0 tw-translate-y-1">
-                                                                <PopoverPanel className="tw-absolute tw-bg-white tw-left-1/2 tw-z-10 tw-mt-2 tw-max-w-sm tw--translate-x-1/2 tw-transform tw-rounded-md">
-                                                                    <div className="tw-border tw-border-solid tw-border-[#ddd] tw-px-2 tw-py-1 tw-rounded-md">
-                                                                        <div className="tw-float-right tw-mr-2 tw-cursor-pointer">
+                                                            <Transition as={Fragment} show={open} enter="transition ease-out duration-100" enterFrom="opacity-0 translate-y-1" enterTo="opacity-100 translate-y-0" leave="transition ease-in duration-75" leaveFrom="opacity-100 translate-y-0" leaveTo="opacity-0 translate-y-1">
+                                                                <PopoverPanel className="absolute bg-white left-1/2 z-10 mt-2 max-w-sm -translate-x-1/2 transform rounded-md">
+                                                                    <div className="border border-solid border-[#ddd] px-2 py-1 rounded-md">
+                                                                        <div className="float-right mr-2 cursor-pointer">
                                                                             <svg width="16" height="16" fill="currentColor"></svg>
                                                                         </div>
-                                                                        <div className="tw-box-border">
+                                                                        <div className="box-border">
                                                                             <Calendar
                                                                                 mode="single"
                                                                                 selected={field.value}
@@ -155,9 +155,9 @@ const AddStockModal = ({ open, onClose }) => {
                                     control={form.control}
                                     name="product_id"
                                     render={({ field }) => (
-                                        <FormItem className="tw-col-span-1">
+                                        <FormItem className="col-span-1">
                                             <FormLabel>
-                                                Product <sup className="tw-text-red-500 tw-text-base -tw-top-0">*</sup>
+                                                Product <sup className="text-red-500 text-base -top-0">*</sup>
                                             </FormLabel>
                                             <FormControl>
                                                 <ReactSelect
@@ -179,7 +179,7 @@ const AddStockModal = ({ open, onClose }) => {
                                     render={({ field }) => (
                                         <FormItem className="">
                                             <FormLabel>
-                                                Quantity <sup className="tw-text-red-500 tw-text-base -tw-top-0">*</sup>
+                                                Quantity <sup className="text-red-500 text-base -top-0">*</sup>
                                             </FormLabel>
                                             <FormControl>
                                                 <Input variant='ringShadow' {...field} onChange={(e) => handleNumberInputChange(e, field)} />
@@ -189,9 +189,9 @@ const AddStockModal = ({ open, onClose }) => {
                                     )}
                                 />
                             </div>
-                            <div className="tw-w-full tw-mt-5">
+                            <div className="w-full mt-5">
                                 <MutationError mutation={createStockMutation} />
-                                <Button variant="" disabled={createStockMutation?.isPending} isLoading={createStockMutation?.isPending} loadingText={'creating...'} className="tw-bg-indigo-500 hover:tw-bg-indigo-600" type="submit">
+                                <Button variant="" disabled={createStockMutation?.isPending} isLoading={createStockMutation?.isPending} loadingText={'creating...'} className="bg-indigo-500 hover:bg-indigo-600" type="submit">
                                     Create Stock
                                 </Button>
                             </div>

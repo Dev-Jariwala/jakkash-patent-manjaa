@@ -28,7 +28,7 @@ const PhoneInput = React.forwardRef(
         return (
             <RPNInput.default
                 ref={ref}
-                className={cn("tw-flex", className)}
+                className={cn("flex", className)}
                 flagComponent={FlagComponent}
                 countrySelectComponent={CountrySelect}
                 inputComponent={InputComponent}
@@ -53,7 +53,7 @@ const InputComponent = React.forwardRef(
     ({ className, ...props }, ref) => (
         <Input
             variant="ringShadow"
-            className={cn("tw-rounded-e-md tw-rounded-s-none tw-h-full", className)}
+            className={cn("rounded-e-md rounded-s-none h-full", className)}
             {...props}
             ref={ref}
         />
@@ -80,22 +80,22 @@ const CountrySelect = ({
                 <Button
                     type="button"
                     variant={"outline"}
-                    className={cn("tw-flex tw-h-full tw-gap-1 tw-rounded-e-none tw-rounded-s-md tw-px-3 tw-border-r-0")}
+                    className={cn("flex h-full gap-1 rounded-e-none rounded-s-md px-3 border-r-0")}
                     disabled={disabled}
                 >
                     <FlagComponent country={value} countryName={value} />
                     <ChevronsUpDown
                         className={cn(
-                            "-tw-mr-2 tw-h-4 tw-w-4 tw-opacity-50",
-                            disabled ? "tw-hidden" : "tw-opacity-100",
+                            "-mr-2 h-4 w-4 opacity-50",
+                            disabled ? "hidden" : "opacity-100",
                         )}
                     />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="tw-w-[300px] tw-p-0" style={{ fontFamily: 'Nunito, "Segoe UI", arial' }}>
+            <PopoverContent className="w-[300px] p-0" style={{ fontFamily: 'Nunito, "Segoe UI", arial' }}>
                 <Command>
                     <CommandList>
-                        <ScrollArea className="tw-h-72">
+                        <ScrollArea className="h-72">
                             <CommandInput placeholder="Search country..." />
                             <CommandEmpty>No country found.</CommandEmpty>
                             <CommandGroup>
@@ -103,7 +103,7 @@ const CountrySelect = ({
                                     .filter((x) => x.value)
                                     .map((option) => (
                                         <CommandItem
-                                            className="tw-gap-2"
+                                            className="gap-2"
                                             key={option.value}
                                             onSelect={() => handleSelect(option.value)}
                                         >
@@ -111,16 +111,16 @@ const CountrySelect = ({
                                                 country={option.value}
                                                 countryName={option.label}
                                             />
-                                            <span className="tw-flex-1 tw-text-sm">{option.label}</span>
+                                            <span className="flex-1 text-sm">{option.label}</span>
                                             {option.value && (
-                                                <span className="tw-text-sm tw-text-foreground/50">
+                                                <span className="text-sm text-foreground/50">
                                                     {`+${RPNInput.getCountryCallingCode(option.value)}`}
                                                 </span>
                                             )}
                                             <CheckIcon
                                                 className={cn(
-                                                    "tw-ml-auto tw-h-4 tw-w-4",
-                                                    option.value === value ? "tw-opacity-100" : "tw-opacity-0",
+                                                    "ml-auto h-4 w-4",
+                                                    option.value === value ? "opacity-100" : "opacity-0",
                                                 )}
                                             />
                                         </CommandItem>
@@ -138,7 +138,7 @@ const FlagComponent = ({ country, countryName }) => {
     const Flag = flags[country];
 
     return (
-        <span className="tw-flex tw-h-4 tw-w-6 tw-overflow-hidden tw-rounded-sm tw-bg-foreground/20">
+        <span className="flex h-4 w-6 overflow-hidden rounded-sm bg-foreground/20">
             {Flag && <Flag title={countryName} />}
         </span>
     );

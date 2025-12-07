@@ -26,8 +26,8 @@ const ClientReport = () => {
         }
     }, [billDataError]);
     return (
-        <div className="my-3 tw-h-full tw-w-full tw-flex tw-justify-center tw-items-center">
-            {isBillDataLoading ? <div className="tw-flex tw-items-center tw-justify-between tw-h-64">
+        <div className="my-3 h-full w-full flex justify-center items-center">
+            {isBillDataLoading ? <div className="flex items-center justify-between h-64">
                 <TypeWritterLoader />
             </div>
                 :

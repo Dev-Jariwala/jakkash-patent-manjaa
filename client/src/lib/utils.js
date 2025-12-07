@@ -1,7 +1,7 @@
 import { clsx } from "clsx";
 import { extendTailwindMerge } from "tailwind-merge";
 const twMerge = extendTailwindMerge({
-  prefix: "tw-",
+  prefix: "",
 });
 export function cn(...inputs) {
   return twMerge(clsx(inputs));

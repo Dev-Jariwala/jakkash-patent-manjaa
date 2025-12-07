@@ -148,7 +148,7 @@ const Carousel = React.forwardRef((
       <div
         ref={ref}
         onKeyDownCapture={handleKeyDown}
-        className={cn("tw-relative", className)}
+        className={cn("relative", className)}
         role="region"
         aria-roledescription="carousel"
         {...props}
@@ -165,12 +165,12 @@ const CarouselContent = React.forwardRef(({ className, ...props }, ref) => {
   const { carouselRef, orientation } = useCarousel()
 
   return (
-    (<div ref={carouselRef} className="tw-overflow-hidden">
+    (<div ref={carouselRef} className="overflow-hidden">
       <div
         ref={ref}
         className={cn(
-          "tw-flex",
-          orientation === "horizontal" ? "tw--ml-4" : "tw--mt-4 tw-flex-col",
+          "flex",
+          orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
           className
         )}
         {...props} />
@@ -188,8 +188,8 @@ const CarouselItem = React.forwardRef(({ className, ...props }, ref) => {
       role="group"
       aria-roledescription="slide"
       className={cn(
-        "tw-min-w-0 tw-shrink-0 tw-grow-0 tw-basis-full",
-        orientation === "horizontal" ? "tw-pl-4" : "tw-pt-4",
+        "min-w-0 shrink-0 grow-0 basis-full",
+        orientation === "horizontal" ? "pl-4" : "pt-4",
         className
       )}
       {...props} />)
@@ -206,17 +206,17 @@ const CarouselPrevious = React.forwardRef(({ className, variant = "outline", siz
       variant={variant}
       size={size}
       className={cn(
-        "tw-absolute tw-h-8 tw-w-8 tw-rounded-full",
+        "absolute h-8 w-8 rounded-full",
         orientation === "horizontal"
-          ? "tw--left-12 tw-top-1/2 tw--translate-y-1/2"
-          : "tw--top-12 tw-left-1/2 tw--translate-x-1/2 tw-rotate-90",
+          ? "-left-12 top-1/2 -translate-y-1/2"
+          : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
       disabled={!canScrollPrev}
       onClick={scrollPrev}
       {...props}>
-      <ChevronLeft className="tw-h-4 tw-w-4" />
-      <span className="tw-sr-only">Previous slide</span>
+      <ChevronLeft className="h-4 w-4" />
+      <span className="sr-only">Previous slide</span>
     </Button>)
   );
 })
@@ -230,14 +230,14 @@ const CarouselNext = React.forwardRef(({ className, variant = "outline", size = 
       ref={ref}
       variant={variant}
       size={size}
-      className={cn("tw-absolute tw-rounded-full", orientation === "horizontal"
-        ? "tw--right-12 tw-top-1/2 tw--translate-y-1/2"
-        : "tw--bottom-12 tw-left-1/2 tw--translate-x-1/2 tw-rotate-90", className)}
+      className={cn("absolute rounded-full", orientation === "horizontal"
+        ? "-right-12 top-1/2 -translate-y-1/2"
+        : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90", className)}
       disabled={!canScrollNext}
       onClick={scrollNext}
       {...props}>
-      <ChevronRight className="tw-h-4 tw-w-4" />
-      <span className="tw-sr-only">Next slide</span>
+      <ChevronRight className="h-4 w-4" />
+      <span className="sr-only">Next slide</span>
     </Button>)
   );
 })
@@ -249,15 +249,15 @@ const CarouselDots = React.forwardRef(({ className, ...props }, ref) => {
   if (!scrollSnaps.length) return null
 
   return (
-    <div className={cn("tw-flex tw-gap-3", className)} ref={ref} {...props}>
+    <div className={cn("flex gap-3", className)} ref={ref} {...props}>
       {scrollSnaps.map((_, index) => {
         return (
           <button
             key={index}
             aria-label={`Slide - ${index}`}
             className={cn(
-              "tw-size-2.5 tw-cursor-pointer tw-rounded-full tw-border tw-border-primary",
-              index === selectedIndex && "tw-bg-primary"
+              "size-2.5 cursor-pointer rounded-full border border-primary",
+              index === selectedIndex && "bg-primary"
             )}
             onClick={() => onDotButtonClick(index)}
           />

@@ -72,7 +72,7 @@ const HoursMinutesInput = React.forwardRef(({ className, type = "tel", value, id
             id={id || inputType}
             name={name || inputType}
             placeholder={inputType === InputType.HOURS ? "HHH" : "MM"}
-            className={cn("tw-text-center tw-font-mono tw-text-base tw-tabular-nums tw-caret-transparent focus:tw-bg-accent focus:tw-text-accent-foreground [&::-webkit-inner-spin-button]:tw-appearance-none", inputType === InputType.HOURS ? "tw-w-[72px]" : "tw-w-[48px]", className)}
+            className={cn("text-center font-mono text-base tabular-nums caret-transparent focus:bg-accent focus:text-accent-foreground [&::-webkit-inner-spin-button]:appearance-none", inputType === InputType.HOURS ? "w-[72px]" : "w-[48px]", className)}
             value={value}
             onChange={(e) => handleChange(e.target.value)}
             type={type}
@@ -117,8 +117,8 @@ export function HoursMinutesInputGroup({ onChange, value, maxHours = 999 }) {
     const minuteRef = React.createRef(null);
 
     return (
-        <div className="tw-flex tw-items-center tw-space-x-2">
-            <div className="tw-grid tw-gap-1 tw-text-center">
+        <div className="flex items-center space-x-2">
+            <div className="grid gap-1 text-center">
                 <Label htmlFor="hours">Hours</Label>
                 <HoursMinutesInput
                     ref={hourRef}
@@ -129,7 +129,7 @@ export function HoursMinutesInputGroup({ onChange, value, maxHours = 999 }) {
                     onRightFocus={() => minuteRef.current.focus()}
                 />
             </div>
-            <div className="tw-grid tw-gap-1 tw-text-center">
+            <div className="grid gap-1 text-center">
                 <Label htmlFor="minutes">Minutes</Label>
                 <HoursMinutesInput
                     ref={minuteRef}

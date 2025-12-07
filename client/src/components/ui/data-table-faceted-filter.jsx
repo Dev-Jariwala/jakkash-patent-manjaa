@@ -21,23 +21,23 @@ export function DataTableFacetedFilter({ column, title, options }) {
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <Button variant="outline" size="sm" className="tw-h-8 tw-border-dashed">
-                    <PlusCircle className="tw-mr-2 tw-h-4 tw-w-4" />
+                <Button variant="outline" size="sm" className="h-8 border-dashed">
+                    <PlusCircle className="mr-2 h-4 w-4" />
                     {title}
                     {selectedValues?.size > 0 && (
                         <>
-                            <Separator orientation="vertical" className="tw-mx-2 tw-h-4" />
+                            <Separator orientation="vertical" className="mx-2 h-4" />
                             <Badge
                                 variant="secondary"
-                                className="tw-rounded-sm tw-px-1 tw-font-normal lg:tw-hidden"
+                                className="rounded-sm px-1 font-normal lg:hidden"
                             >
                                 {selectedValues.size}
                             </Badge>
-                            <div className="tw-hidden tw-space-x-1 lg:tw-flex">
+                            <div className="hidden space-x-1 lg:flex">
                                 {selectedValues.size > 2 ? (
                                     <Badge
                                         variant="secondary"
-                                        className="tw-rounded-sm tw-px-1 tw-font-normal"
+                                        className="rounded-sm px-1 font-normal"
                                     >
                                         {selectedValues.size} selected
                                     </Badge>
@@ -48,7 +48,7 @@ export function DataTableFacetedFilter({ column, title, options }) {
                                             <Badge
                                                 variant="secondary"
                                                 key={option.value}
-                                                className="tw-rounded-sm tw-px-1 tw-font-normal"
+                                                className="rounded-sm px-1 font-normal"
                                             >
                                                 {option.label}
                                             </Badge>
@@ -59,13 +59,13 @@ export function DataTableFacetedFilter({ column, title, options }) {
                     )}
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="tw-w-[200px] tw-p-0 tw-text-xs md:tw-text-sm" align="start" style={{ fontFamily: 'Nunito, "Segoe UI", arial' }}>
+            <PopoverContent className="w-[200px] p-0 text-xs md:text-sm" align="start" style={{ fontFamily: 'Nunito, "Segoe UI", arial' }}>
                 <Command>
                     <CommandInput placeholder={title} />
                     <CommandList>
                         <CommandEmpty>No results found.</CommandEmpty>
                         <CommandGroup>
-                            <ScrollArea className="tw-h-56">
+                            <ScrollArea className="h-56">
                                 {sortedOptions.map((option) => {
                                     const isSelected = selectedValues.has(option.value)
                                     return (
@@ -85,20 +85,20 @@ export function DataTableFacetedFilter({ column, title, options }) {
                                         >
                                             <div
                                                 className={cn(
-                                                    "tw-mr-2 flex tw-h-4 tw-w-4 tw-items-center tw-justify-center tw-rounded-sm tw-border tw-border-primary",
+                                                    "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
                                                     isSelected
-                                                        ? "tw-bg-primary tw-text-primary-foreground"
-                                                        : "tw-opacity-50 [&_svg]:tw-invisible"
+                                                        ? "bg-primary text-primary-foreground"
+                                                        : "opacity-50 [&_svg]:invisible"
                                                 )}
                                             >
-                                                <Check className={cn("tw-h-4 tw-w-4")} />
+                                                <Check className={cn("h-4 w-4")} />
                                             </div>
                                             {option.icon && (
-                                                <option.icon className="tw-mr-2 tw-h-4 tw-w-4 tw-text-muted-foreground" />
+                                                <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
                                             )}
                                             <span>{option.label}</span>
                                             {facets?.get(option.value) && (
-                                                <span className="tw-ml-auto tw-rounded-full tw-bg-indigo-200 tw-flex tw-h-4 tw-w-4 tw-items-center tw-justify-center tw-font-mono tw-text-xs">
+                                                <span className="ml-auto rounded-full bg-indigo-200 flex h-4 w-4 items-center justify-center font-mono text-xs">
                                                     {facets.get(option.value)}
                                                 </span>
                                             )}
@@ -113,7 +113,7 @@ export function DataTableFacetedFilter({ column, title, options }) {
                                 <CommandGroup>
                                     <CommandItem
                                         onSelect={() => column?.setFilterValue(undefined)}
-                                        className="tw-justify-center tw-text-center"
+                                        className="justify-center text-center"
                                     >
                                         Clear filters
                                     </CommandItem>

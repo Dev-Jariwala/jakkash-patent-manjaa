@@ -216,7 +216,7 @@ const TagInput = React.forwardRef((props, ref) => {
 
     return (
         <div
-            className={`tw-w-full tw-flex ${!includeTagsInInput && tags.length > 0 ? 'tw-gap-3' : ''} ${inputFieldPosition === 'bottom' ? 'tw-flex-col' : inputFieldPosition === 'top' ? 'tw-flex-col-reverse' : 'tw-flex-row'
+            className={`w-full flex ${!includeTagsInInput && tags.length > 0 ? 'gap-3' : ''} ${inputFieldPosition === 'bottom' ? 'flex-col' : inputFieldPosition === 'top' ? 'flex-col-reverse' : 'flex-row'
                 }`}
         >
             {!usePopoverForTags &&
@@ -243,9 +243,9 @@ const TagInput = React.forwardRef((props, ref) => {
                     />
                 ) : (
                     !enableAutocomplete && (
-                        <div className="tw-w-full">
+                        <div className="w-full">
                             <div
-                                className={`tw-flex tw-flex-row tw-flex-wrap tw-items-center tw-gap-2 tw-p-2 tw-w-full tw-rounded-md tw-border tw-border-input tw-bg-background tw-text-sm tw-ring-offset-background file:tw-border-0 file:tw-bg-transparent file:tw-text-sm file:tw-font-medium placeholder:tw-text-muted-foreground focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-ring focus-visible:tw-ring-offset-2 disabled:cursor-not-allowed disabled:tw-opacity-50`}
+                                className={`flex flex-row flex-wrap items-center gap-2 p-2 w-full rounded-md border border-input bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50`}
                             >
                                 <TagList
                                     tags={truncatedTags}
@@ -280,7 +280,7 @@ const TagInput = React.forwardRef((props, ref) => {
                                     {...inputProps}
                                     className={cn(
                                         className,
-                                        'tw-border-0 tw-px-1 tw-py-0 tw-bg-transparent sm:min-w-focus-visible:tw-ring-0 focus-visible:tw-ring-transparent focus-visible:tw-ring-offset-0 tw-min-w-10 tw-w-fit',
+                                        'border-0 px-1 py-0 bg-transparent sm:min-w-focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 min-w-10 w-fit',
                                     )}
                                     autoComplete={enableAutocomplete ? 'on' : 'off'}
                                     list={enableAutocomplete ? 'autocomplete-options' : undefined}
@@ -291,7 +291,7 @@ const TagInput = React.forwardRef((props, ref) => {
                     )
                 ))}
             {enableAutocomplete ? (
-                <div className="tw-w-full">
+                <div className="w-full">
                     <Autocomplete
                         tags={tags}
                         setTags={setTags}
@@ -312,11 +312,11 @@ const TagInput = React.forwardRef((props, ref) => {
                                     onKeyDown={handleKeyDown}
                                     onFocus={handleInputFocus}
                                     onBlur={handleInputBlur}
-                                    className={cn('tw-w-full', className)}
+                                    className={cn('w-full', className)}
                                 />
                             ) : (
                                 <div
-                                    className={`tw-flex tw-flex-row tw-flex-wrap tw-items-center tw-p-2 tw-gap-2 tw-h-fit tw-w-full tw-bg-background tw-text-sm tw-ring-offset-background file:tw-border-0 file:tw-bg-transparent file:tw-text-sm file:tw-font-medium placeholder:tw-text-muted-foreground focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-ring focus-visible:tw-ring-offset-2 disabled:tw-cursor-not-allowed disabled:tw-opacity-50`}
+                                    className={`flex flex-row flex-wrap items-center p-2 gap-2 h-fit w-full bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50`}
                                 >
                                     <TagList
                                         tags={truncatedTags}
@@ -348,7 +348,7 @@ const TagInput = React.forwardRef((props, ref) => {
                                         onFocus={handleInputFocus}
                                         onBlur={handleInputBlur}
                                         includeTagsInInput={includeTagsInInput}
-                                        className={cn('tw-border-0 tw-min-w-[130px] tw-h-5', className)}
+                                        className={cn('border-0 min-w-[130px] h-5', className)}
                                     />
                                 </div>
                             )
@@ -381,14 +381,14 @@ const TagInput = React.forwardRef((props, ref) => {
                                     onKeyDown={handleKeyDown}
                                     onFocus={handleInputFocus}
                                     onBlur={handleInputBlur}
-                                    className={cn('tw-w-full', className)}
+                                    className={cn('w-full', className)}
                                 />
                             </TagPopover>
                         )}
                     </Autocomplete>
                 </div>
             ) : (
-                <div className="tw-w-full">
+                <div className="w-full">
                     {!usePopoverForTags ? (
                         !includeTagsInInput ? (
                             <Input
@@ -450,14 +450,14 @@ const TagInput = React.forwardRef((props, ref) => {
             )}
 
             {showCount && maxTags && (
-                <div className="tw-flex">
-                    <span className="tw-text-muted-foreground tw-text-sm tw-mt-1 tw-ml-auto">
+                <div className="flex">
+                    <span className="text-muted-foreground text-sm mt-1 ml-auto">
                         {`${tagCount}`}/{`${maxTags}`}
                     </span>
                 </div>
             )}
             {clearAll && (
-                <Button type="button" onClick={handleClearAll} className="tw-mt-2">
+                <Button type="button" onClick={handleClearAll} className="mt-2">
                     Clear All
                 </Button>
             )}

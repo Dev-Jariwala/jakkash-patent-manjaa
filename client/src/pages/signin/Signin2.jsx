@@ -47,34 +47,34 @@ const Signin = () => {
   };
 
   return (
-    <div className="tw-max-h-[100dvh] tw-overflow-auto tw-flex tw-items-center tw-justify-center tw-bg-white tw-py-12 tw-px-4 sm:tw-px-6 lg:tw-px-8">
-      <div className="tw-w-full tw-max-w-7xl tw-mx-auto tw-flex tw-flex-col lg:tw-flex-row tw-items-center tw-justify-between">
-        <div className="tw-hidden lg:tw-block tw-w-1/2 tw-pr-12">
+    <div className="max-h-[100dvh] overflow-auto flex items-center justify-center bg-white py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between">
+        <div className="hidden lg:block w-1/2 pr-12">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="tw-text-4xl tw-font-bold tw-text-gray-900 tw-mb-6">
+            <h1 className="text-4xl font-bold text-gray-900 mb-6">
               Welcome to Jakkash
             </h1>
-            <p className="tw-text-xl tw-text-gray-600 tw-mb-8">
+            <p className="text-xl text-gray-600 mb-8">
               Discover amazing features and boost your productivity with our
               platform.
             </p>
-            {/* <div className="tw-relative">
+            {/* <div className="relative">
               <KeyRound
                 size={100}
-                className="tw-absolute tw-left-[50px] -tw-top-[30px] tw-text-indigo-500"
+                className="absolute left-[50px] -top-[30px] text-indigo-500"
               />
-              <LockKeyhole size={100} className="tw-text-gray-600" />
+              <LockKeyhole size={100} className="text-gray-600" />
             </div> */}
             <img
               src={`${
                 import.meta.env.VITE_BACKEND_URL
               }imgs/login-template.webp`}
               alt="Jakkash Illustration"
-              className="tw-w-full tw-max-w-md tw-mx-auto"
+              className="w-full max-w-md mx-auto"
             />
           </motion.div>
         </div>
@@ -83,37 +83,37 @@ const Signin = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="tw-max-w-md tw-w-full tw-space-y-8 tw-bg-white tw-p-10 tw-rounded-xl tw-shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)]"
+          className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)]"
         >
-          <div className="tw-text-center">
+          <div className="text-center">
             <img
-              className="tw-mx-auto tw-h-20 tw-rounded-full tw-w-auto"
+              className="mx-auto h-20 rounded-full w-auto"
               src={`${import.meta.env.VITE_BACKEND_URL}imgs/logo.png`}
               alt="Jakkash Logo"
             />
-            <h2 className="tw-mt-6 tw-text-3xl tw-font-extrabold tw-text-gray-900">
+            <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
               Welcome Back!
             </h2>
-            <p className="tw-mt-2 tw-text-sm tw-text-gray-600">
+            <p className="mt-2 text-sm text-gray-600">
               Sign in to continue to Jakkash
             </p>
           </div>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="tw-mt-8 tw-space-y-6"
+              className="mt-8 space-y-6"
             >
-              <div className="tw-rounded-md tw-shadow-sm -tw-space-y-px">
+              <div className="rounded-md shadow-sm -space-y-px">
                 <FormField
                   control={form.control}
                   name="username"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="tw-sr-only">Username</FormLabel>
+                      <FormLabel className="sr-only">Username</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
-                          className="tw-appearance-none tw-rounded-t-md tw-relative tw-block tw-w-full tw-px-3 tw-py-2 tw-border tw-border-gray-300 tw-placeholder-gray-500 tw-text-gray-900 focus:tw-outline-none focus:tw-ring-indigo-500 focus:tw-border-indigo-500 focus:tw-z-10 sm:tw-text-sm"
+                          className="appearance-none rounded-t-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                           placeholder="Username"
                         />
                       </FormControl>
@@ -126,12 +126,12 @@ const Signin = () => {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="tw-sr-only">Password</FormLabel>
+                      <FormLabel className="sr-only">Password</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
                           type="password"
-                          className="tw-appearance-none tw-rounded-b-md tw-relative tw-block tw-w-full tw-px-3 tw-py-2 tw-border tw-border-gray-300 tw-placeholder-gray-500 tw-text-gray-900 focus:tw-outline-none focus:tw-ring-indigo-500 focus:tw-border-indigo-500 focus:tw-z-10 sm:tw-text-sm"
+                          className="appearance-none rounded-b-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                           placeholder="Password"
                         />
                       </FormControl>
@@ -141,26 +141,26 @@ const Signin = () => {
                 />
               </div>
 
-              <div className="tw-flex tw-items-center tw-justify-between">
-                <div className="tw-flex tw-items-center">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
                   <input
                     id="remember-me"
                     name="remember-me"
                     type="checkbox"
-                    className="tw-h-4 tw-w-4 tw-text-indigo-600 focus:tw-ring-indigo-500 tw-border-gray-300 tw-rounded"
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                   />
                   <label
                     htmlFor="remember-me"
-                    className="tw-ml-2 tw-block tw-text-sm tw-text-gray-900"
+                    className="ml-2 block text-sm text-gray-900"
                   >
                     Remember me
                   </label>
                 </div>
 
-                <div className="tw-text-sm">
+                <div className="text-sm">
                   <a
                     href="#"
-                    className="tw-font-medium tw-text-indigo-600 hover:tw-text-indigo-500"
+                    className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
                     Forgot your password?
                   </a>
@@ -170,56 +170,56 @@ const Signin = () => {
               <div>
                 <Button
                   type="submit"
-                  className="tw-group tw-relative tw-w-full tw-flex tw-justify-center tw-py-2 tw-px-4 tw-border tw-border-transparent tw-text-sm tw-font-medium tw-rounded-md tw-text-white tw-bg-indigo-600 hover:tw-bg-indigo-700 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-offset-2 focus:tw-ring-indigo-500 tw-transition-all tw-duration-200"
+                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200"
                 >
                   Sign in
                 </Button>
               </div>
             </form>
           </Form>
-          <div className="tw-mt-6">
-            <div className="tw-relative">
-              <div className="tw-absolute tw-inset-0 tw-flex tw-items-center">
-                <div className="tw-w-full tw-border-t tw-border-gray-300"></div>
+          <div className="mt-6">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300"></div>
               </div>
-              <div className="tw-relative tw-flex tw-justify-center tw-text-sm">
-                <span className="tw-px-2 tw-bg-white tw-text-gray-500">
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white text-gray-500">
                   Or continue with
                 </span>
               </div>
             </div>
-            <div className="tw-mt-6 tw-grid tw-grid-cols-3 tw-gap-3">
+            <div className="mt-6 grid grid-cols-3 gap-3">
               <Button
-                className="tw-w-full tw-inline-flex tw-justify-center tw-py-2 tw-px-4 tw-border tw-border-gray-300 tw-rounded-md tw-shadow-sm tw-bg-white tw-text-sm tw-font-medium tw-text-gray-500 hover:tw-bg-gray-50"
+                className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                 onClick={() => {
                   // Handle Google sign-in
                 }}
               >
-                <FcGoogle className="tw-h-5 tw-w-5" />
+                <FcGoogle className="h-5 w-5" />
               </Button>
               <Button
-                className="tw-w-full tw-inline-flex tw-justify-center tw-py-2 tw-px-4 tw-border tw-border-gray-300 tw-rounded-md tw-shadow-sm tw-bg-white tw-text-sm tw-font-medium tw-text-gray-500 hover:tw-bg-gray-50"
+                className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                 onClick={() => {
                   // Handle Facebook sign-in
                 }}
               >
-                <FaFacebook className="tw-h-5 tw-w-5 tw-text-blue-600" />
+                <FaFacebook className="h-5 w-5 text-blue-600" />
               </Button>
               <Button
-                className="tw-w-full tw-inline-flex tw-justify-center tw-py-2 tw-px-4 tw-border tw-border-gray-300 tw-rounded-md tw-shadow-sm tw-bg-white tw-text-sm tw-font-medium tw-text-gray-500 hover:tw-bg-gray-50"
+                className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                 onClick={() => {
                   // Handle Twitter sign-in
                 }}
               >
-                <FaTwitter className="tw-h-5 tw-w-5 tw-text-blue-400" />
+                <FaTwitter className="h-5 w-5 text-blue-400" />
               </Button>
             </div>
           </div>
-          <p className="tw-mt-8 tw-text-center tw-text-sm tw-text-gray-600">
+          <p className="mt-8 text-center text-sm text-gray-600">
             Not a member?{" "}
             <a
               href="#"
-              className="tw-font-medium tw-text-indigo-600 hover:tw-text-indigo-500"
+              className="font-medium text-indigo-600 hover:text-indigo-500"
             >
               Start a 14 day free trial
             </a>

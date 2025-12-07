@@ -38,14 +38,14 @@ const Tooltip = React.forwardRef(({
                         align="center"
                         className={cn(
                             // base
-                            "tw-max-w-60 tw-z-[111] tw-select-none tw-rounded-md tw-px-2.5 tw-py-1.5 tw-text-sm tw-leading-5 tw-shadow-md",
+                            "max-w-60 z-[111] select-none rounded-md px-2.5 py-1.5 text-sm leading-5 shadow-md",
                             // text color
-                            "tw-text-gray-50 dark:tw-text-gray-900",
+                            "text-gray-50 dark:text-gray-900",
                             // background color
-                            "tw-bg-gray-900 dark:tw-bg-gray-50",
+                            "bg-gray-900 dark:bg-gray-50",
                             // transition
-                            "tw-will-change-[transform,opacity]",
-                            "data-[side=bottom]:tw-animate-slideDownAndFade data-[side=left]:tw-animate-slideLeftAndFade data-[side=right]:tw-animate-slideRightAndFade data-[side=top]:tw-animate-slideUpAndFade data-[state=closed]:tw-animate-hide",
+                            "will-change-[transform,opacity]",
+                            "data-[side=bottom]:animate-slideDownAndFade data-[side=left]:animate-slideLeftAndFade data-[side=right]:animate-slideRightAndFade data-[side=top]:animate-slideUpAndFade data-[state=closed]:animate-hide",
                             className,
                         )}
                         {...props}
@@ -53,7 +53,7 @@ const Tooltip = React.forwardRef(({
                         {content}
                         {showArrow ? (
                             <TooltipPrimitives.Arrow
-                                className="tw-border-none tw-fill-gray-900 dark:tw-fill-gray-50"
+                                className="border-none fill-gray-900 dark:fill-gray-50"
                                 width={12}
                                 height={7}
                                 aria-hidden="true"

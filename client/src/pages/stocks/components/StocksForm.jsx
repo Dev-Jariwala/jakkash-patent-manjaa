@@ -115,15 +115,15 @@ const StocksForm = () => {
 
     if (stock && stock?.collection_id !== activeCollection) {
         return (
-            <div className="tw-text-center tw-text-xl tw-text-red-500 tw-font-medium">
+            <div className="text-center text-xl text-red-500 font-medium">
                 This product does not belong to this collection.
             </div>
         );
     }
     return (
         <div className="">
-            <div className="tw-flex tw-items-center tw-justify-between tw-px-5 tw-border-b tw-border-gray-200 tw-py-4 tw-mb-3">
-                <div className="tw-text-xl tw-text-gray-700 tw-font-semibold">
+            <div className="flex items-center justify-between px-5 border-b border-gray-200 py-4 mb-3">
+                <div className="text-xl text-gray-700 font-semibold">
                     <BreadCrum
                         path={[
                             { path: "/", label: "Dashboard" },
@@ -137,29 +137,29 @@ const StocksForm = () => {
                 </div>
             </div>
             {isLoading || isProductsLoading ? (
-                <div className="tw-flex tw-justify-center tw-items-center tw-h-64">
+                <div className="flex justify-center items-center h-64">
                     <div className="basic-loader"></div>
                 </div>
             ) : <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="tw-w-full tw-px-5"
+                    className="w-full px-5"
                 >
-                    <div className=" tw-grid lg:tw-grid-cols-3 tw-gap-5">
+                    <div className=" grid lg:grid-cols-3 gap-5">
                         <FormField
                             control={form.control}
                             name="date"
                             render={({ field }) => (
-                                <FormItem className="tw-flex tw-flex-col">
-                                    <FormLabel>Date <sup className="tw-text-red-500 tw-text-base -tw-top-0">*</sup></FormLabel>
+                                <FormItem className="flex flex-col">
+                                    <FormLabel>Date <sup className="text-red-500 text-base -top-0">*</sup></FormLabel>
                                     <Popover>
                                         <PopoverTrigger asChild>
                                             <FormControl>
                                                 <Button
                                                     variant={"outline"}
                                                     className={cn(
-                                                        "tw-w-full tw-pl-3 tw-text-left tw-font-normal",
-                                                        !field.value && "tw-text-muted-foreground"
+                                                        "w-full pl-3 text-left font-normal",
+                                                        !field.value && "text-muted-foreground"
                                                     )}
                                                 >
                                                     {field.value ? (
@@ -167,11 +167,11 @@ const StocksForm = () => {
                                                     ) : (
                                                         <span>Pick a date</span>
                                                     )}
-                                                    <CalendarIcon className="tw-ml-auto tw-h-4 tw-w-4 tw-opacity-50" />
+                                                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                                 </Button>
                                             </FormControl>
                                         </PopoverTrigger>
-                                        <PopoverContent className="tw-w-auto tw-p-0" align="start">
+                                        <PopoverContent className="w-auto p-0" align="start">
                                             <Calendar
                                                 mode="single"
                                                 selected={field.value}
@@ -188,9 +188,9 @@ const StocksForm = () => {
                             control={form.control}
                             name="product_id"
                             render={({ field }) => (
-                                <FormItem className="tw-col-span-1">
+                                <FormItem className="col-span-1">
                                     <FormLabel>
-                                        Product <sup className="tw-text-red-500 tw-text-base -tw-top-0">*</sup>
+                                        Product <sup className="text-red-500 text-base -top-0">*</sup>
                                     </FormLabel>
                                     <FormControl>
                                         <ReactSelect
@@ -212,7 +212,7 @@ const StocksForm = () => {
                             render={({ field }) => (
                                 <FormItem className="">
                                     <FormLabel>
-                                        Quantity <sup className="tw-text-red-500 tw-text-base -tw-top-0">*</sup>
+                                        Quantity <sup className="text-red-500 text-base -top-0">*</sup>
                                     </FormLabel>
                                     <FormControl>
                                         <Input variant='ringShadow' {...field} onChange={(e) => handleNumberInputChange(e, field)} />
@@ -222,12 +222,12 @@ const StocksForm = () => {
                             )}
                         />
                     </div>
-                    <div className="tw-w-full tw-mt-5">
+                    <div className="w-full mt-5">
                         <MutationError mutation={createStockMutation} />
                         {isError && !isLoading && (
-                            <QueryError className={"tw-mb-5"} error={error} />
+                            <QueryError className={"mb-5"} error={error} />
                         )}
-                        <Button variant="" disabled={createStockMutation?.isPending || updateStockMutation.isPending} isLoading={createStockMutation?.isPending || updateStockMutation.isPending} loadingText={formType === 'update' ? 'updating...' : 'creating...'} className="tw-bg-indigo-500 hover:tw-bg-indigo-600" type="submit">
+                        <Button variant="" disabled={createStockMutation?.isPending || updateStockMutation.isPending} isLoading={createStockMutation?.isPending || updateStockMutation.isPending} loadingText={formType === 'update' ? 'updating...' : 'creating...'} className="bg-indigo-500 hover:bg-indigo-600" type="submit">
                             {stock_id && formType === "update" ? "Update" : "Create"}{" "}
                             Stock
                         </Button>

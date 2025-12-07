@@ -17,7 +17,7 @@ const BreadCrum = ({ path = [] }) => {
           <Fragment key={link.path}>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link className="tw-capitalize" to={link.path}>
+                <Link className="capitalize" to={link.path}>
                   {link.label}
                 </Link>
               </BreadcrumbLink>

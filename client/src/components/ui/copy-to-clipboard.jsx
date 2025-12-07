@@ -49,15 +49,15 @@ const CopyToClipboard = ({ getValue, className, variant, text, size }) => {
                         type='button'
                         size={size || 'icon'}
                         variant={variant || "ghost"}
-                        className={cn('tw-flex tw-items-center', className)}
+                        className={cn('flex items-center', className)}
                     >
                         {copied ? <Check size={14} /> : <Copy absoluteStrokeWidth={false} size={14} />}
-                        {text && <span className="tw-ml-2">{text}</span>}
-                        <span className="tw-sr-only">Copy</span>
+                        {text && <span className="ml-2">{text}</span>}
+                        <span className="sr-only">Copy</span>
                     </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                    <p className='tw-mb-0'>Copied to clipboard!</p>
+                    <p className='mb-0'>Copied to clipboard!</p>
                 </TooltipContent>
             </Tooltip>
         </TooltipProvider>

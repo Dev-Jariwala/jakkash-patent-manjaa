@@ -42,9 +42,9 @@ const PurchasesReport = () => {
     }, [purchasesReportError])
 
     return (
-        <div className="tw-w-full tw-flex tw-flex-col tw-items-center tw-h-full">
+        <div className="w-full flex flex-col items-center h-full">
             {isPurchasesReportLoading ?
-                <div className="tw-flex tw-items-center tw-justify-between tw-h-64">
+                <div className="flex items-center justify-between h-64">
                     <TypeWritterLoader />
                 </div>
                 : <>
@@ -57,8 +57,8 @@ const PurchasesReport = () => {
                             />
                         </PDFViewer>
                     ) : (
-                        <div className="tw-flex tw-items-center tw-justify-center tw-h-64">
-                            <h1 className="tw-text-lg tw-font-medium tw-text-center tw-text-gray-500">
+                        <div className="flex items-center justify-center h-64">
+                            <h1 className="text-lg font-medium text-center text-gray-500">
                                 No purchases found in the collection.
                             </h1>
                         </div>

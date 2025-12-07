@@ -10,17 +10,17 @@ const BillsPdfModal = ({ open, onClose }) => {
     const bill_id = searchParams.get('bill_id');
     return (
         <Dialog open={open} onOpenChange={onClose}>
-            <DialogContent className="sm:tw-max-w-3xl tw-p-0 " style={{ fontFamily: 'Nunito, "Segoe UI", arial' }}>
-                <DialogHeader className='tw-flex-row tw-justify-between tw-px-4 tw-py-2 tw-border-b'>
-                    <DialogTitle className='tw-text-base tw-flex tw-items-center tw-space-x-2'>
+            <DialogContent className="sm:max-w-3xl p-0 " style={{ fontFamily: 'Nunito, "Segoe UI", arial' }}>
+                <DialogHeader className='flex-row justify-between px-4 py-2 border-b'>
+                    <DialogTitle className='text-base flex items-center space-x-2'>
                         <span>Bill PDF</span>
-                        <Link className="tw-text-blue-500" target="_blank" to={`/bills/view?bill_id=${bill_id}`} ><ExternalLink size={16} /></Link>
+                        <Link className="text-blue-500" target="_blank" to={`/bills/view?bill_id=${bill_id}`} ><ExternalLink size={16} /></Link>
                     </DialogTitle>
                     <DialogClose>
                         <X size={20} />
                     </DialogClose>
                 </DialogHeader>
-                <div className="tw-px-2 tw-pb-2">
+                <div className="px-2 pb-2">
                     <BillsView />
                 </div>
             </DialogContent>
