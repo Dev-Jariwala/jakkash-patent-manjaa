@@ -276,7 +276,7 @@ export const validateUpdateBillById = [
         if (product.stock_in_hand + billItem.quantity < currProd.quantity) {
           throw new Error("Insufficient stock in hand for product_id");
         }
-      }else{
+      } else {
         if (product.stock_in_hand < currProd.quantity) {
           throw new Error("Insufficient stock in hand for product_id");
         }
@@ -404,3 +404,52 @@ export const validateUpdateBillById = [
     next();
   },
 ];
+
+export const validateUpdateBillDeliveryStatus = [
+  param("collection_id")
+    .notEmpty()
+    .withMessage("collection_id is required")
+    .custom(async (value, { req }) => {
+      if (!value) {
+        throw new Error("collection_id is required");
+      }
+      const [collection] = await query(
+        "SELECT * FROM collections WHERE collection_id = $1",
+        [value]
+      );
+      if (!collection) {
+        throw new Error("collection not found");
+      }
+      req.collection = collection;
+      return true;
+    }),
+  param("bill_id")
+    .notEmpty()
+    .withMessage("bill_id is required")
+    .custom(async (value, { req }) => {
+      if (!value) {
+        throw new Error("bill_id is required");
+      }
+      const [bill] = await query(
+        "SELECT * FROM bills WHERE bill_id = $1 and collection_id = $2",
+        [value, req.collection.collection_id]
+      );
+      if (!bill) {
+        throw new Error("bill not found");
+      }
+      req.bill = bill;
+      return true;
+    }),
+  body("is_delivered")
+    .notEmpty()
+    .withMessage("is_delivered is required")
+    .isBoolean()
+    .withMessage("is_delivered must be a boolean"),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    next();
+  },
+]

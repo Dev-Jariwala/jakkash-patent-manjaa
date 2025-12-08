@@ -42,15 +42,15 @@ import { query } from "../utils/query.js";
 // );
 
 export const createBill = async (req, res, next) => {
-  const { bill_no, bill_type, name, address, mobile, notes, total_firki, sub_total, advance, discount, total_due, order_date, delivery_date, bill_items, } = req.body;
+  const { bill_no, bill_type, name, address, mobile, notes, total_firki, sub_total, advance, discount, total_due, order_date, delivery_date, bill_items, is_delivered = false } = req.body;
   const products = req.products || [];
   const { collection_id } = req.params;
   try {
     const [newBill] = await query(
       `insert into bills 
-        (collection_id, bill_no, bill_type, mobile, name, address, order_date, delivery_date, notes, total_firki, sub_total, discount, advance, total_due)
-        values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) returning *`,
-      [collection_id, bill_no, bill_type, mobile, name, address, order_date, delivery_date, notes, total_firki, sub_total, discount, advance, total_due]
+        (collection_id, bill_no, bill_type, mobile, name, address, order_date, delivery_date, notes, total_firki, sub_total, discount, advance, total_due, delivered_at)
+        values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) returning *`,
+      [collection_id, bill_no, bill_type, mobile, name, address, order_date, delivery_date, notes, total_firki, sub_total, discount, advance, total_due, is_delivered ? 'now()' : null]
     );
     if (!newBill) {
       return res.status(400).json({ message: 'Error creating bill', error: 'Error creating bill' })
@@ -122,7 +122,7 @@ export const getBills = async (req, res) => {
     // Add search filter (assuming search applies to bill_no, name, or mobile)
     let billsParams = [collection_id, bill_type];
     if (search) {
-      billsQuery += ` AND ( c.name ILIKE $3 OR b.mobile ILIKE $3 OR b.bill_no::text ILIKE $3)`;
+      billsQuery += ` AND ( c.name ILIKE $3 OR b.mobile ILIKE $3 OR b.bill_no::text ILIKE $3 OR b.bill_id::text ILIKE $3)`;
       billsParams.push(`%${search}%`);
     }
 
@@ -251,6 +251,30 @@ export const updateBillById = async (req, res) => {
     res.status(200).json({ message: "Bill updated successfully", bill: updatedBill, billItems });
   } catch (error) {
     handleError('updateBillById', res, error);
+  }
+};
+
+export const updateBillDeliveryStatus = async (req, res) => {
+  const { bill_id, collection_id } = req.params;
+  const { is_delivered } = req.body;
+  try {
+    const [bill] = await query(`select * from bills where bill_id = $1 and collection_id = $2`, [bill_id, collection_id]);
+    if (!bill) {
+      return res.status(404).json({ message: 'Bill not found' });
+    }
+    if ((bill.delivered_at && is_delivered) || (!bill.delivered_at && !is_delivered)) {
+      return res.status(400).json({ message: 'Bill delivery status is already ' + (is_delivered ? 'delivered' : 'not delivered') });
+    }
+    const [updatedBill] = await query(
+      `update bills set delivered_at = $1 where bill_id = $2 and collection_id = $3 returning *`,
+      [is_delivered ? 'now()' : null, bill_id, collection_id]
+    );
+    if (!updatedBill) {
+      return res.status(400).json({ message: 'Error updating bill delivery status', error: 'Error updating bill delivery status' });
+    }
+    res.status(200).json({ message: 'Bill delivery status updated successfully', bill: updatedBill });
+  } catch (error) {
+    handleError('updateBillDeliveryStatus', res, error);
   }
 };
 

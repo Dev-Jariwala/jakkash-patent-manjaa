@@ -51,6 +51,15 @@ export const updateBillById = async ({ collection_id, bill_id, data }) => {
     return response;
 }
 
+export const updateBillDeliveryStatus = async ({ collection_id, bill_id, data }) => {
+    const response = await axios({
+        method: "PATCH",
+        url: `${import.meta.env.VITE_BACKEND_URL}collections/${collection_id}/bills/${bill_id}/delivered`,
+        data: data,
+    });
+    return response;
+}
+
 // router.get('/:collection_id/bills/:bill_type/report', billsControllers.getBillReport);
 
 export const getBillReport = async ({ collection_id, bill_type, fromBillNo, toBillNo }) => {

@@ -22,6 +22,7 @@ import { createBill, getBillById, getNextBillNo, updateBillById } from "@/servic
 import { handleDecimalInputChange, handleNumberInputChange, productNamesOrder, sortProductsByNames } from "@/helper/formHelper";
 import { getClientByMobileNumber } from "@/services/clients";
 import AddStockModal from "./AddStockModal";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const BillsForm = () => {
     const { bill_id } = useParams();
@@ -85,6 +86,7 @@ const BillsForm = () => {
                 const { sub_total, discount, advance } = this.parent;
                 return sub_total === (discount + advance + value);
             }),
+        is_delivered: yup.boolean().optional(),
     });
     // const bill_id = searchParams.get("bill_id");
     const form = useForm({
@@ -105,6 +107,7 @@ const BillsForm = () => {
             discount: 0,
             advance: 0,
             total_due: 0,
+            is_delivered: false,
         },
     });
 
@@ -216,6 +219,7 @@ const BillsForm = () => {
             form.setValue('discount', bill.discount);
             form.setValue('advance', bill.advance);
             form.setValue('total_due', bill.total_due);
+            form.setValue('is_delivered', bill.delivered_at ? true : false);
         }
     }, [bill, formType, products]);
 
@@ -632,6 +636,19 @@ const BillsForm = () => {
                                             </FormItem>
                                         )}
                                     />
+                                    {formType === "new" && <FormField
+                                        control={form.control}
+                                        name="is_delivered"
+                                        render={({ field }) => (
+                                            <FormItem className="flex items-center gap-2 space-y-0">
+                                                <FormLabel>Mark as Delivered</FormLabel>
+                                                <FormControl>
+                                                    <Checkbox {...field} checked={field.value} onCheckedChange={field.onChange} />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />}
                                 </div>
                             </div>
                             <div className="w-full mt-5 flex items-center justify-center col-span-5 mb-20">

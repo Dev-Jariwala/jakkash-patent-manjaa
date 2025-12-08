@@ -4,6 +4,7 @@ import {
   Page,
   View,
   Text,
+  Image,
   StyleSheet,
 } from "@react-pdf/renderer";
 import { format } from "date-fns";
@@ -92,9 +93,10 @@ const styles = StyleSheet.create({
     fontSize: 8,
     border: "1px solid black",
     padding: "3px 10px",
+    position: 'relative'
   },
 });
-const SinglePagePDF = ({ bill }) => {
+const SinglePagePDF = ({ bill, qrCodeDataUrl }) => {
   const {
     bill_no,
     name,
@@ -378,6 +380,14 @@ const SinglePagePDF = ({ bill }) => {
           </View>
           {/* Notes */}
           <View style={styles.notes}>
+            <View style={{ alignItems: "center", marginVertical: 10, position: 'absolute', right: 8, top: 0 }}>
+              {qrCodeDataUrl && (
+                <Image
+                  src={qrCodeDataUrl}
+                  style={{ width: 50, height: 50 }}
+                />
+              )}
+            </View>
             <Text
               style={{
                 textAlign: "center",

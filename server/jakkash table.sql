@@ -74,6 +74,7 @@ CREATE TABLE bills (
     discount FLOAT NOT NULL,
     advance FLOAT NOT NULL,
     total_due FLOAT NOT NULL,
+    delivered_at timestamptz default null,
     FOREIGN KEY (collection_id) REFERENCES collections(collection_id)
 );
 

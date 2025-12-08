@@ -8,9 +8,10 @@ import {
   PDFViewer,
   Font,
 } from "@react-pdf/renderer";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SinglePagePDF from "./SinglePagePDF";
 import DoublePagePDF from "./DoublePagePDF";
+import QRCode from "qrcode";
 // import Font from "@react-pdf/font";
 
 const styles = StyleSheet.create({
@@ -102,14 +103,35 @@ const styles = StyleSheet.create({
 });
 
 const BillPDF2 = ({ bill }) => {
+  const [qrCodeDataUrl, setQrCodeDataUrl] = useState("");
+
+  useEffect(() => {
+    // Generate QR code as data URL
+    const generateQRCode = async () => {
+      try {
+        const qrData = bill?.bill_id || "";
+        const dataUrl = await QRCode.toDataURL(String(qrData), {
+          width: 150,
+          margin: 1,
+        });
+        setQrCodeDataUrl(dataUrl);
+      } catch (err) {
+        console.error("Error generating QR code:", err);
+      }
+    };
+    if (bill?.bill_no) {
+      generateQRCode();
+    }
+  }, [bill?.bill_no]);
+
   return (
     <>
-      {bill && bill?.products?.length > 0 &&
+      {bill && bill?.products?.length > 0 && qrCodeDataUrl &&
         <div className="h-[calc(100dvh-64px)] w-full">
           <PDFViewer height={"100%"} width={"100%"}>
             <Document>
-              {bill?.products?.length < 18 && <SinglePagePDF bill={bill} />}
-              {bill?.products?.length >= 18 && <DoublePagePDF bill={bill} />}
+              {bill?.products?.length < 18 && <SinglePagePDF bill={bill} qrCodeDataUrl={qrCodeDataUrl} />}
+              {bill?.products?.length >= 18 && <DoublePagePDF bill={bill} qrCodeDataUrl={qrCodeDataUrl} />}
             </Document>
           </PDFViewer>
         </div>

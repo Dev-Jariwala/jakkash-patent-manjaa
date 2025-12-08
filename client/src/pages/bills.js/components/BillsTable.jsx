@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createColumnHelper, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable, } from "@tanstack/react-table";
 import { useEffect, useMemo, useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
@@ -11,9 +11,9 @@ import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom"
 import { Eye, Pencil } from "lucide-react";
 import { Chip } from "@/components/ui/chip";
 import { useDebounce, useLocalStorage } from "@uidotdev/usehooks";
-import { getBillsByCollectionId, getWholesaleBillsCsvReport } from "@/services/bills";
+import { getBillsByCollectionId, getWholesaleBillsCsvReport, updateBillDeliveryStatus } from "@/services/bills";
 import { toast } from "react-toastify";
-import { format } from "date-fns";
+import { format, formatDate } from "date-fns";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import BillsPdfModal from "./BillsPdfModal";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
@@ -21,6 +21,7 @@ import { CSVLink } from "react-csv";
 import { Spinner } from "@/components/ui/spinner";
 import { DataTableViewOptions } from "@/components/ui/data-table-view-options";
 import FormatePrice from "@/helper/FormatPrice";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 
 const csvHeaders = [
     { label: "Bill No.", key: "bill_no" },
@@ -36,78 +37,9 @@ const csvHeaders = [
     { label: "Total Due", key: "total_due" },
 ];
 
-const columnHelper = createColumnHelper();
-const columnsDef = [
-    columnHelper.accessor("bill_no", {
-        header: "Bill No",
-    }),
-    columnHelper.accessor("order_date", {
-        header: "Order Date",
-        cell: (info) => {
-            return info.getValue() ? format(new Date(info.getValue()), "dd/MM/yyyy") : "-";
-        }
-    }),
-    columnHelper.accessor("delivery_date", {
-        header: "Delivery Date",
-        cell: (info) => {
-            return info.getValue() ? format(new Date(info.getValue()), "dd/MM/yyyy") : "-";
-        }
-    }),
-    columnHelper.accessor("name", {
-        header: "Client Name",
-    }),
-    columnHelper.accessor('mobile', {
-        header: "Mobile",
-    }),
-    columnHelper.accessor("address", {
-        header: "Address",
-    }),
-    columnHelper.accessor("total_firki", {
-        header: "Total Firki",
-    }),
-    columnHelper.accessor("sub_total", {
-        header: "Total",
-        cell: (info) => {
-            return <FormatePrice price={info.getValue()} />;
-        }
-    }),
-    columnHelper.accessor('discount', {
-        header: "Discount",
-        cell: (info) => {
-            return <FormatePrice price={info.getValue()} />;
-        }
-    }),
-    columnHelper.accessor("advance", {
-        header: "Advance",
-        cell: (info) => {
-            return <FormatePrice price={info.getValue()} />;
-        }
-    }),
-    columnHelper.accessor("total_due", {
-        header: "Status",
-        cell: (info) => {
-            return (
-                <Chip
-                    variant={"light"}
-                    border={"none"}
-                    size={"xs"}
-                    color={info.getValue() > 0 ? "red" : "green"}
-                    className={''}
-                >
-                    {info.getValue() > 0 ? <FormatePrice price={info.getValue()} /> : "Paid"}
-                </Chip>
-            );
-        },
-    }),
-];
-
-const headers = {};
-columnsDef.forEach((column) => {
-    headers[column.accessorKey] = column.header;
-});
-
 // eslint-disable-next-line react/prop-types
 const BillsTable = () => {
+    const queryClient = useQueryClient();
     const { billType } = useParams();
     const navigate = useNavigate();
     const [activeCollection] = useLocalStorage("activeCollection", null);
@@ -125,6 +57,7 @@ const BillsTable = () => {
         advance: false,
         total_due: true,
     });
+    const [showDeliveryAlert, setShowDeliveryAlert] = useState({ status: false, data: null });
     const [columnOrder, setColumnOrder] = useState([]);
     const [search, setSearch] = useState("");
     const debouncedSearch = useDebounce(search, 300);
@@ -155,6 +88,96 @@ const BillsTable = () => {
         enabled: false
     });
 
+    const columnHelper = createColumnHelper();
+    const columnsDef = useMemo(() => (
+        [
+            columnHelper.accessor("bill_no", {
+                header: "Bill No",
+            }),
+            columnHelper.accessor("order_date", {
+                header: "Order Date",
+                cell: (info) => {
+                    return info.getValue() ? format(new Date(info.getValue()), "dd/MM/yyyy") : "-";
+                }
+            }),
+            columnHelper.accessor("delivery_date", {
+                header: "Delivery Date",
+                cell: (info) => {
+                    return info.getValue() ? format(new Date(info.getValue()), "dd/MM/yyyy") : "-";
+                }
+            }),
+            columnHelper.accessor("name", {
+                header: "Client Name",
+            }),
+            columnHelper.accessor('mobile', {
+                header: "Mobile",
+            }),
+            columnHelper.accessor("address", {
+                header: "Address",
+            }),
+            columnHelper.accessor("total_firki", {
+                header: "Total Firki",
+            }),
+            columnHelper.accessor("sub_total", {
+                header: "Total",
+                cell: (info) => {
+                    return <FormatePrice price={info.getValue()} />;
+                }
+            }),
+            columnHelper.accessor('discount', {
+                header: "Discount",
+                cell: (info) => {
+                    return <FormatePrice price={info.getValue()} />;
+                }
+            }),
+            columnHelper.accessor("advance", {
+                header: "Advance",
+                cell: (info) => {
+                    return <FormatePrice price={info.getValue()} />;
+                }
+            }),
+            columnHelper.accessor("total_due", {
+                header: "Status",
+                cell: (info) => {
+                    return (
+                        <Chip
+                            variant={"light"}
+                            border={"none"}
+                            size={"xs"}
+                            color={info.getValue() > 0 ? "red" : "green"}
+                            className={''}
+                        >
+                            {info.getValue() > 0 ? <FormatePrice price={info.getValue()} /> : "Paid"}
+                        </Chip>
+                    );
+                },
+            }),
+            columnHelper.accessor("delivered_at", {
+                header: "Is Delivered",
+                cell: (info) => {
+                    const deliveredAt = info.getValue() ? formatDate(new Date(info.getValue()), "dd/MM/yyyy HH:mm") : "Not Delivered";
+                    return (
+                        <Chip
+                            variant={"light"}
+                            border={"none"}
+                            size={"xs"}
+                            color={info.getValue() ? "green" : "gray"}
+                            className={''}
+                            onClick={() => setShowDeliveryAlert({ status: true, data: { bill_id: info.row.original.bill_id, collection_id: activeCollection, is_delivered: info.getValue() ? false : true } })}
+                        >
+                            {deliveredAt}
+                        </Chip>
+                    );
+                },
+            }),
+        ]
+    ), []);
+
+    const headers = {};
+    columnsDef.forEach((column) => {
+        headers[column.accessorKey] = column.header;
+    });
+
     const data = useMemo(() => billsData?.bills ?? [], [billsData]);
     const columns = useMemo(() => columnsDef, []);
     const table = useReactTable({
@@ -174,6 +197,22 @@ const BillsTable = () => {
         manualPagination: true,
     });
 
+    const updateBillDeliveryStatusMutation = useMutation({
+        mutationFn: updateBillDeliveryStatus,
+        onSuccess: () => {
+            toast.success(`Delivery status updated successfully`)
+            setShowDeliveryAlert({ status: false, data: null })
+            queryClient.invalidateQueries(["bills", activeCollection]);
+        },
+        onError: (error) => {
+            toast.error(`Error updating delivery status ${error.message}`)
+        }
+    });
+
+    const handleMarkAsDelivered = (data) => {
+        updateBillDeliveryStatusMutation.mutate({ ...data, data: { is_delivered: data.is_delivered } })
+    }
+
     useEffect(() => {
         if (billsDataError) {
             toast.error(`Error getting bills`)
@@ -185,6 +224,20 @@ const BillsTable = () => {
 
     return (
         <>
+            <AlertDialog open={showDeliveryAlert.status} onOpenChange={(value) => !value && setShowDeliveryAlert({ status: false, data: null })}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>{showDeliveryAlert.data?.is_delivered ? "Mark this bill as delivered?" : "Mark this bill as not delivered?"}</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            {showDeliveryAlert.data?.is_delivered ? "This will mark this bill as delivered." : "This will mark this bill as not delivered."}
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={() => handleMarkAsDelivered(showDeliveryAlert.data)}>Continue</AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
             {bill_id && <BillsPdfModal open={!!bill_id} onClose={() => navigate(`/bills/${billType}`)} />}
             <div className="flex items-center justify-between px-4">
                 <div className="flex items-center space-x-4">
@@ -193,7 +246,11 @@ const BillsTable = () => {
                         onChange={(e) => setSearch(e.target.value)}
                         placeholder="Search client name or number"
                         className="w-56"
+                        autoFocus
                     />
+                    {search && <Button variant="none" onClick={() => setSearch('')}>
+                        Clear
+                    </Button>}
                 </div>
 
                 <div className="flex items-center space-x-5">

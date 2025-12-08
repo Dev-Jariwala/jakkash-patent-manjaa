@@ -1,13 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import {
-  Document,
   Page,
   View,
   Text,
+  Image,
   StyleSheet,
-  PDFViewer,
-  Font,
 } from "@react-pdf/renderer";
 import { format } from "date-fns";
 const styles = StyleSheet.create({
@@ -95,9 +93,10 @@ const styles = StyleSheet.create({
     fontSize: 8,
     border: "1px solid black",
     padding: "3px 10px",
+    position: 'relative'
   },
 });
-const DoublePagePDF = ({ bill }) => {
+const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
   const {
     bill_no,
     name,
@@ -293,6 +292,14 @@ const DoublePagePDF = ({ bill }) => {
           </View>
           {/* Notes */}
           <View style={styles.notes}>
+            <View style={{ alignItems: "center", marginVertical: 10, position: 'absolute', right: 8, top: 0 }}>
+              {qrCodeDataUrl && (
+                <Image
+                  src={qrCodeDataUrl}
+                  style={{ width: 50, height: 50 }}
+                />
+              )}
+            </View>
             <Text
               style={{
                 textAlign: "center",
@@ -602,6 +609,14 @@ const DoublePagePDF = ({ bill }) => {
           </View>
           {/* Notes */}
           <View style={styles.notes}>
+            <View style={{ alignItems: "center", marginVertical: 10, position: 'absolute', right: 8, top: 0 }}>
+              {qrCodeDataUrl && (
+                <Image
+                  src={qrCodeDataUrl}
+                  style={{ width: 50, height: 50 }}
+                />
+              )}
+            </View>
             <Text
               style={{
                 textAlign: "center",
