@@ -1,19 +1,25 @@
 import BreadCrum from "@/components/breadcrum/BreadCrum";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Plus, ScanLine } from "lucide-react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import BillsTable from "./components/BillsTable";
+import ScannerMode from "./components/ScannerMode";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Bills = () => {
     const navigate = useNavigate();
     const { billType } = useParams();
+    const [scannerModeOpen, setScannerModeOpen] = useState(false);
 
     const handleTabChange = (tab) => {
         navigate(`/bills/${tab}`);
     }
     return (
         <div className="">
+            {scannerModeOpen && (
+                <ScannerMode onClose={() => setScannerModeOpen(false)} />
+            )}
             <div className="flex items-center justify-between px-5 border-b border-gray-200 py-3 mb-3">
                 <div className="text-xl text-gray-700 font-semibold">
                     <BreadCrum
@@ -23,14 +29,24 @@ const Bills = () => {
                         ]}
                     />
                 </div>
-                <Button
-                    variant="indigo"
-                    size="sm"
-                    onClick={() => navigate(`/bills/new?bill_type=${billType}`)}
-                >
-                    <Plus className="size-4" />
-                    <div className="">New {billType} bill</div>
-                </Button>
+                <div className="flex items-center gap-2">
+                    <Button
+                        variant="indigo"
+                        size="sm"
+                        onClick={() => setScannerModeOpen(true)}
+                    >
+                        <ScanLine className="size-4" />
+                        <div className="">Scanner Mode</div>
+                    </Button>
+                    <Button
+                        variant="indigo"
+                        size="sm"
+                        onClick={() => navigate(`/bills/new?bill_type=${billType}`)}
+                    >
+                        <Plus className="size-4" />
+                        <div className="">New {billType} bill</div>
+                    </Button>
+                </div>
             </div>
             <Tabs value={billType} onValueChange={handleTabChange}>
                 <TabsList className='w-1/2 gap-2 border-b pb-0 border-gray-300'>

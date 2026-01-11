@@ -14,4 +14,6 @@ router.get('/:collection_id/bills/wholesale-bills/csv-report', billsControllers.
 router.get('/:collection_id/bills/wholesale-bills/pdf-report/:mobile', billsControllers.getWholeSaleBillsByMobile);
 router.put('/:collection_id/bills/:bill_id', billsValidators.validateUpdateBillById, billsControllers.updateBillById);
 router.patch('/:collection_id/bills/:bill_id/delivered', billsValidators.validateUpdateBillDeliveryStatus, billsControllers.updateBillDeliveryStatus);
+router.patch('/:collection_id/bills/:bill_id/scan-complete', billsControllers.markBillScannedComplete);
+
 export default router;

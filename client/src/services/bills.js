@@ -89,3 +89,11 @@ export const getWholesaleBillsCsvReport = async ({ collection_id }) => {
     });
     return response;
 }
+
+export const markBillScannedComplete = async ({ collection_id, bill_id }) => {
+    const response = await axios({
+        method: "PATCH",
+        url: `${import.meta.env.VITE_BACKEND_URL}collections/${collection_id}/bills/${bill_id}/scan-complete`,
+    });
+    return response;
+}

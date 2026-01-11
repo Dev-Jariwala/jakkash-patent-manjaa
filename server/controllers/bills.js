@@ -278,6 +278,107 @@ export const updateBillDeliveryStatus = async (req, res) => {
   }
 };
 
+export const markBillScannedComplete = async (req, res) => {
+  const { bill_id, collection_id } = req.params;
+  try {
+    // Find the bill
+    const [bill] = await query(
+      `SELECT * FROM bills WHERE bill_id = $1 AND collection_id = $2`,
+      [bill_id, collection_id]
+    );
+
+    if (!bill) {
+      return res.status(404).json({
+        message: 'Bill not found',
+        error: 'Bill not found',
+        status: 'not_found'
+      });
+    }
+
+    const isDelivered = !!bill.delivered_at;
+    const isPaid = bill.total_due === 0;
+
+    // Check if already complete (delivered and paid)
+    if (isDelivered && isPaid) {
+      return res.status(200).json({
+        message: 'Bill already delivered and paid',
+        bill,
+        already_complete: true,
+        status: 'already_complete'
+      });
+    }
+
+    // Check if only delivered (but not paid)
+    if (isDelivered && !isPaid) {
+      // Just mark as paid
+      const newAdvance = bill.sub_total - bill.discount;
+      const [updatedBill] = await query(
+        `UPDATE bills 
+         SET advance = $1, total_due = 0 
+         WHERE bill_id = $2 AND collection_id = $3 
+         RETURNING *`,
+        [newAdvance, bill_id, collection_id]
+      );
+
+      return res.status(200).json({
+        message: 'Bill was already delivered, now marked as paid',
+        bill: updatedBill,
+        already_complete: false,
+        status: 'marked_paid'
+      });
+    }
+
+    // Check if only paid (but not delivered)
+    if (!isDelivered && isPaid) {
+      // Just mark as delivered
+      const [updatedBill] = await query(
+        `UPDATE bills 
+         SET delivered_at = NOW() 
+         WHERE bill_id = $1 AND collection_id = $2 
+         RETURNING *`,
+        [bill_id, collection_id]
+      );
+
+      return res.status(200).json({
+        message: 'Bill was already paid, now marked as delivered',
+        bill: updatedBill,
+        already_complete: false,
+        status: 'marked_delivered'
+      });
+    }
+
+    // Neither delivered nor paid - mark both
+    const newAdvance = bill.sub_total - bill.discount;
+    const [updatedBill] = await query(
+      `UPDATE bills 
+       SET delivered_at = NOW(), 
+           advance = $1, 
+           total_due = 0 
+       WHERE bill_id = $2 AND collection_id = $3 
+       RETURNING *`,
+      [newAdvance, bill_id, collection_id]
+    );
+
+    if (!updatedBill) {
+      return res.status(400).json({
+        message: 'Error updating bill',
+        error: 'Failed to mark bill as complete',
+        status: 'error'
+      });
+    }
+
+    res.status(200).json({
+      message: 'Bill marked as delivered and paid',
+      bill: updatedBill,
+      already_complete: false,
+      status: 'marked_complete'
+    });
+  } catch (error) {
+    handleError('markBillScannedComplete', res, error);
+  }
+};
+
+
 export const getAllBills = async (req, res) => {
   const { collection_id } = req.params;
   try {
