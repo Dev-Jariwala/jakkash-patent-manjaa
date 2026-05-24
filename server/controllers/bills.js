@@ -137,7 +137,7 @@ export const getBills = async (req, res) => {
         ${sortField} ${sortOrder}
       LIMIT ${limit} OFFSET ${offset}
     `;
-    console.log({ billsQuery, billsParams });
+    // console.log({ billsQuery, billsParams });
 
     // Execute the billsQuery
     const bills = await query(billsQuery, billsParams);
@@ -265,9 +265,15 @@ export const updateBillDeliveryStatus = async (req, res) => {
     if ((bill.delivered_at && is_delivered) || (!bill.delivered_at && !is_delivered)) {
       return res.status(400).json({ message: 'Bill delivery status is already ' + (is_delivered ? 'delivered' : 'not delivered') });
     }
+
+    const nextAdvance = is_delivered && Number(bill.total_due) > 0
+      ? Number(bill.advance) + Number(bill.total_due)
+      : Number(bill.advance);
+    const nextTotalDue = is_delivered ? 0 : Number(bill.total_due);
+
     const [updatedBill] = await query(
-      `update bills set delivered_at = $1 where bill_id = $2 and collection_id = $3 returning *`,
-      [is_delivered ? 'now()' : null, bill_id, collection_id]
+      `update bills set delivered_at = $1, advance = $2, total_due = $3 where bill_id = $4 and collection_id = $5 returning *`,
+      [is_delivered ? 'now()' : null, nextAdvance, nextTotalDue, bill_id, collection_id]
     );
     if (!updatedBill) {
       return res.status(400).json({ message: 'Error updating bill delivery status', error: 'Error updating bill delivery status' });
@@ -275,6 +281,50 @@ export const updateBillDeliveryStatus = async (req, res) => {
     res.status(200).json({ message: 'Bill delivery status updated successfully', bill: updatedBill });
   } catch (error) {
     handleError('updateBillDeliveryStatus', res, error);
+  }
+};
+
+export const updateBillPaymentStatus = async (req, res) => {
+  const { bill_id, collection_id } = req.params;
+  const { mark_as_paid } = req.body;
+
+  try {
+    const [bill] = await query(`select * from bills where bill_id = $1 and collection_id = $2`, [bill_id, collection_id]);
+
+    if (!bill) {
+      return res.status(404).json({ message: 'Bill not found' });
+    }
+
+    if (!mark_as_paid) {
+      return res.status(400).json({ message: 'mark_as_paid must be true' });
+    }
+
+    if (Number(bill.total_due) <= 0) {
+      return res.status(200).json({
+        message: 'Bill is already paid',
+        already_paid: true,
+        bill,
+      });
+    }
+
+    const nextAdvance = Number(bill.advance) + Number(bill.total_due);
+
+    const [updatedBill] = await query(
+      `update bills set advance = $1, total_due = $2 where bill_id = $3 and collection_id = $4 returning *`,
+      [nextAdvance, 0, bill_id, collection_id]
+    );
+
+    if (!updatedBill) {
+      return res.status(400).json({ message: 'Error updating bill payment status', error: 'Error updating bill payment status' });
+    }
+
+    res.status(200).json({
+      message: 'Bill marked as paid successfully',
+      already_paid: false,
+      bill: updatedBill,
+    });
+  } catch (error) {
+    handleError('updateBillPaymentStatus', res, error);
   }
 };
 

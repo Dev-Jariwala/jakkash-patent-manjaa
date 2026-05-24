@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/authProvider";
 import ActiveCollectionSelect from "./components/ActiveCollectionSelect";
+import BillScanner from "./components/BillScanner";
 import { useSidebar } from "../ui/sidebar";
 
 const Navbar = () => {
@@ -22,6 +23,7 @@ const Navbar = () => {
           <AiOutlineMenu />
         </button>
         <ActiveCollectionSelect />
+        <BillScanner />
       </div>
 
       <DropdownMenu>
