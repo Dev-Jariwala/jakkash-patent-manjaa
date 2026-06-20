@@ -115,7 +115,7 @@ const ClientsTable = () => {
                             });
                         }}
                     >
-                        <Button variant="none" className="flex items-center cursor-pointer border border-green-200 gap-x-3.5 py-1 px-2 rounded-lg text-sm text-green-600 hover:bg-green-100 focus:outline-none focus:bg-green-100 font-normal" disabled={isClientsLoading} >
+                        <Button variant="none" className="flex items-center cursor-pointer border border-green-500/30 gap-x-3.5 py-1 px-2 rounded-lg text-sm text-green-600 dark:text-green-400 hover:bg-green-500/10 focus:outline-none focus:bg-green-500/10 font-normal" disabled={isClientsLoading} >
                             {isClientsLoading ? <Spinner /> : <Avatar className="w-6 h-6 rounded-none">
                                 <AvatarImage src={`/csv.svg`} />
                             </Avatar>}
@@ -152,7 +152,7 @@ const ClientsTable = () => {
                                                 return (
                                                     <TableHead
                                                         key={header.id}
-                                                        className="text-slate-700 whitespace-nowrap"
+                                                        className="whitespace-nowrap"
                                                     >
                                                         {header.isPlaceholder
                                                             ? null
@@ -173,7 +173,7 @@ const ClientsTable = () => {
                                             <TableRow
                                                 key={row.id}
                                                 data-state={row.getIsSelected() && "selected"}
-                                                className="hover:bg-gray-100"
+                                                className=""
                                             >
                                                 {row.getVisibleCells().map((cell) => (
                                                     <TableCell key={cell.id}>
@@ -186,7 +186,7 @@ const ClientsTable = () => {
                                                 <TableCell className="flex items-center space-x-2">
                                                     <Link
                                                         to={`/clients/report?mobile=${row.original?.mobile}`}
-                                                        className="hover:bg-gray-200 rounded-full size-8 flex items-center justify-center"
+                                                        className="hover:bg-accent rounded-full size-8 flex items-center justify-center"
                                                     >
                                                         <Eye size={16} className="text-blue-500" />
                                                     </Link>

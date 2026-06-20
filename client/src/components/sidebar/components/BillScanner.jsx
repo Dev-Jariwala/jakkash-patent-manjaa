@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import FormatePrice from "@/helper/FormatPrice";
 import { cn } from "@/lib/utils";
 import { getBillById, updateBillDeliveryStatus, updateBillPaymentStatus } from "@/services/bills";
@@ -286,7 +285,7 @@ const BillScanner = () => {
                     </AlertDialogHeader>
 
                     {scannedBill && (
-                        <div className="space-y-2 rounded-lg border border-gray-200 bg-gray-50 p-3 text-sm text-gray-700">
+                        <div className="space-y-2 rounded-lg border border-border bg-muted/50 p-3 text-sm text-foreground">
                             <div className="flex items-center justify-between gap-4">
                                 <span className="font-medium">Bill No</span>
                                 <span>{scannedBill.bill_no}</span>
@@ -301,13 +300,13 @@ const BillScanner = () => {
                             </div>
                             <div className="flex items-center justify-between gap-4">
                                 <span className="font-medium">Payment</span>
-                                <span className={cn("font-semibold", isBillPaid ? "text-green-600" : "text-red-600")}>
+                                <span className={cn("font-semibold", isBillPaid ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400")}>
                                     {isBillPaid ? "Paid" : <FormatePrice price={scannedBill.total_due} />}
                                 </span>
                             </div>
                             <div className="flex items-center justify-between gap-4">
                                 <span className="font-medium">Delivery</span>
-                                <span className={cn("font-semibold", isBillDelivered ? "text-green-600" : "text-amber-600")}>
+                                <span className={cn("font-semibold", isBillDelivered ? "text-green-600 dark:text-green-400" : "text-amber-600 dark:text-amber-400")}>
                                     {isBillDelivered ? "Delivered" : "Pending"}
                                 </span>
                             </div>
@@ -352,27 +351,34 @@ const BillScanner = () => {
                 </AlertDialogContent>
             </AlertDialog>
 
-            <form onSubmit={handleManualSubmit} className="hidden items-center gap-2 xl:flex">
-                <div className="relative">
-                    <ScanLine className="pointer-events-none absolute left-2 top-1/2 size-4 -translate-y-1/2 text-gray-400" />
-                    <Input
-                        value={manualValue}
-                        onChange={(event) => setManualValue(event.target.value)}
-                        placeholder="Scan or paste bill code"
-                        className="h-9 w-56 pl-8"
+            <form onSubmit={handleManualSubmit} className="hidden xl:flex items-center overflow-hidden rounded-lg border border-border bg-background shadow-sm focus-within:border-ring focus-within:ring-1 focus-within:ring-ring">
+                <div className="flex items-center pl-2.5">
+                    <ScanLine
+                        className={cn(
+                            "size-4 shrink-0",
+                            scannerState === "ready" && "text-muted-foreground",
+                            scannerState === "capturing" && "text-amber-400",
+                            scannerState === "loading" && "text-primary",
+                            scannerState === "error" && "text-destructive"
+                        )}
                     />
                 </div>
-                <Button
+                <input
+                    value={manualValue}
+                    onChange={(event) => setManualValue(event.target.value)}
+                    placeholder="Scan or paste bill code"
+                    className="h-9 w-52 bg-transparent px-2 text-sm text-foreground outline-none placeholder:text-muted-foreground"
+                />
+                <button
                     type="submit"
-                    variant="outline"
-                    size="sm"
                     disabled={!manualValue.trim() || lookupBillMutation.isPending}
+                    className="h-9 border-l border-border px-3 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:opacity-40"
                 >
-                    {lookupBillMutation.isPending ? <Loader2 className="size-4 animate-spin" /> : "Find"}
-                </Button>
+                    {lookupBillMutation.isPending ? <Loader2 className="size-3.5 animate-spin" /> : "Find"}
+                </button>
             </form>
 
-            <div className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 shadow-sm">
+            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                 <span
                     className={cn(
                         "size-2 rounded-full",
@@ -382,7 +388,7 @@ const BillScanner = () => {
                         scannerState === "error" && "bg-red-500"
                     )}
                 />
-                <span>Scanner {getScannerLabel(scannerState)}</span>
+                <span className="hidden sm:inline">{getScannerLabel(scannerState)}</span>
                 {!activeCollection && <CircleAlert className="size-3.5 text-amber-500" />}
             </div>
         </>

@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Phone, MapPin, Mail, Calendar, Wind, Star, ArrowRight, Sparkles, Trophy, Users, Heart, Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { ModeToggle } from '@/components/ui/mode-toggle';
 
 const Landing = () => {
     return (
@@ -34,13 +35,15 @@ const Landing = () => {
                             </a>
                         ))}
                     </div>
-                    <Link
-                        to="/signin"
-                        className="px-6 py-2.5 rounded-full bg-primary text-primary-foreground font-bold shadow-lg"
-                        whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(251, 146, 60, 0.4)" }}
-                    >
-                        Sign In
-                    </Link>
+                    <div className="flex items-center gap-3">
+                        <ModeToggle />
+                        <Link
+                            to="/signin"
+                            className="px-6 py-2.5 rounded-full bg-primary text-primary-foreground font-bold shadow-lg"
+                        >
+                            Sign In
+                        </Link>
+                    </div>
                 </div>
             </nav>
 

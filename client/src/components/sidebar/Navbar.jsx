@@ -12,31 +12,35 @@ import { useAuth } from "@/hooks/authProvider";
 import ActiveCollectionSelect from "./components/ActiveCollectionSelect";
 import BillScanner from "./components/BillScanner";
 import { useSidebar } from "../ui/sidebar";
+import { ModeToggle } from "@/components/ui/mode-toggle";
 
 const Navbar = () => {
   const { setToken } = useAuth();
   const { toggleSidebar } = useSidebar();
   return (
-    <div className=" text-gray-800 sticky z-99 bg-white top-0 left-0 border-b border-gray-200 h-16 flex items-center justify-between px-4">
+    <div className="sticky z-99 bg-background text-foreground top-0 left-0 border-b border-border h-16 flex items-center justify-between px-4">
       <div className="flex items-center space-x-3">
-        <button onClick={toggleSidebar} className="text-lg font-semibold hover:bg-gray-200 p-2 rounded-full">
+        <button onClick={toggleSidebar} className="text-lg font-semibold hover:bg-accent p-2 rounded-full">
           <AiOutlineMenu />
         </button>
         <ActiveCollectionSelect />
         <BillScanner />
       </div>
 
-      <DropdownMenu>
-        <DropdownMenuTrigger>
-          <Avatar className="shadow-lg border-2 border-gray-500">
-            <AvatarImage src="/logo.png" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem onClick={() => setToken()}>Logout</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <div className="flex items-center gap-3">
+        <ModeToggle />
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <Avatar className="shadow-lg border-2 border-border">
+              <AvatarImage src="/logo.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem onClick={() => setToken()}>Logout</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </div>
   );
 };

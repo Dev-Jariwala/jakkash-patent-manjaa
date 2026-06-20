@@ -15,6 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { motion } from "framer-motion"
 import { useNavigate } from 'react-router-dom'
+import { statCardAccents } from '@/lib/theme-colors'
 
 const Dashboard = () => {
     const [activeCollection] = useLocalStorage('activeCollection');
@@ -28,12 +29,12 @@ const Dashboard = () => {
     });
 
     const stats = [
-        { title: 'Total Products', value: data?.totalProducts, link: '/products', icon: <ProductSvg />, color: "bg-blue-100 text-blue-600" },
-        { title: 'Total Bills', value: data?.totalBills, link: '/bills', icon: <BillSvg />, color: "bg-green-100 text-green-600" },
-        { title: 'Total Purchases', value: data?.totalPurchases, link: '/purchases', icon: <PurchaseSvg />, color: "bg-yellow-100 text-yellow-600" },
-        { title: 'Total Clients', value: data?.totalClients, link: '/clients', icon: <ClientSvg />, color: "bg-purple-100 text-purple-600" },
-        { title: 'Total Stocks', value: data?.totalStocks, link: '/stocks', icon: <StocksSvg />, color: "bg-red-100 text-red-600" },
-        { title: 'Total Collections', value: data?.totalCollections, link: '/collections', icon: <CollectionsSvg />, color: "bg-indigo-100 text-indigo-600" },
+        { title: 'Total Products', value: data?.totalProducts, link: '/products', icon: <ProductSvg />, color: statCardAccents.blue },
+        { title: 'Total Bills', value: data?.totalBills, link: '/bills', icon: <BillSvg />, color: statCardAccents.green },
+        { title: 'Total Purchases', value: data?.totalPurchases, link: '/purchases', icon: <PurchaseSvg />, color: statCardAccents.yellow },
+        { title: 'Total Clients', value: data?.totalClients, link: '/clients', icon: <ClientSvg />, color: statCardAccents.purple },
+        { title: 'Total Stocks', value: data?.totalStocks, link: '/stocks', icon: <StocksSvg />, color: statCardAccents.red },
+        { title: 'Total Collections', value: data?.totalCollections, link: '/collections', icon: <CollectionsSvg />, color: statCardAccents.indigo },
     ]
 
     useEffect(() => {
@@ -43,7 +44,7 @@ const Dashboard = () => {
     }, [statsError]);
 
     return (
-        <div className="p-6 bg-gray-50">
+        <div className="p-6 bg-muted/30 min-h-full">
             {isStatsLoading ? (
                 <div className="flex items-center justify-center h-64">
                     <div className="basic-loader"></div>
@@ -90,12 +91,12 @@ function StatCard({ title, value, icon, color, index, link }) {
         <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg hover:transform hover:scale-105 cursor-pointer" onClick={() => navigate(link)} >
             <CardHeader className={`flex flex-row items-center justify-between space-y-0 p-2 px-4 ${color} rounded-t-lg`}>
                 <CardTitle className="text-sm font-semibold tracking-wide">{title}</CardTitle>
-                <div className="p-2 bg-white rounded-full shadow-md">
+                <div className="p-2 bg-background rounded-full shadow-md border border-border">
                     {icon}
                 </div>
             </CardHeader>
             <CardContent className="p-4">
-                <div className="text-3xl font-bold mt-2 text-gray-800">
+                <div className="text-3xl font-bold mt-2 text-foreground">
                     {/* {value?.toLocaleString() || '0'} */}
                     {useCountUp(value)}
                 </div>

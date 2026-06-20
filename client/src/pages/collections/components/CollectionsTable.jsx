@@ -73,7 +73,7 @@ const ProductsTable = () => {
                                                 return (
                                                     <TableHead
                                                         key={header.id}
-                                                        className="text-slate-700 whitespace-nowrap"
+                                                        className="whitespace-nowrap"
                                                     >
                                                         {header.isPlaceholder
                                                             ? null
@@ -94,7 +94,7 @@ const ProductsTable = () => {
                                             <TableRow
                                                 key={row.id}
                                                 data-state={row.getIsSelected() && "selected"}
-                                                className="hover:bg-gray-100"
+                                                className=""
                                             >
                                                 {row.getVisibleCells().map((cell) => (
                                                     <TableCell key={cell.id}>
@@ -107,7 +107,7 @@ const ProductsTable = () => {
                                                 <TableCell className="flex items-center space-x-2">
                                                     <Link
                                                         to={`/collections/update?collection_id=${row.original?.collection_id}`}
-                                                        className="hover:bg-gray-200 rounded-full size-8 flex items-center justify-center"
+                                                        className="hover:bg-accent rounded-full size-8 flex items-center justify-center"
                                                     >
                                                         <Pencil size={16} className="text-green-500" />
                                                     </Link>

@@ -21,7 +21,7 @@ const PopoverContent = React.forwardRef(({ className, align = "center", sideOffs
       {...props} >
       {props.children}
       {showClose && (
-        <PopoverPrimitive.Close className={cn("absolute top-1.5 right-1.5 text-red-400 hover:text-red-600 hover:bg-red-100 rounded p-1 cursor-pointer", closeButtonClassName)}>
+        <PopoverPrimitive.Close className={cn("absolute top-1.5 right-1.5 text-destructive hover:text-destructive hover:bg-destructive/10 rounded p-1 cursor-pointer", closeButtonClassName)}>
           <X className="size-4" />
         </PopoverPrimitive.Close>
       )}

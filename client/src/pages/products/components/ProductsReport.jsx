@@ -60,7 +60,7 @@ const ProductsReport = () => {
                         </PDFViewer>
                     ) : (
                         <div className="flex items-center justify-center h-64">
-                            <h1 className="text-lg font-medium text-center text-gray-500">
+                            <h1 className="text-lg font-medium text-center text-muted-foreground">
                                 No products found in the collection.
                             </h1>
                         </div>

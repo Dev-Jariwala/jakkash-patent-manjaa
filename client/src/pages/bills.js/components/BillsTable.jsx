@@ -263,14 +263,14 @@ const BillsTable = () => {
                             done();
                         }}
                     >
-                        <Button variant="none" className="flex items-center cursor-pointer border border-green-200 gap-x-3.5 py-1 px-2 rounded-lg text-sm text-green-600 hover:bg-green-100 focus:outline-none focus:bg-green-100 font-normal" disabled={isWholesaleBillsLoading} >
+                        <Button variant="none" className="flex items-center cursor-pointer border border-green-500/30 gap-x-3.5 py-1 px-2 rounded-lg text-sm text-green-600 dark:text-green-400 hover:bg-green-500/10 focus:outline-none focus:bg-green-500/10 font-normal" disabled={isWholesaleBillsLoading} >
                             {isWholesaleBillsLoading ? <Spinner /> : <Avatar className="w-6 h-6 rounded-none">
                                 <AvatarImage src={`/csv.svg`} />
                             </Avatar>}
                             CSV File
                         </Button>
                     </CSVLink>}
-                    <Link to={`/bills/${billType}/report`} className="flex items-center space-x-2 border border-red-200 rounded-lg px-2 cursor-pointer hover:bg-red-100 py-1 text-red-700">
+                    <Link to={`/bills/${billType}/report`} className="flex items-center space-x-2 border border-destructive/30 rounded-lg px-2 cursor-pointer hover:bg-destructive/10 py-1 text-destructive">
                         <Avatar className="w-6 h-6 rounded-none">
                             <AvatarImage src={`/pdf.svg`} />
                         </Avatar>
@@ -304,7 +304,7 @@ const BillsTable = () => {
                                                 return (
                                                     <TableHead
                                                         key={header.id}
-                                                        className="text-slate-700 whitespace-nowrap"
+                                                        className="whitespace-nowrap"
                                                     >
                                                         {header.isPlaceholder
                                                             ? null
@@ -325,7 +325,7 @@ const BillsTable = () => {
                                             <TableRow
                                                 key={row.id}
                                                 data-state={row.getIsSelected() && "selected"}
-                                                className="hover:bg-gray-100"
+                                                className=""
                                             >
                                                 {row.getVisibleCells().map((cell) => (
                                                     <TableCell key={cell.id}>
@@ -338,14 +338,14 @@ const BillsTable = () => {
                                                 <TableCell className="flex items-center space-x-2">
                                                     <Link
                                                         to={`/bills/${billType}?bill_id=${row.original?.bill_id}`}
-                                                        className="hover:bg-gray-200 rounded-full size-8 flex items-center justify-center"
+                                                        className="hover:bg-accent rounded-full size-8 flex items-center justify-center"
                                                     // target="_blank"
                                                     >
                                                         <Eye size={16} className="text-blue-500" />
                                                     </Link>
                                                     <Link
                                                         to={`/bills/update/${row.original?.bill_id}?bill_type=${billType}`}
-                                                        className="hover:bg-gray-200 rounded-full size-8 flex items-center justify-center"
+                                                        className="hover:bg-accent rounded-full size-8 flex items-center justify-center"
                                                     >
                                                         <Pencil size={16} className="text-green-500" />
                                                     </Link>

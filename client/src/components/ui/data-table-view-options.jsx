@@ -38,14 +38,14 @@ export function DataTableViewOptions({ table, headers }) {
                 <Button
                     variant="outline"
                     size="sm"
-                    className="ml-auto h-8 lg:flex text-gray-600 hover:text-gray-700"
+                    className="ml-auto h-8 lg:flex text-muted-foreground hover:text-foreground"
                 >
                     <Settings2 className="mr-2 h-4 w-4" />
                     View
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-[200px]">
-                <DropdownMenuLabel className="text-gray-600" >Display properties</DropdownMenuLabel>
+                <DropdownMenuLabel className="text-muted-foreground" >Display properties</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DndContext
                     sensors={sensors}
@@ -103,7 +103,7 @@ function SortableItem({ id, column, headers }) {
                 {...listeners}
                 className="cursor-grab "
             >
-                <GripVertical className="mr-2 h-4 w-4 hover:bg-gray-200 rounded" />
+                <GripVertical className="mr-2 h-4 w-4 hover:bg-accent rounded" />
             </span>
         </div>
     );

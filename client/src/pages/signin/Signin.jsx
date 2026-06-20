@@ -17,6 +17,7 @@ import { useAuth } from "@/hooks/authProvider";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { ModeToggle } from "@/components/ui/mode-toggle";
 const schema = yup.object({
   username: yup.string().required("Username is required"),
   password: yup.string().required("Password is required"),
@@ -51,13 +52,16 @@ const Signin = () => {
   };
   return (
     <>
-      <div className="w-full max-h-dvh">
+      <div className="w-full max-h-dvh min-h-dvh bg-background relative">
+        <div className="absolute top-4 right-4">
+          <ModeToggle />
+        </div>
         <div className="mx-auto w-[350px] flex flex-col items-center justify-center mt-10 space-y-5">
           <img
             src={`/logo.png`}
             className="size-40 rounded-full"
           />
-          <div className="font-bold text-gray-700 text-2xl">
+          <div className="font-bold text-foreground text-2xl">
             Sign in to Jakkash
           </div>
           <Form {...form}>

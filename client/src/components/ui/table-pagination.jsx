@@ -53,7 +53,7 @@ function Pagination({ table, maxPageNumbers = 5 }) {
                     variant="outline"
                     onClick={() => table.setPageIndex(page)}
                     className={cn('px-1 sm:px-2 py-1 transition-none text-xs sm:text-sm', {
-                        'font-bold bg-indigo-500 text-white border-indigo-500 enabled:hover:text-white enabled:hover:bg-indigo-500 enabled:hover:border-indigo-500': pageIndex === page
+                        'font-bold bg-primary text-primary-foreground border-primary enabled:hover:text-primary-foreground enabled:hover:bg-primary enabled:hover:border-primary': pageIndex === page
                     })}
                 >
                     {page + 1}

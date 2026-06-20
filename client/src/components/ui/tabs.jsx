@@ -13,7 +13,7 @@ const TabsTriggerVariants = cva(
           "data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm",
         team: "border-b hover:bg-accent hover:rounded py-2",
         sliding:
-          "text-base px-4 py-2 text-gray-700 mx-1 rounded-sm relative data-[state=active]:text-indigo-500 data-[state=active]:shadow-indigo-500 data-[state=active]:focus:relative hover:bg-accent",
+          "text-base px-4 py-2 text-muted-foreground mx-1 rounded-sm relative data-[state=active]:text-primary data-[state=active]:shadow-primary data-[state=active]:focus:relative hover:bg-accent",
       },
     },
     defaultVariants: {

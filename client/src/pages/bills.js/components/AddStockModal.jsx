@@ -115,12 +115,12 @@ const AddStockModal = ({ open, onClose }) => {
                                                 <Popover className="relative">
                                                     {({ open }) => (
                                                         <>
-                                                            <PopoverButton className="inline-flex w-full items-center justify-between rounded-md text-sm font- ring-offset-background transition-colors border border-input bg-background hover:bg-accent text-gray-600 py-2 px-3">
-                                                                {field.value ? format(field.value, "dd/MM/yyyy") : <span className='text-gray-400'> </span>}
+                                                            <PopoverButton className="inline-flex w-full items-center justify-between rounded-md text-sm font- ring-offset-background transition-colors border border-input bg-background hover:bg-accent text-muted-foreground py-2 px-3">
+                                                                {field.value ? format(field.value, "dd/MM/yyyy") : <span className='text-muted-foreground'> </span>}
                                                                 <CalendarDays size={16} />
                                                             </PopoverButton>
                                                             <Transition as={Fragment} show={open} enter="transition ease-out duration-100" enterFrom="opacity-0 translate-y-1" enterTo="opacity-100 translate-y-0" leave="transition ease-in duration-75" leaveFrom="opacity-100 translate-y-0" leaveTo="opacity-0 translate-y-1">
-                                                                <PopoverPanel className="absolute bg-white left-1/2 z-10 mt-2 max-w-sm -translate-x-1/2 transform rounded-md">
+                                                                <PopoverPanel className="absolute bg-popover text-popover-foreground border border-border left-1/2 z-10 mt-2 max-w-sm -translate-x-1/2 transform rounded-md">
                                                                     <div className="border border-solid border-[#ddd] px-2 py-1 rounded-md">
                                                                         <div className="float-right mr-2 cursor-pointer">
                                                                             <svg width="16" height="16" fill="currentColor"></svg>

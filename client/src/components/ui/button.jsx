@@ -18,13 +18,13 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/90",
         ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-blue-500 underline-offset-4 hover:underline",
-        cancel: "bg-gray-200 text-gray-600 hover:bg-gray-300",
+        link: "text-primary underline-offset-4 hover:underline",
+        cancel: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         none: "text-primary",
         gradient: "bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:from-indigo-600 hover:to-purple-700 hover:shadow-xl",
         grey: "bg-accent text-accent-foreground shadow-sm hover:bg-accent",
         indigo:
-          "border border-input bg-background enabled:hover:bg-accent enabled:hover:text-accent-foreground w-fit text-nowrap text-indigo-500 gap-2 border bg-white self-end md:self-center hover:!text-white border-indigo-500 enabled:hover:bg-indigo-500",
+          "border border-primary bg-background text-primary enabled:hover:bg-primary enabled:hover:text-primary-foreground w-fit text-nowrap gap-2 self-end md:self-center",
       },
       size: {
         default: "px-4 py-2",
@@ -44,12 +44,12 @@ const buttonVariants = cva(
       border: {
         default: " border-input",
         none: "",
-        indigo: "border border-indigo-500 hover:border-indigo-600 text-indigo-600 hover:text-indigo-800 hover:bg-indigo-100",
-        green: "border border-green-500 hover:border-green-600 text-green-600 hover:text-green-800 hover:bg-green-100",
-        red: "border border-red-500 hover:border-red-600 text-red-600 hover:text-red-800 hover:bg-red-100",
-        yellow: "border border-yellow-500 hover:border-yellow-600 text-yellow-600 hover:text-yellow-800 hover:bg-yellow-100",
-        teal: "border border-teal-500 hover:border-teal-600 text-teal-600 hover:text-teal-800 hover:bg-teal-100",
-        emerald: "border border-emerald-500 hover:border-emerald-600 text-emerald-600 hover:text-emerald-800 hover:bg-emerald-100",
+        indigo: "border border-primary text-primary hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/20",
+        green: "border border-green-600 text-green-600 hover:text-green-700 hover:bg-green-500/10 dark:text-green-400 dark:hover:bg-green-500/15",
+        red: "border border-destructive text-destructive hover:bg-destructive/10",
+        yellow: "border border-amber-500 text-amber-600 hover:bg-amber-500/10 dark:text-amber-400",
+        teal: "border border-teal-500 text-teal-600 hover:bg-teal-500/10 dark:text-teal-400",
+        emerald: "border border-emerald-500 text-emerald-600 hover:bg-emerald-500/10 dark:text-emerald-400",
       },
 
     },

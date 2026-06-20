@@ -259,8 +259,8 @@ const BillsForm = () => {
                     <div className="basic-loader"></div>
                 </div> :
                 <div className="">
-                    <div className="flex items-center justify-between px-5 border-b border-gray-200 py-4 mb-3">
-                        <div className="text-xl text-gray-700 font-semibold">
+                    <div className="flex items-center justify-between px-5 border-b border-border py-4 mb-3">
+                        <div className="text-xl text-foreground font-semibold">
                             <BreadCrum
                                 path={[
                                     { path: "/", label: "Dashboard" },
@@ -414,12 +414,12 @@ const BillsForm = () => {
                             </div>
                             <div className="mt-5">
                                 <div className="grid gap-4 mt-2">
-                                    <div className="grid grid-cols-5 gap-5 bg-gray-200 py-3 px-5">
-                                        <div className="text-sm font-medium text-gray-700">Product</div>
-                                        <div className="text-sm font-medium text-gray-700">Stock in Hand</div>
-                                        <div className="text-sm font-medium text-gray-700">Price</div>
-                                        <div className="text-sm font-medium text-gray-700">Quantity</div>
-                                        <div className="text-sm font-medium text-gray-700">Total</div>
+                                    <div className="grid grid-cols-5 gap-5 bg-muted py-3 px-5">
+                                        <div className="text-sm font-medium text-foreground">Product</div>
+                                        <div className="text-sm font-medium text-foreground">Stock in Hand</div>
+                                        <div className="text-sm font-medium text-foreground">Price</div>
+                                        <div className="text-sm font-medium text-foreground">Quantity</div>
+                                        <div className="text-sm font-medium text-foreground">Total</div>
                                     </div>
                                     {form.watch('products')?.map((product, index) => (
                                         <div key={product?.product_id} className="grid grid-cols-5 gap-3 border-t pt-4">
@@ -530,7 +530,7 @@ const BillsForm = () => {
                                             <FormItem>
                                                 <FormLabel>Notes</FormLabel>
                                                 <FormControl>
-                                                    <Textarea className="bg-white" {...field} />
+                                                    <Textarea {...field} />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>

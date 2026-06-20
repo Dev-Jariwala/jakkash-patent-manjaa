@@ -16,7 +16,7 @@ export const BlockAlert = ({ title, open, onOpenChange, description, onConfirm, 
                 <AlertDialogDescription>
                     <div className='flex flex-col items-center gap-4'>
                         <BlockSvg />
-                        <p className='text-center text-xl text-gray-800'>{description}</p>
+                        <p className='text-center text-xl text-foreground'>{description}</p>
                     </div>
                 </AlertDialogDescription>
                 <AlertDialogFooter className='sm:justify-start'>

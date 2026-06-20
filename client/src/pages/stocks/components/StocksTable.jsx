@@ -103,7 +103,7 @@ const StocksTable = () => {
                 </div>
 
                 <div className="flex items-center space-x-5">
-                    <Link to={`/stocks/report`} className="flex items-center space-x-2 border border-red-200 rounded-lg px-2 cursor-pointer hover:bg-red-100 py-1 text-red-700">
+                    <Link to={`/stocks/report`} className="flex items-center space-x-2 border border-destructive/30 rounded-lg px-2 cursor-pointer hover:bg-destructive/10 py-1 text-destructive">
                         <Avatar className="w-6 h-6 rounded-none">
                             <AvatarImage src={`/pdf.svg`} />
                         </Avatar>
@@ -137,7 +137,7 @@ const StocksTable = () => {
                                             return (
                                                 <TableHead
                                                     key={header.id}
-                                                    className="text-slate-700 whitespace-nowrap"
+                                                    className="whitespace-nowrap"
                                                 >
                                                     {header.isPlaceholder
                                                         ? null
@@ -158,7 +158,7 @@ const StocksTable = () => {
                                         <TableRow
                                             key={row.id}
                                             data-state={row.getIsSelected() && "selected"}
-                                            className="hover:bg-gray-100"
+                                            className=""
                                         >
                                             {row.getVisibleCells().map((cell) => (
                                                 <TableCell key={cell.id}>
@@ -171,7 +171,7 @@ const StocksTable = () => {
                                             <TableCell className="flex items-center space-x-2">
                                                 <Link
                                                     to={`/stocks/update?stock_id=${row.original?.stock_id}`}
-                                                    className="hover:bg-gray-200 rounded-full size-8 flex items-center justify-center"
+                                                    className="hover:bg-accent rounded-full size-8 flex items-center justify-center"
                                                 >
                                                     <Pencil size={16} className="text-green-500" />
                                                 </Link>

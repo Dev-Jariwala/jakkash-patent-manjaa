@@ -201,7 +201,7 @@ const chipVariants = cva(
             {
                 variant: "light",
                 color: "gray",
-                className: "text-gray-700 border-gray-500 bg-gray-400/25 hover:bg-gray-400/35",
+                className: "text-muted-foreground border-border bg-muted hover:bg-muted/80",
             },
             {
                 variant: "light",
@@ -221,7 +221,7 @@ const chipVariants = cva(
             {
                 variant: "light",
                 color: "red",
-                className: "text-red-700 border-red-500 bg-red-400/25 hover:bg-red-400/35",
+                className: "text-red-700 dark:text-red-300 border-red-500/40 bg-red-500/15 dark:bg-red-500/20 hover:bg-red-500/25",
             },
             {
                 variant: "light",
@@ -246,7 +246,7 @@ const chipVariants = cva(
             {
                 variant: "light",
                 color: "green",
-                className: "text-green-700 border-green-500 bg-green-400/25 hover:bg-green-400/35",
+                className: "text-green-700 dark:text-green-300 border-green-500/40 bg-green-500/15 dark:bg-green-500/20 hover:bg-green-500/25",
             },
             {
                 variant: "light",
@@ -276,7 +276,7 @@ const chipVariants = cva(
             {
                 variant: "light",
                 color: "indigo",
-                className: "text-indigo-700 border-indigo-500 bg-indigo-400/25 hover:bg-indigo-400/35",
+                className: "text-indigo-700 dark:text-indigo-300 border-indigo-500/40 bg-indigo-500/15 dark:bg-indigo-500/20 hover:bg-indigo-500/25",
             },
             {
                 variant: "light",

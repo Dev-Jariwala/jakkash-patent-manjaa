@@ -140,16 +140,16 @@ function MetricCard({ title, value = 0, icon, trend, percentage }) {
     return (
         <Card className="transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg border">
             <CardContent className="flex items-center p-6">
-                <div className="mr-4 rounded-full p-3 bg-indigo-100 text-indigo-600 transition-all duration-300 ease-in-out transform group-hover:scale-110">
+                <div className="mr-4 rounded-full p-3 bg-primary/15 text-primary transition-all duration-300 ease-in-out transform group-hover:scale-110">
                     {icon}
                 </div>
                 <div>
-                    <p className="text-sm font-medium text-gray-500">{title}</p>
-                    <h3 className="text-2xl font-semibold text-gray-900">
+                    <p className="text-sm font-medium text-muted-foreground">{title}</p>
+                    <h3 className="text-2xl font-semibold text-foreground">
                         ₹{animatedValue?.toLocaleString()}
                     </h3>
                     <p
-                        className={`text-sm ${trend === "up" ? "text-green-600" : "text-red-600"
+                        className={`text-sm ${trend === "up" ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"
                             }`}
                     >
                         {trend === "up" ? "↑" : "↓"} {percentage}

@@ -109,8 +109,8 @@ const Sidebar = () => {
                 <SidebarHeader className="mb-3">
                     <SidebarMenu>
                         <SidebarMenuItem asChild>
-                            <Link className="flex items-center gap-1 hover:bg-gray-200 rounded-lg h-12 cursor-pointer">
-                                <Avatar className="w-9 h-9 mx-2 border-2 border-gray-400">
+                            <Link className="flex items-center gap-1 hover:bg-sidebar-accent rounded-lg h-12 cursor-pointer">
+                                <Avatar className="w-9 h-9 mx-2 border-2 border-sidebar-border">
                                     <AvatarImage
                                         src={`/logo.png`}
                                     />
@@ -162,7 +162,7 @@ const Sidebar = () => {
                                                 isActive={isActive(item.link)}
                                                 tooltip={item.title}
                                             >
-                                                <Link className={cn("no-underline text-inherit !h-10 ", isActive(item.link) ? '!bg-indigo-200 !text-gray-700' : 'hover:!bg-gray-200')} to={item.link}>
+                                                <Link className={cn("no-underline text-inherit !h-10 ", isActive(item.link) ? '!bg-sidebar-accent !text-sidebar-accent-foreground' : 'hover:!bg-sidebar-accent')} to={item.link}>
                                                     <span className="mx-1">
                                                         {item.icon && <item.icon />}
                                                     </span>
@@ -178,7 +178,7 @@ const Sidebar = () => {
                 </SidebarContent>
                 <SidebarRail />
             </SidebarComponent>
-            <SidebarInset className='flex flex-col relative w-full h-[100dvh]'>
+            <SidebarInset className='flex flex-col relative w-full h-[100dvh] bg-background'>
                 <Navbar />
                 <main className=" flex-1 overflow-y-auto h-[calc(100dvh-4rem)]">
                     <Outlet />

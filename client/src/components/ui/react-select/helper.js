@@ -8,10 +8,10 @@ const controlStyles = {
 const placeholderStyles = 'text-sm text-muted-foreground';
 const valueContainerStyles = 'gap-1';
 const multiValueStyles =
-    'inline-flex items-center gap-2 rounded-md border border-transparent bg-gray-200 text-secondary-foreground hover:bg-gray-200/80 px-1.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2';
-const multiValueRemoveStyles = 'hover:bg-red-200 hover:text-red-500';
+    'inline-flex items-center gap-2 rounded-md border border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 px-1.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2';
+const multiValueRemoveStyles = 'hover:bg-destructive/15 hover:text-destructive';
 const indicatorsContainerStyles = 'gap-1';
-const clearIndicatorStyles = 'p-1 rounded-md hover:bg-red-50 hover:text-red-500';
+const clearIndicatorStyles = 'p-1 rounded-md hover:bg-destructive/10 hover:text-destructive';
 const indicatorSeparatorStyles = 'bg-border';
 const dropdownIndicatorStyles = 'p-1 rounded-md';
 const menuStyles =
@@ -22,7 +22,7 @@ const optionStyles = {
     base: 'hover:cursor-pointer hover:bg-accent hover:text-accent-foreground px-2 py-1.5 rounded-sm !text-sm !cursor-default !select-none !outline-none',
     focus: 'active:bg-accent/90 bg-accent text-accent-foreground',
     disabled: 'pointer-events-none opacity-50',
-    selected: 'bg-indigo-100 hover:bg-indigo-100 font-semibold'
+    selected: 'bg-primary/15 hover:bg-primary/15 font-semibold'
 };
 const noOptionsMessageStyles =
     'text-accent-foreground p-2 bg-accent border border-dashed border-border rounded-sm';

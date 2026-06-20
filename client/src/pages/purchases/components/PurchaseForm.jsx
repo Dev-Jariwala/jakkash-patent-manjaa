@@ -103,8 +103,8 @@ const PurchaseForm = () => {
     }
     return (
         <div className="">
-            <div className="flex items-center justify-between px-5 border-b border-gray-200 py-4 mb-3">
-                <div className="text-xl text-gray-700 font-semibold">
+            <div className="flex items-center justify-between px-5 border-b border-border py-4 mb-3">
+                <div className="text-xl text-foreground font-semibold">
                     <BreadCrum
                         path={[
                             { path: "/", label: "Dashboard" },
@@ -224,7 +224,7 @@ const PurchaseForm = () => {
                                 <FormItem>
                                     <FormLabel>Item Description</FormLabel>
                                     <FormControl>
-                                        <Textarea className="bg-white" {...field} />
+                                        <Textarea {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
