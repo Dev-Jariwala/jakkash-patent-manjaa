@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocalStorage } from "@uidotdev/usehooks";
-import { CircleAlert, Loader2, ScanLine } from "lucide-react";
+import { CircleAlert, ScanLine } from "lucide-react";
 import { toast } from "react-toastify";
 
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
@@ -35,16 +35,16 @@ const clearScannedTextFromEditableTarget = (target, scannedValue) => {
     target.dispatchEvent(new Event("input", { bubbles: true }));
 };
 
-const getScannerLabel = (scannerState) => {
+const getScannerStatus = (scannerState) => {
     switch (scannerState) {
         case "capturing":
-            return "Reading";
+            return { label: "Reading", dot: "bg-amber-500 animate-pulse", icon: "text-amber-500" };
         case "loading":
-            return "Checking";
+            return { label: "Checking", dot: "bg-primary animate-pulse", icon: "text-primary" };
         case "error":
-            return "Retry";
+            return { label: "Retry", dot: "bg-destructive", icon: "text-destructive" };
         default:
-            return "Ready";
+            return { label: "Ready", dot: "bg-green-500", icon: "text-muted-foreground" };
     }
 };
 
@@ -263,6 +263,7 @@ const BillScanner = () => {
     const isBillDelivered = Boolean(scannedBill?.delivered_at);
     const dialogCopy = getBillDialogCopy({ isBillPaid, isBillDelivered });
     const isUpdatingStatus = markBillAsPaidMutation.isPending || markBillAsDeliveredMutation.isPending;
+    const scannerStatus = getScannerStatus(scannerState);
 
     return (
         <>
@@ -351,46 +352,41 @@ const BillScanner = () => {
                 </AlertDialogContent>
             </AlertDialog>
 
-            <form onSubmit={handleManualSubmit} className="hidden xl:flex items-center overflow-hidden rounded-lg border border-border bg-background shadow-sm focus-within:border-ring focus-within:ring-1 focus-within:ring-ring">
-                <div className="flex items-center pl-2.5">
+            <form onSubmit={handleManualSubmit} className="hidden md:flex items-center gap-2">
+                <div className="relative">
                     <ScanLine
                         className={cn(
-                            "size-4 shrink-0",
-                            scannerState === "ready" && "text-muted-foreground",
-                            scannerState === "capturing" && "text-amber-400",
-                            scannerState === "loading" && "text-primary",
-                            scannerState === "error" && "text-destructive"
+                            "pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2",
+                            scannerStatus.icon
                         )}
                     />
+                    <input
+                        value={manualValue}
+                        onChange={(event) => setManualValue(event.target.value)}
+                        placeholder="Scan or paste bill code"
+                        className="h-9 w-48 rounded-lg border border-border bg-background py-0 pl-9 pr-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-ring focus:ring-1 focus:ring-ring lg:w-56 xl:w-64"
+                    />
                 </div>
-                <input
-                    value={manualValue}
-                    onChange={(event) => setManualValue(event.target.value)}
-                    placeholder="Scan or paste bill code"
-                    className="h-9 w-52 bg-transparent px-2 text-sm text-foreground outline-none placeholder:text-muted-foreground"
-                />
-                <button
+                <Button
                     type="submit"
-                    disabled={!manualValue.trim() || lookupBillMutation.isPending}
-                    className="h-9 border-l border-border px-3 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:opacity-40"
+                    variant="outline"
+                    size="sm"
+                    disabled={!manualValue.trim()}
+                    isLoading={lookupBillMutation.isPending}
+                    loadingText="Finding..."
+                    className="h-9 px-3.5"
                 >
-                    {lookupBillMutation.isPending ? <Loader2 className="size-3.5 animate-spin" /> : "Find"}
-                </button>
+                    Find
+                </Button>
+                <div
+                    className="flex items-center gap-1.5 text-xs text-muted-foreground"
+                    title={!activeCollection ? "Select a collection before scanning" : undefined}
+                >
+                    <span className={cn("size-1.5 rounded-full", scannerStatus.dot)} />
+                    <span className="hidden lg:inline">{scannerStatus.label}</span>
+                    {!activeCollection && <CircleAlert className="size-3.5 text-amber-500" />}
+                </div>
             </form>
-
-            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <span
-                    className={cn(
-                        "size-2 rounded-full",
-                        scannerState === "ready" && "bg-green-500",
-                        scannerState === "capturing" && "bg-amber-400",
-                        scannerState === "loading" && "bg-blue-500",
-                        scannerState === "error" && "bg-red-500"
-                    )}
-                />
-                <span className="hidden sm:inline">{getScannerLabel(scannerState)}</span>
-                {!activeCollection && <CircleAlert className="size-3.5 text-amber-500" />}
-            </div>
         </>
     );
 };

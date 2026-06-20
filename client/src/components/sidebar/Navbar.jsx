@@ -19,11 +19,12 @@ const Navbar = () => {
   const { toggleSidebar } = useSidebar();
   return (
     <div className="sticky z-99 bg-background text-foreground top-0 left-0 border-b border-border h-16 flex items-center justify-between px-4">
-      <div className="flex items-center space-x-3">
+      <div className="flex items-center gap-2">
         <button onClick={toggleSidebar} className="text-lg font-semibold hover:bg-accent p-2 rounded-full">
           <AiOutlineMenu />
         </button>
         <ActiveCollectionSelect />
+        <div className="hidden md:block mx-1 h-5 w-px shrink-0 bg-border" aria-hidden="true" />
         <BillScanner />
       </div>
 
