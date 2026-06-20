@@ -25,6 +25,7 @@ import ClientReport from "@/pages/clients/components/ClientReport";
 import Sidebar from "@/components/ui/sidebar/Sidebar";
 import Dashboard from "@/pages/dashboard/Dashboard";
 import Landing from "@/pages/landing/Landing";
+import Settings from "@/pages/settings/Settings";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -134,6 +135,10 @@ const Routes = () => {
             {
               path: "/analytics",
               element: <Analytics />,
+            },
+            {
+              path: "/settings",
+              element: <Settings />,
             },
             {
               path: '/purchases/new',

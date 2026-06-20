@@ -12,6 +12,7 @@ import billRoutes from "./routes/bills.js";
 import clientRoutes from "./routes/clients.js";
 import purchaseRoutes from "./routes/purchases.js";
 import analyticsRoutes from "./routes/analytics.js";
+import settingsRoutes from "./routes/settings.js";
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use("/api/imgs", express.static("uploads/imgs"));
 app.use("/api/users", userRoutes);
+app.use("/api/settings", settingsRoutes);
 app.use("/api/clients", clientRoutes);
 app.use("/api/collections", collectionRoutes, productRoutes, stockRoutes, billRoutes, purchaseRoutes, analyticsRoutes);
 

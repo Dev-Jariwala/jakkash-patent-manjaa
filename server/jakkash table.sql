@@ -78,6 +78,15 @@ CREATE TABLE bills (
     FOREIGN KEY (collection_id) REFERENCES collections(collection_id)
 );
 
+CREATE TABLE app_settings (
+    setting_key VARCHAR(100) PRIMARY KEY,
+    setting_value BOOLEAN NOT NULL,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+INSERT INTO app_settings (setting_key, setting_value)
+VALUES ('whatsapp_service_enabled', FALSE);
+
 CREATE TABLE bill_items (
     bill_item_id VARCHAR(50) PRIMARY KEY,
     bill_id VARCHAR(50) NOT NULL,
