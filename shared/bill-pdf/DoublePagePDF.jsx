@@ -5,97 +5,10 @@ import {
   View,
   Text,
   Image,
-  StyleSheet,
 } from "@react-pdf/renderer";
 import { format } from "date-fns";
-const styles = StyleSheet.create({
-  // Add a new style for bold text within billHead
-  boldText: {
-    fontWeight: "bold",
-  },
-  billContainer: {
-    // backgroundColor: "yellow",
-    width: "90%",
-    margin: "0 auto",
-    minHeight: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "10px 0 10px",
-  },
-  bill: {
-    // backgroundColor: "red",
-    width: "100%",
-    margin: "0 auto",
-    // minHeight: "100%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: "10px 0 0",
-  },
-  billHead: {
-    width: "100%",
-    fontSize: 12,
-    display: "flex",
-    alignItems: "center",
-    padding: "5px 0",
-    border: "1px solid black",
-  },
-  address: {
-    width: "100%",
-    fontSize: 7,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: "5px 7px",
-    border: "1px solid black",
-    borderTop: "none",
-  },
-  billdetails: {
-    width: "100%",
-    // backgroundColor: "red",
-    fontSize: 8,
-    border: "1px solid black",
-    borderTop: "none",
-  },
-  bdRow: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    margin: "3px 0",
-  },
-  bdCol: {
-    // backgroundColor: "yellow",
-    width: "50%",
-  },
-  table: {
-    width: "100%",
-    fontSize: 9,
-    // marginBottom: 10,
-    border: "1px solid black",
-    borderTop: "none",
-  },
-  tableRow: {
-    flexDirection: "row",
-  },
-  tableCell: {
-    flex: 1,
-    textAlign: "center",
-    fontSize: 8,
-    padding: "2px 10px",
-    borderRight: "1px solid #ccc",
-  },
-  notes: {
-    width: "100%",
-    // backgroundColor: "green",
-    fontSize: 8,
-    border: "1px solid black",
-    padding: "3px 10px",
-    position: 'relative'
-  },
-});
+import { billPdfStyles as styles } from "./styles.js";
+
 const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
   const {
     bill_no,
@@ -116,25 +29,21 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
       <Page size="A5">
         <View style={styles.billContainer}>
           <View style={styles.bill}>
-            {/* Jakkash */}
             <View style={styles.billHead}>
               <Text>JAKKASH PATENT MANJA</Text>
             </View>
-            {/* Address */}
             <View style={styles.address}>
               <Text>
                 40, GANESH KRUPA SOCIETY, NEAR JOGANI NAGAR, OPP GAIL TOWER,
                 TADWADI, RANDER ROAD, SURAT.
               </Text>
             </View>
-            {/* bill Details */}
             <View style={styles.billdetails}>
               <View style={{ ...styles.bdRow, padding: "3px 10px" }}>
                 <View
                   style={{
                     width: "40%",
                     height: "100%",
-                    // backgroundColor: "yellowgreen",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "space-between",
@@ -158,7 +67,6 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                   style={{
                     width: "40%",
                     height: "100%",
-                    // backgroundColor: "yellowgreen",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "space-between",
@@ -184,10 +92,8 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                 </View>
               </View>
             </View>
-            {/* Table */}
             {
               <View style={styles.table}>
-                {/* Table Header */}
                 <View
                   style={{
                     ...styles.tableRow,
@@ -212,10 +118,8 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                   <View style={{ ...styles.tableCell, padding: "7px 10px" }}>
                     <Text>TOTAL</Text>
                   </View>
-                  {/* Add more headers as needed */}
                 </View>
 
-                {/* Table Rows */}
                 {products?.slice(0, 20)?.map((product, index) => (
                   <>
                     <View
@@ -223,7 +127,6 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                       style={{
                         ...styles.tableRow,
                         borderBottom: "1px solid #ccc",
-                        // padding: "3px 0",
                       }}
                     >
                       <View
@@ -231,7 +134,6 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                           ...styles.tableCell,
                           flex: 4,
                           textAlign: "left",
-                          //   paddingLeft: "5px",
                         }}
                       >
                         <Text>{product?.product_name}</Text>
@@ -249,7 +151,6 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                       <View style={styles.tableCell}>
                         <Text>{(product?.price * product?.quantity).toFixed(2)}</Text>
                       </View>
-                      {/* Add more cells for additional data */}
                     </View>
                   </>
                 ))}
@@ -258,7 +159,6 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                     style={{
                       ...styles.tableRow,
                       borderBottom: "1px solid #ccc",
-                      // padding: "3px 0",
                     }}
                   >
                     <View
@@ -266,7 +166,6 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                         ...styles.tableCell,
                         flex: 4,
                         textAlign: "left",
-                        //   paddingLeft: "5px",
                       }}
                     >
                       <Text></Text>
@@ -284,13 +183,11 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                     <View style={styles.tableCell}>
                       <Text>Continue..</Text>
                     </View>
-                    {/* Add more cells for additional data */}
                   </View>
                 </>
               </View>
             }
           </View>
-          {/* Notes */}
           <View style={styles.notes}>
             <View style={{ alignItems: "center", marginVertical: 10, position: 'absolute', right: 8, top: 0 }}>
               {qrCodeDataUrl && (
@@ -345,25 +242,21 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
       <Page size="A5">
         <View style={styles.billContainer}>
           <View style={styles.bill}>
-            {/* Jakkash */}
             <View style={styles.billHead}>
               <Text>JAKKASH PATENT MANJA</Text>
             </View>
-            {/* Address */}
             <View style={styles.address}>
               <Text>
                 40, GANESH KRUPA SOCIETY, NEAR JOGANI NAGAR, OPP GAIL TOWER,
                 TADWADI, RANDER ROAD, SURAT.
               </Text>
             </View>
-            {/* bill Details */}
             <View style={styles.billdetails}>
               <View style={{ ...styles.bdRow, padding: "3px 10px" }}>
                 <View
                   style={{
                     width: "40%",
                     height: "100%",
-                    // backgroundColor: "yellowgreen",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "space-between",
@@ -387,7 +280,6 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                   style={{
                     width: "40%",
                     height: "100%",
-                    // backgroundColor: "yellowgreen",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "space-between",
@@ -413,10 +305,8 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                 </View>
               </View>
             </View>
-            {/* Table */}
             {
               <View style={styles.table}>
-                {/* Table Header */}
                 <View
                   style={{
                     ...styles.tableRow,
@@ -441,17 +331,14 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                   <View style={{ ...styles.tableCell, padding: "7px 10px" }}>
                     <Text>TOTAL</Text>
                   </View>
-                  {/* Add more headers as needed */}
                 </View>
 
-                {/* Table Rows */}
                 {products?.slice(20, products?.length)?.map((product, index) => (
                   <View
                     key={index}
                     style={{
                       ...styles.tableRow,
                       borderBottom: "1px solid #ccc",
-                      // padding: "3px 0",
                     }}
                   >
                     <View
@@ -459,7 +346,6 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                         ...styles.tableCell,
                         flex: 4,
                         textAlign: "left",
-                        //   paddingLeft: "5px",
                       }}
                     >
                       <Text>{product?.product_name}</Text>
@@ -477,15 +363,12 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                     <View style={styles.tableCell}>
                       <Text>{(product?.price * product?.quantity).toFixed(2)}</Text>
                     </View>
-                    {/* Add more cells for additional data */}
                   </View>
                 ))}
-                {/* Total */}
                 <View
                   style={{
                     ...styles.tableRow,
                     borderBottom: "1px solid #ccc",
-                    //   padding: "1px 0",
                   }}
                 >
                   <View
@@ -512,14 +395,11 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                   <View style={{ ...styles.tableCell, fontSize: 10 }}>
                     <Text>{sub_total}</Text>
                   </View>
-                  {/* Add more cells for additional data */}
                 </View>
-                {/* Discount */}
                 <View
                   style={{
                     ...styles.tableRow,
                     borderBottom: "1px solid #ccc",
-                    //   padding: "1px 0",
                   }}
                 >
                   <View
@@ -542,14 +422,11 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                   <View style={{ ...styles.tableCell, fontSize: 10 }}>
                     <Text>{discount}</Text>
                   </View>
-                  {/* Add more cells for additional data */}
                 </View>
-                {/* Advance */}
                 <View
                   style={{
                     ...styles.tableRow,
                     borderBottom: "1px solid #ccc",
-                    //   padding: "1px 0",
                   }}
                 >
                   <View
@@ -572,14 +449,11 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                   <View style={{ ...styles.tableCell, fontSize: 10 }}>
                     <Text>{advance}</Text>
                   </View>
-                  {/* Add more cells for additional data */}
                 </View>
-                {/* Total Due */}
                 <View
                   style={{
                     ...styles.tableRow,
                     borderBottom: "1px solid #ccc",
-                    //   padding: "1px 0",
                   }}
                 >
                   <View
@@ -602,12 +476,10 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                   <View style={{ ...styles.tableCell, fontSize: 10 }}>
                     <Text>{total_due}</Text>
                   </View>
-                  {/* Add more cells for additional data */}
                 </View>
               </View>
             }
           </View>
-          {/* Notes */}
           <View style={styles.notes}>
             <View style={{ alignItems: "center", marginVertical: 10, position: 'absolute', right: 8, top: 0 }}>
               {qrCodeDataUrl && (

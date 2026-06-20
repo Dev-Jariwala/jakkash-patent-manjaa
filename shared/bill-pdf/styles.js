@@ -1,0 +1,82 @@
+import { StyleSheet } from "@react-pdf/renderer";
+
+export const billPdfStyles = StyleSheet.create({
+  boldText: {
+    fontWeight: "bold",
+  },
+  billContainer: {
+    width: "90%",
+    margin: "0 auto",
+    minHeight: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "10px 0 10px",
+  },
+  bill: {
+    width: "100%",
+    margin: "0 auto",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "10px 0 0",
+  },
+  billHead: {
+    width: "100%",
+    fontSize: 12,
+    display: "flex",
+    alignItems: "center",
+    padding: "5px 0",
+    border: "1px solid black",
+  },
+  address: {
+    width: "100%",
+    fontSize: 7,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "5px 7px",
+    border: "1px solid black",
+    borderTop: "none",
+  },
+  billdetails: {
+    width: "100%",
+    fontSize: 8,
+    border: "1px solid black",
+    borderTop: "none",
+  },
+  bdRow: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    margin: "3px 0",
+  },
+  bdCol: {
+    width: "50%",
+  },
+  table: {
+    width: "100%",
+    fontSize: 9,
+    border: "1px solid black",
+    borderTop: "none",
+  },
+  tableRow: {
+    flexDirection: "row",
+  },
+  tableCell: {
+    flex: 1,
+    textAlign: "center",
+    fontSize: 8,
+    padding: "2px 10px",
+    borderRight: "1px solid #ccc",
+  },
+  notes: {
+    width: "100%",
+    fontSize: 8,
+    border: "1px solid black",
+    padding: "3px 10px",
+    position: "relative",
+  },
+});

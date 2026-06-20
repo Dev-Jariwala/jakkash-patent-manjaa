@@ -1,0 +1,16 @@
+{
+  "name": "@jakkash/bill-pdf",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./BillPDFDocument": "./BillPDFDocument.jsx"
+  },
+  "peerDependencies": {
+    "@react-pdf/renderer": "^4.1.6",
+    "date-fns": "^3.6.0",
+    "react": "^18.3.1"
+  }
+}
