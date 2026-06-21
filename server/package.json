@@ -6,17 +6,20 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --env-file=.env app.js"
+    "dev": "nodemon --env-file=.env app.js",
+    "worker:whatsapp-delivery": "node --env-file=.env workers/whatsappBillDeliveryWorker.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bullmq": "^5.79.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "express-validator": "^7.1.0",
+    "ioredis": "^5.11.1",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.10.2",
     "passport": "^0.7.0",

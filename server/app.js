@@ -13,6 +13,7 @@ import clientRoutes from "./routes/clients.js";
 import purchaseRoutes from "./routes/purchases.js";
 import analyticsRoutes from "./routes/analytics.js";
 import settingsRoutes from "./routes/settings.js";
+import { verifyRedisConnection } from "./config/redis.js";
 
 const app = express();
 
@@ -42,4 +43,5 @@ app.use("/api/collections", collectionRoutes, productRoutes, stockRoutes, billRo
 const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
+  verifyRedisConnection();
 });

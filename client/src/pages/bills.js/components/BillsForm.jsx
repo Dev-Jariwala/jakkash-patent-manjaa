@@ -130,14 +130,14 @@ const BillsForm = () => {
         },
         enabled: !!activeCollection && formType === "new",
     });
-    const { data: whatsappServiceSetting } = useQuery({
+    const { data: whatsappServiceSetting, isError: isWhatsAppServiceSettingError, error: whatsappServiceSettingError } = useQuery({
         queryKey: ["whatsappServiceSetting"],
         queryFn: async () => {
             const response = await getWhatsAppServiceSetting();
             return response.data;
         },
     });
-    const whatsappServiceEnabled = !!whatsappServiceSetting?.whatsapp_service_enabled;
+    const whatsappServiceEnabled = !isWhatsAppServiceSettingError && !!whatsappServiceSetting?.whatsapp_service_enabled;
     const mobile = form.watch("mobile");
     const { data: clientDetails, isLoading: isClientDetailsLoading, error: clientDetailsError } = useQuery({
         queryKey: ["clientDetails", mobile],
@@ -155,6 +155,12 @@ const BillsForm = () => {
             navigate(`/bills/${billType}?bill_id=${res.data?.bill?.bill_id}`);
             queryClient.invalidateQueries(["bills", activeCollection]);
             toast.success("Bill created successfully");
+            if (res.data?.whatsapp_delivery?.queued === false) {
+                toast.warn(
+                    res.data.whatsapp_delivery.warning ||
+                    "Bill was created, but WhatsApp delivery could not be queued."
+                );
+            }
         },
         onError: (error) => {
             toast.error(`Error creating bill: ${error.message}`);
@@ -256,7 +262,10 @@ const BillsForm = () => {
         if (clientDetailsError) {
             toast.error(`Error getting client details: ${clientDetailsError.message}`);
         }
-    }, [productsError, nextBillNoError, billError, clientDetailsError]);
+        if (whatsappServiceSettingError) {
+            toast.error(`Could not load WhatsApp service setting: ${whatsappServiceSettingError.message}`);
+        }
+    }, [productsError, nextBillNoError, billError, clientDetailsError, whatsappServiceSettingError]);
 
     useEffect(() => {
         if (clientDetails?.name && clientDetails?.address) {

@@ -4,6 +4,7 @@ import { handleError } from "../utils/error.js";
 import { query } from "../utils/query.js";
 import { getWhatsAppServiceEnabled } from "../services/whatsappServiceSetting.js";
 import { resolveCreateBillWhatsAppMetadata } from "../services/whatsappBillMetadata.js";
+import { enqueueBillWhatsAppDelivery } from "../services/whatsappBillDeliveryEnqueue.js";
 
 // CREATE TABLE bills (
 // 	   sr_no SERIAL PRIMARY KEY,
@@ -49,6 +50,15 @@ export const createBill = async (req, res, next) => {
   const { collection_id } = req.params;
   try {
     const serviceEnabled = await getWhatsAppServiceEnabled();
+
+    if (send_bill_on_whatsapp && !serviceEnabled) {
+      return res.status(403).json({
+        success: false,
+        message: "WhatsApp bill delivery is disabled",
+        code: "WHATSAPP_SERVICE_DISABLED",
+      });
+    }
+
     const whatsapp_metadata = resolveCreateBillWhatsAppMetadata({
       serviceEnabled,
       sendBillOnWhatsApp: send_bill_on_whatsapp,
@@ -103,7 +113,40 @@ export const createBill = async (req, res, next) => {
       );
       client = updatedClient;
     }
-    res.status(201).json({ message: "Bill created successfully", bill: newBill, billItems });
+
+    let billForResponse = newBill;
+    let whatsappDelivery;
+    if (whatsapp_metadata.delivery_requested) {
+      try {
+        const { bill: updatedBill } = await enqueueBillWhatsAppDelivery({
+          billId: newBill.bill_id,
+          collectionId: collection_id,
+          whatsappMetadata: whatsapp_metadata,
+        });
+        billForResponse = updatedBill;
+        whatsappDelivery = {
+          queued: true,
+          status: updatedBill?.whatsapp_metadata?.status || "processing",
+        };
+      } catch (enqueueError) {
+        console.error(`Error enqueueing WhatsApp delivery for bill ${newBill.bill_id}:`, enqueueError);
+        if (enqueueError.bill) {
+          billForResponse = enqueueError.bill;
+        }
+        whatsappDelivery = {
+          queued: false,
+          status: billForResponse?.whatsapp_metadata?.status || "failed",
+          warning: enqueueError.message,
+        };
+      }
+    }
+
+    res.status(201).json({
+      message: "Bill created successfully",
+      bill: billForResponse,
+      billItems,
+      ...(whatsappDelivery && { whatsapp_delivery: whatsappDelivery }),
+    });
   } catch (error) {
     handleError('createBill', res, error);
   }

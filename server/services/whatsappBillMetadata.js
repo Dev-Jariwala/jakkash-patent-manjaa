@@ -28,3 +28,42 @@ export function resolveCreateBillWhatsAppMetadata({
   const deliveryRequested = Boolean(serviceEnabled && sendBillOnWhatsApp);
   return createInitialWhatsAppMetadata({ deliveryRequested });
 }
+
+export function buildBillDeliveryJobId(billId) {
+  return `bill-${billId}`;
+}
+
+export function buildProcessingWhatsAppMetadata(existingMetadata, { queueJobId }) {
+  const now = new Date().toISOString();
+
+  return {
+    ...existingMetadata,
+    status: WHATSAPP_DELIVERY_STATUS.PROCESSING,
+    delivery_requested: true,
+    delivery_requested_at: existingMetadata.delivery_requested_at || now,
+    processing_started_at: now,
+    queue_job_id: queueJobId,
+    completed_at: null,
+    error_message: null,
+    provider_message_id: null,
+    cancel_requested: false,
+    canceled_at: null,
+  };
+}
+
+export function buildEnqueueFailedWhatsAppMetadata(existingMetadata, error) {
+  const now = new Date().toISOString();
+
+  return {
+    ...existingMetadata,
+    status: WHATSAPP_DELIVERY_STATUS.FAILED,
+    delivery_requested: true,
+    processing_started_at: null,
+    queue_job_id: null,
+    completed_at: now,
+    error_message: error?.message || "Failed to enqueue WhatsApp delivery job",
+    provider_message_id: null,
+    cancel_requested: false,
+    canceled_at: null,
+  };
+}
