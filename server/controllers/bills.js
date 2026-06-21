@@ -2,6 +2,8 @@
 
 import { handleError } from "../utils/error.js";
 import { query } from "../utils/query.js";
+import { getWhatsAppServiceEnabled } from "../services/whatsappServiceSetting.js";
+import { resolveCreateBillWhatsAppMetadata } from "../services/whatsappBillMetadata.js";
 
 // CREATE TABLE bills (
 // 	   sr_no SERIAL PRIMARY KEY,
@@ -42,15 +44,21 @@ import { query } from "../utils/query.js";
 // );
 
 export const createBill = async (req, res, next) => {
-  const { bill_no, bill_type, name, address, mobile, notes, total_firki, sub_total, advance, discount, total_due, order_date, delivery_date, bill_items, is_delivered = false } = req.body;
+  const { bill_no, bill_type, name, address, mobile, notes, total_firki, sub_total, advance, discount, total_due, order_date, delivery_date, bill_items, is_delivered = false, send_bill_on_whatsapp = false } = req.body;
   const products = req.products || [];
   const { collection_id } = req.params;
   try {
+    const serviceEnabled = await getWhatsAppServiceEnabled();
+    const whatsapp_metadata = resolveCreateBillWhatsAppMetadata({
+      serviceEnabled,
+      sendBillOnWhatsApp: send_bill_on_whatsapp,
+    });
+
     const [newBill] = await query(
       `insert into bills 
-        (collection_id, bill_no, bill_type, mobile, name, address, order_date, delivery_date, notes, total_firki, sub_total, discount, advance, total_due, delivered_at)
-        values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) returning *`,
-      [collection_id, bill_no, bill_type, mobile, name, address, order_date, delivery_date, notes, total_firki, sub_total, discount, advance, total_due, is_delivered ? 'now()' : null]
+        (collection_id, bill_no, bill_type, mobile, name, address, order_date, delivery_date, notes, total_firki, sub_total, discount, advance, total_due, delivered_at, whatsapp_metadata)
+        values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) returning *`,
+      [collection_id, bill_no, bill_type, mobile, name, address, order_date, delivery_date, notes, total_firki, sub_total, discount, advance, total_due, is_delivered ? 'now()' : null, whatsapp_metadata]
     );
     if (!newBill) {
       return res.status(400).json({ message: 'Error creating bill', error: 'Error creating bill' })

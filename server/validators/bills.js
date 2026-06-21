@@ -190,6 +190,10 @@ export const validateCreateBill = [
       }
       return true;
     }),
+  body("send_bill_on_whatsapp")
+    .optional()
+    .isBoolean()
+    .withMessage("send_bill_on_whatsapp must be a boolean"),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

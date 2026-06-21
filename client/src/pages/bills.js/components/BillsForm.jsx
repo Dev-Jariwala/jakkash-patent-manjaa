@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils";
 import ReactSelect from "@/components/ui/react-select/react-select";
 import { Textarea } from "@/components/ui/textarea";
 import { createBill, getBillById, getNextBillNo, updateBillById } from "@/services/bills";
+import { getWhatsAppServiceSetting } from "@/services/settings";
 import { handleDecimalInputChange, handleNumberInputChange, productNamesOrder, sortProductsByNames } from "@/helper/formHelper";
 import { getClientByMobileNumber } from "@/services/clients";
 import AddStockModal from "./AddStockModal";
@@ -87,6 +88,7 @@ const BillsForm = () => {
                 return sub_total === (discount + advance + value);
             }),
         is_delivered: yup.boolean().optional(),
+        send_bill_on_whatsapp: yup.boolean().optional(),
     });
     // const bill_id = searchParams.get("bill_id");
     const form = useForm({
@@ -108,6 +110,7 @@ const BillsForm = () => {
             advance: 0,
             total_due: 0,
             is_delivered: false,
+            send_bill_on_whatsapp: true,
         },
     });
 
@@ -127,6 +130,14 @@ const BillsForm = () => {
         },
         enabled: !!activeCollection && formType === "new",
     });
+    const { data: whatsappServiceSetting } = useQuery({
+        queryKey: ["whatsappServiceSetting"],
+        queryFn: async () => {
+            const response = await getWhatsAppServiceSetting();
+            return response.data;
+        },
+    });
+    const whatsappServiceEnabled = !!whatsappServiceSetting?.whatsapp_service_enabled;
     const mobile = form.watch("mobile");
     const { data: clientDetails, isLoading: isClientDetailsLoading, error: clientDetailsError } = useQuery({
         queryKey: ["clientDetails", mobile],
@@ -169,11 +180,13 @@ const BillsForm = () => {
         data.bill_no = formType === 'new' ? nextBillNo : data.bill_no;
         data.bill_type = billType;
         data.mobile = data.mobile.toString();
-        // alert('submit form');
-        // console.log({ data });
         if (formType === "new") {
+            if (!whatsappServiceEnabled) {
+                delete data.send_bill_on_whatsapp;
+            }
             createBillMutation.mutate({ collection_id: activeCollection, data });
         } else {
+            delete data.send_bill_on_whatsapp;
             console.log({ data });
             updateBillMutation.mutate({ collection_id: activeCollection, bill_id, data });
         }
@@ -642,6 +655,19 @@ const BillsForm = () => {
                                         render={({ field }) => (
                                             <FormItem className="flex items-center gap-2 space-y-0">
                                                 <FormLabel>Mark as Delivered</FormLabel>
+                                                <FormControl>
+                                                    <Checkbox {...field} checked={field.value} onCheckedChange={field.onChange} />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />}
+                                    {formType === "new" && whatsappServiceEnabled && <FormField
+                                        control={form.control}
+                                        name="send_bill_on_whatsapp"
+                                        render={({ field }) => (
+                                            <FormItem className="flex items-center gap-2 space-y-0">
+                                                <FormLabel>Send Bill on WhatsApp</FormLabel>
                                                 <FormControl>
                                                     <Checkbox {...field} checked={field.value} onCheckedChange={field.onChange} />
                                                 </FormControl>
