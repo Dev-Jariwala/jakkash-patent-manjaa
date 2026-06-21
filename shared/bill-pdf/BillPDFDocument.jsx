@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import React from "react";
 import { Document } from "@react-pdf/renderer";
 import SinglePagePDF from "./SinglePagePDF.jsx";
 import DoublePagePDF from "./DoublePagePDF.jsx";

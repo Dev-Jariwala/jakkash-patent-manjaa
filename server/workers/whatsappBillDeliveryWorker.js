@@ -16,17 +16,21 @@ export function startWhatsAppBillDeliveryWorker() {
     }
   );
 
-  worker.on("completed", (job) => {
-    console.log(
-      `[whatsapp-delivery-worker] Queue job ${job.id} processed (stub — WhatsApp not sent)`
-    );
+  worker.on("completed", (job, result) => {
+    const status = result?.status || "completed";
+    console.log(`[whatsapp-delivery-worker] Queue job ${job.id} finished with status "${status}"`);
   });
 
   worker.on("failed", (job, error) => {
-    console.error(
-      `[whatsapp-delivery-worker] Queue job ${job?.id} failed before stub handler finished:`,
-      error
-    );
+    if (error?.code === "WHATSAPP_DELIVERY_PERSISTENCE_FAILED_AFTER_SEND") {
+      console.error(
+        `[whatsapp-delivery-worker] Queue job ${job?.id} failed after provider accepted send (message ${error.providerMessageId}) — reconciliation required:`,
+        error.cause || error
+      );
+      return;
+    }
+
+    console.error(`[whatsapp-delivery-worker] Queue job ${job?.id} failed:`, error);
   });
 
   worker.on("error", (error) => {

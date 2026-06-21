@@ -1,10 +1,10 @@
-import { query } from "../utils/query.js";
 import { enqueueWhatsAppBillDelivery } from "../queues/whatsappBillDeliveryQueue.js";
 import {
   buildBillDeliveryJobId,
   buildEnqueueFailedWhatsAppMetadata,
   buildProcessingWhatsAppMetadata,
 } from "./whatsappBillMetadata.js";
+import { persistWhatsAppMetadata } from "./whatsappBillDeliveryPersistence.js";
 
 export class EnqueueWhatsAppDeliveryError extends Error {
   constructor(originalError, bill) {
@@ -13,22 +13,6 @@ export class EnqueueWhatsAppDeliveryError extends Error {
     this.cause = originalError;
     this.bill = bill;
   }
-}
-
-async function persistWhatsAppMetadata({ billId, collectionId, metadata }) {
-  const [updatedBill] = await query(
-    `UPDATE bills
-     SET whatsapp_metadata = $1::jsonb
-     WHERE bill_id = $2 AND collection_id = $3
-     RETURNING *`,
-    [JSON.stringify(metadata), billId, collectionId]
-  );
-
-  if (!updatedBill) {
-    throw new Error("Failed to persist WhatsApp delivery metadata");
-  }
-
-  return updatedBill;
 }
 
 export async function enqueueBillWhatsAppDelivery({ billId, collectionId, whatsappMetadata }) {
