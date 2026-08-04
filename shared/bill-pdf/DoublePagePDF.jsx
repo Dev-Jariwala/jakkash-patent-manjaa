@@ -7,6 +7,8 @@ import {
   Image,
 } from "@react-pdf/renderer";
 import { format } from "date-fns";
+import { DOUBLE_PAGE_PRODUCT_THRESHOLD } from "./constants.js";
+import { formatPrice } from "./formatPrice.js";
 import { billPdfStyles as styles } from "./styles.js";
 
 const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
@@ -74,7 +76,7 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                   }}
                 >
                   <View style={styles.bdRow}>
-                    <Text style={styles.bdCol}> bill_no:</Text>
+                    <Text style={styles.bdCol}> BILL NO:</Text>
                     <Text style={styles.bdCol}>{bill_no}</Text>
                   </View>
                   <View style={styles.bdRow}>
@@ -120,7 +122,7 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                   </View>
                 </View>
 
-                {products?.slice(0, 20)?.map((product, index) => (
+                {products?.slice(0, DOUBLE_PAGE_PRODUCT_THRESHOLD)?.map((product, index) => (
                   <>
                     <View
                       key={index}
@@ -146,10 +148,10 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                         <Text>{product?.quantity}</Text>
                       </View>
                       <View style={styles.tableCell}>
-                        <Text>{product?.price}</Text>
+                        <Text>{formatPrice(product?.price, false)}</Text>
                       </View>
                       <View style={styles.tableCell}>
-                        <Text>{(product?.price * product?.quantity).toFixed(2)}</Text>
+                        <Text>{formatPrice((product?.price * product?.quantity).toFixed(2), false)}</Text>
                       </View>
                     </View>
                   </>
@@ -287,7 +289,7 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                   }}
                 >
                   <View style={styles.bdRow}>
-                    <Text style={styles.bdCol}> BILLNO:</Text>
+                    <Text style={styles.bdCol}> BILL NO:</Text>
                     <Text style={styles.bdCol}>{bill_no}</Text>
                   </View>
                   <View style={styles.bdRow}>
@@ -333,7 +335,7 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                   </View>
                 </View>
 
-                {products?.slice(20, products?.length)?.map((product, index) => (
+                {products?.slice(DOUBLE_PAGE_PRODUCT_THRESHOLD, products?.length)?.map((product, index) => (
                   <View
                     key={index}
                     style={{
@@ -358,10 +360,10 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                       <Text>{product?.quantity}</Text>
                     </View>
                     <View style={styles.tableCell}>
-                      <Text>{product?.price}</Text>
+                      <Text>{formatPrice(product?.price, false)}</Text>
                     </View>
                     <View style={styles.tableCell}>
-                      <Text>{(product?.price * product?.quantity).toFixed(2)}</Text>
+                      <Text>{formatPrice((product?.price * product?.quantity).toFixed(2), false)}</Text>
                     </View>
                   </View>
                 ))}
@@ -393,7 +395,7 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                     <Text>Total</Text>
                   </View>
                   <View style={{ ...styles.tableCell, fontSize: 10 }}>
-                    <Text>{sub_total}</Text>
+                    <Text>{formatPrice(sub_total, false)}</Text>
                   </View>
                 </View>
                 <View
@@ -420,7 +422,7 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                     <Text>Discount</Text>
                   </View>
                   <View style={{ ...styles.tableCell, fontSize: 10 }}>
-                    <Text>{discount}</Text>
+                    <Text>{formatPrice(discount, false)}</Text>
                   </View>
                 </View>
                 <View
@@ -447,7 +449,7 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                     <Text>Advance</Text>
                   </View>
                   <View style={{ ...styles.tableCell, fontSize: 10 }}>
-                    <Text>{advance}</Text>
+                    <Text>{formatPrice(advance, false)}</Text>
                   </View>
                 </View>
                 <View
@@ -474,7 +476,7 @@ const DoublePagePDF = ({ bill, qrCodeDataUrl }) => {
                     <Text>Due</Text>
                   </View>
                   <View style={{ ...styles.tableCell, fontSize: 10 }}>
-                    <Text>{total_due}</Text>
+                    <Text>{formatPrice(total_due, false)}</Text>
                   </View>
                 </View>
               </View>

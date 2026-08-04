@@ -5,7 +5,8 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "node scripts/link-bill-pdf-peers.mjs",
+    "test": "node scripts/smoke-phase-6.5.mjs",
     "dev": "nodemon --env-file=.env app.js",
     "worker:whatsapp-delivery": "tsx --env-file=.env workers/whatsappBillDeliveryWorker.js"
   },

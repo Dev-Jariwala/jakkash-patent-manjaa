@@ -1,3 +1,5 @@
+import { randomUUID } from "crypto";
+
 export const WHATSAPP_DELIVERY_STATUS = {
   NO: "no",
   PROCESSING: "processing",
@@ -31,7 +33,38 @@ export function resolveCreateBillWhatsAppMetadata({
 }
 
 export function buildBillDeliveryJobId(billId) {
-  return `bill-${billId}`;
+  return `bill-${billId}-${randomUUID()}`;
+}
+
+export function evaluateWhatsAppDeliveryJobState(metadata, jobId) {
+  if (!metadata) {
+    return { action: "abort", reason: "metadata_missing" };
+  }
+
+  if (metadata.queue_job_id !== jobId) {
+    return {
+      action: "skip",
+      reason: "stale_job",
+      status: metadata.status,
+    };
+  }
+
+  if (
+    metadata.cancel_requested ||
+    metadata.status === WHATSAPP_DELIVERY_STATUS.CANCELED
+  ) {
+    return { action: "canceled" };
+  }
+
+  if (metadata.status !== WHATSAPP_DELIVERY_STATUS.PROCESSING) {
+    return {
+      action: "skip",
+      reason: "not_processing",
+      status: metadata.status,
+    };
+  }
+
+  return { action: "continue" };
 }
 
 export function buildProcessingWhatsAppMetadata(existingMetadata, { queueJobId }) {
@@ -98,6 +131,19 @@ export function buildSuccessWhatsAppMetadata(existingMetadata, { providerMessage
   };
 }
 
+export function buildCanceledWhatsAppMetadata(existingMetadata, { canceledAt } = {}) {
+  const now = canceledAt || new Date().toISOString();
+
+  return {
+    ...existingMetadata,
+    status: WHATSAPP_DELIVERY_STATUS.CANCELED,
+    completed_at: now,
+    cancel_requested: true,
+    canceled_at: existingMetadata.canceled_at || now,
+    error_message: null,
+  };
+}
+
 export function buildFailedWhatsAppMetadata(existingMetadata, error) {
   const now = new Date().toISOString();
 
@@ -106,6 +152,7 @@ export function buildFailedWhatsAppMetadata(existingMetadata, error) {
     status: WHATSAPP_DELIVERY_STATUS.FAILED,
     completed_at: now,
     error_message: error?.message || "WhatsApp delivery failed",
-    provider_message_id: null,
+    provider_message_id: existingMetadata.provider_message_id ?? null,
+    provider_accepted_at: existingMetadata.provider_accepted_at ?? null,
   };
 }

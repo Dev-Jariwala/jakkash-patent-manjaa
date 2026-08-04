@@ -22,6 +22,8 @@ import { Spinner } from "@/components/ui/spinner";
 import { DataTableViewOptions } from "@/components/ui/data-table-view-options";
 import FormatePrice from "@/helper/FormatPrice";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import WhatsAppDeliveryStatus from "@/components/bills/WhatsAppDeliveryStatus";
+import { billHasProcessingWhatsAppDelivery, getWhatsAppDeliveryPollIntervalMs } from "@/lib/whatsappDelivery";
 
 const csvHeaders = [
     { label: "Bill No.", key: "bill_no" },
@@ -56,6 +58,7 @@ const BillsTable = () => {
         discount: false,
         advance: false,
         total_due: true,
+        whatsapp_delivery_status: true,
     });
     const [showDeliveryAlert, setShowDeliveryAlert] = useState({ status: false, data: null });
     const [columnOrder, setColumnOrder] = useState([]);
@@ -64,6 +67,8 @@ const BillsTable = () => {
     const [searchParams] = useSearchParams();
     const bill_id = searchParams.get("bill_id");
 
+    const whatsappPollIntervalMs = getWhatsAppDeliveryPollIntervalMs();
+
     const { data: billsData, error: billsDataError, isLoading: isBillsDataLoading } = useQuery({
         queryKey: ["bills", activeCollection, pagination, debouncedSearch, billType],
         queryFn: async () => {
@@ -71,6 +76,10 @@ const BillsTable = () => {
             return response.data;
         },
         enabled: !!activeCollection,
+        refetchInterval: (query) =>
+            billHasProcessingWhatsAppDelivery(query.state.data?.bills)
+                ? whatsappPollIntervalMs
+                : false,
     });
 
     const { data: wholesaleBills, error: wholesaleBillsError, isLoading: isWholesaleBillsLoading, refetch } = useQuery({
@@ -170,12 +179,18 @@ const BillsTable = () => {
                     );
                 },
             }),
+            columnHelper.display({
+                id: "whatsapp_delivery_status",
+                header: "WhatsApp",
+                cell: (info) => <WhatsAppDeliveryStatus bill={info.row.original} />,
+            }),
         ]
     ), []);
 
     const headers = {};
     columnsDef.forEach((column) => {
-        headers[column.accessorKey] = column.header;
+        const key = column.id ?? column.accessorKey;
+        headers[key] = column.header;
     });
 
     const data = useMemo(() => billsData?.bills ?? [], [billsData]);

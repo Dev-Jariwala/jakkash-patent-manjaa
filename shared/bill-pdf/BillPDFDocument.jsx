@@ -3,9 +3,9 @@ import React from "react";
 import { Document } from "@react-pdf/renderer";
 import SinglePagePDF from "./SinglePagePDF.jsx";
 import DoublePagePDF from "./DoublePagePDF.jsx";
+import { DOUBLE_PAGE_PRODUCT_THRESHOLD } from "./constants.js";
 
-/** Product count at or above which the bill uses the two-page layout. */
-export const DOUBLE_PAGE_PRODUCT_THRESHOLD = 18;
+export { DOUBLE_PAGE_PRODUCT_THRESHOLD };
 
 /**
  * Canonical React PDF bill document. Shared by the frontend bill viewer and
