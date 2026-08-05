@@ -3,20 +3,49 @@ import { createRedisConnection } from "../config/redis.js";
 
 export const WHATSAPP_BILL_DELIVERY_QUEUE_NAME = "whatsapp-bill-delivery";
 
+/**
+ * Failed jobs are kept so a delivery failure can be inspected in Redis, but
+ * keeping them forever grows the queue without bound. The bill's
+ * `whatsapp_metadata` is the durable record of the outcome, so the Redis copy
+ * only needs to survive long enough to debug a recent failure.
+ */
+export const FAILED_JOB_RETENTION = {
+  age: 7 * 24 * 60 * 60, // seconds
+  count: 1000,
+};
+
+export const WHATSAPP_BILL_DELIVERY_JOB_OPTIONS = {
+  removeOnComplete: true,
+  removeOnFail: FAILED_JOB_RETENTION,
+  // No automatic retries (PRD 28): every attempt is user-triggered, so a retry
+  // here would deliver a duplicate bill the operator never asked for.
+  attempts: 1,
+};
+
 let queueInstance = null;
 
 export function getWhatsAppBillDeliveryQueue() {
   if (!queueInstance) {
     queueInstance = new Queue(WHATSAPP_BILL_DELIVERY_QUEUE_NAME, {
       connection: createRedisConnection(),
-      defaultJobOptions: {
-        removeOnComplete: true,
-        removeOnFail: false,
-        attempts: 1,
-      },
+      defaultJobOptions: WHATSAPP_BILL_DELIVERY_JOB_OPTIONS,
     });
   }
   return queueInstance;
+}
+
+/**
+ * Releases the queue's Redis connection so a shutting-down process does not hang
+ * on an open socket. Safe to call when the queue was never created.
+ */
+export async function closeWhatsAppBillDeliveryQueue() {
+  if (!queueInstance) {
+    return;
+  }
+
+  const queue = queueInstance;
+  queueInstance = null;
+  await queue.close();
 }
 
 export async function enqueueWhatsAppBillDelivery({ billId, collectionId, jobId }) {

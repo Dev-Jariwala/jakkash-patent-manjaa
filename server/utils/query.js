@@ -10,7 +10,9 @@ export const query = async (sql, values, retries = 3) => {
         if ((error.code === 'ECONNRESET' || error.code === 'ECONNREFUSED') && retries > 0) {
             console.log("Reconnecting to the database. Attempts remaining:", retries);
             await new Promise(resolve => setTimeout(resolve, 1000));
-            return pgquery(sql, values, retries - 1);
+            // Was `pgquery(...)`, which does not exist: every connection-reset
+            // retry threw a ReferenceError instead of reconnecting.
+            return query(sql, values, retries - 1);
         }
         throw error;
     }

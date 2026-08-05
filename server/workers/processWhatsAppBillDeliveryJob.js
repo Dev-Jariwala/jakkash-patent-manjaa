@@ -31,15 +31,36 @@ export class WhatsAppDeliveryPersistenceAfterSendError extends Error {
   }
 }
 
-async function loadDeliveryContext({ billId, collectionId }) {
-  const bill = await fetchBillForDelivery({ billId, collectionId });
+/**
+ * Everything this job reaches outside itself, in one place.
+ *
+ * The delivery orchestration — when to re-check cancel state, which write wins,
+ * what a lost race returns — is the behaviour the PRD calls the highest test
+ * seam, and it is untestable while the DB and the provider are baked in.
+ * Production always uses these defaults; tests substitute them.
+ */
+export const defaultDeliveryDependencies = {
+  fetchBillForDelivery,
+  generateBillPdfBuffer,
+  buildBillPdfFilename,
+  sendBillDocumentOnWhatsApp,
+  persistWhatsAppDeliveryOutcome,
+  persistWhatsAppDeliveryCancellation,
+  logger: console,
+};
+
+async function loadDeliveryContext({ billId, collectionId }, deps) {
+  const bill = await deps.fetchBillForDelivery({ billId, collectionId });
   const metadata = parseWhatsAppMetadata(bill.whatsapp_metadata);
   return { bill, metadata };
 }
 
-async function persistDeliveryFailure({ billId, collectionId, existingMetadata, error, jobId }) {
+async function persistDeliveryFailure(
+  { billId, collectionId, existingMetadata, error, jobId },
+  deps
+) {
   const failedMetadata = buildFailedWhatsAppMetadata(existingMetadata, error);
-  return persistWhatsAppDeliveryOutcome({
+  return deps.persistWhatsAppDeliveryOutcome({
     billId,
     collectionId,
     metadata: failedMetadata,
@@ -52,9 +73,12 @@ async function persistDeliveryFailure({ billId, collectionId, existingMetadata, 
  * resend issued right after the cancel is not overwritten by this job's
  * finalization, which would strand the new attempt as a stale job.
  */
-async function persistDeliveryCanceled({ billId, collectionId, existingMetadata, jobId }) {
+async function persistDeliveryCanceled(
+  { billId, collectionId, existingMetadata, jobId },
+  deps
+) {
   const canceledMetadata = buildCanceledWhatsAppMetadata(existingMetadata);
-  return persistWhatsAppDeliveryCancellation({
+  return deps.persistWhatsAppDeliveryCancellation({
     billId,
     collectionId,
     metadata: canceledMetadata,
@@ -63,8 +87,13 @@ async function persistDeliveryCanceled({ billId, collectionId, existingMetadata,
   });
 }
 
-async function resolveDeliveryJobState({ billId, collectionId, jobId }) {
-  const { bill, metadata } = await loadDeliveryContext({ billId, collectionId });
+/**
+ * The cancellation checkpoint the worker runs between every major step
+ * (PRD 41, ADR 0006). Re-reads the bill rather than trusting the copy this job
+ * started with, because the operator's cancel lands in the database, not here.
+ */
+async function resolveDeliveryJobState({ billId, collectionId, jobId }, deps) {
+  const { bill, metadata } = await loadDeliveryContext({ billId, collectionId }, deps);
   const evaluation = evaluateWhatsAppDeliveryJobState(metadata, jobId);
 
   if (evaluation.action === "abort") {
@@ -74,7 +103,7 @@ async function resolveDeliveryJobState({ billId, collectionId, jobId }) {
   }
 
   if (evaluation.action === "skip") {
-    console.warn(
+    deps.logger.warn(
       `[whatsapp-delivery-worker] Skipping job ${jobId} for bill ${billId}: ${evaluation.reason} (status "${evaluation.status}")`
     );
     return {
@@ -86,13 +115,11 @@ async function resolveDeliveryJobState({ billId, collectionId, jobId }) {
   }
 
   if (evaluation.action === "canceled") {
-    const cancelWrite = await persistDeliveryCanceled({
-      billId,
-      collectionId,
-      existingMetadata: metadata,
-      jobId,
-    });
-    console.warn(
+    const cancelWrite = await persistDeliveryCanceled(
+      { billId, collectionId, existingMetadata: metadata, jobId },
+      deps
+    );
+    deps.logger.warn(
       `[whatsapp-delivery-worker] Cancel detected for bill ${billId}; delivery stopped`
     );
     return {
@@ -110,41 +137,52 @@ async function resolveDeliveryJobState({ billId, collectionId, jobId }) {
   };
 }
 
-export async function processWhatsAppBillDeliveryJob(job) {
+/**
+ * Turns a checkpoint that did not say "continue" into the job's return value,
+ * or `null` to carry on. Keeps the four checkpoints in the send path reading as
+ * checkpoints instead of four copies of the same branch.
+ */
+function stopResultFor(state, { billId, collectionId }) {
+  if (state.outcome === "skipped") {
+    return { billId, collectionId, skipped: true, status: state.status };
+  }
+
+  if (state.outcome === "canceled") {
+    return { billId, collectionId, canceled: true, status: state.status };
+  }
+
+  return null;
+}
+
+export async function processWhatsAppBillDeliveryJob(job, dependencies) {
+  // BullMQ calls the processor as `(job, token)` with a string token, so only a
+  // real dependency object is allowed to override the defaults.
+  const overrides =
+    dependencies && typeof dependencies === "object" ? dependencies : {};
+  const deps = { ...defaultDeliveryDependencies, ...overrides };
   const { billId, collectionId } = job.data;
   const jobId = job.id;
 
-  console.log(
+  deps.logger.log(
     `[whatsapp-delivery-worker] Processing queue job ${jobId} for bill ${billId} (collection ${collectionId})`
   );
 
+  const checkpoint = () => resolveDeliveryJobState({ billId, collectionId, jobId }, deps);
+
   let initialState;
   try {
-    initialState = await resolveDeliveryJobState({ billId, collectionId, jobId });
+    initialState = await checkpoint();
   } catch (error) {
-    console.error(
+    deps.logger.error(
       `[whatsapp-delivery-worker] Failed to load bill ${billId} for delivery:`,
       error
     );
     throw error;
   }
 
-  if (initialState.outcome === "skipped") {
-    return {
-      billId,
-      collectionId,
-      skipped: true,
-      status: initialState.status,
-    };
-  }
-
-  if (initialState.outcome === "canceled") {
-    return {
-      billId,
-      collectionId,
-      canceled: true,
-      status: initialState.status,
-    };
+  const initialStop = stopResultFor(initialState, { billId, collectionId });
+  if (initialStop) {
+    return initialStop;
   }
 
   let bill = initialState.bill;
@@ -153,58 +191,34 @@ export async function processWhatsAppBillDeliveryJob(job) {
   let providerMessageId = null;
 
   try {
-    pdfBuffer = await generateBillPdfBuffer(bill);
+    pdfBuffer = await deps.generateBillPdfBuffer(bill);
 
-    const afterPdfState = await resolveDeliveryJobState({ billId, collectionId, jobId });
-    if (afterPdfState.outcome === "skipped") {
-      return {
-        billId,
-        collectionId,
-        skipped: true,
-        status: afterPdfState.status,
-      };
-    }
-    if (afterPdfState.outcome === "canceled") {
-      return {
-        billId,
-        collectionId,
-        canceled: true,
-        status: afterPdfState.status,
-      };
+    const afterPdfState = await checkpoint();
+    const afterPdfStop = stopResultFor(afterPdfState, { billId, collectionId });
+    if (afterPdfStop) {
+      return afterPdfStop;
     }
     bill = afterPdfState.bill;
     currentMetadata = afterPdfState.metadata;
 
-    const filename = buildBillPdfFilename(bill);
-    ({ providerMessageId } = await sendBillDocumentOnWhatsApp({
+    const filename = deps.buildBillPdfFilename(bill);
+    ({ providerMessageId } = await deps.sendBillDocumentOnWhatsApp({
       pdfBuffer,
       filename,
       bill,
     }));
 
-    const beforePersistState = await resolveDeliveryJobState({ billId, collectionId, jobId });
-    if (beforePersistState.outcome === "skipped") {
-      return {
-        billId,
-        collectionId,
-        skipped: true,
-        status: beforePersistState.status,
-      };
-    }
-    if (beforePersistState.outcome === "canceled") {
-      return {
-        billId,
-        collectionId,
-        canceled: true,
-        status: beforePersistState.status,
-      };
+    const beforePersistState = await checkpoint();
+    const beforePersistStop = stopResultFor(beforePersistState, { billId, collectionId });
+    if (beforePersistStop) {
+      return beforePersistStop;
     }
     currentMetadata = beforePersistState.metadata;
 
     const providerAcceptedMetadata = buildProviderAcceptedWhatsAppMetadata(currentMetadata, {
       providerMessageId,
     });
-    const providerAcceptance = await persistWhatsAppDeliveryOutcome({
+    const providerAcceptance = await deps.persistWhatsAppDeliveryOutcome({
       billId,
       collectionId,
       metadata: providerAcceptedMetadata,
@@ -214,7 +228,7 @@ export async function processWhatsAppBillDeliveryJob(job) {
     if (!providerAcceptance.persisted) {
       // A cancel landed after the provider already accepted the send. The bill
       // keeps its `canceled` state; the delivered copy is noted for reconciliation.
-      console.warn(
+      deps.logger.warn(
         `[whatsapp-delivery-worker] Bill ${billId} was canceled after the provider accepted message ${providerMessageId}; keeping canceled state`
       );
       return {
@@ -229,29 +243,17 @@ export async function processWhatsAppBillDeliveryJob(job) {
     currentMetadata =
       providerAcceptance.bill.whatsapp_metadata || providerAcceptedMetadata;
 
-    const beforeSuccessState = await resolveDeliveryJobState({ billId, collectionId, jobId });
-    if (beforeSuccessState.outcome === "skipped") {
-      return {
-        billId,
-        collectionId,
-        skipped: true,
-        status: beforeSuccessState.status,
-      };
-    }
-    if (beforeSuccessState.outcome === "canceled") {
-      return {
-        billId,
-        collectionId,
-        canceled: true,
-        status: beforeSuccessState.status,
-      };
+    const beforeSuccessState = await checkpoint();
+    const beforeSuccessStop = stopResultFor(beforeSuccessState, { billId, collectionId });
+    if (beforeSuccessStop) {
+      return beforeSuccessStop;
     }
     currentMetadata = beforeSuccessState.metadata;
 
     const successMetadata = buildSuccessWhatsAppMetadata(currentMetadata, {
       providerMessageId,
     });
-    const successWrite = await persistWhatsAppDeliveryOutcome({
+    const successWrite = await deps.persistWhatsAppDeliveryOutcome({
       billId,
       collectionId,
       metadata: successMetadata,
@@ -261,7 +263,7 @@ export async function processWhatsAppBillDeliveryJob(job) {
     if (!successWrite.persisted) {
       // Last line of defence against a late success overwriting a cancel that
       // landed between the checkpoint above and this write (PRD 43).
-      console.warn(
+      deps.logger.warn(
         `[whatsapp-delivery-worker] Bill ${billId} was canceled before success could be recorded (provider message ${providerMessageId}); keeping canceled state`
       );
       return {
@@ -273,7 +275,7 @@ export async function processWhatsAppBillDeliveryJob(job) {
       };
     }
 
-    console.log(
+    deps.logger.log(
       `[whatsapp-delivery-worker] Bill ${billId} delivered successfully (provider message ${providerMessageId})`
     );
 
@@ -286,7 +288,7 @@ export async function processWhatsAppBillDeliveryJob(job) {
     };
   } catch (error) {
     if (providerMessageId) {
-      console.error(
+      deps.logger.error(
         `[whatsapp-delivery-worker] Provider accepted send for bill ${billId} (message ${providerMessageId}) but local persistence failed:`,
         error
       );
@@ -294,23 +296,21 @@ export async function processWhatsAppBillDeliveryJob(job) {
     }
 
     const deliveryError = normalizeDeliveryError(error);
-    console.error(
+    deps.logger.error(
       `[whatsapp-delivery-worker] Delivery failed for bill ${billId}:`,
       deliveryError.message
     );
 
     try {
-      const latestState = await loadDeliveryContext({ billId, collectionId });
+      const latestState = await loadDeliveryContext({ billId, collectionId }, deps);
       const latestEvaluation = evaluateWhatsAppDeliveryJobState(latestState.metadata, jobId);
 
       if (latestEvaluation.action === "canceled") {
-        await persistDeliveryCanceled({
-          billId,
-          collectionId,
-          existingMetadata: latestState.metadata,
-          jobId,
-        });
-        console.warn(
+        await persistDeliveryCanceled(
+          { billId, collectionId, existingMetadata: latestState.metadata, jobId },
+          deps
+        );
+        deps.logger.warn(
           `[whatsapp-delivery-worker] Delivery failed for bill ${billId} but cancel was requested; persisted canceled`
         );
         return {
@@ -322,7 +322,7 @@ export async function processWhatsAppBillDeliveryJob(job) {
       }
 
       if (latestEvaluation.action === "skip") {
-        console.warn(
+        deps.logger.warn(
           `[whatsapp-delivery-worker] Delivery failed for bill ${billId} but job is no longer active; skipping failure write`
         );
         return {
@@ -333,25 +333,28 @@ export async function processWhatsAppBillDeliveryJob(job) {
         };
       }
 
-      const failureWrite = await persistDeliveryFailure({
-        billId,
-        collectionId,
-        existingMetadata: latestState.metadata,
-        error: deliveryError,
-        jobId,
-      });
+      const failureWrite = await persistDeliveryFailure(
+        {
+          billId,
+          collectionId,
+          existingMetadata: latestState.metadata,
+          error: deliveryError,
+          jobId,
+        },
+        deps
+      );
 
       if (failureWrite.persisted) {
-        console.error(
+        deps.logger.error(
           `[whatsapp-delivery-worker] Delivery failed for bill ${billId}; failure metadata persisted`
         );
       } else {
-        console.warn(
+        deps.logger.warn(
           `[whatsapp-delivery-worker] Delivery failed for bill ${billId} but a cancel or newer attempt won the write; failure not recorded`
         );
       }
     } catch (persistError) {
-      console.error(
+      deps.logger.error(
         `[whatsapp-delivery-worker] Delivery failed for bill ${billId} and failure metadata could not be persisted:`,
         deliveryError.message,
         persistError

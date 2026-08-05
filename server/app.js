@@ -14,6 +14,7 @@ import purchaseRoutes from "./routes/purchases.js";
 import analyticsRoutes from "./routes/analytics.js";
 import settingsRoutes from "./routes/settings.js";
 import { verifyRedisConnection } from "./config/redis.js";
+import { closeWhatsAppBillDeliveryQueue } from "./queues/whatsappBillDeliveryQueue.js";
 
 const app = express();
 
@@ -41,7 +42,23 @@ app.use("/api/clients", clientRoutes);
 app.use("/api/collections", collectionRoutes, productRoutes, stockRoutes, billRoutes, purchaseRoutes, analyticsRoutes);
 
 const port = process.env.PORT;
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server running on port ${port}`);
   verifyRedisConnection();
 });
+
+// The API holds a Redis connection for the delivery queue; releasing it on
+// shutdown keeps a restart from leaving a socket behind.
+async function shutdown(signal) {
+  console.log(`Received ${signal}, shutting down...`);
+  server.close();
+  try {
+    await closeWhatsAppBillDeliveryQueue();
+  } catch (error) {
+    console.error("Failed to close the WhatsApp delivery queue:", error);
+  }
+  process.exit(0);
+}
+
+process.on("SIGINT", () => shutdown("SIGINT"));
+process.on("SIGTERM", () => shutdown("SIGTERM"));

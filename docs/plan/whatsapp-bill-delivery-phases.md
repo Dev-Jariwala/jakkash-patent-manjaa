@@ -1,5 +1,9 @@
 # WhatsApp Bill Delivery Phased Execution Plan
 
+> **Status: all phases complete.** Phase 10 closed the workflow out; see
+> `docs/reviews/whatsapp-bill-delivery-phase-10-closeout.md` for what it changed
+> and `docs/whatsapp-bill-delivery-runbook.md` for configuration and operations.
+
 This plan turns the WhatsApp bill delivery PRD into sequential execution phases that can be handed to one AI session at a time.
 
 Use it like this:

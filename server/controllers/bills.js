@@ -223,57 +223,105 @@ export const forceCancelBillWhatsAppDelivery = async (req, res) => {
   }
 };
 
+/**
+ * Sortable bill columns. An identifier cannot be a bound parameter, so the only
+ * safe way to accept one from the query string is to map it onto a known column
+ * here; anything else falls back to the default ordering.
+ */
+export const BILL_SORT_FIELDS = {
+  bill_no: "b.bill_no",
+  order_date: "b.order_date",
+  delivery_date: "b.delivery_date",
+  name: "b.name",
+  mobile: "b.mobile",
+  total_due: "b.total_due",
+  sub_total: "b.sub_total",
+  total_firki: "b.total_firki",
+  delivered_at: "b.delivered_at",
+};
+const DEFAULT_BILL_SORT_FIELD = "b.bill_no";
+const MAX_BILLS_PAGE_SIZE = 200;
+
+export function resolveBillsListOrdering({ sortField, sortOrder }) {
+  // Own-property lookup only: a plain index would resolve `constructor` or
+  // `toString` off `Object.prototype` and splice that value into the ORDER BY.
+  const column = Object.hasOwn(BILL_SORT_FIELDS, String(sortField))
+    ? BILL_SORT_FIELDS[sortField]
+    : DEFAULT_BILL_SORT_FIELD;
+
+  return {
+    column,
+    direction: String(sortOrder).toLowerCase() === "asc" ? "ASC" : "DESC",
+  };
+}
+
+export function resolveBillsListPagination({ page, limit }) {
+  const parsedPage = Math.max(1, Number.parseInt(page, 10) || 1);
+  const parsedLimit = Math.min(
+    MAX_BILLS_PAGE_SIZE,
+    Math.max(1, Number.parseInt(limit, 10) || 10)
+  );
+
+  return { page: parsedPage, limit: parsedLimit, offset: (parsedPage - 1) * parsedLimit };
+}
+
 export const getBills = async (req, res) => {
   const { collection_id } = req.params;
-  const { page = 1, limit = 10, sortField = "bill_no", sortOrder = "desc", search = "", bill_type } = req.query;
-  const offset = (page - 1) * limit;
+  const { page: rawPage, limit: rawLimit, sortField, sortOrder, search = "", bill_type } = req.query;
   if (!bill_type) {
     return res.status(400).json({ message: 'Error fetching bills', error: 'Bill type is required' })
   }
 
+  const { page, limit, offset } = resolveBillsListPagination({ page: rawPage, limit: rawLimit });
+  const { column, direction } = resolveBillsListOrdering({ sortField, sortOrder });
+
   try {
-    // Build the base query
-    let billsQuery = `
-      SELECT b.*, c.name AS client_name
+    // The list and the count share one filter, so the pager can never report a
+    // page count the list cannot fill. Every value is bound; the only
+    // interpolated fragments are the ordering identifiers, which come from the
+    // whitelist above.
+    const filterParams = [collection_id, bill_type];
+    if (search) {
+      filterParams.push(`%${search}%`);
+    }
+    const fromAndWhere = `
       FROM bills b
       LEFT JOIN clients c ON b.mobile = c.mobile
-      WHERE b.collection_id = $1 
-      AND bill_type = $2
+      WHERE b.collection_id = $1
+        AND b.bill_type = $2
+        ${search
+        ? `AND (
+             c.name ILIKE $3
+             OR b.name ILIKE $3
+             OR b.mobile ILIKE $3
+             OR b.bill_no::text ILIKE $3
+             OR b.bill_id::text ILIKE $3
+           )`
+        : ""}
     `;
 
-    // Add search filter (assuming search applies to bill_no, name, or mobile)
-    let billsParams = [collection_id, bill_type];
-    if (search) {
-      billsQuery += ` AND ( c.name ILIKE $3 OR b.mobile ILIKE $3 OR b.bill_no::text ILIKE $3 OR b.bill_id::text ILIKE $3)`;
-      billsParams.push(`%${search}%`);
-    }
+    // Placed after the filter params so the indexes stay correct whether or not
+    // a search term is present.
+    const searchParam = filterParams.length + 1;
+    const limitParam = filterParams.length + 2;
+    const offsetParam = filterParams.length + 3;
 
-    // Add sorting
-    // billsQuery += ` ORDER BY ${sortField} ${sortOrder}  LIMIT ${limit} OFFSET ${offset}`;
-    billsQuery += `
-      ORDER BY 
-        CASE 
-          WHEN b.bill_no::text = '${search}' THEN 0
-          ELSE 1
-        END,
-        ${sortField} ${sortOrder}
-      LIMIT ${limit} OFFSET ${offset}
-    `;
-    // console.log({ billsQuery, billsParams });
+    const bills = await query(
+      `SELECT b.*, c.name AS client_name
+       ${fromAndWhere}
+       ORDER BY
+         CASE WHEN b.bill_no::text = $${searchParam}::text THEN 0 ELSE 1 END,
+         ${column} ${direction}
+       LIMIT $${limitParam} OFFSET $${offsetParam}`,
+      [...filterParams, String(search), limit, offset]
+    );
 
-    // Execute the billsQuery
-    const bills = await query(billsQuery, billsParams);
+    const [{ total_count }] = await query(
+      `SELECT COUNT(*) AS total_count ${fromAndWhere}`,
+      filterParams
+    );
 
-    // Get total count (optional, for pagination info)
-    let totalCountQuery = `SELECT COUNT(*) as total_count FROM bills WHERE collection_id =$1 AND bill_type = $2`;
-    const totalCountParams = [collection_id, bill_type]
-    if (search) {
-      totalCountQuery += ` AND ( name ILIKE $3 OR mobile ILIKE $3 OR bill_no::text ILIKE $3)`;
-      totalCountParams.push(`%${search}%`);
-    }
-    const [{ total_count }] = await query(totalCountQuery, totalCountParams);
-
-    res.status(200).json({ message: "Bills retrieved successfully", pagination: { page: parseInt(page), limit: parseInt(limit), totalPages: Math.ceil(parseInt(total_count) / limit), totalItems: parseInt(total_count), }, bills, });
+    res.status(200).json({ message: "Bills retrieved successfully", pagination: { page, limit, totalPages: Math.ceil(parseInt(total_count) / limit), totalItems: parseInt(total_count), }, bills, });
   } catch (error) {
     handleError('getBills', res, error);
   }

@@ -6,12 +6,22 @@ export const WHATSAPP_DELIVERY_STATUS = {
   CANCELED: "canceled",
 };
 
-const DEFAULT_POLL_INTERVAL_MS = 3000;
+export const DEFAULT_POLL_INTERVAL_MS = 3000;
+/**
+ * Polling runs on every open bills view, so a mistyped env value like `10` would
+ * turn the list into a hundred requests a second against the API.
+ */
+export const MIN_POLL_INTERVAL_MS = 1000;
 
-export function getWhatsAppDeliveryPollIntervalMs() {
-  const raw = import.meta.env.VITE_WHATSAPP_DELIVERY_POLL_INTERVAL_MS;
+export function getWhatsAppDeliveryPollIntervalMs(
+  raw = import.meta.env?.VITE_WHATSAPP_DELIVERY_POLL_INTERVAL_MS
+) {
   const parsed = Number(raw);
-  return Number.isFinite(parsed) && parsed > 0 ? parsed : DEFAULT_POLL_INTERVAL_MS;
+  if (!Number.isFinite(parsed) || parsed <= 0) {
+    return DEFAULT_POLL_INTERVAL_MS;
+  }
+
+  return Math.max(MIN_POLL_INTERVAL_MS, parsed);
 }
 
 export function parseWhatsAppMetadata(metadata) {
@@ -77,10 +87,31 @@ export function formatWhatsAppDeliveryStatusLabel(status, elapsedSeconds = 0) {
   }
 }
 
-export function getWhatsAppDeliveryStatusColor(status) {
+/**
+ * How long `processing` may run before the UI treats it as stuck.
+ *
+ * A delivery takes seconds. Minutes means the worker is down, Redis is
+ * unreachable, or the provider is hanging — none of which the bill can report on
+ * its own, because the status only changes when a worker writes to it. Without
+ * this the operator watches a counter climb with no hint that force cancel is
+ * the way out (PRD 19, ADR 0006).
+ */
+export const PROCESSING_STALL_SECONDS = 120;
+
+export function isProcessingStalled(status, elapsedSeconds) {
+  return (
+    status === WHATSAPP_DELIVERY_STATUS.PROCESSING &&
+    elapsedSeconds >= PROCESSING_STALL_SECONDS
+  );
+}
+
+export const PROCESSING_STALL_REASON =
+  "This delivery has been running unusually long. The delivery worker may be stopped. Force cancel it to unlock the bill and try again.";
+
+export function getWhatsAppDeliveryStatusColor(status, { stalled = false } = {}) {
   switch (status) {
     case WHATSAPP_DELIVERY_STATUS.PROCESSING:
-      return "indigo";
+      return stalled ? "amber" : "indigo";
     case WHATSAPP_DELIVERY_STATUS.SUCCESS:
       return "green";
     case WHATSAPP_DELIVERY_STATUS.FAILED:
