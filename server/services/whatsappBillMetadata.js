@@ -104,6 +104,32 @@ export function evaluateWhatsAppCancelEligibility(metadata) {
   };
 }
 
+/**
+ * Statuses that lock a bill against normal editing (ADR 0005). A delivery in
+ * flight generates its PDF from persisted bill data, so an edit landing
+ * mid-attempt would send a document matching neither the old nor the new bill.
+ * Force cancel is the deliberate escape hatch out of this state.
+ */
+export const EDIT_BLOCKING_WHATSAPP_DELIVERY_STATUSES = [
+  WHATSAPP_DELIVERY_STATUS.PROCESSING,
+];
+
+export function evaluateBillEditEligibility(metadata) {
+  const status = metadata?.status || WHATSAPP_DELIVERY_STATUS.NO;
+
+  if (EDIT_BLOCKING_WHATSAPP_DELIVERY_STATUSES.includes(status)) {
+    return {
+      allowed: false,
+      status,
+      reason: "delivery_in_progress",
+      message:
+        "This bill has a WhatsApp delivery in progress and cannot be edited. Force cancel the delivery to unlock it.",
+    };
+  }
+
+  return { allowed: true, status };
+}
+
 export function evaluateWhatsAppDeliveryJobState(metadata, jobId) {
   if (!metadata) {
     return { action: "abort", reason: "metadata_missing" };

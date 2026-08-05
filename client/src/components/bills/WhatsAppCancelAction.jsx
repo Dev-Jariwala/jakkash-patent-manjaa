@@ -42,6 +42,9 @@ const WhatsAppCancelAction = ({ bill, collectionId, variant = "icon", className 
       toast.success(response?.data?.message || "WhatsApp bill delivery canceled");
       setIsConfirmOpen(false);
       queryClient.invalidateQueries({ queryKey: ["bills"] });
+      // The edit form reads the bill under its own key; refreshing it is what
+      // lifts the edit lock as soon as the cancel lands (ADR 0005).
+      queryClient.invalidateQueries({ queryKey: ["bill"] });
     },
     onError: (error) => {
       const response = error?.response?.data;
@@ -50,6 +53,9 @@ const WhatsAppCancelAction = ({ bill, collectionId, variant = "icon", className 
       // A delivery that finished while the dialog was open lands here, so pull
       // the real status back in instead of leaving a stale `processing` chip.
       queryClient.invalidateQueries({ queryKey: ["bills"] });
+      // The edit form reads the bill under its own key; refreshing it is what
+      // lifts the edit lock as soon as the cancel lands (ADR 0005).
+      queryClient.invalidateQueries({ queryKey: ["bill"] });
     },
   });
 

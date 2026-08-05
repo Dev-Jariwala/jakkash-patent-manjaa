@@ -7,6 +7,12 @@ import { resolveCreateBillWhatsAppMetadata } from "../services/whatsappBillMetad
 import { enqueueBillWhatsAppDelivery } from "../services/whatsappBillDeliveryEnqueue.js";
 import { resendBillWhatsAppDelivery as resendBillWhatsAppDeliveryService } from "../services/whatsappBillDeliveryResend.js";
 import { forceCancelBillWhatsAppDelivery as forceCancelBillWhatsAppDeliveryService } from "../services/whatsappBillDeliveryCancel.js";
+import {
+  assertBillEditableDuringWhatsAppDelivery,
+  BILL_EDITABLE_SQL_CONDITION,
+  EDIT_BLOCKING_STATUSES_PARAM,
+  explainRejectedBillUpdate,
+} from "../services/whatsappBillEditGuard.js";
 
 // CREATE TABLE bills (
 // 	   sr_no SERIAL PRIMARY KEY,
@@ -307,12 +313,19 @@ export const updateBillById = async (req, res) => {
   const { bill_no, bill_type, name, address, mobile, notes, total_firki, sub_total, advance, discount, total_due, order_date, delivery_date, bill_items, } = req.body;
   const products = req.products || [];
   try {
+    // A bill with a delivery in flight is off limits to the normal update path
+    // (ADR 0005). Checked before any write so a blocked edit never leaves
+    // half-applied bill item or stock changes behind.
+    await assertBillEditableDuringWhatsAppDelivery({ billId: bill_id, collectionId: collection_id });
+
     const [updatedBill] = await query(
-      `update bills set bill_no = $1, bill_type = $2, mobile = $3, name = $4, address = $5, order_date = $6, delivery_date = $7, notes = $8, total_firki = $9, sub_total = $10, discount = $11, advance = $12, total_due = $13 where bill_id = $14 and collection_id = $15 returning *`,
-      [bill_no, bill_type, mobile, name, address, order_date, delivery_date, notes, total_firki, sub_total, discount, advance, total_due, bill_id, collection_id]
+      `update bills set bill_no = $1, bill_type = $2, mobile = $3, name = $4, address = $5, order_date = $6, delivery_date = $7, notes = $8, total_firki = $9, sub_total = $10, discount = $11, advance = $12, total_due = $13 where bill_id = $14 and collection_id = $15 and ${BILL_EDITABLE_SQL_CONDITION('$16')} returning *`,
+      [bill_no, bill_type, mobile, name, address, order_date, delivery_date, notes, total_firki, sub_total, discount, advance, total_due, bill_id, collection_id, EDIT_BLOCKING_STATUSES_PARAM]
     );
     if (!updatedBill) {
-      return res.status(400).json({ message: 'Error updating bill', error: 'Error updating bill' });
+      // A delivery can be enqueued between the check above and this write, so
+      // report the state the bill actually landed in.
+      throw await explainRejectedBillUpdate({ billId: bill_id, collectionId: collection_id });
     }
 
     const previousBillItems = await query(`SELECT * FROM bill_items WHERE bill_id = $1`, [bill_id]);

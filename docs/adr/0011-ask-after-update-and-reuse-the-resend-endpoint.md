@@ -1,0 +1,5 @@
+# Ask after update and reuse the resend endpoint
+
+The update-bill flow will not carry a `Send Bill on WhatsApp` field on the form. Instead, after the update succeeds, the app asks whether to send the updated bill and answers "yes" by calling the existing resend endpoint rather than by passing a delivery flag through the update request. Keeping delivery out of the update payload means the update path has exactly one job, and every delivery attempt — create, resend, and send-after-update — keeps going through the same service-toggle check, status eligibility rules, and `processing` transition. The prompt is shown only when the WhatsApp service is enabled, so an ordinary edit is unchanged while delivery is off.
+
+Edit blocking is enforced twice: once as a pre-check before any bill item or stock row is written, so a blocked edit never leaves partial changes behind, and again in the `WHERE` clause of the bill update itself, so a delivery enqueued between the check and the write cannot slip past. Bills whose `whatsapp_metadata` is absent read as status `no` and stay editable.

@@ -8,7 +8,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight, } from "react-icons/md";
 import { Input } from "@/components/ui/input";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { Eye, Pencil } from "lucide-react";
+import { Eye, Lock, Pencil } from "lucide-react";
 import { Chip } from "@/components/ui/chip";
 import { useDebounce, useLocalStorage } from "@uidotdev/usehooks";
 import { getBillsByCollectionId, getWholesaleBillsCsvReport, updateBillDeliveryStatus } from "@/services/bills";
@@ -25,7 +25,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import WhatsAppCancelAction from "@/components/bills/WhatsAppCancelAction";
 import WhatsAppDeliveryStatus from "@/components/bills/WhatsAppDeliveryStatus";
 import WhatsAppResendAction from "@/components/bills/WhatsAppResendAction";
-import { billHasProcessingWhatsAppDelivery, getWhatsAppDeliveryPollIntervalMs } from "@/lib/whatsappDelivery";
+import { billHasProcessingWhatsAppDelivery, EDIT_LOCK_REASON, getWhatsAppDeliveryPollIntervalMs, isBillLockedForEditing } from "@/lib/whatsappDelivery";
 
 const csvHeaders = [
     { label: "Bill No.", key: "bill_no" },
@@ -372,12 +372,24 @@ const BillsTable = () => {
                                                     >
                                                         <Eye size={16} className="text-blue-500" />
                                                     </Link>
-                                                    <Link
-                                                        to={`/bills/update/${row.original?.bill_id}?bill_type=${billType}`}
-                                                        className="hover:bg-accent rounded-full size-8 flex items-center justify-center"
-                                                    >
-                                                        <Pencil size={16} className="text-green-500" />
-                                                    </Link>
+                                                    {/* A processing delivery locks the bill (ADR 0005); force
+                                                        cancel sits in the WhatsApp column of the same row. */}
+                                                    {isBillLockedForEditing(row.original) ? (
+                                                        <span
+                                                            title={EDIT_LOCK_REASON}
+                                                            aria-label={EDIT_LOCK_REASON}
+                                                            className="rounded-full size-8 flex items-center justify-center opacity-40 cursor-not-allowed"
+                                                        >
+                                                            <Lock size={16} className="text-muted-foreground" />
+                                                        </span>
+                                                    ) : (
+                                                        <Link
+                                                            to={`/bills/update/${row.original?.bill_id}?bill_type=${billType}`}
+                                                            className="hover:bg-accent rounded-full size-8 flex items-center justify-center"
+                                                        >
+                                                            <Pencil size={16} className="text-green-500" />
+                                                        </Link>
+                                                    )}
                                                     <WhatsAppResendAction
                                                         bill={row.original}
                                                         collectionId={activeCollection}

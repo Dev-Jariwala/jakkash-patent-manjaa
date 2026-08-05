@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 import { Send } from "lucide-react";
 import { toast } from "react-toastify";
 
@@ -17,6 +16,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
+import WhatsAppServiceDisabledDialog from "@/components/bills/WhatsAppServiceDisabledDialog";
 import { resendBillWhatsAppDelivery } from "@/services/bills";
 import { getWhatsAppServiceSetting } from "@/services/settings";
 import {
@@ -38,7 +38,6 @@ import {
  */
 const WhatsAppResendAction = ({ bill, collectionId, variant = "icon", className }) => {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
   const [dialog, setDialog] = useState(null);
 
   const { data: serviceSetting, isError: isServiceSettingError } = useQuery({
@@ -63,6 +62,7 @@ const WhatsAppResendAction = ({ bill, collectionId, variant = "icon", className 
       toast.success("WhatsApp bill delivery queued");
       setDialog(null);
       queryClient.invalidateQueries({ queryKey: ["bills"] });
+      queryClient.invalidateQueries({ queryKey: ["bill"] });
     },
     onError: (error) => {
       const response = error?.response?.data;
@@ -77,6 +77,7 @@ const WhatsAppResendAction = ({ bill, collectionId, variant = "icon", className 
       setDialog(null);
       toast.error(response?.message || `Failed to queue WhatsApp delivery: ${error.message}`);
       queryClient.invalidateQueries({ queryKey: ["bills"] });
+      queryClient.invalidateQueries({ queryKey: ["bill"] });
     },
   });
 
@@ -160,23 +161,11 @@ const WhatsAppResendAction = ({ bill, collectionId, variant = "icon", className 
         </AlertDialogContent>
       </AlertDialog>
 
-      <AlertDialog open={dialog === "disabled"} onOpenChange={(open) => !open && setDialog(null)}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>WhatsApp bill delivery is turned off</AlertDialogTitle>
-            <AlertDialogDescription>
-              No bills can be sent on WhatsApp while the service is disabled. Normal
-              billing is unaffected. Enable it in Settings to resend this bill.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Close</AlertDialogCancel>
-            <AlertDialogAction onClick={() => navigate("/settings")}>
-              Go to Settings
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <WhatsAppServiceDisabledDialog
+        open={dialog === "disabled"}
+        onClose={() => setDialog(null)}
+        action="resend this bill"
+      />
     </>
   );
 };

@@ -141,6 +141,27 @@ export function canCancelWhatsAppDelivery(statusOrBill) {
   return CANCELABLE_WHATSAPP_DELIVERY_STATUSES.includes(status);
 }
 
+/**
+ * Statuses that lock a bill against normal editing. Mirrors
+ * server/services/whatsappBillMetadata.js -> EDIT_BLOCKING_WHATSAPP_DELIVERY_STATUSES.
+ * The backend re-checks this on every update; the lock here only explains why.
+ */
+export const EDIT_BLOCKING_WHATSAPP_DELIVERY_STATUSES = [
+  WHATSAPP_DELIVERY_STATUS.PROCESSING,
+];
+
+export function isBillLockedForEditing(statusOrBill) {
+  const status =
+    typeof statusOrBill === "string"
+      ? statusOrBill
+      : getWhatsAppDeliveryStatus(statusOrBill);
+
+  return EDIT_BLOCKING_WHATSAPP_DELIVERY_STATUSES.includes(status);
+}
+
+export const EDIT_LOCK_REASON =
+  "This bill is locked while its WhatsApp delivery is in progress. Force cancel the delivery to edit it.";
+
 export function getResendActionLabel(statusOrBill) {
   const status =
     typeof statusOrBill === "string"

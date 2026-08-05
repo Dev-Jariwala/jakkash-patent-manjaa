@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -24,6 +24,15 @@ import { handleDecimalInputChange, handleNumberInputChange, productNamesOrder, s
 import { getClientByMobileNumber } from "@/services/clients";
 import AddStockModal from "./AddStockModal";
 import { Checkbox } from "@/components/ui/checkbox";
+import SendUpdatedBillDialog from "@/components/bills/SendUpdatedBillDialog";
+import WhatsAppEditLockNotice from "@/components/bills/WhatsAppEditLockNotice";
+import {
+    canResendWhatsAppDelivery,
+    EDIT_LOCK_REASON,
+    getWhatsAppDeliveryPollIntervalMs,
+    isBillLockedForEditing,
+    shouldPollWhatsAppDeliveryStatus,
+} from "@/lib/whatsappDelivery";
 
 const BillsForm = () => {
     const { bill_id } = useParams();
@@ -35,6 +44,9 @@ const BillsForm = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const formType = location.pathname.split("/")[2];
+    // Bill awaiting the operator's "send the updated bill?" answer (PRD 31).
+    const [billPendingSendDecision, setBillPendingSendDecision] = useState(null);
+    const whatsappPollIntervalMs = getWhatsAppDeliveryPollIntervalMs();
     const { data: bill, isLoading: isBillLoading, error: billError } = useQuery({
         queryKey: ["bill", activeCollection, bill_id],
         queryFn: async () => {
@@ -42,6 +54,12 @@ const BillsForm = () => {
             return { ...response.data?.bill, bill_items: response.data?.billItems } || {};
         },
         enabled: !!activeCollection && !!bill_id,
+        // A delivery that finishes on its own unlocks the form without the
+        // operator having to reload it.
+        refetchInterval: (query) =>
+            shouldPollWhatsAppDeliveryStatus(query.state.data)
+                ? whatsappPollIntervalMs
+                : false,
     });
     const schema = yup.object().shape({
         bill_no: yup.number().required("Bill No is required").typeError("Bill No is required"),
@@ -138,6 +156,8 @@ const BillsForm = () => {
         },
     });
     const whatsappServiceEnabled = !isWhatsAppServiceSettingError && !!whatsappServiceSetting?.whatsapp_service_enabled;
+    // Only the update path can be locked; a bill being created has no delivery yet.
+    const isEditLocked = formType === "update" && isBillLockedForEditing(bill);
     const mobile = form.watch("mobile");
     const { data: clientDetails, isLoading: isClientDetailsLoading, error: clientDetailsError } = useQuery({
         queryKey: ["clientDetails", mobile],
@@ -170,17 +190,47 @@ const BillsForm = () => {
     const updateBillMutation = useMutation({
         mutationFn: updateBillById,
         onSuccess: (res) => {
-            navigate(`/bills/${billType}?bill_id=${res.data?.bill?.bill_id}`);
+            const updatedBill = res.data?.bill;
             queryClient.invalidateQueries(["bills", activeCollection]);
             toast.success("Bill updated successfully");
+
+            // Resending after an edit stays an explicit choice (PRD 31). Asking
+            // only when the answer can actually be acted on keeps the ordinary
+            // update flow unchanged whenever delivery is unavailable.
+            if (whatsappServiceEnabled && canResendWhatsAppDelivery(updatedBill)) {
+                setBillPendingSendDecision(updatedBill);
+                return;
+            }
+
+            navigate(`/bills/${billType}?bill_id=${updatedBill?.bill_id}`);
         },
         onError: (error) => {
-            toast.error(`Error updating bill: ${error.message}`);
+            const response = error?.response?.data;
+            // A delivery enqueued since the form loaded lands here; pulling the
+            // bill back in raises the lock notice with its force-cancel path.
+            if (response?.code === "WHATSAPP_DELIVERY_IN_PROGRESS") {
+                queryClient.invalidateQueries({ queryKey: ["bill"] });
+                queryClient.invalidateQueries({ queryKey: ["bills"] });
+                toast.error(response.message || EDIT_LOCK_REASON);
+                return;
+            }
+            toast.error(`Error updating bill: ${response?.message || error.message}`);
         },
     })
 
+    const handleSendDecisionDone = () => {
+        if (!billPendingSendDecision) return;
+        const decidedBillId = billPendingSendDecision.bill_id;
+        setBillPendingSendDecision(null);
+        navigate(`/bills/${billType}?bill_id=${decidedBillId}`);
+    };
+
     const onSubmit = async (data) => {
         if (createBillMutation.isPending || updateBillMutation.isPending) return;
+        if (isEditLocked) {
+            toast.error(EDIT_LOCK_REASON);
+            return;
+        }
         const filteredProducts = data.products.filter(product => product.quantity > 0);
         data.bill_items = filteredProducts;
         data.bill_no = formType === 'new' ? nextBillNo : data.bill_no;
@@ -276,6 +326,14 @@ const BillsForm = () => {
     return (
         <>
             {product_id && <AddStockModal open={!!product_id} onClose={() => navigate(-1)} />}
+            {billPendingSendDecision && (
+                <SendUpdatedBillDialog
+                    bill={billPendingSendDecision}
+                    collectionId={activeCollection}
+                    open
+                    onDone={handleSendDecisionDone}
+                />
+            )}
             {isProductsLoading || isNextBillNoLoading || isBillLoading ?
                 <div className="flex justify-center items-center h-64">
                     <div className="basic-loader"></div>
@@ -295,6 +353,7 @@ const BillsForm = () => {
                             />
                         </div>
                     </div>
+                    {isEditLocked && <WhatsAppEditLockNotice bill={bill} collectionId={activeCollection} />}
                     <Form {...form}>
                         <form
                             onSubmit={form.handleSubmit(onSubmit)}
@@ -688,7 +747,7 @@ const BillsForm = () => {
                             </div>
                             <div className="w-full mt-5 flex items-center justify-center col-span-5 mb-20">
                                 <MutationError mutation={createBillMutation} />
-                                <Button variant="" disabled={createBillMutation.isPending || updateBillMutation.isPending} isLoading={createBillMutation.isPending || updateBillMutation.isPending} loadingText={formType === 'update' ? `updating ${form.watch("bill_no")}...` : `creating ${form.watch("bill_no")}...`} className="bg-indigo-500 hover:bg-indigo-600" type="submit">
+                                <Button variant="" disabled={isEditLocked || createBillMutation.isPending || updateBillMutation.isPending} title={isEditLocked ? EDIT_LOCK_REASON : undefined} isLoading={createBillMutation.isPending || updateBillMutation.isPending} loadingText={formType === 'update' ? `updating ${form.watch("bill_no")}...` : `creating ${form.watch("bill_no")}...`} className="bg-indigo-500 hover:bg-indigo-600" type="submit">
                                     {formType === "update" ? "Update" : "Create"}{" "}
                                     Bill No. {form.watch("bill_no")}
                                 </Button>
