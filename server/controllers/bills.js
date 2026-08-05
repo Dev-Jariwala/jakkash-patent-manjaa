@@ -6,6 +6,7 @@ import { assertWhatsAppServiceEnabled } from "../services/whatsappServiceSetting
 import { resolveCreateBillWhatsAppMetadata } from "../services/whatsappBillMetadata.js";
 import { enqueueBillWhatsAppDelivery } from "../services/whatsappBillDeliveryEnqueue.js";
 import { resendBillWhatsAppDelivery as resendBillWhatsAppDeliveryService } from "../services/whatsappBillDeliveryResend.js";
+import { forceCancelBillWhatsAppDelivery as forceCancelBillWhatsAppDeliveryService } from "../services/whatsappBillDeliveryCancel.js";
 
 // CREATE TABLE bills (
 // 	   sr_no SERIAL PRIMARY KEY,
@@ -185,6 +186,34 @@ export const resendBillWhatsAppDelivery = async (req, res) => {
     }
 
     handleError('resendBillWhatsAppDelivery', res, error);
+  }
+};
+
+export const forceCancelBillWhatsAppDelivery = async (req, res) => {
+  const { bill_id, collection_id } = req.params;
+  try {
+    const { bill, jobRemoved, jobState, workerAbortPending } =
+      await forceCancelBillWhatsAppDeliveryService({
+        billId: bill_id,
+        collectionId: collection_id,
+      });
+
+    res.status(200).json({
+      // Cancel is best-effort for an already-running attempt (ADR 0006), so the
+      // message says what actually happened instead of promising a hard stop.
+      message: workerAbortPending
+        ? "WhatsApp bill delivery canceled. The attempt already in progress will stop shortly."
+        : "WhatsApp bill delivery canceled",
+      bill,
+      whatsapp_delivery: {
+        status: bill?.whatsapp_metadata?.status || "canceled",
+        job_removed: jobRemoved,
+        job_state: jobState,
+        worker_abort_pending: workerAbortPending,
+      },
+    });
+  } catch (error) {
+    handleError('forceCancelBillWhatsAppDelivery', res, error);
   }
 };
 

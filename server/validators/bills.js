@@ -487,6 +487,35 @@ export const validateResendBillWhatsAppDelivery = [
   },
 ];
 
+export const validateForceCancelBillWhatsAppDelivery = [
+  param("collection_id")
+    .notEmpty()
+    .withMessage("collection_id is required")
+    .custom(async (value, { req }) => {
+      const [collection] = await query(
+        "SELECT * FROM collections WHERE collection_id = $1",
+        [value]
+      );
+      if (!collection) {
+        throw new Error("collection not found");
+      }
+      req.collection = collection;
+      return true;
+    }),
+  param("bill_id")
+    .notEmpty()
+    .withMessage("bill_id is required")
+    .isUUID()
+    .withMessage("bill_id must be a valid UUID"),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    next();
+  },
+];
+
 export const validateUpdateBillPaymentStatus = [
   param("collection_id")
     .notEmpty()

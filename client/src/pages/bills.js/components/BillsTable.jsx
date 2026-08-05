@@ -22,6 +22,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { DataTableViewOptions } from "@/components/ui/data-table-view-options";
 import FormatePrice from "@/helper/FormatPrice";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import WhatsAppCancelAction from "@/components/bills/WhatsAppCancelAction";
 import WhatsAppDeliveryStatus from "@/components/bills/WhatsAppDeliveryStatus";
 import WhatsAppResendAction from "@/components/bills/WhatsAppResendAction";
 import { billHasProcessingWhatsAppDelivery, getWhatsAppDeliveryPollIntervalMs } from "@/lib/whatsappDelivery";
@@ -183,10 +184,22 @@ const BillsTable = () => {
             columnHelper.display({
                 id: "whatsapp_delivery_status",
                 header: "WhatsApp",
-                cell: (info) => <WhatsAppDeliveryStatus bill={info.row.original} />,
+                // Force cancel sits beside the status so it is discoverable exactly
+                // when a delivery is processing, and invisible otherwise (PRD 20).
+                cell: (info) => (
+                    <div className="flex items-center gap-1">
+                        <WhatsAppDeliveryStatus bill={info.row.original} />
+                        <WhatsAppCancelAction
+                            bill={info.row.original}
+                            collectionId={activeCollection}
+                        />
+                    </div>
+                ),
             }),
         ]
-    ), []);
+        // activeCollection is read inside the cell, so the columns must be rebuilt
+        // when the operator switches collections.
+    ), [activeCollection]);
 
     const headers = {};
     columnsDef.forEach((column) => {

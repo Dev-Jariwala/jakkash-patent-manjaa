@@ -16,4 +16,5 @@ router.put('/:collection_id/bills/:bill_id', billsValidators.validateUpdateBillB
 router.patch('/:collection_id/bills/:bill_id/delivered', billsValidators.validateUpdateBillDeliveryStatus, billsControllers.updateBillDeliveryStatus);
 router.patch('/:collection_id/bills/:bill_id/payment', billsValidators.validateUpdateBillPaymentStatus, billsControllers.updateBillPaymentStatus);
 router.post('/:collection_id/bills/:bill_id/whatsapp/resend', billsValidators.validateResendBillWhatsAppDelivery, billsControllers.resendBillWhatsAppDelivery);
+router.post('/:collection_id/bills/:bill_id/whatsapp/cancel', billsValidators.validateForceCancelBillWhatsAppDelivery, billsControllers.forceCancelBillWhatsAppDelivery);
 export default router;

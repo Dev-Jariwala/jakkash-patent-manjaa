@@ -124,6 +124,23 @@ export function canResendWhatsAppDelivery(statusOrBill) {
   return RESENDABLE_WHATSAPP_DELIVERY_STATUSES.includes(status);
 }
 
+/**
+ * Statuses a bill can be force-canceled from. Mirrors
+ * server/services/whatsappBillMetadata.js -> CANCELABLE_WHATSAPP_DELIVERY_STATUSES.
+ */
+export const CANCELABLE_WHATSAPP_DELIVERY_STATUSES = [
+  WHATSAPP_DELIVERY_STATUS.PROCESSING,
+];
+
+export function canCancelWhatsAppDelivery(statusOrBill) {
+  const status =
+    typeof statusOrBill === "string"
+      ? statusOrBill
+      : getWhatsAppDeliveryStatus(statusOrBill);
+
+  return CANCELABLE_WHATSAPP_DELIVERY_STATUSES.includes(status);
+}
+
 export function getResendActionLabel(statusOrBill) {
   const status =
     typeof statusOrBill === "string"

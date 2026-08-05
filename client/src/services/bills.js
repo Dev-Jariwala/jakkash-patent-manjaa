@@ -79,6 +79,16 @@ export const resendBillWhatsAppDelivery = async ({ collection_id, bill_id }) => 
     return response;
 }
 
+// router.post('/:collection_id/bills/:bill_id/whatsapp/cancel', billsControllers.forceCancelBillWhatsAppDelivery);
+
+export const forceCancelBillWhatsAppDelivery = async ({ collection_id, bill_id }) => {
+    const response = await axios({
+        method: "POST",
+        url: `${import.meta.env.VITE_BACKEND_URL}collections/${collection_id}/bills/${bill_id}/whatsapp/cancel`,
+    });
+    return response;
+}
+
 // router.get('/:collection_id/bills/:bill_type/report', billsControllers.getBillReport);
 
 export const getBillReport = async ({ collection_id, bill_type, fromBillNo, toBillNo }) => {

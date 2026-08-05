@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "postinstall": "node scripts/link-bill-pdf-peers.mjs",
-    "test": "node scripts/smoke-phase-6.5.mjs && node scripts/smoke-phase-7.mjs",
+    "test": "node scripts/smoke-phase-6.5.mjs && node scripts/smoke-phase-7.mjs && node scripts/smoke-phase-8.mjs",
     "dev": "nodemon --env-file=.env app.js",
     "worker:whatsapp-delivery": "tsx --env-file=.env workers/whatsappBillDeliveryWorker.js"
   },

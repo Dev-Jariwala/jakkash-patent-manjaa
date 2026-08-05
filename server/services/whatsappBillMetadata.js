@@ -72,6 +72,38 @@ export function evaluateWhatsAppResendEligibility(metadata) {
   return { allowed: true, status };
 }
 
+/**
+ * Statuses a bill can be force-canceled from. Only an in-flight delivery can be
+ * canceled; every other status is already a settled outcome.
+ */
+export const CANCELABLE_WHATSAPP_DELIVERY_STATUSES = [
+  WHATSAPP_DELIVERY_STATUS.PROCESSING,
+];
+
+export function evaluateWhatsAppCancelEligibility(metadata) {
+  const status = metadata?.status || WHATSAPP_DELIVERY_STATUS.NO;
+
+  if (CANCELABLE_WHATSAPP_DELIVERY_STATUSES.includes(status)) {
+    return { allowed: true, status };
+  }
+
+  if (status === WHATSAPP_DELIVERY_STATUS.CANCELED) {
+    return {
+      allowed: false,
+      status,
+      reason: "already_canceled",
+      message: "This bill's WhatsApp delivery was already canceled.",
+    };
+  }
+
+  return {
+    allowed: false,
+    status,
+    reason: "delivery_not_in_progress",
+    message: `WhatsApp delivery is not in progress for this bill (status "${status}"), so there is nothing to cancel.`,
+  };
+}
+
 export function evaluateWhatsAppDeliveryJobState(metadata, jobId) {
   if (!metadata) {
     return { action: "abort", reason: "metadata_missing" };

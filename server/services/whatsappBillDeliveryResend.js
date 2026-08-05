@@ -2,9 +2,16 @@ import { query } from "../utils/query.js";
 import { assertWhatsAppServiceEnabled } from "./whatsappServiceSetting.js";
 import { enqueueBillWhatsAppDelivery } from "./whatsappBillDeliveryEnqueue.js";
 import {
+  BillNotFoundError,
+  parseWhatsAppMetadata,
+} from "./whatsappBillDeliveryErrors.js";
+import {
   createInitialWhatsAppMetadata,
   evaluateWhatsAppResendEligibility,
 } from "./whatsappBillMetadata.js";
+
+// Re-exported so existing importers keep resolving it from the resend module.
+export { BillNotFoundError };
 
 export class WhatsAppResendNotAllowedError extends Error {
   constructor({ message, reason, status }) {
@@ -15,31 +22,6 @@ export class WhatsAppResendNotAllowedError extends Error {
     this.reason = reason;
     this.deliveryStatus = status;
   }
-}
-
-export class BillNotFoundError extends Error {
-  constructor() {
-    super("Bill not found");
-    this.name = "BillNotFoundError";
-    this.code = "BILL_NOT_FOUND";
-    this.statusCode = 404;
-  }
-}
-
-function parseWhatsAppMetadata(rawMetadata) {
-  if (!rawMetadata) {
-    return null;
-  }
-
-  if (typeof rawMetadata === "string") {
-    try {
-      return JSON.parse(rawMetadata);
-    } catch {
-      return null;
-    }
-  }
-
-  return rawMetadata;
 }
 
 /**
