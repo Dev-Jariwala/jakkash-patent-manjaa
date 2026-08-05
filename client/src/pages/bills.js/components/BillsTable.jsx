@@ -23,6 +23,7 @@ import { DataTableViewOptions } from "@/components/ui/data-table-view-options";
 import FormatePrice from "@/helper/FormatPrice";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import WhatsAppDeliveryStatus from "@/components/bills/WhatsAppDeliveryStatus";
+import WhatsAppResendAction from "@/components/bills/WhatsAppResendAction";
 import { billHasProcessingWhatsAppDelivery, getWhatsAppDeliveryPollIntervalMs } from "@/lib/whatsappDelivery";
 
 const csvHeaders = [
@@ -364,6 +365,10 @@ const BillsTable = () => {
                                                     >
                                                         <Pencil size={16} className="text-green-500" />
                                                     </Link>
+                                                    <WhatsAppResendAction
+                                                        bill={row.original}
+                                                        collectionId={activeCollection}
+                                                    />
                                                 </TableCell>
                                             </TableRow>
                                         ))

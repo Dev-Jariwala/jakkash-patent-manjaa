@@ -15,9 +15,17 @@ export class EnqueueWhatsAppDeliveryError extends Error {
   }
 }
 
-export async function enqueueBillWhatsAppDelivery({ billId, collectionId, whatsappMetadata }) {
+export async function enqueueBillWhatsAppDelivery({
+  billId,
+  collectionId,
+  whatsappMetadata,
+  resetRequestedAt = false,
+}) {
   const queueJobId = buildBillDeliveryJobId(billId);
-  const processingMetadata = buildProcessingWhatsAppMetadata(whatsappMetadata, { queueJobId });
+  const processingMetadata = buildProcessingWhatsAppMetadata(whatsappMetadata, {
+    queueJobId,
+    resetRequestedAt,
+  });
 
   let billWithProcessingState;
   try {

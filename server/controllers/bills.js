@@ -2,9 +2,10 @@
 
 import { handleError } from "../utils/error.js";
 import { query } from "../utils/query.js";
-import { getWhatsAppServiceEnabled } from "../services/whatsappServiceSetting.js";
+import { assertWhatsAppServiceEnabled } from "../services/whatsappServiceSetting.js";
 import { resolveCreateBillWhatsAppMetadata } from "../services/whatsappBillMetadata.js";
 import { enqueueBillWhatsAppDelivery } from "../services/whatsappBillDeliveryEnqueue.js";
+import { resendBillWhatsAppDelivery as resendBillWhatsAppDeliveryService } from "../services/whatsappBillDeliveryResend.js";
 
 // CREATE TABLE bills (
 // 	   sr_no SERIAL PRIMARY KEY,
@@ -49,15 +50,12 @@ export const createBill = async (req, res, next) => {
   const products = req.products || [];
   const { collection_id } = req.params;
   try {
-    const serviceEnabled = await getWhatsAppServiceEnabled();
-
-    if (send_bill_on_whatsapp && !serviceEnabled) {
-      return res.status(403).json({
-        success: false,
-        message: "WhatsApp bill delivery is disabled",
-        code: "WHATSAPP_SERVICE_DISABLED",
-      });
-    }
+    // The toggle only changes metadata when delivery was actually requested, so
+    // one guarded lookup covers both enforcement and the metadata decision.
+    // Same guard the resend flow uses, so a stale frontend cannot slip past it.
+    const serviceEnabled = send_bill_on_whatsapp
+      ? await assertWhatsAppServiceEnabled()
+      : false;
 
     const whatsapp_metadata = resolveCreateBillWhatsAppMetadata({
       serviceEnabled,
@@ -149,6 +147,44 @@ export const createBill = async (req, res, next) => {
     });
   } catch (error) {
     handleError('createBill', res, error);
+  }
+};
+
+export const resendBillWhatsAppDelivery = async (req, res) => {
+  const { bill_id, collection_id } = req.params;
+  try {
+    const bill = await resendBillWhatsAppDeliveryService({
+      billId: bill_id,
+      collectionId: collection_id,
+    });
+
+    res.status(202).json({
+      message: "WhatsApp bill delivery queued successfully",
+      bill,
+      whatsapp_delivery: {
+        queued: true,
+        status: bill?.whatsapp_metadata?.status || "processing",
+      },
+    });
+  } catch (error) {
+    // Enqueue failures already persisted a `failed` state on the bill, so hand
+    // the operator that bill back instead of leaving the UI on a stale status.
+    if (error.name === "EnqueueWhatsAppDeliveryError") {
+      console.error(`Error enqueueing WhatsApp resend for bill ${bill_id}:`, error);
+      return res.status(502).json({
+        success: false,
+        message: error.message || "Failed to queue WhatsApp bill delivery",
+        code: "WHATSAPP_RESEND_ENQUEUE_FAILED",
+        bill: error.bill,
+        whatsapp_delivery: {
+          queued: false,
+          status: error.bill?.whatsapp_metadata?.status || "failed",
+          warning: error.message,
+        },
+      });
+    }
+
+    handleError('resendBillWhatsAppDelivery', res, error);
   }
 };
 

@@ -36,22 +36,16 @@ export async function setWhatsAppServiceEnabled(enabled) {
   };
 }
 
+/**
+ * Single enforcement point for "is WhatsApp delivery allowed right now?".
+ * Both the create flow and the resend flow go through this so the backend
+ * stays the source of truth even when the frontend holds a stale toggle.
+ * Throws `WhatsAppServiceDisabledError` (403), which `handleError` propagates.
+ */
 export async function assertWhatsAppServiceEnabled() {
   const enabled = await getWhatsAppServiceEnabled();
   if (!enabled) {
     throw new WhatsAppServiceDisabledError();
   }
-}
-
-export async function requireWhatsAppServiceEnabled(res) {
-  const enabled = await getWhatsAppServiceEnabled();
-  if (!enabled) {
-    res.status(403).json({
-      success: false,
-      message: "WhatsApp bill delivery is disabled",
-      code: "WHATSAPP_SERVICE_DISABLED",
-    });
-    return false;
-  }
-  return true;
+  return enabled;
 }

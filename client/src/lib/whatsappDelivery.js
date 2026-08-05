@@ -103,6 +103,36 @@ export function billHasProcessingWhatsAppDelivery(bills) {
   );
 }
 
+/**
+ * Statuses a bill can be resent from. Mirrors
+ * server/services/whatsappBillMetadata.js -> RESENDABLE_WHATSAPP_DELIVERY_STATUSES.
+ * The backend is still the source of truth; this only drives affordances.
+ */
+export const RESENDABLE_WHATSAPP_DELIVERY_STATUSES = [
+  WHATSAPP_DELIVERY_STATUS.NO,
+  WHATSAPP_DELIVERY_STATUS.SUCCESS,
+  WHATSAPP_DELIVERY_STATUS.FAILED,
+  WHATSAPP_DELIVERY_STATUS.CANCELED,
+];
+
+export function canResendWhatsAppDelivery(statusOrBill) {
+  const status =
+    typeof statusOrBill === "string"
+      ? statusOrBill
+      : getWhatsAppDeliveryStatus(statusOrBill);
+
+  return RESENDABLE_WHATSAPP_DELIVERY_STATUSES.includes(status);
+}
+
+export function getResendActionLabel(statusOrBill) {
+  const status =
+    typeof statusOrBill === "string"
+      ? statusOrBill
+      : getWhatsAppDeliveryStatus(statusOrBill);
+
+  return status === WHATSAPP_DELIVERY_STATUS.NO ? "Send on WhatsApp" : "Resend on WhatsApp";
+}
+
 export function shouldPollWhatsAppDeliveryStatus(statusOrBill) {
   const status =
     typeof statusOrBill === "string"
