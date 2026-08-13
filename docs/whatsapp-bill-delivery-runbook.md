@@ -63,7 +63,25 @@ on `failed` with the provider's message on the status chip.
 
 ## Migrations
 
-Apply in order; all are re-runnable.
+Managed by [dbmate](https://github.com/amacneil/dbmate), installed as a dev
+dependency — no global install needed. It needs `DATABASE_URL` in `server/.env`
+(the app itself still reads the separate `DB_*` vars; keep the two in sync).
+
+From `server/`:
+
+| Command | What it does |
+| --- | --- |
+| `npm run db:status` | Lists applied and pending migrations |
+| `npm run db:up` | Applies everything pending |
+| `npm run db:new <name>` | Creates a timestamped migration file |
+| `npm run db:rollback` | Reverts the most recent migration |
+
+dbmate tracks what has run in a `schema_migrations` table and wraps each
+migration in a transaction. Each file has a `-- migrate:up` section and a
+`-- migrate:down` section; new files created with `db:new` are stubbed with both.
+
+Existing migrations, in order — all three are re-runnable, so pointing dbmate at
+a database that already has them applied is safe:
 
 1. `server/migrations/001_app_settings.sql` — the settings table, seeded with
    `whatsapp_service_enabled = FALSE`.
@@ -71,6 +89,10 @@ Apply in order; all are re-runnable.
    column.
 3. `server/migrations/003_whatsapp_metadata_provider_accepted_at.sql` — adds
    `provider_accepted_at` to the default and to existing rows.
+
+`server/schema.sql` remains the hand-maintained full-schema snapshot for standing
+up a fresh database; dbmate's schema dump is disabled (`--no-dump-schema`) so it
+never overwrites that file. After adding a migration, mirror the change there.
 
 ## Enabling the feature
 

@@ -1,10 +1,13 @@
 -- =====================================================================
 --  JAKKASH PATENT MANJAA — COMPLETE DATABASE SCHEMA (PostgreSQL)
 -- =====================================================================
---  This is the single source of truth. It replaces:
---    - server/jakkash table.sql              (STALE: MySQL-era DDL, do not use)
---    - server/migrations/001_app_settings.sql
---    - server/migrations/002_bills_whatsapp_metadata.sql
+--  The full-schema snapshot, for standing up a database in one shot. It
+--  replaces server/jakkash table.sql (STALE: MySQL-era DDL, do not use) and
+--  folds in everything under server/migrations/.
+--
+--  Incremental changes go through dbmate (`npm run db:new` in server/), not
+--  by editing this file alone — but keep this file mirroring the migrations,
+--  since dbmate's own schema dump is disabled and will not update it.
 --
 --  Safe to run on a FRESH database and on an EXISTING one — everything
 --  is idempotent (CREATE ... IF NOT EXISTS / ADD COLUMN IF NOT EXISTS /
@@ -13,6 +16,7 @@
 --  Run with:
 --    psql "$DATABASE_URL" -f server/schema.sql
 --  or paste the whole file into your SQL console in one shot.
+--  Then `npm run db:up` in server/ to record the migrations as applied.
 -- =====================================================================
 
 
