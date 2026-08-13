@@ -79,7 +79,7 @@ const Layout = () => {
         />
         <div className="flex flex-col relative w-full h-[100dvh]">
           <Navbar toggleSidebar={toggleSidebar} />
-          <main className=" flex-1 overflow-y-auto h-[calc(100dvh-4rem)]">
+          <main className="relative flex-1 overflow-y-auto h-[calc(100dvh-4rem)]">
             <Outlet />
           </main>
         </div>
