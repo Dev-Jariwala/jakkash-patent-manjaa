@@ -167,14 +167,21 @@ const BillsTable = () => {
                 header: "Is Delivered",
                 cell: (info) => {
                     const deliveredAt = info.getValue() ? formatDate(new Date(info.getValue()), "dd/MM/yyyy HH:mm") : "Not Delivered";
+                    // Marking delivered rewrites advance/total_due, both printed
+                    // on the bill PDF, so it is locked like any other edit.
+                    const isLocked = isBillLockedForEditing(info.row.original);
                     return (
                         <Chip
                             variant={"light"}
                             border={"none"}
                             size={"xs"}
                             color={info.getValue() ? "green" : "gray"}
-                            className={''}
-                            onClick={() => setShowDeliveryAlert({ status: true, data: { bill_id: info.row.original.bill_id, collection_id: activeCollection, is_delivered: info.getValue() ? false : true } })}
+                            className={isLocked ? 'opacity-40 cursor-not-allowed' : ''}
+                            title={isLocked ? EDIT_LOCK_REASON : undefined}
+                            onClick={() => {
+                                if (isLocked) return;
+                                setShowDeliveryAlert({ status: true, data: { bill_id: info.row.original.bill_id, collection_id: activeCollection, is_delivered: info.getValue() ? false : true } });
+                            }}
                         >
                             {deliveredAt}
                         </Chip>
@@ -234,7 +241,12 @@ const BillsTable = () => {
             queryClient.invalidateQueries(["bills", activeCollection]);
         },
         onError: (error) => {
-            toast.error(`Error updating delivery status ${error.message}`)
+            // Surface the server's reason (a delivery lock, say) instead of a
+            // bare "status code 409".
+            const response = error?.response?.data;
+            setShowDeliveryAlert({ status: false, data: null });
+            toast.error(response?.message || `Error updating delivery status ${error.message}`);
+            queryClient.invalidateQueries(["bills", activeCollection]);
         }
     });
 

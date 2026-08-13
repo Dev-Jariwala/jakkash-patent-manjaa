@@ -34,6 +34,24 @@ export class BillUpdateFailedError extends Error {
 }
 
 /**
+ * Same rule as `assertBillEditableDuringWhatsAppDelivery`, for callers that
+ * already hold the bill row and should not pay for a second SELECT.
+ *
+ * @throws {BillEditBlockedError}
+ */
+export function assertBillEditableFromMetadata(rawMetadata) {
+  const metadata =
+    parseWhatsAppMetadata(rawMetadata) || createInitialWhatsAppMetadata();
+
+  const eligibility = evaluateBillEditEligibility(metadata);
+  if (!eligibility.allowed) {
+    throw new BillEditBlockedError(eligibility);
+  }
+
+  return eligibility;
+}
+
+/**
  * Statuses the update statement refuses to write over, passed as a bound
  * parameter so the SQL stays parameterized and cannot drift from the constant.
  */
@@ -92,7 +110,11 @@ export async function assertBillEditableDuringWhatsAppDelivery({ billId, collect
  * actually in rather than a bare failure. Mirrors the cancel service's
  * lost-race handling so both guarded writes report the same way.
  */
-export async function explainRejectedBillUpdate({ billId, collectionId }) {
+export async function explainRejectedBillUpdate({
+  billId,
+  collectionId,
+  fallbackMessage,
+}) {
   const metadata = await readBillDeliveryMetadata({ billId, collectionId });
 
   if (!metadata) {
@@ -104,5 +126,5 @@ export async function explainRejectedBillUpdate({ billId, collectionId }) {
     return new BillEditBlockedError(eligibility);
   }
 
-  return new BillUpdateFailedError();
+  return new BillUpdateFailedError(fallbackMessage);
 }

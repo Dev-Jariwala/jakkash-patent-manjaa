@@ -9,6 +9,7 @@ import { resendBillWhatsAppDelivery as resendBillWhatsAppDeliveryService } from 
 import { forceCancelBillWhatsAppDelivery as forceCancelBillWhatsAppDeliveryService } from "../services/whatsappBillDeliveryCancel.js";
 import {
   assertBillEditableDuringWhatsAppDelivery,
+  assertBillEditableFromMetadata,
   BILL_EDITABLE_SQL_CONDITION,
   EDIT_BLOCKING_STATUSES_PARAM,
   explainRejectedBillUpdate,
@@ -443,17 +444,26 @@ export const updateBillDeliveryStatus = async (req, res) => {
       return res.status(400).json({ message: 'Bill delivery status is already ' + (is_delivered ? 'delivered' : 'not delivered') });
     }
 
+    // Marking delivered rolls total_due into advance, and both are printed on
+    // the bill PDF, so this is a bill change like any other and must not land
+    // while a delivery is generating that PDF (ADR 0005).
+    assertBillEditableFromMetadata(bill.whatsapp_metadata);
+
     const nextAdvance = is_delivered && Number(bill.total_due) > 0
       ? Number(bill.advance) + Number(bill.total_due)
       : Number(bill.advance);
     const nextTotalDue = is_delivered ? 0 : Number(bill.total_due);
 
     const [updatedBill] = await query(
-      `update bills set delivered_at = $1, advance = $2, total_due = $3 where bill_id = $4 and collection_id = $5 returning *`,
-      [is_delivered ? 'now()' : null, nextAdvance, nextTotalDue, bill_id, collection_id]
+      `update bills set delivered_at = $1, advance = $2, total_due = $3 where bill_id = $4 and collection_id = $5 and ${BILL_EDITABLE_SQL_CONDITION('$6')} returning *`,
+      [is_delivered ? 'now()' : null, nextAdvance, nextTotalDue, bill_id, collection_id, EDIT_BLOCKING_STATUSES_PARAM]
     );
     if (!updatedBill) {
-      return res.status(400).json({ message: 'Error updating bill delivery status', error: 'Error updating bill delivery status' });
+      throw await explainRejectedBillUpdate({
+        billId: bill_id,
+        collectionId: collection_id,
+        fallbackMessage: 'Error updating bill delivery status',
+      });
     }
     res.status(200).json({ message: 'Bill delivery status updated successfully', bill: updatedBill });
   } catch (error) {
@@ -484,15 +494,23 @@ export const updateBillPaymentStatus = async (req, res) => {
       });
     }
 
+    // advance and total_due are both printed on the bill PDF, so marking paid
+    // mid-delivery would send a document the operator never reviewed (ADR 0005).
+    assertBillEditableFromMetadata(bill.whatsapp_metadata);
+
     const nextAdvance = Number(bill.advance) + Number(bill.total_due);
 
     const [updatedBill] = await query(
-      `update bills set advance = $1, total_due = $2 where bill_id = $3 and collection_id = $4 returning *`,
-      [nextAdvance, 0, bill_id, collection_id]
+      `update bills set advance = $1, total_due = $2 where bill_id = $3 and collection_id = $4 and ${BILL_EDITABLE_SQL_CONDITION('$5')} returning *`,
+      [nextAdvance, 0, bill_id, collection_id, EDIT_BLOCKING_STATUSES_PARAM]
     );
 
     if (!updatedBill) {
-      return res.status(400).json({ message: 'Error updating bill payment status', error: 'Error updating bill payment status' });
+      throw await explainRejectedBillUpdate({
+        billId: bill_id,
+        collectionId: collection_id,
+        fallbackMessage: 'Error updating bill payment status',
+      });
     }
 
     res.status(200).json({

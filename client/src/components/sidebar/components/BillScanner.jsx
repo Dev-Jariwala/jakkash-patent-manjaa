@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import FormatePrice from "@/helper/FormatPrice";
 import { cn } from "@/lib/utils";
 import { getBillById, updateBillDeliveryStatus, updateBillPaymentStatus } from "@/services/bills";
+import { EDIT_LOCK_REASON, isBillLockedForEditing } from "@/lib/whatsappDelivery";
 
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const RESET_GAP_MS = 120;
@@ -263,6 +264,9 @@ const BillScanner = () => {
     const isBillDelivered = Boolean(scannedBill?.delivered_at);
     const dialogCopy = getBillDialogCopy({ isBillPaid, isBillDelivered });
     const isUpdatingStatus = markBillAsPaidMutation.isPending || markBillAsDeliveredMutation.isPending;
+    // Both actions rewrite advance/total_due, which are printed on the bill PDF,
+    // so a delivery in flight locks them exactly like a normal edit (ADR 0005).
+    const isBillLocked = isBillLockedForEditing(scannedBill);
     const scannerStatus = getScannerStatus(scannerState);
 
     return (
@@ -314,6 +318,12 @@ const BillScanner = () => {
                         </div>
                     )}
 
+                    {isBillLocked && (
+                        <p className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-3 text-sm text-muted-foreground">
+                            {EDIT_LOCK_REASON}
+                        </p>
+                    )}
+
                     <AlertDialogFooter>
                         <AlertDialogCancel>Close</AlertDialogCancel>
                         {!isBillPaid && (
@@ -325,7 +335,8 @@ const BillScanner = () => {
                                         bill_id: scannedBill.bill_id,
                                     });
                                 }}
-                                disabled={isUpdatingStatus}
+                                disabled={isUpdatingStatus || isBillLocked}
+                                title={isBillLocked ? EDIT_LOCK_REASON : undefined}
                             >
                                 {markBillAsPaidMutation.isPending ? "Updating..." : "Mark as paid"}
                             </AlertDialogAction>
@@ -343,7 +354,8 @@ const BillScanner = () => {
                                 }}
                                 isLoading={markBillAsDeliveredMutation.isPending}
                                 loadingText="Updating..."
-                                disabled={isUpdatingStatus}
+                                disabled={isUpdatingStatus || isBillLocked}
+                                title={isBillLocked ? EDIT_LOCK_REASON : undefined}
                             >
                                 Mark as delivered
                             </Button>
