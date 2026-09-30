@@ -1,5 +1,7 @@
 import BillPDF2 from "@/components/bill-pdf/BillPDF2";
+import WhatsAppCancelAction from "@/components/bills/WhatsAppCancelAction";
 import WhatsAppDeliveryStatus from "@/components/bills/WhatsAppDeliveryStatus";
+import WhatsAppResendAction from "@/components/bills/WhatsAppResendAction";
 import TypeWritterLoader from "@/components/loaders/typewritter/TypeWritterLoader";
 import { getBillById } from "@/services/bills";
 import { getWhatsAppDeliveryPollIntervalMs, shouldPollWhatsAppDeliveryStatus } from "@/lib/whatsappDelivery";
@@ -43,6 +45,18 @@ const BillsView = () => {
                         <div className="flex items-center gap-2 px-4 py-2 border-b border-border">
                             <span className="text-sm text-muted-foreground">WhatsApp delivery</span>
                             <WhatsAppDeliveryStatus bill={bill} />
+                            <div className="ml-auto flex items-center gap-2">
+                                <WhatsAppCancelAction
+                                    bill={bill}
+                                    collectionId={activeCollection}
+                                    variant="button"
+                                />
+                                <WhatsAppResendAction
+                                    bill={bill}
+                                    collectionId={activeCollection}
+                                    variant="button"
+                                />
+                            </div>
                         </div>
                     )}
                     <BillPDF2 bill={bill} />

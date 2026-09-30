@@ -36,6 +36,100 @@ export function buildBillDeliveryJobId(billId) {
   return `bill-${billId}-${randomUUID()}`;
 }
 
+/**
+ * Statuses a bill can be resent from. Only `processing` is excluded, so a bill
+ * never has more than one delivery attempt in flight at a time.
+ */
+export const RESENDABLE_WHATSAPP_DELIVERY_STATUSES = [
+  WHATSAPP_DELIVERY_STATUS.NO,
+  WHATSAPP_DELIVERY_STATUS.SUCCESS,
+  WHATSAPP_DELIVERY_STATUS.FAILED,
+  WHATSAPP_DELIVERY_STATUS.CANCELED,
+];
+
+export function evaluateWhatsAppResendEligibility(metadata) {
+  const status = metadata?.status || WHATSAPP_DELIVERY_STATUS.NO;
+
+  if (status === WHATSAPP_DELIVERY_STATUS.PROCESSING) {
+    return {
+      allowed: false,
+      status,
+      reason: "delivery_in_progress",
+      message:
+        "This bill already has a WhatsApp delivery in progress. Force cancel it before resending.",
+    };
+  }
+
+  if (!RESENDABLE_WHATSAPP_DELIVERY_STATUSES.includes(status)) {
+    return {
+      allowed: false,
+      status,
+      reason: "unsupported_status",
+      message: `WhatsApp delivery cannot be resent from status "${status}".`,
+    };
+  }
+
+  return { allowed: true, status };
+}
+
+/**
+ * Statuses a bill can be force-canceled from. Only an in-flight delivery can be
+ * canceled; every other status is already a settled outcome.
+ */
+export const CANCELABLE_WHATSAPP_DELIVERY_STATUSES = [
+  WHATSAPP_DELIVERY_STATUS.PROCESSING,
+];
+
+export function evaluateWhatsAppCancelEligibility(metadata) {
+  const status = metadata?.status || WHATSAPP_DELIVERY_STATUS.NO;
+
+  if (CANCELABLE_WHATSAPP_DELIVERY_STATUSES.includes(status)) {
+    return { allowed: true, status };
+  }
+
+  if (status === WHATSAPP_DELIVERY_STATUS.CANCELED) {
+    return {
+      allowed: false,
+      status,
+      reason: "already_canceled",
+      message: "This bill's WhatsApp delivery was already canceled.",
+    };
+  }
+
+  return {
+    allowed: false,
+    status,
+    reason: "delivery_not_in_progress",
+    message: `WhatsApp delivery is not in progress for this bill (status "${status}"), so there is nothing to cancel.`,
+  };
+}
+
+/**
+ * Statuses that lock a bill against normal editing (ADR 0005). A delivery in
+ * flight generates its PDF from persisted bill data, so an edit landing
+ * mid-attempt would send a document matching neither the old nor the new bill.
+ * Force cancel is the deliberate escape hatch out of this state.
+ */
+export const EDIT_BLOCKING_WHATSAPP_DELIVERY_STATUSES = [
+  WHATSAPP_DELIVERY_STATUS.PROCESSING,
+];
+
+export function evaluateBillEditEligibility(metadata) {
+  const status = metadata?.status || WHATSAPP_DELIVERY_STATUS.NO;
+
+  if (EDIT_BLOCKING_WHATSAPP_DELIVERY_STATUSES.includes(status)) {
+    return {
+      allowed: false,
+      status,
+      reason: "delivery_in_progress",
+      message:
+        "This bill has a WhatsApp delivery in progress and cannot be edited. Force cancel the delivery to unlock it.",
+    };
+  }
+
+  return { allowed: true, status };
+}
+
 export function evaluateWhatsAppDeliveryJobState(metadata, jobId) {
   if (!metadata) {
     return { action: "abort", reason: "metadata_missing" };
@@ -67,14 +161,26 @@ export function evaluateWhatsAppDeliveryJobState(metadata, jobId) {
   return { action: "continue" };
 }
 
-export function buildProcessingWhatsAppMetadata(existingMetadata, { queueJobId }) {
+/**
+ * @param {object} existingMetadata
+ * @param {object} options
+ * @param {string} options.queueJobId
+ * @param {boolean} [options.resetRequestedAt] Resend starts a brand new request,
+ *   so the audit timestamp should reflect the latest ask rather than the original.
+ */
+export function buildProcessingWhatsAppMetadata(
+  existingMetadata,
+  { queueJobId, resetRequestedAt = false }
+) {
   const now = new Date().toISOString();
 
   return {
     ...existingMetadata,
     status: WHATSAPP_DELIVERY_STATUS.PROCESSING,
     delivery_requested: true,
-    delivery_requested_at: existingMetadata.delivery_requested_at || now,
+    delivery_requested_at: resetRequestedAt
+      ? now
+      : existingMetadata.delivery_requested_at || now,
     processing_started_at: now,
     queue_job_id: queueJobId,
     completed_at: null,

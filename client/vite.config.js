@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import path from "path";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
@@ -14,5 +15,11 @@ export default defineConfig({
       "date-fns": path.resolve(clientNodeModules, "date-fns"),
       react: path.resolve(clientNodeModules, "react"),
     },
+  },
+  test: {
+    environment: "jsdom",
+    globals: true,
+    setupFiles: ["./src/test/setup.js"],
+    include: ["src/**/*.test.{js,jsx}"],
   },
 });

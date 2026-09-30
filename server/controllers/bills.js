@@ -2,9 +2,18 @@
 
 import { handleError } from "../utils/error.js";
 import { query } from "../utils/query.js";
-import { getWhatsAppServiceEnabled } from "../services/whatsappServiceSetting.js";
+import { assertWhatsAppServiceEnabled } from "../services/whatsappServiceSetting.js";
 import { resolveCreateBillWhatsAppMetadata } from "../services/whatsappBillMetadata.js";
 import { enqueueBillWhatsAppDelivery } from "../services/whatsappBillDeliveryEnqueue.js";
+import { resendBillWhatsAppDelivery as resendBillWhatsAppDeliveryService } from "../services/whatsappBillDeliveryResend.js";
+import { forceCancelBillWhatsAppDelivery as forceCancelBillWhatsAppDeliveryService } from "../services/whatsappBillDeliveryCancel.js";
+import {
+  assertBillEditableDuringWhatsAppDelivery,
+  assertBillEditableFromMetadata,
+  BILL_EDITABLE_SQL_CONDITION,
+  EDIT_BLOCKING_STATUSES_PARAM,
+  explainRejectedBillUpdate,
+} from "../services/whatsappBillEditGuard.js";
 
 // CREATE TABLE bills (
 // 	   sr_no SERIAL PRIMARY KEY,
@@ -49,15 +58,12 @@ export const createBill = async (req, res, next) => {
   const products = req.products || [];
   const { collection_id } = req.params;
   try {
-    const serviceEnabled = await getWhatsAppServiceEnabled();
-
-    if (send_bill_on_whatsapp && !serviceEnabled) {
-      return res.status(403).json({
-        success: false,
-        message: "WhatsApp bill delivery is disabled",
-        code: "WHATSAPP_SERVICE_DISABLED",
-      });
-    }
+    // The toggle only changes metadata when delivery was actually requested, so
+    // one guarded lookup covers both enforcement and the metadata decision.
+    // Same guard the resend flow uses, so a stale frontend cannot slip past it.
+    const serviceEnabled = send_bill_on_whatsapp
+      ? await assertWhatsAppServiceEnabled()
+      : false;
 
     const whatsapp_metadata = resolveCreateBillWhatsAppMetadata({
       serviceEnabled,
@@ -152,57 +158,171 @@ export const createBill = async (req, res, next) => {
   }
 };
 
+export const resendBillWhatsAppDelivery = async (req, res) => {
+  const { bill_id, collection_id } = req.params;
+  try {
+    const bill = await resendBillWhatsAppDeliveryService({
+      billId: bill_id,
+      collectionId: collection_id,
+    });
+
+    res.status(202).json({
+      message: "WhatsApp bill delivery queued successfully",
+      bill,
+      whatsapp_delivery: {
+        queued: true,
+        status: bill?.whatsapp_metadata?.status || "processing",
+      },
+    });
+  } catch (error) {
+    // Enqueue failures already persisted a `failed` state on the bill, so hand
+    // the operator that bill back instead of leaving the UI on a stale status.
+    if (error.name === "EnqueueWhatsAppDeliveryError") {
+      console.error(`Error enqueueing WhatsApp resend for bill ${bill_id}:`, error);
+      return res.status(502).json({
+        success: false,
+        message: error.message || "Failed to queue WhatsApp bill delivery",
+        code: "WHATSAPP_RESEND_ENQUEUE_FAILED",
+        bill: error.bill,
+        whatsapp_delivery: {
+          queued: false,
+          status: error.bill?.whatsapp_metadata?.status || "failed",
+          warning: error.message,
+        },
+      });
+    }
+
+    handleError('resendBillWhatsAppDelivery', res, error);
+  }
+};
+
+export const forceCancelBillWhatsAppDelivery = async (req, res) => {
+  const { bill_id, collection_id } = req.params;
+  try {
+    const { bill, jobRemoved, jobState, workerAbortPending } =
+      await forceCancelBillWhatsAppDeliveryService({
+        billId: bill_id,
+        collectionId: collection_id,
+      });
+
+    res.status(200).json({
+      // Cancel is best-effort for an already-running attempt (ADR 0006), so the
+      // message says what actually happened instead of promising a hard stop.
+      message: workerAbortPending
+        ? "WhatsApp bill delivery canceled. The attempt already in progress will stop shortly."
+        : "WhatsApp bill delivery canceled",
+      bill,
+      whatsapp_delivery: {
+        status: bill?.whatsapp_metadata?.status || "canceled",
+        job_removed: jobRemoved,
+        job_state: jobState,
+        worker_abort_pending: workerAbortPending,
+      },
+    });
+  } catch (error) {
+    handleError('forceCancelBillWhatsAppDelivery', res, error);
+  }
+};
+
+/**
+ * Sortable bill columns. An identifier cannot be a bound parameter, so the only
+ * safe way to accept one from the query string is to map it onto a known column
+ * here; anything else falls back to the default ordering.
+ */
+export const BILL_SORT_FIELDS = {
+  bill_no: "b.bill_no",
+  order_date: "b.order_date",
+  delivery_date: "b.delivery_date",
+  name: "b.name",
+  mobile: "b.mobile",
+  total_due: "b.total_due",
+  sub_total: "b.sub_total",
+  total_firki: "b.total_firki",
+  delivered_at: "b.delivered_at",
+};
+const DEFAULT_BILL_SORT_FIELD = "b.bill_no";
+const MAX_BILLS_PAGE_SIZE = 200;
+
+export function resolveBillsListOrdering({ sortField, sortOrder }) {
+  // Own-property lookup only: a plain index would resolve `constructor` or
+  // `toString` off `Object.prototype` and splice that value into the ORDER BY.
+  const column = Object.hasOwn(BILL_SORT_FIELDS, String(sortField))
+    ? BILL_SORT_FIELDS[sortField]
+    : DEFAULT_BILL_SORT_FIELD;
+
+  return {
+    column,
+    direction: String(sortOrder).toLowerCase() === "asc" ? "ASC" : "DESC",
+  };
+}
+
+export function resolveBillsListPagination({ page, limit }) {
+  const parsedPage = Math.max(1, Number.parseInt(page, 10) || 1);
+  const parsedLimit = Math.min(
+    MAX_BILLS_PAGE_SIZE,
+    Math.max(1, Number.parseInt(limit, 10) || 10)
+  );
+
+  return { page: parsedPage, limit: parsedLimit, offset: (parsedPage - 1) * parsedLimit };
+}
+
 export const getBills = async (req, res) => {
   const { collection_id } = req.params;
-  const { page = 1, limit = 10, sortField = "bill_no", sortOrder = "desc", search = "", bill_type } = req.query;
-  const offset = (page - 1) * limit;
+  const { page: rawPage, limit: rawLimit, sortField, sortOrder, search = "", bill_type } = req.query;
   if (!bill_type) {
     return res.status(400).json({ message: 'Error fetching bills', error: 'Bill type is required' })
   }
 
+  const { page, limit, offset } = resolveBillsListPagination({ page: rawPage, limit: rawLimit });
+  const { column, direction } = resolveBillsListOrdering({ sortField, sortOrder });
+
   try {
-    // Build the base query
-    let billsQuery = `
-      SELECT b.*, c.name AS client_name
+    // The list and the count share one filter, so the pager can never report a
+    // page count the list cannot fill. Every value is bound; the only
+    // interpolated fragments are the ordering identifiers, which come from the
+    // whitelist above.
+    const filterParams = [collection_id, bill_type];
+    if (search) {
+      filterParams.push(`%${search}%`);
+    }
+    const fromAndWhere = `
       FROM bills b
       LEFT JOIN clients c ON b.mobile = c.mobile
-      WHERE b.collection_id = $1 
-      AND bill_type = $2
+      WHERE b.collection_id = $1
+        AND b.bill_type = $2
+        ${search
+        ? `AND (
+             c.name ILIKE $3
+             OR b.name ILIKE $3
+             OR b.mobile ILIKE $3
+             OR b.bill_no::text ILIKE $3
+             OR b.bill_id::text ILIKE $3
+           )`
+        : ""}
     `;
 
-    // Add search filter (assuming search applies to bill_no, name, or mobile)
-    let billsParams = [collection_id, bill_type];
-    if (search) {
-      billsQuery += ` AND ( c.name ILIKE $3 OR b.mobile ILIKE $3 OR b.bill_no::text ILIKE $3 OR b.bill_id::text ILIKE $3)`;
-      billsParams.push(`%${search}%`);
-    }
+    // Placed after the filter params so the indexes stay correct whether or not
+    // a search term is present.
+    const searchParam = filterParams.length + 1;
+    const limitParam = filterParams.length + 2;
+    const offsetParam = filterParams.length + 3;
 
-    // Add sorting
-    // billsQuery += ` ORDER BY ${sortField} ${sortOrder}  LIMIT ${limit} OFFSET ${offset}`;
-    billsQuery += `
-      ORDER BY 
-        CASE 
-          WHEN b.bill_no::text = '${search}' THEN 0
-          ELSE 1
-        END,
-        ${sortField} ${sortOrder}
-      LIMIT ${limit} OFFSET ${offset}
-    `;
-    // console.log({ billsQuery, billsParams });
+    const bills = await query(
+      `SELECT b.*, c.name AS client_name
+       ${fromAndWhere}
+       ORDER BY
+         CASE WHEN b.bill_no::text = $${searchParam}::text THEN 0 ELSE 1 END,
+         ${column} ${direction}
+       LIMIT $${limitParam} OFFSET $${offsetParam}`,
+      [...filterParams, String(search), limit, offset]
+    );
 
-    // Execute the billsQuery
-    const bills = await query(billsQuery, billsParams);
+    const [{ total_count }] = await query(
+      `SELECT COUNT(*) AS total_count ${fromAndWhere}`,
+      filterParams
+    );
 
-    // Get total count (optional, for pagination info)
-    let totalCountQuery = `SELECT COUNT(*) as total_count FROM bills WHERE collection_id =$1 AND bill_type = $2`;
-    const totalCountParams = [collection_id, bill_type]
-    if (search) {
-      totalCountQuery += ` AND ( name ILIKE $3 OR mobile ILIKE $3 OR bill_no::text ILIKE $3)`;
-      totalCountParams.push(`%${search}%`);
-    }
-    const [{ total_count }] = await query(totalCountQuery, totalCountParams);
-
-    res.status(200).json({ message: "Bills retrieved successfully", pagination: { page: parseInt(page), limit: parseInt(limit), totalPages: Math.ceil(parseInt(total_count) / limit), totalItems: parseInt(total_count), }, bills, });
+    res.status(200).json({ message: "Bills retrieved successfully", pagination: { page, limit, totalPages: Math.ceil(parseInt(total_count) / limit), totalItems: parseInt(total_count), }, bills, });
   } catch (error) {
     handleError('getBills', res, error);
   }
@@ -242,12 +362,19 @@ export const updateBillById = async (req, res) => {
   const { bill_no, bill_type, name, address, mobile, notes, total_firki, sub_total, advance, discount, total_due, order_date, delivery_date, bill_items, } = req.body;
   const products = req.products || [];
   try {
+    // A bill with a delivery in flight is off limits to the normal update path
+    // (ADR 0005). Checked before any write so a blocked edit never leaves
+    // half-applied bill item or stock changes behind.
+    await assertBillEditableDuringWhatsAppDelivery({ billId: bill_id, collectionId: collection_id });
+
     const [updatedBill] = await query(
-      `update bills set bill_no = $1, bill_type = $2, mobile = $3, name = $4, address = $5, order_date = $6, delivery_date = $7, notes = $8, total_firki = $9, sub_total = $10, discount = $11, advance = $12, total_due = $13 where bill_id = $14 and collection_id = $15 returning *`,
-      [bill_no, bill_type, mobile, name, address, order_date, delivery_date, notes, total_firki, sub_total, discount, advance, total_due, bill_id, collection_id]
+      `update bills set bill_no = $1, bill_type = $2, mobile = $3, name = $4, address = $5, order_date = $6, delivery_date = $7, notes = $8, total_firki = $9, sub_total = $10, discount = $11, advance = $12, total_due = $13 where bill_id = $14 and collection_id = $15 and ${BILL_EDITABLE_SQL_CONDITION('$16')} returning *`,
+      [bill_no, bill_type, mobile, name, address, order_date, delivery_date, notes, total_firki, sub_total, discount, advance, total_due, bill_id, collection_id, EDIT_BLOCKING_STATUSES_PARAM]
     );
     if (!updatedBill) {
-      return res.status(400).json({ message: 'Error updating bill', error: 'Error updating bill' });
+      // A delivery can be enqueued between the check above and this write, so
+      // report the state the bill actually landed in.
+      throw await explainRejectedBillUpdate({ billId: bill_id, collectionId: collection_id });
     }
 
     const previousBillItems = await query(`SELECT * FROM bill_items WHERE bill_id = $1`, [bill_id]);
@@ -317,17 +444,26 @@ export const updateBillDeliveryStatus = async (req, res) => {
       return res.status(400).json({ message: 'Bill delivery status is already ' + (is_delivered ? 'delivered' : 'not delivered') });
     }
 
+    // Marking delivered rolls total_due into advance, and both are printed on
+    // the bill PDF, so this is a bill change like any other and must not land
+    // while a delivery is generating that PDF (ADR 0005).
+    assertBillEditableFromMetadata(bill.whatsapp_metadata);
+
     const nextAdvance = is_delivered && Number(bill.total_due) > 0
       ? Number(bill.advance) + Number(bill.total_due)
       : Number(bill.advance);
     const nextTotalDue = is_delivered ? 0 : Number(bill.total_due);
 
     const [updatedBill] = await query(
-      `update bills set delivered_at = $1, advance = $2, total_due = $3 where bill_id = $4 and collection_id = $5 returning *`,
-      [is_delivered ? 'now()' : null, nextAdvance, nextTotalDue, bill_id, collection_id]
+      `update bills set delivered_at = $1, advance = $2, total_due = $3 where bill_id = $4 and collection_id = $5 and ${BILL_EDITABLE_SQL_CONDITION('$6')} returning *`,
+      [is_delivered ? 'now()' : null, nextAdvance, nextTotalDue, bill_id, collection_id, EDIT_BLOCKING_STATUSES_PARAM]
     );
     if (!updatedBill) {
-      return res.status(400).json({ message: 'Error updating bill delivery status', error: 'Error updating bill delivery status' });
+      throw await explainRejectedBillUpdate({
+        billId: bill_id,
+        collectionId: collection_id,
+        fallbackMessage: 'Error updating bill delivery status',
+      });
     }
     res.status(200).json({ message: 'Bill delivery status updated successfully', bill: updatedBill });
   } catch (error) {
@@ -358,15 +494,23 @@ export const updateBillPaymentStatus = async (req, res) => {
       });
     }
 
+    // advance and total_due are both printed on the bill PDF, so marking paid
+    // mid-delivery would send a document the operator never reviewed (ADR 0005).
+    assertBillEditableFromMetadata(bill.whatsapp_metadata);
+
     const nextAdvance = Number(bill.advance) + Number(bill.total_due);
 
     const [updatedBill] = await query(
-      `update bills set advance = $1, total_due = $2 where bill_id = $3 and collection_id = $4 returning *`,
-      [nextAdvance, 0, bill_id, collection_id]
+      `update bills set advance = $1, total_due = $2 where bill_id = $3 and collection_id = $4 and ${BILL_EDITABLE_SQL_CONDITION('$5')} returning *`,
+      [nextAdvance, 0, bill_id, collection_id, EDIT_BLOCKING_STATUSES_PARAM]
     );
 
     if (!updatedBill) {
-      return res.status(400).json({ message: 'Error updating bill payment status', error: 'Error updating bill payment status' });
+      throw await explainRejectedBillUpdate({
+        billId: bill_id,
+        collectionId: collection_id,
+        fallbackMessage: 'Error updating bill payment status',
+      });
     }
 
     res.status(200).json({

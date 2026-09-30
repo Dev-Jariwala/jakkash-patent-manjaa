@@ -189,7 +189,12 @@ const Sidebar = () => {
             </SidebarComponent>
             <SidebarInset className='flex flex-col relative w-full h-[100dvh] bg-background'>
                 <Navbar />
-                <main className=" flex-1 overflow-y-auto h-[calc(100dvh-4rem)]">
+                {/* `relative` keeps this the containing block for absolutely
+                    positioned descendants (e.g. the hidden input Radix Checkbox
+                    renders). Without it they anchor to SidebarInset, escape this
+                    element's overflow clip, and stretch the document past the
+                    viewport — which shows up as a second, dead scrollbar. */}
+                <main className="relative flex-1 overflow-y-auto h-[calc(100dvh-4rem)]">
                     <Outlet />
                 </main>
             </SidebarInset>

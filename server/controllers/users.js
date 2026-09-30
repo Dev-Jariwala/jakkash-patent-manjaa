@@ -4,6 +4,7 @@ import winston from "winston";
 import passport from "passport";
 import jwt from "jsonwebtoken";
 import { query } from "../utils/query.js";
+import { handleError } from "../utils/error.js";
 
 // create table users(
 // 	sr_no serial primary key,
@@ -36,11 +37,13 @@ export const registerUser = async (req, res) => {
 export const signupUser = (req, res, next) => {
   try {
     passport.authenticate("local", { session: false }, (err, user, info) => {
-      if (err) return res.status(400).json(err);
+      // res.json(err) serializes an Error to {} — its message/stack are
+      // non-enumerable. handleError pulls the message out explicitly.
+      if (err) return handleError("signupUser", res, err);
       if (!user) return res.status(401).json({ message: "User not found" });
 
       req.login(user, { session: false }, (err) => {
-        if (err) return res.status(400).json(err);
+        if (err) return handleError("signupUser.login", res, err);
 
         const token = jwt.sign(
           { user_id: user.user_id, username: user.username },

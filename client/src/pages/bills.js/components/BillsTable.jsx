@@ -8,7 +8,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight, } from "react-icons/md";
 import { Input } from "@/components/ui/input";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { Eye, Pencil } from "lucide-react";
+import { Eye, Lock, Pencil } from "lucide-react";
 import { Chip } from "@/components/ui/chip";
 import { useDebounce, useLocalStorage } from "@uidotdev/usehooks";
 import { getBillsByCollectionId, getWholesaleBillsCsvReport, updateBillDeliveryStatus } from "@/services/bills";
@@ -22,8 +22,10 @@ import { Spinner } from "@/components/ui/spinner";
 import { DataTableViewOptions } from "@/components/ui/data-table-view-options";
 import FormatePrice from "@/helper/FormatPrice";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import WhatsAppCancelAction from "@/components/bills/WhatsAppCancelAction";
 import WhatsAppDeliveryStatus from "@/components/bills/WhatsAppDeliveryStatus";
-import { billHasProcessingWhatsAppDelivery, getWhatsAppDeliveryPollIntervalMs } from "@/lib/whatsappDelivery";
+import WhatsAppResendAction from "@/components/bills/WhatsAppResendAction";
+import { billHasProcessingWhatsAppDelivery, EDIT_LOCK_REASON, getWhatsAppDeliveryPollIntervalMs, isBillLockedForEditing } from "@/lib/whatsappDelivery";
 
 const csvHeaders = [
     { label: "Bill No.", key: "bill_no" },
@@ -165,14 +167,21 @@ const BillsTable = () => {
                 header: "Is Delivered",
                 cell: (info) => {
                     const deliveredAt = info.getValue() ? formatDate(new Date(info.getValue()), "dd/MM/yyyy HH:mm") : "Not Delivered";
+                    // Marking delivered rewrites advance/total_due, both printed
+                    // on the bill PDF, so it is locked like any other edit.
+                    const isLocked = isBillLockedForEditing(info.row.original);
                     return (
                         <Chip
                             variant={"light"}
                             border={"none"}
                             size={"xs"}
                             color={info.getValue() ? "green" : "gray"}
-                            className={''}
-                            onClick={() => setShowDeliveryAlert({ status: true, data: { bill_id: info.row.original.bill_id, collection_id: activeCollection, is_delivered: info.getValue() ? false : true } })}
+                            className={isLocked ? 'opacity-40 cursor-not-allowed' : ''}
+                            title={isLocked ? EDIT_LOCK_REASON : undefined}
+                            onClick={() => {
+                                if (isLocked) return;
+                                setShowDeliveryAlert({ status: true, data: { bill_id: info.row.original.bill_id, collection_id: activeCollection, is_delivered: info.getValue() ? false : true } });
+                            }}
                         >
                             {deliveredAt}
                         </Chip>
@@ -182,10 +191,22 @@ const BillsTable = () => {
             columnHelper.display({
                 id: "whatsapp_delivery_status",
                 header: "WhatsApp",
-                cell: (info) => <WhatsAppDeliveryStatus bill={info.row.original} />,
+                // Force cancel sits beside the status so it is discoverable exactly
+                // when a delivery is processing, and invisible otherwise (PRD 20).
+                cell: (info) => (
+                    <div className="flex items-center gap-1">
+                        <WhatsAppDeliveryStatus bill={info.row.original} />
+                        <WhatsAppCancelAction
+                            bill={info.row.original}
+                            collectionId={activeCollection}
+                        />
+                    </div>
+                ),
             }),
         ]
-    ), []);
+        // activeCollection is read inside the cell, so the columns must be rebuilt
+        // when the operator switches collections.
+    ), [activeCollection]);
 
     const headers = {};
     columnsDef.forEach((column) => {
@@ -220,7 +241,12 @@ const BillsTable = () => {
             queryClient.invalidateQueries(["bills", activeCollection]);
         },
         onError: (error) => {
-            toast.error(`Error updating delivery status ${error.message}`)
+            // Surface the server's reason (a delivery lock, say) instead of a
+            // bare "status code 409".
+            const response = error?.response?.data;
+            setShowDeliveryAlert({ status: false, data: null });
+            toast.error(response?.message || `Error updating delivery status ${error.message}`);
+            queryClient.invalidateQueries(["bills", activeCollection]);
         }
     });
 
@@ -358,12 +384,28 @@ const BillsTable = () => {
                                                     >
                                                         <Eye size={16} className="text-blue-500" />
                                                     </Link>
-                                                    <Link
-                                                        to={`/bills/update/${row.original?.bill_id}?bill_type=${billType}`}
-                                                        className="hover:bg-accent rounded-full size-8 flex items-center justify-center"
-                                                    >
-                                                        <Pencil size={16} className="text-green-500" />
-                                                    </Link>
+                                                    {/* A processing delivery locks the bill (ADR 0005); force
+                                                        cancel sits in the WhatsApp column of the same row. */}
+                                                    {isBillLockedForEditing(row.original) ? (
+                                                        <span
+                                                            title={EDIT_LOCK_REASON}
+                                                            aria-label={EDIT_LOCK_REASON}
+                                                            className="rounded-full size-8 flex items-center justify-center opacity-40 cursor-not-allowed"
+                                                        >
+                                                            <Lock size={16} className="text-muted-foreground" />
+                                                        </span>
+                                                    ) : (
+                                                        <Link
+                                                            to={`/bills/update/${row.original?.bill_id}?bill_type=${billType}`}
+                                                            className="hover:bg-accent rounded-full size-8 flex items-center justify-center"
+                                                        >
+                                                            <Pencil size={16} className="text-green-500" />
+                                                        </Link>
+                                                    )}
+                                                    <WhatsAppResendAction
+                                                        bill={row.original}
+                                                        collectionId={activeCollection}
+                                                    />
                                                 </TableCell>
                                             </TableRow>
                                         ))

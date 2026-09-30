@@ -13,12 +13,23 @@ export function getRedisConfig() {
   };
 }
 
-export function createRedisConnection() {
+export function createRedisConnection(overrideOptions = {}) {
   const config = getRedisConfig();
-  if (config.url) {
-    return new IORedis(config.url, { maxRetriesPerRequest: null });
-  }
-  return new IORedis(config);
+  const options = {
+    maxRetriesPerRequest: null,
+    ...overrideOptions,
+  };
+
+  const client = config.url
+    ? new IORedis(config.url, options)
+    : new IORedis({ ...config, ...options });
+
+  // Attach error listener to prevent Node.js EventEmitter unhandled 'error' event log spam
+  client.on("error", (err) => {
+    // BullMQ/ioredis handles reconnections; errors can be caught at invocation sites or queue worker level
+  });
+
+  return client;
 }
 
 function getRedisTargetLabel() {
@@ -31,16 +42,22 @@ function getRedisTargetLabel() {
 
 export async function verifyRedisConnection() {
   const target = getRedisTargetLabel();
-  const redis = createRedisConnection();
+  const redis = createRedisConnection({
+    maxRetriesPerRequest: 1,
+    connectTimeout: 2000,
+    retryStrategy: () => null,
+  });
 
   try {
     await redis.ping();
     console.log(`Redis connected (${target})`);
     return true;
   } catch (error) {
-    console.error(`Redis connection failed (${target}):`, error.message);
+    console.warn(`Redis connection unavailable (${target}): ${error.message}`);
     return false;
   } finally {
-    redis.disconnect();
+    try {
+      redis.disconnect();
+    } catch (_) {}
   }
 }
