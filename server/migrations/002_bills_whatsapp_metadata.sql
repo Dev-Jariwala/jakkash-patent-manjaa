@@ -1,3 +1,5 @@
+-- migrate:up
+
 ALTER TABLE bills
 ADD COLUMN IF NOT EXISTS whatsapp_metadata JSONB NOT NULL DEFAULT '{
   "status": "no",
@@ -11,3 +13,7 @@ ADD COLUMN IF NOT EXISTS whatsapp_metadata JSONB NOT NULL DEFAULT '{
   "cancel_requested": false,
   "canceled_at": null
 }'::jsonb;
+
+-- migrate:down
+
+ALTER TABLE bills DROP COLUMN IF EXISTS whatsapp_metadata;

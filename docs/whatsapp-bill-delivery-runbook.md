@@ -63,14 +63,23 @@ on `failed` with the provider's message on the status chip.
 
 ## Migrations
 
-Apply in order; all are re-runnable.
+From `server/`, apply every pending migration, including the baseline tables:
 
-1. `server/migrations/001_app_settings.sql` — the settings table, seeded with
+```bash
+npm run db:up
+```
+
+dbmate runs these files in order. All are re-runnable.
+
+1. `server/migrations/000_baseline_from_aws_dump.sql` — the eight dump tables and the `admin` user.
+2. `server/migrations/001_app_settings.sql` — the settings table, seeded with
    `whatsapp_service_enabled = FALSE`.
-2. `server/migrations/002_bills_whatsapp_metadata.sql` — the `whatsapp_metadata`
+3. `server/migrations/002_bills_whatsapp_metadata.sql` — the `whatsapp_metadata`
    column.
-3. `server/migrations/003_whatsapp_metadata_provider_accepted_at.sql` — adds
+4. `server/migrations/003_whatsapp_metadata_provider_accepted_at.sql` — adds
    `provider_accepted_at` to the default and to existing rows.
+
+`npm run db:status` lists what is pending. `npm run db:rollback` undoes only the last applied migration.
 
 ## Enabling the feature
 

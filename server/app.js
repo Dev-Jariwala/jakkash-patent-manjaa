@@ -13,6 +13,7 @@ import clientRoutes from "./routes/clients.js";
 import purchaseRoutes from "./routes/purchases.js";
 import analyticsRoutes from "./routes/analytics.js";
 import settingsRoutes from "./routes/settings.js";
+import { verifyDatabaseConnection } from "./config/db.js";
 import { verifyRedisConnection } from "./config/redis.js";
 import { closeWhatsAppBillDeliveryQueue } from "./queues/whatsappBillDeliveryQueue.js";
 
@@ -44,6 +45,7 @@ app.use("/api/collections", collectionRoutes, productRoutes, stockRoutes, billRo
 const port = process.env.PORT;
 const server = app.listen(port, () => {
   console.log(`Server running on port ${port}`);
+  verifyDatabaseConnection();
   verifyRedisConnection();
 });
 

@@ -19,5 +19,33 @@ const pool = new Pool({
     } : false,
 });
 
+pool.on('error', (err) => {
+    console.error('Unexpected error on idle database client', err);
+});
+
+function getDatabaseTargetLabel() {
+    const port = process.env.DB_PORT || 5432;
+    const database = process.env.DB_DATABASE || '';
+    return `${host}:${port}/${database}`;
+}
+
+/** Temporary startup check — remove or slim down after DB testing. */
+export async function verifyDatabaseConnection() {
+    const target = getDatabaseTargetLabel();
+    try {
+        const ping = await pool.query('SELECT 1 AS ok');
+        console.log(`Postgres connected (${target})`, ping.rows[0]);
+
+        // const tables = await pool.query(
+        //     `SELECT tablename FROM pg_tables WHERE schemaname = 'public' ORDER BY tablename`
+        // );
+        // console.log('Public tables', tables.rows);
+
+        return true;
+    } catch (error) {
+        console.warn(`Postgres connection unavailable (${target}): ${error.message}`);
+        return false;
+    }
+}
 
 export default pool;
