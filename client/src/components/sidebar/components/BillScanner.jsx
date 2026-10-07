@@ -10,6 +10,7 @@ import FormatePrice from "@/helper/FormatPrice";
 import { cn } from "@/lib/utils";
 import { getBillById, updateBillDeliveryStatus, updateBillPaymentStatus } from "@/services/bills";
 import { EDIT_LOCK_REASON, isBillLockedForEditing } from "@/lib/whatsappDelivery";
+import { BILL_NUMBER_LABEL } from "@jakkash/bill-pdf";
 
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const RESET_GAP_MS = 120;
@@ -292,7 +293,7 @@ const BillScanner = () => {
                     {scannedBill && (
                         <div className="space-y-2 rounded-lg border border-border bg-muted/50 p-3 text-sm text-foreground">
                             <div className="flex items-center justify-between gap-4">
-                                <span className="font-medium">Bill No</span>
+                                <span className="font-medium">{BILL_NUMBER_LABEL}</span>
                                 <span>{scannedBill.bill_no}</span>
                             </div>
                             <div className="flex items-center justify-between gap-4">

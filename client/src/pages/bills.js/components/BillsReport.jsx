@@ -9,9 +9,10 @@ import { useLocalStorage } from "@uidotdev/usehooks";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { BILL_NUMBER_LABEL } from "@jakkash/bill-pdf";
 
 const headers = [
-    { label: "Bill No.", key: "bill_no" },
+    { label: `${BILL_NUMBER_LABEL}.`, key: "bill_no" },
     { label: "Name", key: "name" },
     { label: "Total Firki", key: "total_firki" },
 ];
@@ -61,14 +62,14 @@ const BillsReport = () => {
                 <div className="space-y-2">
                     <Input
                         value={fromBillNo}
-                        placeholder="From Bill No"
+                        placeholder={`From ${BILL_NUMBER_LABEL}`}
                         onChange={(e) => setFromBillNo(e.target.value)}
                     />
                 </div>
                 <div className="space-y-2">
                     <Input
                         value={toBillNo}
-                        placeholder="To Bill No"
+                        placeholder={`To ${BILL_NUMBER_LABEL}`}
                         onChange={(e) => setToBillNo(e.target.value)}
                     />
                 </div>

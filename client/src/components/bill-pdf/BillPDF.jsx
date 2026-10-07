@@ -1,6 +1,7 @@
 // BillPDF.js
 import React from "react";
 import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+import { BILL_NUMBER_LABEL } from "@jakkash/bill-pdf";
 const styles = StyleSheet.create({
   billContainer: {
     width: "80%",
@@ -145,7 +146,7 @@ const BillPDF = ({ bill }) => {
                 </View>
                 <View style={styles.billTopRight}>
                   <View style={styles.billDetails}>
-                    <Text style={styles.fontBold}>Bill No:</Text>
+                    <Text style={styles.fontBold}>{BILL_NUMBER_LABEL}:</Text>
                     <Text style={styles.fontLight}>{BillNo}</Text>
                   </View>
                   <View style={styles.billDetails}>

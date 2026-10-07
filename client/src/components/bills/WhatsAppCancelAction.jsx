@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { forceCancelBillWhatsAppDelivery } from "@/services/bills";
 import { canCancelWhatsAppDelivery, getWhatsAppDeliveryStatus } from "@/lib/whatsappDelivery";
+import { BILL_NUMBER_LABEL } from "@jakkash/bill-pdf";
 
 const CANCEL_LABEL = "Force cancel delivery";
 
@@ -113,7 +114,7 @@ const WhatsAppCancelAction = ({ bill, collectionId, variant = "icon", className 
           <AlertDialogHeader>
             <AlertDialogTitle>Force cancel this WhatsApp delivery?</AlertDialogTitle>
             <AlertDialogDescription>
-              Bill #{bill?.bill_no} is still being sent to {bill?.mobile}. Canceling
+              {BILL_NUMBER_LABEL} {bill?.bill_no} is still being sent to {bill?.mobile}. Canceling
               marks the delivery as <strong>canceled</strong> and unlocks the bill for
               editing. If the send has already reached WhatsApp it cannot be pulled
               back, so the client may still receive this copy. You can resend the bill

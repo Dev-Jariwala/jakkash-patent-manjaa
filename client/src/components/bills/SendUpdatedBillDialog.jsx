@@ -19,6 +19,7 @@ import {
   getWhatsAppDeliveryStatus,
   WHATSAPP_DELIVERY_STATUS,
 } from "@/lib/whatsappDelivery";
+import { BILL_NUMBER_LABEL } from "@jakkash/bill-pdf";
 
 /**
  * Post-update prompt: "send the updated bill?" (PRD 31).
@@ -80,8 +81,8 @@ const SendUpdatedBillDialog = ({ bill, collectionId, open, onDone }) => {
             <AlertDialogTitle>Send the updated bill on WhatsApp?</AlertDialogTitle>
             <AlertDialogDescription>
               {previousStatus === WHATSAPP_DELIVERY_STATUS.SUCCESS
-                ? `Bill #${bill?.bill_no} was already delivered before this edit. Sending now delivers the updated copy to ${bill?.mobile}, and the client keeps the earlier one.`
-                : `Bill #${bill?.bill_no} was updated. Sending delivers the updated bill to ${bill?.mobile} on WhatsApp.`}
+                ? `${BILL_NUMBER_LABEL} ${bill?.bill_no} was already delivered before this edit. Sending now delivers the updated copy to ${bill?.mobile}, and the client keeps the earlier one.`
+                : `${BILL_NUMBER_LABEL} ${bill?.bill_no} was updated. Sending delivers the updated bill to ${bill?.mobile} on WhatsApp.`}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

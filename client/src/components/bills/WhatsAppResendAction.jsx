@@ -25,6 +25,7 @@ import {
   getWhatsAppDeliveryStatus,
   WHATSAPP_DELIVERY_STATUS,
 } from "@/lib/whatsappDelivery";
+import { BILL_NUMBER_LABEL } from "@jakkash/bill-pdf";
 
 /**
  * Dedicated resend affordance for WhatsApp bill delivery.
@@ -148,8 +149,8 @@ const WhatsAppResendAction = ({ bill, collectionId, variant = "icon", className 
             <AlertDialogTitle>{label}?</AlertDialogTitle>
             <AlertDialogDescription>
               {status === WHATSAPP_DELIVERY_STATUS.SUCCESS
-                ? `Bill #${bill?.bill_no} was already delivered on WhatsApp. Sending again will deliver a second copy to ${bill?.mobile}.`
-                : `Bill #${bill?.bill_no} will be generated and sent to ${bill?.mobile} on WhatsApp.`}
+                ? `${BILL_NUMBER_LABEL} ${bill?.bill_no} was already delivered on WhatsApp. Sending again will deliver a second copy to ${bill?.mobile}.`
+                : `${BILL_NUMBER_LABEL} ${bill?.bill_no} will be generated and sent to ${bill?.mobile} on WhatsApp.`}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

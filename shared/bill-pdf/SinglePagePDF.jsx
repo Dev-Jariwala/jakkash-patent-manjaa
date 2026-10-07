@@ -5,9 +5,12 @@ import {
   View,
   Text,
   Image,
+  Svg,
+  Path,
 } from "@react-pdf/renderer";
 import { format } from "date-fns";
 import { formatPrice } from "./formatPrice.js";
+import { BILL_NUMBER_LABEL, SHOP_PHONE_NUMBERS } from "./constants.js";
 import { billPdfStyles as styles } from "./styles.js";
 
 const SinglePagePDF = ({ bill, qrCodeDataUrl }) => {
@@ -31,7 +34,16 @@ const SinglePagePDF = ({ bill, qrCodeDataUrl }) => {
         <View style={styles.billContainer}>
           <View style={styles.bill}>
             <View style={styles.billHead}>
-              <Text>JAKKASH PATENT MANJA</Text>
+              <Text style={styles.billTitle}>JAKKASH PATENT MANJA</Text>
+              <View style={styles.shopContact}>
+                <Svg style={styles.phoneIcon} viewBox="0 0 24 24">
+                  <Path
+                    fill="#000000"
+                    d="M6.62 10.79a15.46 15.46 0 0 0 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.61 21 3 13.39 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+                  />
+                </Svg>
+                <Text style={styles.shopPhoneNumber}>{SHOP_PHONE_NUMBERS}</Text>
+              </View>
             </View>
             <View style={styles.address}>
               <Text>
@@ -75,7 +87,7 @@ const SinglePagePDF = ({ bill, qrCodeDataUrl }) => {
                   }}
                 >
                   <View style={styles.bdRow}>
-                    <Text style={styles.bdCol}> BILL NO:</Text>
+                    <Text style={styles.bdCol}>{BILL_NUMBER_LABEL.toUpperCase()}:</Text>
                     <Text style={styles.bdCol}>{bill_no}</Text>
                   </View>
                   <View style={styles.bdRow}>

@@ -26,9 +26,10 @@ import WhatsAppCancelAction from "@/components/bills/WhatsAppCancelAction";
 import WhatsAppDeliveryStatus from "@/components/bills/WhatsAppDeliveryStatus";
 import WhatsAppResendAction from "@/components/bills/WhatsAppResendAction";
 import { billHasProcessingWhatsAppDelivery, EDIT_LOCK_REASON, getWhatsAppDeliveryPollIntervalMs, isBillLockedForEditing } from "@/lib/whatsappDelivery";
+import { BILL_NUMBER_LABEL } from "@jakkash/bill-pdf";
 
 const csvHeaders = [
-    { label: "Bill No.", key: "bill_no" },
+    { label: `${BILL_NUMBER_LABEL}.`, key: "bill_no" },
     { label: "Name", key: "name" },
     { label: "Total Firki", key: "total_firki" },
     { label: "Mobile", key: "mobile" },
@@ -103,7 +104,7 @@ const BillsTable = () => {
     const columnsDef = useMemo(() => (
         [
             columnHelper.accessor("bill_no", {
-                header: "Bill No",
+                header: BILL_NUMBER_LABEL,
             }),
             columnHelper.accessor("order_date", {
                 header: "Order Date",

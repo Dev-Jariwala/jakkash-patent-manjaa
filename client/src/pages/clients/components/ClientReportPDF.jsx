@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Document, Page, Text, StyleSheet, View } from "@react-pdf/renderer";
 import React from "react";
+import { BILL_NUMBER_LABEL } from "@jakkash/bill-pdf";
 const styles = StyleSheet.create({
     page: {
         padding: "20px 0 20px",
@@ -414,7 +415,7 @@ const ClientReportPDF = ({ client }) => {
                                         padding: "7px 10px",
                                     }}
                                 >
-                                    <Text>BILL NO</Text>
+                                    <Text>{BILL_NUMBER_LABEL.toUpperCase()}</Text>
                                 </View>
                                 <View
                                     style={{ ...styles.tableCell, flex: 3, padding: "7px 10px" }}

@@ -33,6 +33,7 @@ import {
     isBillLockedForEditing,
     shouldPollWhatsAppDeliveryStatus,
 } from "@/lib/whatsappDelivery";
+import { BILL_NUMBER_LABEL } from "@jakkash/bill-pdf";
 
 const BillsForm = () => {
     const { bill_id } = useParams();
@@ -62,7 +63,7 @@ const BillsForm = () => {
                 : false,
     });
     const schema = yup.object().shape({
-        bill_no: yup.number().required("Bill No is required").typeError("Bill No is required"),
+        bill_no: yup.number().required(`${BILL_NUMBER_LABEL} is required`).typeError(`${BILL_NUMBER_LABEL} is required`),
         mobile: yup.number().required("Mobile is required").typeError("Mobile is required").test('len', 'Mobile must be exactly 10 digits', val => val.toString().length === 10),
         name: yup.string().required("Name is required"),
         address: yup.string().required("Address is required"),
@@ -304,7 +305,7 @@ const BillsForm = () => {
             toast.error(`Error getting products: ${productsError.message}`);
         }
         if (nextBillNoError) {
-            toast.error(`Error getting next bill no: ${nextBillNoError.message}`);
+            toast.error(`Error getting next ${BILL_NUMBER_LABEL.toLowerCase()}: ${nextBillNoError.message}`);
         }
         if (billError) {
             toast.error(`Error getting bill: ${billError.message}`);
@@ -366,7 +367,7 @@ const BillsForm = () => {
                                         name="bill_no"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Bill No</FormLabel>
+                                                <FormLabel>{BILL_NUMBER_LABEL}</FormLabel>
                                                 <FormControl>
                                                     <Input className="" {...field} disabled />
                                                 </FormControl>
@@ -749,7 +750,7 @@ const BillsForm = () => {
                                 <MutationError mutation={createBillMutation} />
                                 <Button variant="" disabled={isEditLocked || createBillMutation.isPending || updateBillMutation.isPending} title={isEditLocked ? EDIT_LOCK_REASON : undefined} isLoading={createBillMutation.isPending || updateBillMutation.isPending} loadingText={formType === 'update' ? `updating ${form.watch("bill_no")}...` : `creating ${form.watch("bill_no")}...`} className="bg-indigo-500 hover:bg-indigo-600" type="submit">
                                     {formType === "update" ? "Update" : "Create"}{" "}
-                                    Bill No. {form.watch("bill_no")}
+                                    {BILL_NUMBER_LABEL}. {form.watch("bill_no")}
                                 </Button>
                             </div>
                         </form>{" "}

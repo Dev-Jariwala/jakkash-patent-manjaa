@@ -4,7 +4,10 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, it } from "node:test";
 
-import { DOUBLE_PAGE_PRODUCT_THRESHOLD } from "@jakkash/bill-pdf";
+import {
+  DOUBLE_PAGE_PRODUCT_THRESHOLD,
+  SHOP_PHONE_NUMBERS,
+} from "@jakkash/bill-pdf";
 import {
   buildBillPdfFilename,
   generateBillPdfBuffer,
@@ -92,5 +95,16 @@ describe("shared bill document", () => {
       /slice\(\s*0\s*,\s*\d+\s*\)/,
       "the first page must slice by the shared threshold, not a hard-coded count"
     );
+  });
+
+  it("keeps the shop phone display in the shared bill layouts", async () => {
+    const [singlePageSource, doublePageSource] = await Promise.all([
+      readFile(path.join(repoRoot, "shared/bill-pdf/SinglePagePDF.jsx"), "utf8"),
+      readFile(path.join(repoRoot, "shared/bill-pdf/DoublePagePDF.jsx"), "utf8"),
+    ]);
+
+    assert.equal(SHOP_PHONE_NUMBERS, "9213487859");
+    assert.match(singlePageSource, /SHOP_PHONE_NUMBERS/);
+    assert.match(doublePageSource, /SHOP_PHONE_NUMBERS/);
   });
 });
