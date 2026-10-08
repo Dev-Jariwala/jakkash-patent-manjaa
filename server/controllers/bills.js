@@ -14,6 +14,8 @@ import {
   EDIT_BLOCKING_STATUSES_PARAM,
   explainRejectedBillUpdate,
 } from "../services/whatsappBillEditGuard.js";
+import { applyBillCreateClientSync } from "../services/clientMaintenance.js";
+import { createClientMaintenanceDeps } from "../services/clientMaintenanceStore.js";
 
 // CREATE TABLE bills (
 // 	   sr_no SERIAL PRIMARY KEY,
@@ -100,25 +102,11 @@ export const createBill = async (req, res, next) => {
       }
       return { billItem: newBillItem, product: updatedProduct };
     }));
-    let [client] = await query(
-      "select * from clients where mobile = $1",
-      [mobile]
-    );
-    if (!client) {
-      // create client
-      const [newClient] = await query(
-        "insert into clients (name, mobile, address) values ($1, $2, $3) returning *",
-        [name, mobile, address]
-      );
-      client = newClient;
-    } else {
-      //   update client
-      const [updatedClient] = await query(
-        "update clients set name =$1, address =$2 where client_id =$3 returning *",
-        [name || client?.name, address || client?.address, client.client_id]
-      );
-      client = updatedClient;
-    }
+    const client = await applyBillCreateClientSync(createClientMaintenanceDeps(), {
+      mobile,
+      name,
+      address,
+    });
 
     let billForResponse = newBill;
     let whatsappDelivery;

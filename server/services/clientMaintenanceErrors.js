@@ -24,3 +24,12 @@ export class ClientGstExistsError extends Error {
     this.statusCode = 409;
   }
 }
+
+export class ClientNotFoundError extends Error {
+  constructor() {
+    super("Client not found");
+    this.name = "ClientNotFoundError";
+    this.code = "CLIENT_NOT_FOUND";
+    this.statusCode = 404;
+  }
+}

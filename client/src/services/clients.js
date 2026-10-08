@@ -44,3 +44,12 @@ export const createClient = async (data) => {
     });
     return response;
 };
+
+export const updateClient = async (mobile, data) => {
+    const response = await axios({
+        method: "PUT",
+        url: `${import.meta.env.VITE_BACKEND_URL}clients/${mobile}`,
+        data,
+    });
+    return response;
+};

@@ -130,6 +130,10 @@ const Routes = () => {
               element: <ClientForm />,
             },
             {
+              path: "/clients/edit/:mobile",
+              element: <ClientForm />,
+            },
+            {
               path: '/clients/report',
               element: <ClientReport />
             },

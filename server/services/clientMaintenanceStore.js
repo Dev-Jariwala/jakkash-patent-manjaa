@@ -58,6 +58,22 @@ export function createClientMaintenanceDeps() {
       return city ?? null;
     },
 
+    async getStateById(stateId) {
+      const [state] = await query(
+        `select state_id, name, is_active, country_id from states where state_id = $1`,
+        [stateId]
+      );
+      return state ?? null;
+    },
+
+    async getCityById(cityId) {
+      const [city] = await query(
+        `select city_id, state_id, name, is_active from cities where city_id = $1`,
+        [cityId]
+      );
+      return city ?? null;
+    },
+
     async insertClient(row) {
       const [client] = await query(
         `insert into clients (
@@ -79,7 +95,59 @@ export function createClientMaintenanceDeps() {
       );
       return client;
     },
+
+    async insertBillClient(row) {
+      const [client] = await query(
+        `insert into clients (name, mobile, address) values ($1, $2, $3) returning *`,
+        [row.name, row.mobile, row.address]
+      );
+      return client;
+    },
+
+    async updateClientNameAndAddress(clientId, { name, address }) {
+      const [client] = await query(
+        `update clients set name = $1, address = $2 where client_id = $3 returning *`,
+        [name, address, clientId]
+      );
+      return client;
+    },
+
+    async updateClient(mobile, row) {
+      const [client] = await query(
+        `update clients set
+          name = $1,
+          address = $2,
+          pincode = $3,
+          state_id = $4,
+          city_id = $5,
+          gst_number = $6,
+          contact_person = $7,
+          contact_number = $8
+        where mobile = $9
+        returning *`,
+        [
+          row.name,
+          row.address,
+          row.pincode,
+          row.state_id,
+          row.city_id,
+          row.gst_number,
+          row.contact_person,
+          row.contact_number,
+          mobile,
+        ]
+      );
+      return client;
+    },
   };
+}
+
+export async function getClientByMobileWithLocation(mobile) {
+  const [client] = await query(
+    `${CLIENT_LIST_SELECT} where c.mobile = $1`,
+    [mobile]
+  );
+  return client ?? null;
 }
 
 export async function listClientsPaginated({ search, limit, offset }) {

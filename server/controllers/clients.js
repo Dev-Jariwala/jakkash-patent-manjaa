@@ -8,9 +8,10 @@
 
 import { handleError } from "../utils/error.js";
 import { query } from "../utils/query.js";
-import { createClient } from "../services/clientMaintenance.js";
+import { createClient, updateClient } from "../services/clientMaintenance.js";
 import {
     createClientMaintenanceDeps,
+    getClientByMobileWithLocation,
     listClientsPaginated,
 } from "../services/clientMaintenanceStore.js";
 
@@ -51,12 +52,22 @@ export const createClientHandler = async (req, res) => {
 export const getClientByMobileNumber = async (req, res) => {
     const { mobile } = req.params;
     try {
-        const [client] = await query(`select * from clients where mobile = $1`, [mobile]);
+        const client = await getClientByMobileWithLocation(mobile);
         res.json({ client });
     } catch (error) {
         handleError('getClientByMobileNumber', res, error);
     }
-}
+};
+
+export const updateClientHandler = async (req, res) => {
+    const { mobile } = req.params;
+    try {
+        const client = await updateClient(createClientMaintenanceDeps(), mobile, req.body);
+        res.json({ client });
+    } catch (error) {
+        handleError("updateClient", res, error);
+    }
+};
 
 export const getAllClients = async (req, res) => {
     try {

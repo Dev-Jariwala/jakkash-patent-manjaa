@@ -63,14 +63,73 @@ export function createClientMaintenanceWorld({
       return city;
     },
 
+    async getStateById(stateId) {
+      return stateById.get(stateId) ?? null;
+    },
+
+    async getCityById(cityId) {
+      return cityById.get(cityId) ?? null;
+    },
+
     async insertClient(row) {
       const client = {
         client_id: randomUUID(),
+        pincode: null,
+        state_id: null,
+        city_id: null,
+        gst_number: null,
+        contact_person: null,
+        contact_number: null,
         ...row,
       };
       clientsByMobile.set(row.mobile, client);
       if (row.gst_number) {
         clientsByGst.set(row.gst_number, row.mobile);
+      }
+      return client;
+    },
+
+    async insertBillClient(row) {
+      return deps.insertClient({
+        name: row.name,
+        mobile: row.mobile,
+        address: row.address,
+        pincode: null,
+        state_id: null,
+        city_id: null,
+        gst_number: null,
+        contact_person: null,
+        contact_number: null,
+      });
+    },
+
+    async updateClientNameAndAddress(clientId, { name, address }) {
+      const client = [...clientsByMobile.values()].find((c) => c.client_id === clientId);
+      if (!client) {
+        throw new Error("client not found");
+      }
+      client.name = name;
+      client.address = address;
+      clientsByMobile.set(client.mobile, client);
+      return client;
+    },
+
+    async updateClient(mobile, row) {
+      const existing = clientsByMobile.get(mobile);
+      if (!existing) {
+        throw new Error("client not found");
+      }
+      if (existing.gst_number) {
+        clientsByGst.delete(existing.gst_number);
+      }
+      const client = {
+        ...existing,
+        ...row,
+        mobile,
+      };
+      clientsByMobile.set(mobile, client);
+      if (client.gst_number) {
+        clientsByGst.set(client.gst_number, mobile);
       }
       return client;
     },
@@ -95,4 +154,9 @@ export function validCreatePayload(overrides = {}) {
     city_id: SURAT_CITY_ID,
     ...overrides,
   };
+}
+
+export function validUpdatePayload(overrides = {}) {
+  const { mobile: _mobile, ...rest } = validCreatePayload(overrides);
+  return rest;
 }

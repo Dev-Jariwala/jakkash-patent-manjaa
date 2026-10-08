@@ -13,68 +13,91 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import BreadCrum from "@/components/breadcrum/BreadCrum";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import MutationError from "@/components/Errors/MutationError";
 import QueryError from "@/components/Errors/QueryError";
 import { toast } from "react-toastify";
 import ReactSelect from "@/components/ui/react-select/react-select";
-import { createClient } from "@/services/clients";
+import { createClient, getClientByMobileNumber, updateClient } from "@/services/clients";
 import { getCities, getCountries, getStates } from "@/services/common";
 import { Textarea } from "@/components/ui/textarea";
+import { Spinner } from "@/components/ui/spinner";
 
 const gstinPattern = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/;
 
-const schema = yup.object().shape({
-    name: yup.string().trim().required("Name is required").max(100),
-    mobile: yup
-        .string()
-        .required("Mobile is required")
-        .matches(/^\d{10}$/, "Mobile must be exactly 10 digits"),
-    address: yup.string().trim().required("Address is required").max(255),
-    pincode: yup
-        .string()
-        .transform((value) => (value === "" ? undefined : value))
-        .notRequired()
-        .matches(/^\d{6}$/, { message: "Pincode must be exactly 6 digits", excludeEmptyString: true }),
-    state_id: yup.string().required("State is required"),
-    city_id: yup.string().required("City is required"),
-    gst_number: yup
-        .string()
-        .transform((value) => (value === "" ? undefined : value?.replace(/\s+/g, "").toUpperCase()))
-        .notRequired()
-        .test("gstin", "GST number must be a valid 15-character GSTIN", (value) => {
-            if (!value) return true;
-            return value.length === 15 && gstinPattern.test(value);
-        }),
-    contact_person: yup.string().trim().max(100).notRequired(),
-    contact_number: yup
-        .string()
-        .transform((value) => (value === "" ? undefined : value))
-        .notRequired()
-        .matches(/^\d{10}$/, { message: "Contact number must be exactly 10 digits", excludeEmptyString: true }),
-});
+const buildSchema = (isEdit) =>
+    yup.object().shape({
+        name: yup.string().trim().required("Name is required").max(100),
+        mobile: isEdit
+            ? yup.string().required()
+            : yup
+                  .string()
+                  .required("Mobile is required")
+                  .matches(/^\d{10}$/, "Mobile must be exactly 10 digits"),
+        address: yup.string().trim().required("Address is required").max(255),
+        pincode: yup
+            .string()
+            .transform((value) => (value === "" ? undefined : value))
+            .notRequired()
+            .matches(/^\d{6}$/, { message: "Pincode must be exactly 6 digits", excludeEmptyString: true }),
+        state_id: yup.string().required("State is required"),
+        city_id: yup.string().required("City is required"),
+        gst_number: yup
+            .string()
+            .transform((value) => (value === "" ? undefined : value?.replace(/\s+/g, "").toUpperCase()))
+            .notRequired()
+            .test("gstin", "GST number must be a valid 15-character GSTIN", (value) => {
+                if (!value) return true;
+                return value.length === 15 && gstinPattern.test(value);
+            }),
+        contact_person: yup.string().trim().max(100).notRequired(),
+        contact_number: yup
+            .string()
+            .transform((value) => (value === "" ? undefined : value))
+            .notRequired()
+            .matches(/^\d{10}$/, { message: "Contact number must be exactly 10 digits", excludeEmptyString: true }),
+    });
+
+const emptyValues = {
+    name: "",
+    mobile: "",
+    address: "",
+    pincode: "",
+    state_id: "",
+    city_id: "",
+    gst_number: "",
+    contact_person: "",
+    contact_number: "",
+};
 
 const ClientForm = () => {
+    const { mobile: editMobile } = useParams();
+    const isEdit = Boolean(editMobile);
     const queryClient = useQueryClient();
     const navigate = useNavigate();
+    const schema = useMemo(() => buildSchema(isEdit), [isEdit]);
 
     const form = useForm({
         resolver: yupResolver(schema),
-        defaultValues: {
-            name: "",
-            mobile: "",
-            address: "",
-            pincode: "",
-            state_id: "",
-            city_id: "",
-            gst_number: "",
-            contact_person: "",
-            contact_number: "",
-        },
+        defaultValues: emptyValues,
     });
 
     const selectedStateId = form.watch("state_id");
+
+    const {
+        data: existingClient,
+        isLoading: isClientLoading,
+        isError: isClientError,
+        error: clientError,
+    } = useQuery({
+        queryKey: ["client", editMobile],
+        queryFn: async () => {
+            const response = await getClientByMobileNumber(editMobile);
+            return response.data?.client ?? null;
+        },
+        enabled: isEdit,
+    });
 
     const {
         data: countries,
@@ -122,15 +145,52 @@ const ClientForm = () => {
         enabled: Boolean(selectedStateId),
     });
 
-    const stateOptions = useMemo(
-        () => states?.map((s) => ({ label: s.name, value: s.state_id })) ?? [],
-        [states]
-    );
+    const stateOptions = useMemo(() => {
+        const options = states?.map((s) => ({ label: s.name, value: s.state_id })) ?? [];
+        if (
+            existingClient?.state_id &&
+            existingClient?.state_name &&
+            !options.some((o) => o.value === existingClient.state_id)
+        ) {
+            options.push({
+                label: existingClient.state_name,
+                value: existingClient.state_id,
+            });
+        }
+        return options;
+    }, [states, existingClient]);
 
-    const cityOptions = useMemo(
-        () => cities?.map((c) => ({ label: c.name, value: c.city_id })) ?? [],
-        [cities]
-    );
+    const cityOptions = useMemo(() => {
+        const options = cities?.map((c) => ({ label: c.name, value: c.city_id })) ?? [];
+        if (
+            existingClient?.city_id &&
+            existingClient?.city_name &&
+            !options.some((o) => o.value === existingClient.city_id)
+        ) {
+            options.push({
+                label: existingClient.city_name,
+                value: existingClient.city_id,
+            });
+        }
+        return options;
+    }, [cities, existingClient]);
+
+    useEffect(() => {
+        if (!isEdit || !existingClient) {
+            return;
+        }
+        form.reset({
+            name: existingClient.name ?? "",
+            mobile: existingClient.mobile ?? "",
+            address: existingClient.address ?? "",
+            pincode: existingClient.pincode ?? "",
+            state_id: existingClient.state_id ?? "",
+            city_id: existingClient.city_id ?? "",
+            gst_number: existingClient.gst_number ?? "",
+            contact_person: existingClient.contact_person ?? "",
+            contact_number: existingClient.contact_number ?? "",
+        });
+    }, [isEdit, existingClient, form]);
 
     useEffect(() => {
         const cityId = form.getValues("city_id");
@@ -138,16 +198,15 @@ const ClientForm = () => {
             return;
         }
         const stillValid = cities.some((c) => c.city_id === cityId);
-        if (!stillValid) {
+        if (!stillValid && cityId !== existingClient?.city_id) {
             form.setValue("city_id", "");
         }
-    }, [selectedStateId, cities, form]);
+    }, [selectedStateId, cities, form, existingClient?.city_id]);
 
-    const createClientMutation = useMutation({
+    const saveMutation = useMutation({
         mutationFn: async (data) => {
-            const response = await createClient({
+            const payload = {
                 name: data.name,
-                mobile: data.mobile,
                 address: data.address,
                 pincode: data.pincode || undefined,
                 state_id: data.state_id,
@@ -155,27 +214,49 @@ const ClientForm = () => {
                 gst_number: data.gst_number || undefined,
                 contact_person: data.contact_person || undefined,
                 contact_number: data.contact_number || undefined,
+            };
+            if (isEdit) {
+                const response = await updateClient(editMobile, payload);
+                return response.data;
+            }
+            const response = await createClient({
+                ...payload,
+                mobile: data.mobile,
             });
             return response.data;
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["clients"] });
+            if (isEdit) {
+                queryClient.invalidateQueries({ queryKey: ["client", editMobile] });
+            }
             navigate("/clients");
-            toast.success("Client created successfully");
+            toast.success(isEdit ? "Client updated successfully" : "Client created successfully");
         },
         onError: (error) => {
             const message =
-                error?.response?.data?.message || "Error creating client";
+                error?.response?.data?.message ||
+                (isEdit ? "Error updating client" : "Error creating client");
             error.message = message;
             toast.error(message);
         },
     });
 
     const onSubmit = (data) => {
-        createClientMutation.mutate(data);
+        saveMutation.mutate(data);
     };
 
     const isLocationLoading = isCountriesLoading || isStatesLoading;
+    const pageTitle = isEdit ? "Edit Client" : "Add Client";
+    const formPath = isEdit ? `/clients/edit/${editMobile}` : "/clients/new";
+
+    if (isEdit && isClientLoading) {
+        return (
+            <div className="flex items-center justify-center h-64">
+                <Spinner />
+            </div>
+        );
+    }
 
     return (
         <div>
@@ -185,18 +266,25 @@ const ClientForm = () => {
                         path={[
                             { path: "/", label: "Dashboard" },
                             { path: "/clients", label: "Clients" },
-                            { path: "/clients/new", label: "Add Client" },
+                            { path: formPath, label: pageTitle },
                         ]}
                     />
                 </div>
             </div>
             <div className="px-5 max-w-2xl pb-10">
+                {isClientError && <QueryError error={clientError} />}
                 {isCountriesError && <QueryError error={countriesError} />}
                 {isStatesError && <QueryError error={statesError} />}
                 {isCitiesError && <QueryError error={citiesError} />}
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                        <MutationError mutation={createClientMutation} />
+                        <MutationError mutation={saveMutation} />
+                        {isEdit && (
+                            <p className="text-sm text-muted-foreground">
+                                Name and address can change the next time a bill is created for
+                                this mobile.
+                            </p>
+                        )}
                         <FormField
                             control={form.control}
                             name="name"
@@ -221,6 +309,9 @@ const ClientForm = () => {
                                             placeholder="10-digit mobile"
                                             inputMode="numeric"
                                             maxLength={10}
+                                            readOnly={isEdit}
+                                            disabled={isEdit}
+                                            className={isEdit ? "bg-muted" : undefined}
                                             {...field}
                                         />
                                     </FormControl>
@@ -376,7 +467,7 @@ const ClientForm = () => {
                             <Button
                                 type="submit"
                                 variant="indigo"
-                                disabled={createClientMutation.isPending}
+                                disabled={saveMutation.isPending}
                             >
                                 Save client
                             </Button>

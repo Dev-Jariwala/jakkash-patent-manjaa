@@ -11,7 +11,7 @@ import { useDebounce } from "@uidotdev/usehooks";
 import { toast } from "react-toastify";
 import { getAllClients, getClients } from "@/services/clients";
 import { Link } from "react-router-dom";
-import { Eye } from "lucide-react";
+import { Eye, Pencil } from "lucide-react";
 import { CSVLink } from "react-csv";
 import { Spinner } from "@/components/ui/spinner";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -207,8 +207,16 @@ const ClientsTable = () => {
                                                 ))}
                                                 <TableCell className="flex items-center space-x-2">
                                                     <Link
+                                                        to={`/clients/edit/${row.original?.mobile}`}
+                                                        className="hover:bg-accent rounded-full size-8 flex items-center justify-center"
+                                                        title="Edit client"
+                                                    >
+                                                        <Pencil size={16} className="text-amber-600" />
+                                                    </Link>
+                                                    <Link
                                                         to={`/clients/report?mobile=${row.original?.mobile}`}
                                                         className="hover:bg-accent rounded-full size-8 flex items-center justify-center"
+                                                        title="View report"
                                                     >
                                                         <Eye size={16} className="text-blue-500" />
                                                     </Link>
