@@ -23,6 +23,18 @@ import { createClient, getClientByMobileNumber, updateClient } from "@/services/
 import { getCities, getCountries, getStates } from "@/services/common";
 import { Textarea } from "@/components/ui/textarea";
 import { Spinner } from "@/components/ui/spinner";
+import { ArrowLeft } from "lucide-react";
+
+const placeCursorAtEnd = (event) => {
+    const field = event.target;
+    const length = field.value?.length ?? 0;
+    requestAnimationFrame(() => {
+        if (document.activeElement !== field || typeof field.setSelectionRange !== "function") {
+            return;
+        }
+        field.setSelectionRange(length, length);
+    });
+};
 
 const gstinPattern = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/;
 
@@ -270,6 +282,17 @@ const ClientForm = () => {
                         ]}
                     />
                 </div>
+                {isEdit && (
+                    <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => navigate("/clients")}
+                    >
+                        <ArrowLeft className="size-4" />
+                        Back
+                    </Button>
+                )}
             </div>
             <div className="px-5 max-w-2xl pb-10">
                 {isClientError && <QueryError error={clientError} />}
@@ -292,7 +315,14 @@ const ClientForm = () => {
                                 <FormItem>
                                     <FormLabel>Name</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Client name" {...field} />
+                                        <Input
+                                            placeholder="Client name"
+                                            {...field}
+                                            onFocus={(event) => {
+                                                field.onFocus?.(event);
+                                                placeCursorAtEnd(event);
+                                            }}
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

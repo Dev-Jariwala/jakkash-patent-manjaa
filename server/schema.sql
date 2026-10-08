@@ -74,11 +74,17 @@ CREATE TABLE IF NOT EXISTS collections (
 -- clients -------------------------------------------------------------
 -- Identified by mobile number; upserted on every bill create.
 CREATE TABLE IF NOT EXISTS clients (
-    sr_no      SERIAL PRIMARY KEY,
-    client_id  UUID         NOT NULL UNIQUE DEFAULT gen_random_uuid(),
-    name       VARCHAR(100) NOT NULL,
-    mobile     VARCHAR(20)  NOT NULL UNIQUE,
-    address    VARCHAR(255) NOT NULL
+    sr_no            SERIAL PRIMARY KEY,
+    client_id        UUID         NOT NULL UNIQUE DEFAULT gen_random_uuid(),
+    name             VARCHAR(100) NOT NULL,
+    mobile           VARCHAR(20)  NOT NULL UNIQUE,
+    address          VARCHAR(255) NOT NULL,
+    pincode          VARCHAR(6),
+    state_id         UUID REFERENCES states (state_id),
+    city_id          UUID REFERENCES cities (city_id),
+    gst_number       VARCHAR(15),
+    contact_person   VARCHAR(100),
+    contact_number   VARCHAR(10)
 );
 
 -- products ------------------------------------------------------------

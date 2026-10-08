@@ -60,8 +60,21 @@ const styles = StyleSheet.create({
         borderRight: "1px solid #ccc",
     },
 });
+const profileField = (value) => (value == null || value === "" ? "" : String(value));
+
 const ClientReportPDF = ({ client }) => {
-    const { name = "", mobile = "", address = "", bills = [] } = client;
+    const {
+        name = "",
+        mobile = "",
+        address = "",
+        pincode,
+        state_name,
+        city_name,
+        gst_number,
+        contact_person,
+        contact_number,
+        bills = [],
+    } = client;
     const getProductArray = () => {
         const productArray = [];
 
@@ -135,6 +148,36 @@ const ClientReportPDF = ({ client }) => {
                                     <View style={styles.bdRow}>
                                         <Text style={styles.bdCol}> ADDRESS:</Text>
                                         <Text style={styles.bdCol}>{address}</Text>
+                                    </View>
+                                </View>
+                            </View>
+                            <View style={{ ...styles.bdRow, padding: "3px 10px", borderTop: "1px solid #ccc" }}>
+                                <View style={{ width: "40%" }}>
+                                    <View style={styles.bdRow}>
+                                        <Text style={styles.bdCol}>PINCODE:</Text>
+                                        <Text style={styles.bdCol}>{profileField(pincode)}</Text>
+                                    </View>
+                                    <View style={styles.bdRow}>
+                                        <Text style={styles.bdCol}>STATE:</Text>
+                                        <Text style={styles.bdCol}>{profileField(state_name)}</Text>
+                                    </View>
+                                    <View style={styles.bdRow}>
+                                        <Text style={styles.bdCol}>GST NUMBER:</Text>
+                                        <Text style={styles.bdCol}>{profileField(gst_number)}</Text>
+                                    </View>
+                                </View>
+                                <View style={{ width: "40%" }}>
+                                    <View style={styles.bdRow}>
+                                        <Text style={styles.bdCol}>CITY:</Text>
+                                        <Text style={styles.bdCol}>{profileField(city_name)}</Text>
+                                    </View>
+                                    <View style={styles.bdRow}>
+                                        <Text style={styles.bdCol}>CONTACT PERSON:</Text>
+                                        <Text style={styles.bdCol}>{profileField(contact_person)}</Text>
+                                    </View>
+                                    <View style={styles.bdRow}>
+                                        <Text style={styles.bdCol}>CONTACT NUMBER:</Text>
+                                        <Text style={styles.bdCol}>{profileField(contact_number)}</Text>
                                     </View>
                                 </View>
                             </View>

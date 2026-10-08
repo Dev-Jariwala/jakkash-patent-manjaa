@@ -150,13 +150,28 @@ export async function getClientByMobileWithLocation(mobile) {
   return client ?? null;
 }
 
+const CLIENT_SEARCH_PATTERN = (paramIndex) => `(
+    c.name ilike $${paramIndex}
+    or c.mobile ilike $${paramIndex}
+    or c.address ilike $${paramIndex}
+    or c.pincode ilike $${paramIndex}
+    or c.gst_number ilike $${paramIndex}
+    or c.contact_person ilike $${paramIndex}
+    or c.contact_number ilike $${paramIndex}
+    or ci.name ilike $${paramIndex}
+  )`;
+
+export async function listAllClientsWithLocation() {
+  return query(`${CLIENT_LIST_SELECT} order by c.sr_no desc`);
+}
+
 export async function listClientsPaginated({ search, limit, offset }) {
   const queryParams = [];
   let whereClause = "";
 
   if (search) {
-    whereClause = ` where c.name ilike $1 or c.mobile ilike $1 or c.address ilike $1`;
     queryParams.push(`%${search}%`);
+    whereClause = ` where ${CLIENT_SEARCH_PATTERN(1)}`;
   }
 
   const clients = await query(
@@ -165,9 +180,11 @@ export async function listClientsPaginated({ search, limit, offset }) {
   );
 
   const countSql = search
-    ? `select count(*) from clients c${whereClause}`
+    ? `select count(*) from clients c
+       left join cities ci on c.city_id = ci.city_id
+       ${whereClause}`
     : `select count(*) from clients`;
-  const totalClients = await query(countSql, search ? [`%${search}%`] : []);
+  const totalClients = await query(countSql, search ? queryParams : []);
 
   return { clients, totalCount: Number(totalClients[0].count) };
 }

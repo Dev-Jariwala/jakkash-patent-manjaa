@@ -12,24 +12,26 @@ import { toast } from "react-toastify";
 import { getAllClients, getClients } from "@/services/clients";
 import { Link } from "react-router-dom";
 import { Eye, Pencil } from "lucide-react";
-import { CSVLink } from "react-csv";
 import { Spinner } from "@/components/ui/spinner";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { DataTableViewOptions } from "@/components/ui/data-table-view-options";
 
 const columnHelper = createColumnHelper();
-const emptyCell = (value) => (value == null || value === "" ? "" : value);
+const emptyCell = (value) => (value == null || value === "" ? "-" : value);
 
 const columnsDef = [
     columnHelper.accessor("name", {
         header: "Client Name",
+        cell: (info) => emptyCell(info.getValue()),
     }),
     columnHelper.accessor("mobile", {
         header: "Mobile",
+        cell: (info) => emptyCell(info.getValue()),
     }),
     columnHelper.accessor("address", {
         header: "Address",
+        cell: (info) => emptyCell(info.getValue()),
     }),
     columnHelper.accessor("state_name", {
         header: "State",
@@ -58,6 +60,36 @@ columnsDef.forEach((column) => {
   headers[column.accessorKey] = column.header;
 });
 
+const csvColumns = [
+    { label: "Name", key: "name" },
+    { label: "Mobile", key: "mobile" },
+    { label: "Address", key: "address" },
+    { label: "Pincode", key: "pincode" },
+    { label: "State", key: "state_name" },
+    { label: "City", key: "city_name" },
+    { label: "GST Number", key: "gst_number" },
+    { label: "Contact Person", key: "contact_person" },
+    { label: "Contact Number", key: "contact_number" },
+];
+
+const csvCell = (value) => {
+    const text = value == null ? "" : String(value);
+    return `"${text.replaceAll('"', '""')}"`;
+};
+
+const downloadClientsCsv = (rows) => {
+    const csv = [
+        csvColumns.map((column) => csvCell(column.label)).join(","),
+        ...rows.map((row) => csvColumns.map((column) => csvCell(row[column.key])).join(",")),
+    ].join("\n");
+    const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8;" }));
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "clients.csv";
+    link.click();
+    URL.revokeObjectURL(url);
+};
+
 // eslint-disable-next-line react/prop-types
 const ClientsTable = () => {
     const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 5, });
@@ -73,7 +105,7 @@ const ClientsTable = () => {
             return response.data;
         }
     });
-    const { data: clients, error: clientsError, isLoading: isClientsLoading, refetch } = useQuery({
+    const { error: clientsError, isLoading: isClientsLoading, refetch } = useQuery({
         queryKey: ["clients"],
         queryFn: async () => {
             const response = await getAllClients();
@@ -117,33 +149,26 @@ const ClientsTable = () => {
                     <Input
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        placeholder="Search client name..."
+                        placeholder="Search clients..."
                         className="w-56"
                     />
                 </div>
 
                 <div className="flex items-center space-x-5">
-                    <CSVLink
-                        data={clients ?? []}
-                        filename={"clients.csv"}
-                        headers={[
-                            { label: "Name", key: "name" },
-                            { label: "Mobile", key: "mobile" }
-                        ]}
-                        asyncOnClick={true}
-                        onClick={(e, done) => {
-                            refetch().then(() => {
-                                done();
-                            });
+                    <Button
+                        variant="none"
+                        className="flex items-center cursor-pointer border border-green-500/30 gap-x-3.5 py-1 px-2 rounded-lg text-sm text-green-600 dark:text-green-400 hover:bg-green-500/10 focus:outline-none focus:bg-green-500/10 font-normal"
+                        disabled={isClientsLoading}
+                        onClick={async () => {
+                            const result = await refetch();
+                            downloadClientsCsv(result.data ?? []);
                         }}
                     >
-                        <Button variant="none" className="flex items-center cursor-pointer border border-green-500/30 gap-x-3.5 py-1 px-2 rounded-lg text-sm text-green-600 dark:text-green-400 hover:bg-green-500/10 focus:outline-none focus:bg-green-500/10 font-normal" disabled={isClientsLoading} >
-                            {isClientsLoading ? <Spinner /> : <Avatar className="w-6 h-6 rounded-none">
-                                <AvatarImage src={`/csv.svg`} />
-                            </Avatar>}
-                            CSV File
-                        </Button>
-                    </CSVLink>
+                        {isClientsLoading ? <Spinner /> : <Avatar className="w-6 h-6 rounded-none">
+                            <AvatarImage src={`/csv.svg`} />
+                        </Avatar>}
+                        CSV File
+                    </Button>
                     <DataTableViewOptions table={table} headers={headers} />
                     <Select value={pagination.pageSize} onValueChange={(value) => setPagination((prev) => ({ ...prev, pageSize: value }))}>
                         <SelectTrigger className="w-16 py-1.5">

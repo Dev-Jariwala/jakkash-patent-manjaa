@@ -7,11 +7,11 @@
 // );
 
 import { handleError } from "../utils/error.js";
-import { query } from "../utils/query.js";
 import { createClient, updateClient } from "../services/clientMaintenance.js";
 import {
     createClientMaintenanceDeps,
     getClientByMobileWithLocation,
+    listAllClientsWithLocation,
     listClientsPaginated,
 } from "../services/clientMaintenanceStore.js";
 
@@ -71,7 +71,7 @@ export const updateClientHandler = async (req, res) => {
 
 export const getAllClients = async (req, res) => {
     try {
-        const clients = await query(`select name, mobile from clients`);
+        const clients = await listAllClientsWithLocation();
         res.json({ clients });
     } catch (error) {
         handleError('getAllClients', res, error);

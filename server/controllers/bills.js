@@ -15,7 +15,10 @@ import {
   explainRejectedBillUpdate,
 } from "../services/whatsappBillEditGuard.js";
 import { applyBillCreateClientSync } from "../services/clientMaintenance.js";
-import { createClientMaintenanceDeps } from "../services/clientMaintenanceStore.js";
+import {
+  createClientMaintenanceDeps,
+  getClientByMobileWithLocation,
+} from "../services/clientMaintenanceStore.js";
 
 // CREATE TABLE bills (
 // 	   sr_no SERIAL PRIMARY KEY,
@@ -591,7 +594,7 @@ export const getWholeSaleBillsByMobile = async (req, res) => {
   const { mobile, collection_id } = req.params;
   console.log({ mobile, collection_id });
   try {
-    const [client] = await query(`SELECT * FROM clients WHERE mobile = $1`, [mobile]) || {};
+    const client = (await getClientByMobileWithLocation(mobile)) ?? {};
     // SQL query to fetch bills with their items and product names
     const bills = await query(`
       SELECT 
