@@ -19,6 +19,8 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { DataTableViewOptions } from "@/components/ui/data-table-view-options";
 
 const columnHelper = createColumnHelper();
+const emptyCell = (value) => (value == null || value === "" ? "" : value);
+
 const columnsDef = [
     columnHelper.accessor("name", {
         header: "Client Name",
@@ -28,6 +30,26 @@ const columnsDef = [
     }),
     columnHelper.accessor("address", {
         header: "Address",
+    }),
+    columnHelper.accessor("state_name", {
+        header: "State",
+        cell: (info) => emptyCell(info.getValue()),
+    }),
+    columnHelper.accessor("city_name", {
+        header: "City",
+        cell: (info) => emptyCell(info.getValue()),
+    }),
+    columnHelper.accessor("gst_number", {
+        header: "GST Number",
+        cell: (info) => emptyCell(info.getValue()),
+    }),
+    columnHelper.accessor("contact_person", {
+        header: "Contact Person",
+        cell: (info) => emptyCell(info.getValue()),
+    }),
+    columnHelper.accessor("contact_number", {
+        header: "Contact Number",
+        cell: (info) => emptyCell(info.getValue()),
     }),
 ];
 

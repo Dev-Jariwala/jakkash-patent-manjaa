@@ -12,6 +12,10 @@ _Avoid_: Invoice, receipt
 The person or business identified by mobile number who receives a bill.
 _Avoid_: Customer, buyer, account
 
+**Client profile**:
+Pincode, state, city, GST number, contact person, and contact number for a client. Maintained only from the clients screen; bill create updates name and address but does not write the profile.
+_Avoid_: Customer account, invoice address
+
 **Bill Delivery**:
 The act of sending a bill to a client through an outbound channel after the bill has been created.
 _Avoid_: Share, forward, export

@@ -17,14 +17,14 @@ const Clients = () => {
                         ]}
                     />
                 </div>
-                {/* <Button
+                <Button
                     variant="indigo"
                     size="sm"
-                    onClick={() => navigate("/stocks/new")}
+                    onClick={() => navigate("/clients/new")}
                 >
                     <Plus className="size-4" />
-                    <div className="">New Client</div>
-                </Button> */}
+                    <div className="">Add Client</div>
+                </Button>
             </div>
             <ClientsTable />
         </div>

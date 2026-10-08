@@ -35,3 +35,12 @@ export const getAllClients = async () => {
     });
     return response;
 }
+
+export const createClient = async (data) => {
+    const response = await axios({
+        method: "POST",
+        url: `${import.meta.env.VITE_BACKEND_URL}clients`,
+        data,
+    });
+    return response;
+};

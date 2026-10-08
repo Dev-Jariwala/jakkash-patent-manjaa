@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.get("/", clientControllers.getClients);
 router.get("/all", clientControllers.getAllClients);
+router.post("/", clientControllers.createClientHandler);
 router.get("/:mobile", clientControllers.getClientByMobileNumber);
 
 export default router;

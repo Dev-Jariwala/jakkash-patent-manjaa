@@ -22,6 +22,7 @@ import ProductsReport from "@/pages/products/components/ProductsReport";
 import Collections from "@/pages/collections/Collections";
 import CollectionForm from "@/pages/collections/components/CollectionForm";
 import ClientReport from "@/pages/clients/components/ClientReport";
+import ClientForm from "@/pages/clients/components/ClientForm";
 import Sidebar from "@/components/ui/sidebar/Sidebar";
 import Dashboard from "@/pages/dashboard/Dashboard";
 import Landing from "@/pages/landing/Landing";
@@ -123,6 +124,10 @@ const Routes = () => {
             {
               path: "/clients",
               element: <Clients />,
+            },
+            {
+              path: "/clients/new",
+              element: <ClientForm />,
             },
             {
               path: '/clients/report',

@@ -8,6 +8,11 @@
 
 import { handleError } from "../utils/error.js";
 import { query } from "../utils/query.js";
+import { createClient } from "../services/clientMaintenance.js";
+import {
+    createClientMaintenanceDeps,
+    listClientsPaginated,
+} from "../services/clientMaintenanceStore.js";
 
 export const getClients = async (req, res) => {
     const { page = 1, limit = 10, search = '' } = req.query;
@@ -15,32 +20,31 @@ export const getClients = async (req, res) => {
     const intLimit = limit ? parseInt(limit) : 10;
     const offset = (intPage - 1) * intLimit;
     try {
-        let clientsQuery = `select * from clients`;
-        let countQuery = `select count(*) from clients`;
-        const queryParams = [];
-
-        if (search) {
-            clientsQuery += ` where name ilike $1 or mobile ilike $1 or address ilike $1`;
-            countQuery += ` where name ilike $1 or mobile ilike $1 or address ilike $1`;
-            queryParams.push(`%${search}%`);
-        }
-
-        clientsQuery += ` limit $${queryParams.length + 1} offset $${queryParams.length + 2}`;
-        queryParams.push(intLimit, offset);
-
-        const clients = await query(clientsQuery, queryParams);
-        const totalClients = await query(countQuery, search ? [`%${search}%`] : []);
-        const totalPages = Math.ceil(totalClients[0].count / intLimit);
+        const { clients, totalCount } = await listClientsPaginated({
+            search,
+            limit: intLimit,
+            offset,
+        });
+        const totalPages = Math.ceil(totalCount / intLimit);
         const nextPage = intPage < totalPages ? intPage + 1 : undefined;
 
         res.json({
             clients,
-            totalClients: totalClients[0].count,
+            totalClients: totalCount,
             totalPages,
             nextPage
         });
     } catch (error) {
         handleError('getClients', res, error);
+    }
+};
+
+export const createClientHandler = async (req, res) => {
+    try {
+        const client = await createClient(createClientMaintenanceDeps(), req.body);
+        res.status(201).json({ client });
+    } catch (error) {
+        handleError("createClient", res, error);
     }
 };
 
