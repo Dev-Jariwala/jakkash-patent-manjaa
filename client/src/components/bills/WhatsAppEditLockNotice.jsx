@@ -6,7 +6,7 @@ import WhatsAppDeliveryStatus from "@/components/bills/WhatsAppDeliveryStatus";
 import { EDIT_LOCK_REASON, isBillLockedForEditing } from "@/lib/whatsappDelivery";
 
 /**
- * Shown on the update form while a WhatsApp delivery holds the bill (ADR 0005).
+ * Shown on the update form while a WhatsApp delivery holds the order (ADR 0005).
  *
  * The lock is useless without a way out, so the force-cancel action is part of
  * the notice itself rather than something the operator has to hunt for on the
@@ -31,7 +31,7 @@ const WhatsAppEditLockNotice = ({ bill, collectionId }) => {
         </div>
       </div>
       <p className="mt-2 text-sm text-muted-foreground">
-        {EDIT_LOCK_REASON} You can send the updated bill again once it is unlocked.
+        {EDIT_LOCK_REASON} You can send the updated order again once it is unlocked.
       </p>
     </div>
   );

@@ -5,13 +5,13 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import WhatsAppCancelAction from "@/components/bills/WhatsAppCancelAction";
 import { billWithStatus, renderWithProviders } from "@/test/renderWithProviders";
 
-const { forceCancelBillWhatsAppDelivery, toastSuccess, toastError } = vi.hoisted(() => ({
-  forceCancelBillWhatsAppDelivery: vi.fn(),
+const { forceCancelOrderWhatsAppDelivery, toastSuccess, toastError } = vi.hoisted(() => ({
+  forceCancelOrderWhatsAppDelivery: vi.fn(),
   toastSuccess: vi.fn(),
   toastError: vi.fn(),
 }));
 
-vi.mock("@/services/bills", () => ({ forceCancelBillWhatsAppDelivery }));
+vi.mock("@/services/orders", () => ({ forceCancelOrderWhatsAppDelivery }));
 vi.mock("react-toastify", () => ({
   toast: { success: toastSuccess, error: toastError },
 }));
@@ -23,11 +23,11 @@ function renderAction(bill) {
 }
 
 beforeEach(() => {
-  forceCancelBillWhatsAppDelivery.mockReset();
+  forceCancelOrderWhatsAppDelivery.mockReset();
   toastSuccess.mockReset();
   toastError.mockReset();
-  forceCancelBillWhatsAppDelivery.mockResolvedValue({
-    data: { message: "WhatsApp bill delivery canceled" },
+  forceCancelOrderWhatsAppDelivery.mockResolvedValue({
+    data: { message: "WhatsApp order delivery canceled" },
   });
 });
 
@@ -51,7 +51,7 @@ describe("force cancel action", () => {
     await user.click(screen.getByRole("button", { name: /force cancel/i }));
 
     expect(await screen.findByText(/force cancel this whatsapp delivery/i)).toBeInTheDocument();
-    expect(forceCancelBillWhatsAppDelivery).not.toHaveBeenCalled();
+    expect(forceCancelOrderWhatsAppDelivery).not.toHaveBeenCalled();
   });
 
   it("says plainly that a send already on its way cannot be pulled back", async () => {
@@ -72,7 +72,7 @@ describe("force cancel action", () => {
     await user.click(screen.getByRole("button", { name: /force cancel/i }));
     await user.click(await screen.findByRole("button", { name: /keep sending/i }));
 
-    expect(forceCancelBillWhatsAppDelivery).not.toHaveBeenCalled();
+    expect(forceCancelOrderWhatsAppDelivery).not.toHaveBeenCalled();
   });
 
   it("cancels the delivery once confirmed", async () => {
@@ -83,18 +83,18 @@ describe("force cancel action", () => {
     await user.click(await screen.findByRole("button", { name: "Force cancel" }));
 
     await waitFor(() =>
-      expect(forceCancelBillWhatsAppDelivery).toHaveBeenCalledWith({
+      expect(forceCancelOrderWhatsAppDelivery).toHaveBeenCalledWith({
         collection_id: "collection-1",
-        bill_id: "bill-1",
+        order_id: "bill-1",
       })
     );
   });
 
-  it("refreshes the bill so a stale processing chip cannot linger", async () => {
+  it("refreshes the order so a stale processing chip cannot linger", async () => {
     // A delivery that settled while the dialog was open makes the cancel fail;
     // the list must still pull in the real status.
-    forceCancelBillWhatsAppDelivery.mockRejectedValue({
-      response: { data: { message: "WhatsApp delivery is not in progress for this bill" } },
+    forceCancelOrderWhatsAppDelivery.mockRejectedValue({
+      response: { data: { message: "WhatsApp delivery is not in progress for this order" } },
     });
     const user = userEvent.setup();
     const { queryClient } = renderAction(billWithStatus("processing"));
@@ -104,9 +104,9 @@ describe("force cancel action", () => {
     await user.click(await screen.findByRole("button", { name: "Force cancel" }));
 
     await waitFor(() =>
-      expect(toastError).toHaveBeenCalledWith("WhatsApp delivery is not in progress for this bill")
+      expect(toastError).toHaveBeenCalledWith("WhatsApp delivery is not in progress for this order")
     );
-    expect(invalidate).toHaveBeenCalledWith({ queryKey: ["bills"] });
-    expect(invalidate).toHaveBeenCalledWith({ queryKey: ["bill"] });
+    expect(invalidate).toHaveBeenCalledWith({ queryKey: ["orders"] });
+    expect(invalidate).toHaveBeenCalledWith({ queryKey: ["order"] });
   });
 });

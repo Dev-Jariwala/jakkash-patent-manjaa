@@ -7,14 +7,14 @@ import { Link, useSearchParams } from "react-router-dom"
 
 const BillsPdfModal = ({ open, onClose }) => {
     const [searchParams] = useSearchParams();
-    const bill_id = searchParams.get('bill_id');
+    const order_id = searchParams.get('order_id');
     return (
         <Dialog open={open} onOpenChange={onClose}>
             <DialogContent className="sm:max-w-3xl p-0 " style={{ fontFamily: 'Nunito, "Segoe UI", arial' }}>
                 <DialogHeader className='flex-row justify-between px-4 py-2 border-b'>
                     <DialogTitle className='text-base flex items-center space-x-2'>
-                        <span>Bill PDF</span>
-                        <Link className="text-blue-500" target="_blank" to={`/bills/view?bill_id=${bill_id}`} ><ExternalLink size={16} /></Link>
+                        <span>Order PDF</span>
+                        <Link className="text-blue-500" target="_blank" to={`/orders/view?order_id=${order_id}`} ><ExternalLink size={16} /></Link>
                     </DialogTitle>
                     <DialogClose>
                         <X size={20} />

@@ -70,7 +70,7 @@ export const BILL_EDITABLE_SQL_CONDITION = (statusesParam) =>
 
 async function readBillDeliveryMetadata({ billId, collectionId }) {
   const [bill] = await query(
-    "SELECT whatsapp_metadata FROM bills WHERE bill_id = $1 AND collection_id = $2",
+    "SELECT whatsapp_metadata FROM orders WHERE order_id = $1 AND collection_id = $2",
     [billId, collectionId]
   );
 

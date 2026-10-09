@@ -80,8 +80,8 @@ const ClientReportPDF = ({ client }) => {
 
         // Iterate through each bill
         bills?.forEach((bill) => {
-            // Iterate through each product in the bill
-            bill?.bill_items?.forEach((prod) => {
+            // Iterate through each product in the order
+            bill?.order_items?.forEach((prod) => {
                 const existingProduct = productArray.find(
                     (product) => product.product_id === prod.product_id && product.price === prod.price
                 );
@@ -539,7 +539,7 @@ const ClientReportPDF = ({ client }) => {
                             {/* Table Rows */}
                             {bills?.map((bill, index) => (
                                 <View key={index}>
-                                    {bill?.bill_items?.map((prod, prodIndex) => {
+                                    {bill?.order_items?.map((prod, prodIndex) => {
                                         return (
                                             <View
                                                 style={{
@@ -553,7 +553,7 @@ const ClientReportPDF = ({ client }) => {
                                                         ...styles.tableCell,
                                                     }}
                                                 >
-                                                    <Text>{prodIndex === 0 && bill?.bill_no}</Text>
+                                                    <Text>{prodIndex === 0 && bill?.order_no}</Text>
                                                 </View>
                                                 <View
                                                     style={{

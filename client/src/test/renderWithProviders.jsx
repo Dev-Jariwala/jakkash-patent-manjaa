@@ -7,7 +7,7 @@ import { MemoryRouter } from "react-router-dom";
  * react-query for the service setting and the mutations, and a router for the
  * "Go to Settings" path out of the disabled-service dialog.
  */
-export function renderWithProviders(ui, { route = "/bills" } = {}) {
+export function renderWithProviders(ui, { route = "/orders" } = {}) {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: { retry: false, gcTime: 0 },
@@ -27,8 +27,8 @@ export function renderWithProviders(ui, { route = "/bills" } = {}) {
 
 export function billWithStatus(status, metadata = {}) {
   return {
-    bill_id: "bill-1",
-    bill_no: 101,
+    order_id: "bill-1",
+    order_no: 101,
     mobile: "9876543210",
     whatsapp_metadata: { status, ...metadata },
   };

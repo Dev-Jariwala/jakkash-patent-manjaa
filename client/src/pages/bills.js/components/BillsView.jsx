@@ -3,7 +3,7 @@ import WhatsAppCancelAction from "@/components/bills/WhatsAppCancelAction";
 import WhatsAppDeliveryStatus from "@/components/bills/WhatsAppDeliveryStatus";
 import WhatsAppResendAction from "@/components/bills/WhatsAppResendAction";
 import TypeWritterLoader from "@/components/loaders/typewritter/TypeWritterLoader";
-import { getBillById } from "@/services/bills";
+import { getOrderById } from "@/services/orders";
 import { getWhatsAppDeliveryPollIntervalMs, shouldPollWhatsAppDeliveryStatus } from "@/lib/whatsappDelivery";
 import { useQuery } from "@tanstack/react-query";
 import { useLocalStorage } from "@uidotdev/usehooks";
@@ -14,15 +14,15 @@ import { toast } from "react-toastify";
 const BillsView = () => {
     const [activeCollection] = useLocalStorage("activeCollection");
     const [searchParams] = useSearchParams();
-    const bill_id = searchParams.get("bill_id");
+    const order_id = searchParams.get("order_id");
     const whatsappPollIntervalMs = getWhatsAppDeliveryPollIntervalMs();
     const { data: bill, error, isLoading } = useQuery({
-        queryKey: ["bills", activeCollection, bill_id],
+        queryKey: ["orders", activeCollection, order_id],
         queryFn: async () => {
-            const response = await getBillById({ collection_id: activeCollection, bill_id: bill_id });
-            return { ...response.data?.bill, products: response.data?.billItems || [] };
+            const response = await getOrderById({ collection_id: activeCollection, order_id: order_id });
+            return { ...response.data?.order, products: response.data?.orderItems || [] };
         },
-        enabled: !!bill_id && !!activeCollection,
+        enabled: !!order_id && !!activeCollection,
         refetchInterval: (query) =>
             shouldPollWhatsAppDeliveryStatus(query.state.data)
                 ? whatsappPollIntervalMs
@@ -30,7 +30,7 @@ const BillsView = () => {
     });
     useEffect(() => {
         if (error) {
-            toast.error("Error fetching bill");
+            toast.error("Error fetching order");
         }
     }, [error]);
     return (

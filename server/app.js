@@ -8,7 +8,7 @@ import userRoutes from "./routes/users.js";
 import collectionRoutes from "./routes/collection.js";
 import productRoutes from "./routes/products.js";
 import stockRoutes from "./routes/stocks.js";
-import billRoutes from "./routes/bills.js";
+import orderRoutes from "./routes/orders.js";
 import clientRoutes from "./routes/clients.js";
 import purchaseRoutes from "./routes/purchases.js";
 import analyticsRoutes from "./routes/analytics.js";
@@ -42,7 +42,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/settings", settingsRoutes);
 app.use("/api/clients", clientRoutes);
 app.use("/api/common", commonRoutes);
-app.use("/api/collections", collectionRoutes, productRoutes, stockRoutes, billRoutes, purchaseRoutes, analyticsRoutes);
+app.use("/api/collections", collectionRoutes, productRoutes, stockRoutes, orderRoutes, purchaseRoutes, analyticsRoutes);
 
 const port = process.env.PORT;
 const server = app.listen(port, () => {

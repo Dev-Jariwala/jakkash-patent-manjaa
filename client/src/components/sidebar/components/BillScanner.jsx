@@ -8,7 +8,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Button } from "@/components/ui/button";
 import FormatePrice from "@/helper/FormatPrice";
 import { cn } from "@/lib/utils";
-import { getBillById, updateBillDeliveryStatus, updateBillPaymentStatus } from "@/services/bills";
+import { getOrderById, updateOrderDeliveryStatus, updateOrderPaymentStatus } from "@/services/orders";
 import { EDIT_LOCK_REASON, isBillLockedForEditing } from "@/lib/whatsappDelivery";
 import { BILL_NUMBER_LABEL } from "@jakkash/bill-pdf";
 
@@ -53,21 +53,21 @@ const getScannerStatus = (scannerState) => {
 const getBillDialogCopy = ({ isBillPaid, isBillDelivered }) => {
     if (isBillDelivered) {
         return {
-            title: "Bill already delivered",
-            description: "This bill is already delivered and settled. You can close this dialog and continue scanning.",
+            title: "Order already delivered",
+            description: "this order is already delivered and settled. You can close this dialog and continue scanning.",
         };
     }
 
     if (isBillPaid) {
         return {
-            title: "Bill paid, waiting for delivery",
-            description: "This bill is already paid. You can mark it as delivered from here.",
+            title: "Order paid, waiting for delivery",
+            description: "this order is already paid. You can mark it as delivered from here.",
         };
     }
 
     return {
-        title: "Update scanned bill status",
-        description: "You can mark this bill as paid only, or mark it as delivered which will also settle the payment.",
+        title: "Update scanned order status",
+        description: "You can mark this order as paid only, or mark it as delivered which will also settle the payment.",
     };
 };
 
@@ -84,67 +84,67 @@ const BillScanner = () => {
     };
 
     const lookupBillMutation = useMutation({
-        mutationFn: ({ collection_id, bill_id }) => getBillById({ collection_id, bill_id }),
+        mutationFn: ({ collection_id, order_id }) => getOrderById({ collection_id, order_id }),
         onMutate: () => {
             setScannerState("loading");
         },
         onSuccess: (response) => {
-            setModalData({ open: true, bill: response.data?.bill || null });
+            setModalData({ open: true, bill: response.data?.order || null });
             setManualValue("");
             setScannerState("ready");
         },
         onError: (error) => {
-            const message = error?.response?.data?.message || "Bill not found for scanned code";
+            const message = error?.response?.data?.message || "Order not found for scanned code";
             toast.error(message);
             setScannerState("error");
         },
     });
 
     const markBillAsPaidMutation = useMutation({
-        mutationFn: ({ collection_id, bill_id }) => updateBillPaymentStatus({
+        mutationFn: ({ collection_id, order_id }) => updateOrderPaymentStatus({
             collection_id,
-            bill_id,
+            order_id,
             data: { mark_as_paid: true },
         }),
         onSuccess: (response) => {
-            const updatedBill = response.data?.bill || null;
+            const updatedOrder = response.data?.order || null;
 
             setModalData((current) => ({
                 ...current,
-                bill: updatedBill,
+                bill: updatedOrder,
             }));
 
-            toast.success(response.data?.message || "Bill marked as paid successfully");
-            queryClient.invalidateQueries({ queryKey: ["bills", activeCollection] });
+            toast.success(response.data?.message || "Order marked as paid successfully");
+            queryClient.invalidateQueries({ queryKey: ["orders", activeCollection] });
             setScannerState("ready");
         },
         onError: (error) => {
-            const message = error?.response?.data?.message || "Unable to mark bill as paid";
+            const message = error?.response?.data?.message || "Unable to mark order as paid";
             toast.error(message);
             setScannerState("error");
         },
     });
 
     const markBillAsDeliveredMutation = useMutation({
-        mutationFn: ({ collection_id, bill_id }) => updateBillDeliveryStatus({
+        mutationFn: ({ collection_id, order_id }) => updateOrderDeliveryStatus({
             collection_id,
-            bill_id,
+            order_id,
             data: { is_delivered: true },
         }),
         onSuccess: (response) => {
-            const updatedBill = response.data?.bill || null;
+            const updatedOrder = response.data?.order || null;
 
             setModalData((current) => ({
                 ...current,
-                bill: updatedBill,
+                bill: updatedOrder,
             }));
 
-            toast.success(response.data?.message || "Bill marked as delivered successfully");
-            queryClient.invalidateQueries({ queryKey: ["bills", activeCollection] });
+            toast.success(response.data?.message || "Order marked as delivered successfully");
+            queryClient.invalidateQueries({ queryKey: ["orders", activeCollection] });
             setScannerState("ready");
         },
         onError: (error) => {
-            const message = error?.response?.data?.message || "Unable to mark bill as delivered";
+            const message = error?.response?.data?.message || "Unable to mark order as delivered";
             toast.error(message);
             setScannerState("error");
         },
@@ -154,18 +154,18 @@ const BillScanner = () => {
         const normalizedBillId = String(billId || "").trim();
 
         if (!activeCollection) {
-            toast.error("Select a collection before scanning bills");
+            toast.error("Select a collection before scanning orders");
             setScannerState("error");
             return;
         }
 
         if (!UUID_REGEX.test(normalizedBillId)) {
-            toast.error("Invalid bill QR code");
+            toast.error("Invalid order QR code");
             setScannerState("error");
             return;
         }
 
-        lookupBillMutation.mutate({ collection_id: activeCollection, bill_id: normalizedBillId });
+        lookupBillMutation.mutate({ collection_id: activeCollection, order_id: normalizedBillId });
     }, [activeCollection, lookupBillMutation]);
 
     const handleManualSubmit = (event) => {
@@ -265,7 +265,7 @@ const BillScanner = () => {
     const isBillDelivered = Boolean(scannedBill?.delivered_at);
     const dialogCopy = getBillDialogCopy({ isBillPaid, isBillDelivered });
     const isUpdatingStatus = markBillAsPaidMutation.isPending || markBillAsDeliveredMutation.isPending;
-    // Both actions rewrite advance/total_due, which are printed on the bill PDF,
+    // Both actions rewrite advance/total_due, which are printed on the order PDF,
     // so a delivery in flight locks them exactly like a normal edit (ADR 0005).
     const isBillLocked = isBillLockedForEditing(scannedBill);
     const scannerStatus = getScannerStatus(scannerState);
@@ -294,7 +294,7 @@ const BillScanner = () => {
                         <div className="space-y-2 rounded-lg border border-border bg-muted/50 p-3 text-sm text-foreground">
                             <div className="flex items-center justify-between gap-4">
                                 <span className="font-medium">{BILL_NUMBER_LABEL}</span>
-                                <span>{scannedBill.bill_no}</span>
+                                <span>{scannedBill.order_no}</span>
                             </div>
                             <div className="flex items-center justify-between gap-4">
                                 <span className="font-medium">Client</span>
@@ -333,7 +333,7 @@ const BillScanner = () => {
                                     event.preventDefault();
                                     markBillAsPaidMutation.mutate({
                                         collection_id: activeCollection,
-                                        bill_id: scannedBill.bill_id,
+                                        order_id: scannedBill.order_id,
                                     });
                                 }}
                                 disabled={isUpdatingStatus || isBillLocked}
@@ -350,7 +350,7 @@ const BillScanner = () => {
                                 onClick={() => {
                                     markBillAsDeliveredMutation.mutate({
                                         collection_id: activeCollection,
-                                        bill_id: scannedBill.bill_id,
+                                        order_id: scannedBill.order_id,
                                     });
                                 }}
                                 isLoading={markBillAsDeliveredMutation.isPending}
@@ -376,7 +376,7 @@ const BillScanner = () => {
                     <input
                         value={manualValue}
                         onChange={(event) => setManualValue(event.target.value)}
-                        placeholder="Scan or paste bill code"
+                        placeholder="Scan or paste order code"
                         className="h-9 w-48 rounded-lg border border-border bg-background py-0 pl-9 pr-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-ring focus:ring-1 focus:ring-ring lg:w-56 xl:w-64"
                     />
                 </div>

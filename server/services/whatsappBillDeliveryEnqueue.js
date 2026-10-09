@@ -6,6 +6,13 @@ import {
 } from "./whatsappBillMetadata.js";
 import { persistWhatsAppMetadata } from "./whatsappBillDeliveryPersistence.js";
 
+/** Test-only stand-in for BullMQ `queue.add` so createOrder can be exercised without Redis. */
+let deliverBillJobAddForTests = null;
+
+export function __setWhatsAppBillDeliveryJobAddForTests(override) {
+  deliverBillJobAddForTests = override;
+}
+
 export class EnqueueWhatsAppDeliveryError extends Error {
   constructor(originalError, bill) {
     super(originalError?.message || "Failed to enqueue WhatsApp delivery");
@@ -45,7 +52,9 @@ export async function enqueueBillWhatsAppDelivery({
   }
 
   try {
-    const job = await enqueueWhatsAppBillDelivery({ billId, collectionId, jobId: queueJobId });
+    const job = deliverBillJobAddForTests
+      ? await deliverBillJobAddForTests({ billId, collectionId, jobId: queueJobId })
+      : await enqueueWhatsAppBillDelivery({ billId, collectionId, jobId: queueJobId });
     return { job, bill: billWithProcessingState };
   } catch (enqueueError) {
     const failedMetadata = buildEnqueueFailedWhatsAppMetadata(

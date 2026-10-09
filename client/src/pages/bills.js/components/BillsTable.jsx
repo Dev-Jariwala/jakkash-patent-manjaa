@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createColumnHelper, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable, } from "@tanstack/react-table";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
@@ -11,7 +11,7 @@ import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom"
 import { Eye, Lock, Pencil } from "lucide-react";
 import { Chip } from "@/components/ui/chip";
 import { useDebounce, useLocalStorage } from "@uidotdev/usehooks";
-import { getBillsByCollectionId, getWholesaleBillsCsvReport, updateBillDeliveryStatus } from "@/services/bills";
+import { getOrdersByCollectionId, getWholesaleOrdersCsvReport, updateOrderDeliveryStatus } from "@/services/orders";
 import { toast } from "react-toastify";
 import { format, formatDate } from "date-fns";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -29,7 +29,7 @@ import { billHasProcessingWhatsAppDelivery, EDIT_LOCK_REASON, getWhatsAppDeliver
 import { BILL_NUMBER_LABEL } from "@jakkash/bill-pdf";
 
 const csvHeaders = [
-    { label: `${BILL_NUMBER_LABEL}.`, key: "bill_no" },
+    { label: `${BILL_NUMBER_LABEL}.`, key: "order_no" },
     { label: "Name", key: "name" },
     { label: "Total Firki", key: "total_firki" },
     { label: "Mobile", key: "mobile" },
@@ -45,12 +45,12 @@ const csvHeaders = [
 // eslint-disable-next-line react/prop-types
 const BillsTable = () => {
     const queryClient = useQueryClient();
-    const { billType } = useParams();
+    const { orderType } = useParams();
     const navigate = useNavigate();
     const [activeCollection] = useLocalStorage("activeCollection", null);
     const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 5, });
     const [columnVisibility, setColumnVisibility] = useState({
-        bill_no: true,
+        order_no: true,
         order_date: true,
         delivery_date: false,
         name: true,
@@ -68,19 +68,19 @@ const BillsTable = () => {
     const [search, setSearch] = useState("");
     const debouncedSearch = useDebounce(search, 300);
     const [searchParams] = useSearchParams();
-    const bill_id = searchParams.get("bill_id");
+    const order_id = searchParams.get("order_id");
 
     const whatsappPollIntervalMs = getWhatsAppDeliveryPollIntervalMs();
 
-    const { data: billsData, error: billsDataError, isLoading: isBillsDataLoading } = useQuery({
-        queryKey: ["bills", activeCollection, pagination, debouncedSearch, billType],
+    const { data: ordersData, error: ordersDataError, isLoading: isOrdersDataLoading } = useQuery({
+        queryKey: ["orders", activeCollection, pagination, debouncedSearch, orderType],
         queryFn: async () => {
-            const response = await getBillsByCollectionId({ activeCollection, pagination, debouncedSearch, bill_type: billType });
+            const response = await getOrdersByCollectionId({ activeCollection, pagination, debouncedSearch, order_type: orderType });
             return response.data;
         },
         enabled: !!activeCollection,
         refetchInterval: (query) =>
-            billHasProcessingWhatsAppDelivery(query.state.data?.bills)
+            billHasProcessingWhatsAppDelivery(query.state.data?.orders)
                 ? whatsappPollIntervalMs
                 : false,
     });
@@ -88,8 +88,8 @@ const BillsTable = () => {
     const { data: wholesaleBills, error: wholesaleBillsError, isLoading: isWholesaleBillsLoading, refetch } = useQuery({
         queryKey: ["wholesaleBills", activeCollection],
         queryFn: async () => {
-            const response = await getWholesaleBillsCsvReport({ collection_id: activeCollection });
-            return response.data?.wholesale_bills?.map(bill => {
+            const response = await getWholesaleOrdersCsvReport({ collection_id: activeCollection });
+            return response.data?.wholesale_orders?.map(bill => {
                 return {
                     ...bill,
                     order_date: format(new Date(bill.order_date), "dd/MM/yyyy"),
@@ -99,11 +99,19 @@ const BillsTable = () => {
         },
         enabled: false
     });
+    const csvLinkRef = useRef(null);
+    const csvDownloadReady = useRef(false);
+    const [csvDownloadTick, setCsvDownloadTick] = useState(0);
+
+    useEffect(() => {
+        if (!csvDownloadReady.current) return;
+        csvLinkRef.current?.link?.click();
+    }, [csvDownloadTick]);
 
     const columnHelper = createColumnHelper();
     const columnsDef = useMemo(() => (
         [
-            columnHelper.accessor("bill_no", {
+            columnHelper.accessor("order_no", {
                 header: BILL_NUMBER_LABEL,
             }),
             columnHelper.accessor("order_date", {
@@ -169,7 +177,7 @@ const BillsTable = () => {
                 cell: (info) => {
                     const deliveredAt = info.getValue() ? formatDate(new Date(info.getValue()), "dd/MM/yyyy HH:mm") : "Not Delivered";
                     // Marking delivered rewrites advance/total_due, both printed
-                    // on the bill PDF, so it is locked like any other edit.
+                    // on the order PDF, so it is locked like any other edit.
                     const isLocked = isBillLockedForEditing(info.row.original);
                     return (
                         <Chip
@@ -181,7 +189,7 @@ const BillsTable = () => {
                             title={isLocked ? EDIT_LOCK_REASON : undefined}
                             onClick={() => {
                                 if (isLocked) return;
-                                setShowDeliveryAlert({ status: true, data: { bill_id: info.row.original.bill_id, collection_id: activeCollection, is_delivered: info.getValue() ? false : true } });
+                                setShowDeliveryAlert({ status: true, data: { order_id: info.row.original.order_id, collection_id: activeCollection, is_delivered: info.getValue() ? false : true } });
                             }}
                         >
                             {deliveredAt}
@@ -215,13 +223,13 @@ const BillsTable = () => {
         headers[key] = column.header;
     });
 
-    const data = useMemo(() => billsData?.bills ?? [], [billsData]);
+    const data = useMemo(() => ordersData?.orders ?? [], [ordersData]);
     const columns = useMemo(() => columnsDef, []);
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
-        rowCount: billsData?.pagination?.totalItems ?? -1,
+        rowCount: ordersData?.pagination?.totalItems ?? -1,
         state: {
             pagination,
             columnOrder,
@@ -234,8 +242,8 @@ const BillsTable = () => {
         manualPagination: true,
     });
 
-    const updateBillDeliveryStatusMutation = useMutation({
-        mutationFn: updateBillDeliveryStatus,
+    const updateOrderDeliveryStatusMutation = useMutation({
+        mutationFn: updateOrderDeliveryStatus,
         onSuccess: () => {
             toast.success(`Delivery status updated successfully`)
             setShowDeliveryAlert({ status: false, data: null })
@@ -252,26 +260,26 @@ const BillsTable = () => {
     });
 
     const handleMarkAsDelivered = (data) => {
-        updateBillDeliveryStatusMutation.mutate({ ...data, data: { is_delivered: data.is_delivered } })
+        updateOrderDeliveryStatusMutation.mutate({ ...data, data: { is_delivered: data.is_delivered } })
     }
 
     useEffect(() => {
-        if (billsDataError) {
-            toast.error(`Error getting bills`)
+        if (ordersDataError) {
+            toast.error(`Error getting orders`)
         }
         if (wholesaleBillsError) {
-            toast.error(`Error getting wholesale bills`)
+            toast.error(`Error getting wholesale orders`)
         }
-    }, [billsDataError, wholesaleBillsError]);
+    }, [ordersDataError, wholesaleBillsError]);
 
     return (
         <>
             <AlertDialog open={showDeliveryAlert.status} onOpenChange={(value) => !value && setShowDeliveryAlert({ status: false, data: null })}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>{showDeliveryAlert.data?.is_delivered ? "Mark this bill as delivered?" : "Mark this bill as not delivered?"}</AlertDialogTitle>
+                        <AlertDialogTitle>{showDeliveryAlert.data?.is_delivered ? "Mark this order as delivered?" : "Mark this order as not delivered?"}</AlertDialogTitle>
                         <AlertDialogDescription>
-                            {showDeliveryAlert.data?.is_delivered ? "This will mark this bill as delivered." : "This will mark this bill as not delivered."}
+                            {showDeliveryAlert.data?.is_delivered ? "This will mark this order as delivered." : "This will mark this order as not delivered."}
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
@@ -280,7 +288,7 @@ const BillsTable = () => {
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
-            {bill_id && <BillsPdfModal open={!!bill_id} onClose={() => navigate(`/bills/${billType}`)} />}
+            {order_id && <BillsPdfModal open={!!order_id} onClose={() => navigate(`/orders/${orderType}`)} />}
             <div className="flex items-center justify-between px-4">
                 <div className="flex items-center space-x-4">
                     <Input
@@ -296,13 +304,26 @@ const BillsTable = () => {
                 </div>
 
                 <div className="flex items-center space-x-5">
-                    {billType === 'wholesale' && <CSVLink
+                    {orderType === 'wholesale' && <CSVLink
+                        ref={csvLinkRef}
                         data={wholesaleBills ?? []}
-                        filename={"wholesale-bills.csv"}
+                        filename={"wholesale-orders.csv"}
                         headers={csvHeaders}
-                        onClick={async (e, done) => {
-                            await refetch();
-                            done();
+                        onClick={async (event, done) => {
+                            if (csvDownloadReady.current) {
+                                csvDownloadReady.current = false;
+                                done();
+                                return;
+                            }
+                            event.preventDefault();
+                            const result = await refetch();
+                            const rows = result.data ?? [];
+                            if (!rows.length) {
+                                toast.error("No wholesale orders to export");
+                                return;
+                            }
+                            csvDownloadReady.current = true;
+                            setCsvDownloadTick((tick) => tick + 1);
                         }}
                     >
                         <Button variant="none" className="flex items-center cursor-pointer border border-green-500/30 gap-x-3.5 py-1 px-2 rounded-lg text-sm text-green-600 dark:text-green-400 hover:bg-green-500/10 focus:outline-none focus:bg-green-500/10 font-normal" disabled={isWholesaleBillsLoading} >
@@ -312,7 +333,7 @@ const BillsTable = () => {
                             CSV File
                         </Button>
                     </CSVLink>}
-                    <Link to={`/bills/${billType}/report`} className="flex items-center space-x-2 border border-destructive/30 rounded-lg px-2 cursor-pointer hover:bg-destructive/10 py-1 text-destructive">
+                    <Link to={`/orders/${orderType}/report`} className="flex items-center space-x-2 border border-destructive/30 rounded-lg px-2 cursor-pointer hover:bg-destructive/10 py-1 text-destructive">
                         <Avatar className="w-6 h-6 rounded-none">
                             <AvatarImage src={`/pdf.svg`} />
                         </Avatar>
@@ -332,7 +353,7 @@ const BillsTable = () => {
                     </Select>
                 </div>
             </div>
-            {isBillsDataLoading ? <div className="flex justify-center items-center h-64">
+            {isOrdersDataLoading ? <div className="flex justify-center items-center h-64">
                 <div className="basic-loader"></div>
             </div> :
                 <>
@@ -379,13 +400,13 @@ const BillsTable = () => {
                                                 ))}
                                                 <TableCell className="flex items-center space-x-2">
                                                     <Link
-                                                        to={`/bills/${billType}?bill_id=${row.original?.bill_id}`}
+                                                        to={`/orders/${orderType}?order_id=${row.original?.order_id}`}
                                                         className="hover:bg-accent rounded-full size-8 flex items-center justify-center"
                                                     // target="_blank"
                                                     >
                                                         <Eye size={16} className="text-blue-500" />
                                                     </Link>
-                                                    {/* A processing delivery locks the bill (ADR 0005); force
+                                                    {/* A processing delivery locks the order (ADR 0005); force
                                                         cancel sits in the WhatsApp column of the same row. */}
                                                     {isBillLockedForEditing(row.original) ? (
                                                         <span
@@ -397,7 +418,7 @@ const BillsTable = () => {
                                                         </span>
                                                     ) : (
                                                         <Link
-                                                            to={`/bills/update/${row.original?.bill_id}?bill_type=${billType}`}
+                                                            to={`/orders/update/${row.original?.order_id}?order_type=${orderType}`}
                                                             className="hover:bg-accent rounded-full size-8 flex items-center justify-center"
                                                         >
                                                             <Pencil size={16} className="text-green-500" />
@@ -426,7 +447,7 @@ const BillsTable = () => {
                         <ScrollBar orientation="horizontal" />
                     </ScrollArea>
                     <div className="flex items-center justify-between p-4">
-                        <div className="">{table.getRowCount()} Bills</div>
+                        <div className="">{table.getRowCount()} Orders</div>
                         <div className="flex items-center space-x-2 ">
                             <Button
                                 variant="outline"

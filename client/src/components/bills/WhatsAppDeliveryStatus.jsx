@@ -22,7 +22,7 @@ const WhatsAppDeliveryStatus = ({ bill, className }) => {
   const label = formatWhatsAppDeliveryStatusLabel(status, elapsedSeconds);
   const color = getWhatsAppDeliveryStatusColor(status, { stalled });
   // The chip is the only place a stuck delivery can announce itself: nothing
-  // else changes while no worker is writing to the bill.
+  // else changes while no worker is writing to the order.
   const title = stalled
     ? PROCESSING_STALL_REASON
     : status === WHATSAPP_DELIVERY_STATUS.FAILED && metadata?.error_message

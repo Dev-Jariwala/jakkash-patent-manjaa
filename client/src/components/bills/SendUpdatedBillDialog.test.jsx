@@ -5,13 +5,13 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import SendUpdatedBillDialog from "@/components/bills/SendUpdatedBillDialog";
 import { billWithStatus, renderWithProviders } from "@/test/renderWithProviders";
 
-const { resendBillWhatsAppDelivery, toastSuccess, toastError } = vi.hoisted(() => ({
-  resendBillWhatsAppDelivery: vi.fn(),
+const { resendOrderWhatsAppDelivery, toastSuccess, toastError } = vi.hoisted(() => ({
+  resendOrderWhatsAppDelivery: vi.fn(),
   toastSuccess: vi.fn(),
   toastError: vi.fn(),
 }));
 
-vi.mock("@/services/bills", () => ({ resendBillWhatsAppDelivery }));
+vi.mock("@/services/orders", () => ({ resendOrderWhatsAppDelivery }));
 vi.mock("react-toastify", () => ({
   toast: { success: toastSuccess, error: toastError },
 }));
@@ -24,21 +24,21 @@ function renderDialog(bill, onDone = vi.fn()) {
 }
 
 beforeEach(() => {
-  resendBillWhatsAppDelivery.mockReset();
+  resendOrderWhatsAppDelivery.mockReset();
   toastSuccess.mockReset();
   toastError.mockReset();
-  resendBillWhatsAppDelivery.mockResolvedValue({ data: {} });
+  resendOrderWhatsAppDelivery.mockResolvedValue({ data: {} });
 });
 
-describe("send updated bill prompt", () => {
+describe("send updated order prompt", () => {
   it("asks rather than sending the edit automatically", async () => {
     // Resending after an edit stays an explicit choice (PRD 31).
     renderDialog(billWithStatus("success"));
 
     expect(
-      await screen.findByText(/send the updated bill on whatsapp\?/i)
+      await screen.findByText(/send the updated order on whatsapp\?/i)
     ).toBeInTheDocument();
-    expect(resendBillWhatsAppDelivery).not.toHaveBeenCalled();
+    expect(resendOrderWhatsAppDelivery).not.toHaveBeenCalled();
   });
 
   it("warns that the client keeps the copy sent before the edit", async () => {
@@ -53,34 +53,34 @@ describe("send updated bill prompt", () => {
     const user = userEvent.setup();
     renderDialog(billWithStatus("canceled"));
 
-    await user.click(await screen.findByRole("button", { name: /send updated bill/i }));
+    await user.click(await screen.findByRole("button", { name: /send updated order/i }));
 
     await waitFor(() =>
-      expect(resendBillWhatsAppDelivery).toHaveBeenCalledWith({
+      expect(resendOrderWhatsAppDelivery).toHaveBeenCalledWith({
         collection_id: "collection-1",
-        bill_id: "bill-1",
+        order_id: "bill-1",
       })
     );
   });
 
-  it("leaves the bill updated and unsent when the operator declines", async () => {
+  it("leaves the order updated and unsent when the operator declines", async () => {
     const user = userEvent.setup();
     const { onDone } = renderDialog(billWithStatus("failed"));
 
     await user.click(await screen.findByRole("button", { name: /not now/i }));
 
-    expect(resendBillWhatsAppDelivery).not.toHaveBeenCalled();
+    expect(resendOrderWhatsAppDelivery).not.toHaveBeenCalled();
     await waitFor(() => expect(onDone).toHaveBeenCalledTimes(1));
   });
 
   it("explains a service switched off since the form loaded", async () => {
-    resendBillWhatsAppDelivery.mockRejectedValue({
+    resendOrderWhatsAppDelivery.mockRejectedValue({
       response: { data: { code: "WHATSAPP_SERVICE_DISABLED", message: "disabled" } },
     });
     const user = userEvent.setup();
     const { onDone } = renderDialog(billWithStatus("failed"));
 
-    await user.click(await screen.findByRole("button", { name: /send updated bill/i }));
+    await user.click(await screen.findByRole("button", { name: /send updated order/i }));
 
     expect(await screen.findByText(/turned off/i)).toBeInTheDocument();
     expect(toastError).not.toHaveBeenCalled();

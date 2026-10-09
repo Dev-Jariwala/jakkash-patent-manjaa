@@ -177,7 +177,7 @@ function buildGraphApiUrl(config, path) {
 function buildTemplateBodyParameters(bill) {
   return [
     { type: "text", text: String(bill?.name ?? "Customer") },
-    { type: "text", text: String(bill?.bill_no ?? "") },
+    { type: "text", text: String(bill?.order_no ?? bill?.bill_no ?? "") },
   ];
 }
 

@@ -107,11 +107,11 @@ export const getAnalytics = async (req, res) => {
         // calcluate total purchase amount for collection id from purchase table rate * quantity
         const totalPurchaseAmount = await query(`SELECT SUM(rate * quantity) as total_purchase_amount FROM purchases WHERE collection_id = $1`, [collection_id]);
         // calculate total sales amount for collection id from bill_items table quantity * price
-        const totalSalesAmount = await query(`SELECT SUM(quantity * price) as total_sales_amount FROM bill_items WHERE product_id IN (SELECT product_id FROM products WHERE collection_id = $1)`, [collection_id]);
-        // calculate total sales amout for collection id from bill_items table quantity * price where bill type is retail
-        const totalRetailSalesAmount = await query(`SELECT SUM(quantity * price) as total_sales_amount FROM bill_items WHERE product_id IN (SELECT product_id FROM products WHERE collection_id = $1) AND bill_id IN (SELECT bill_id FROM bills WHERE collection_id = $1 AND bill_type = 'retail')`, [collection_id]);
-        // calculate total sales amout for collection id from bill_items table quantity * price where bill type is wholesale
-        const totalWholesaleSalesAmount = await query(`SELECT SUM(quantity * price) as total_sales_amount FROM bill_items WHERE product_id IN (SELECT product_id FROM products WHERE collection_id = $1) AND bill_id IN (SELECT bill_id FROM bills WHERE collection_id = $1 AND bill_type = 'wholesale')`, [collection_id]);
+        const totalSalesAmount = await query(`SELECT SUM(quantity * price) as total_sales_amount FROM order_items WHERE product_id IN (SELECT product_id FROM products WHERE collection_id = $1)`, [collection_id]);
+        // calculate total sales amout for collection id from order_items table quantity * price where order type is retail
+        const totalRetailSalesAmount = await query(`SELECT SUM(quantity * price) as total_sales_amount FROM order_items WHERE product_id IN (SELECT product_id FROM products WHERE collection_id = $1) AND order_id IN (SELECT order_id FROM orders WHERE collection_id = $1 AND order_type = 'retail')`, [collection_id]);
+        // calculate total sales amout for collection id from order_items table quantity * price where order type is wholesale
+        const totalWholesaleSalesAmount = await query(`SELECT SUM(quantity * price) as total_sales_amount FROM order_items WHERE product_id IN (SELECT product_id FROM products WHERE collection_id = $1) AND order_id IN (SELECT order_id FROM orders WHERE collection_id = $1 AND order_type = 'wholesale')`, [collection_id]);
         res.status(200).json({ totalPurchaseAmount: totalPurchaseAmount[0].total_purchase_amount, totalSalesAmount: totalSalesAmount[0].total_sales_amount, totalRetailSalesAmount: totalRetailSalesAmount[0].total_sales_amount, totalWholesaleSalesAmount: totalWholesaleSalesAmount[0].total_sales_amount });
     } catch (error) {
         handleError('getAnalytics', error, res);
@@ -127,14 +127,14 @@ export const getTotalCounts = async (req, res) => {
         // get total clients count from clients table
         const totalClients = await query(`SELECT COUNT(*) as total_clients FROM clients`);
         // get total bills count from bills table
-        const totalBills = await query(`SELECT COUNT(*) as total_bills FROM bills WHERE collection_id = $1`, [collection_id]);
+        const totalOrders = await query(`SELECT COUNT(*) as total_orders FROM orders WHERE collection_id = $1`, [collection_id]);
         // get total purchases count from purchases table
         const totalPurchases = await query(`SELECT COUNT(*) as total_purchases FROM purchases WHERE collection_id = $1`, [collection_id]);
         // get total stocks count from stocks table
         const totalStocks = await query(`SELECT COUNT(*) as total_stocks FROM stocks WHERE collection_id = $1`, [collection_id]);
         // get total collections count from collections table
         const totalCollections = await query(`SELECT COUNT(*) as total_collections FROM collections`);
-        res.status(200).json({ totalProducts: totalProducts[0].total_products, totalClients: totalClients[0].total_clients, totalBills: totalBills[0].total_bills, totalPurchases: totalPurchases[0].total_purchases, totalStocks: totalStocks[0].total_stocks, totalCollections: totalCollections[0].total_collections });
+        res.status(200).json({ totalProducts: totalProducts[0].total_products, totalClients: totalClients[0].total_clients, totalOrders: totalOrders[0].total_orders, totalPurchases: totalPurchases[0].total_purchases, totalStocks: totalStocks[0].total_stocks, totalCollections: totalCollections[0].total_collections });
     } catch (error) {
         handleError('getTotalCounts', error, res);
     }

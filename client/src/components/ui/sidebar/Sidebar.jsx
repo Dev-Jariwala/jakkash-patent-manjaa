@@ -52,9 +52,9 @@ const data = {
             isCollapsible: false,
         },
         {
-            title: 'Bills',
+            title: 'Orders',
             icon: BillSvg,
-            link: '/bills',
+            link: '/orders',
             isCollapsible: false,
         },
         {

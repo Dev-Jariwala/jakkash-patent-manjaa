@@ -17,14 +17,14 @@ import {
  * the service toggle, with the path back to Settings (PRD 37/38). Shared so the
  * resend action and the post-update prompt never drift on the reason they give.
  */
-const WhatsAppServiceDisabledDialog = ({ open, onClose, action = "resend this bill" }) => {
+const WhatsAppServiceDisabledDialog = ({ open, onClose, action = "resend this order" }) => {
   const navigate = useNavigate();
 
   return (
     <AlertDialog open={open} onOpenChange={(value) => !value && onClose()}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>WhatsApp bill delivery is turned off</AlertDialogTitle>
+          <AlertDialogTitle>WhatsApp order delivery is turned off</AlertDialogTitle>
           <AlertDialogDescription>
             No bills can be sent on WhatsApp while the service is disabled. Normal
             billing is unaffected. Enable it in Settings to {action}.

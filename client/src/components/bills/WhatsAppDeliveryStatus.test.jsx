@@ -32,7 +32,7 @@ describe("WhatsApp delivery status chip", () => {
   });
 
   it("shows a bill from before the feature as never sent", () => {
-    render(<WhatsAppDeliveryStatus bill={{ bill_no: 7 }} />);
+    render(<WhatsAppDeliveryStatus bill={{ order_no: 7 }} />);
 
     expect(screen.getByText("no")).toBeInTheDocument();
   });
@@ -44,7 +44,7 @@ describe("WhatsApp delivery status chip", () => {
   });
 
   it("keeps the timer ticking while the delivery runs", () => {
-    // The bill itself does not change during this second; the chip has to
+    // the order itself does not change during this second; the chip has to
     // advance on its own or the operator sees a frozen counter.
     render(<WhatsAppDeliveryStatus bill={processingSince(30)} />);
 

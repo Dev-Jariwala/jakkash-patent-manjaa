@@ -79,7 +79,7 @@ describe("processing timer", () => {
 
   it("flags a delivery that has been running far too long", () => {
     // Nothing else can tell the operator the worker is down: the status only
-    // changes when a worker writes to the bill.
+    // changes when a worker writes to the order.
     expect(
       isProcessingStalled(WHATSAPP_DELIVERY_STATUS.PROCESSING, PROCESSING_STALL_SECONDS)
     ).toBe(true);
@@ -151,7 +151,7 @@ describe("polling", () => {
     }
   });
 
-  it("polls the bills list while any row is being delivered", () => {
+  it("polls the orders list while any row is being delivered", () => {
     const bills = [
       { whatsapp_metadata: { status: WHATSAPP_DELIVERY_STATUS.SUCCESS } },
       { whatsapp_metadata: { status: WHATSAPP_DELIVERY_STATUS.PROCESSING } },

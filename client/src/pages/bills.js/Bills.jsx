@@ -7,10 +7,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Bills = () => {
     const navigate = useNavigate();
-    const { billType } = useParams();
+    const { orderType } = useParams();
 
     const handleTabChange = (tab) => {
-        navigate(`/bills/${tab}`);
+        navigate(`/orders/${tab}`);
     }
     return (
         <div className="">
@@ -19,25 +19,25 @@ const Bills = () => {
                     <BreadCrum
                         path={[
                             { path: "/", label: "Dashboard" },
-                            { path: "/bills", label: "Bills" },
+                            { path: "/orders", label: "Orders" },
                         ]}
                     />
                 </div>
                 <Button
                     variant="indigo"
                     size="sm"
-                    onClick={() => navigate(`/bills/new?bill_type=${billType}`)}
+                    onClick={() => navigate(`/orders/new?order_type=${orderType}`)}
                 >
                     <Plus className="size-4" />
-                    <div className="">New {billType} bill</div>
+                    <div className="">New {orderType} order</div>
                 </Button>
             </div>
-            <Tabs value={billType} onValueChange={handleTabChange}>
+            <Tabs value={orderType} onValueChange={handleTabChange}>
                 <TabsList className='w-1/2 gap-2 border-b pb-0 border-border'>
-                    <TabsTrigger className='border-b-2 w-1/2 border-transparent data-[state=active]:rounded-none data-[state=active]:border-b-indigo-500' variant='sliding' value="retail">Retail Bills</TabsTrigger>
-                    <TabsTrigger className='border-b-2 w-1/2 border-transparent data-[state=active]:rounded-none data-[state=active]:border-b-indigo-500' variant='sliding' value="wholesale">Wholesale Bills</TabsTrigger>
+                    <TabsTrigger className='border-b-2 w-1/2 border-transparent data-[state=active]:rounded-none data-[state=active]:border-b-indigo-500' variant='sliding' value="retail">Retail Orders</TabsTrigger>
+                    <TabsTrigger className='border-b-2 w-1/2 border-transparent data-[state=active]:rounded-none data-[state=active]:border-b-indigo-500' variant='sliding' value="wholesale">Wholesale Orders</TabsTrigger>
                 </TabsList>
-                <TabsContent value={billType} >
+                <TabsContent value={orderType} >
                     <BillsTable />
                 </TabsContent>
             </Tabs>

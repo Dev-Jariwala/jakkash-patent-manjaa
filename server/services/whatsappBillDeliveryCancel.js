@@ -32,7 +32,7 @@ export class WhatsAppCancelNotAllowedError extends Error {
  */
 async function buildLostCancelRaceError({ billId, collectionId }) {
   const [bill] = await query(
-    "SELECT whatsapp_metadata FROM bills WHERE bill_id = $1 AND collection_id = $2",
+    "SELECT whatsapp_metadata FROM orders WHERE order_id = $1 AND collection_id = $2",
     [billId, collectionId]
   );
 
@@ -74,7 +74,7 @@ async function buildLostCancelRaceError({ billId, collectionId }) {
  */
 export async function forceCancelBillWhatsAppDelivery({ billId, collectionId }) {
   const [bill] = await query(
-    "SELECT * FROM bills WHERE bill_id = $1 AND collection_id = $2",
+    "SELECT * FROM orders WHERE order_id = $1 AND collection_id = $2",
     [billId, collectionId]
   );
 

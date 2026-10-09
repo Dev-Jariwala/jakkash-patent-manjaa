@@ -2,7 +2,7 @@ import ExportPDF from "@/components/bill-pdf/ExportPDF";
 import TypeWritterLoader from "@/components/loaders/typewritter/TypeWritterLoader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { getBillReport } from "@/services/bills";
+import { getOrderReport } from "@/services/orders";
 import { PDFViewer } from "@react-pdf/renderer";
 import { useMutation } from "@tanstack/react-query";
 import { useLocalStorage } from "@uidotdev/usehooks";
@@ -12,13 +12,13 @@ import { toast } from "react-toastify";
 import { BILL_NUMBER_LABEL } from "@jakkash/bill-pdf";
 
 const headers = [
-    { label: `${BILL_NUMBER_LABEL}.`, key: "bill_no" },
+    { label: `${BILL_NUMBER_LABEL}.`, key: "order_no" },
     { label: "Name", key: "name" },
     { label: "Total Firki", key: "total_firki" },
 ];
 
 const BillsReport = () => {
-    const { billType } = useParams();
+    const { orderType } = useParams();
     const [activeCollection] = useLocalStorage("activeCollection");
     const [fromBillNo, setFromBillNo] = useState("");
     const [toBillNo, setToBillNo] = useState("");
@@ -26,13 +26,13 @@ const BillsReport = () => {
 
     const { mutate: fetchReport, isPending: isReportLoading, error: reportError } = useMutation({
         mutationFn: async () => {
-            const res = await getBillReport({
+            const res = await getOrderReport({
                 collection_id: activeCollection,
-                bill_type: billType,
+                order_type: orderType,
                 fromBillNo,
                 toBillNo
             });
-            return res.data?.bills || [];
+            return res.data?.orders || [];
         },
         onSuccess: (data) => {
             setReportData(data);
@@ -43,7 +43,7 @@ const BillsReport = () => {
     });
 
     const handleGenerateReport = () => {
-        if (!activeCollection || !billType || !fromBillNo || !toBillNo) {
+        if (!activeCollection || !orderType || !fromBillNo || !toBillNo) {
             toast.error("Please provide all required inputs.");
             return;
         }
@@ -87,7 +87,7 @@ const BillsReport = () => {
                             <ExportPDF
                                 exportData={reportData}
                                 headers={headers}
-                                title={`${billType === "retail" ? "Retail" : "Wholesale"} Report`}
+                                title={`${orderType === "retail" ? "Retail" : "Wholesale"} Report`}
                             />
                         </PDFViewer>
                     )}

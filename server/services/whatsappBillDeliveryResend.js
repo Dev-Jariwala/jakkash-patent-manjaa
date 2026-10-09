@@ -34,7 +34,7 @@ export async function resendBillWhatsAppDelivery({ billId, collectionId }) {
   await assertWhatsAppServiceEnabled();
 
   const [bill] = await query(
-    "SELECT * FROM bills WHERE bill_id = $1 AND collection_id = $2",
+    "SELECT * FROM orders WHERE order_id = $1 AND collection_id = $2",
     [billId, collectionId]
   );
 

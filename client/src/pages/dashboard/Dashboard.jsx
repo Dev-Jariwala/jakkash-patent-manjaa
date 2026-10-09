@@ -30,7 +30,7 @@ const Dashboard = () => {
 
     const stats = [
         { title: 'Total Products', value: data?.totalProducts, link: '/products', icon: <ProductSvg />, color: statCardAccents.blue },
-        { title: 'Total Bills', value: data?.totalBills, link: '/bills', icon: <BillSvg />, color: statCardAccents.green },
+        { title: 'Total Orders', value: data?.totalOrders, link: '/orders', icon: <BillSvg />, color: statCardAccents.green },
         { title: 'Total Purchases', value: data?.totalPurchases, link: '/purchases', icon: <PurchaseSvg />, color: statCardAccents.yellow },
         { title: 'Total Clients', value: data?.totalClients, link: '/clients', icon: <ClientSvg />, color: statCardAccents.purple },
         { title: 'Total Stocks', value: data?.totalStocks, link: '/stocks', icon: <StocksSvg />, color: statCardAccents.red },

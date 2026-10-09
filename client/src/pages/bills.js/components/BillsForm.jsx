@@ -18,7 +18,7 @@ import { CalendarIcon, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ReactSelect from "@/components/ui/react-select/react-select";
 import { Textarea } from "@/components/ui/textarea";
-import { createBill, getBillById, getNextBillNo, updateBillById } from "@/services/bills";
+import { createOrder, getOrderById, getNextOrderNo, updateOrderById } from "@/services/orders";
 import { getWhatsAppServiceSetting } from "@/services/settings";
 import { handleDecimalInputChange, handleNumberInputChange, productNamesOrder, sortProductsByNames } from "@/helper/formHelper";
 import { getClientByMobileNumber } from "@/services/clients";
@@ -36,25 +36,25 @@ import {
 import { BILL_NUMBER_LABEL } from "@jakkash/bill-pdf";
 
 const BillsForm = () => {
-    const { bill_id } = useParams();
+    const { order_id } = useParams();
     const [activeCollection] = useLocalStorage("activeCollection", null);
     const [searchParams] = useSearchParams();
-    const billType = searchParams.get("bill_type");
+    const orderType = searchParams.get("order_type");
     const product_id = searchParams.get("product_id");
     const queryClient = useQueryClient();
     const navigate = useNavigate();
     const location = useLocation();
     const formType = location.pathname.split("/")[2];
-    // Bill awaiting the operator's "send the updated bill?" answer (PRD 31).
-    const [billPendingSendDecision, setBillPendingSendDecision] = useState(null);
+    // Bill awaiting the operator's "send the updated order?" answer (PRD 31).
+    const [orderPendingSendDecision, setBillPendingSendDecision] = useState(null);
     const whatsappPollIntervalMs = getWhatsAppDeliveryPollIntervalMs();
     const { data: bill, isLoading: isBillLoading, error: billError } = useQuery({
-        queryKey: ["bill", activeCollection, bill_id],
+        queryKey: ["order", activeCollection, order_id],
         queryFn: async () => {
-            const response = await getBillById({ collection_id: activeCollection, bill_id });
-            return { ...response.data?.bill, bill_items: response.data?.billItems } || {};
+            const response = await getOrderById({ collection_id: activeCollection, order_id });
+            return { ...response.data?.order, order_items: response.data?.orderItems } || {};
         },
-        enabled: !!activeCollection && !!bill_id,
+        enabled: !!activeCollection && !!order_id,
         // A delivery that finishes on its own unlocks the form without the
         // operator having to reload it.
         refetchInterval: (query) =>
@@ -63,7 +63,7 @@ const BillsForm = () => {
                 : false,
     });
     const schema = yup.object().shape({
-        bill_no: yup.number().required(`${BILL_NUMBER_LABEL} is required`).typeError(`${BILL_NUMBER_LABEL} is required`),
+        order_no: yup.number().required(`${BILL_NUMBER_LABEL} is required`).typeError(`${BILL_NUMBER_LABEL} is required`),
         mobile: yup.number().required("Mobile is required").typeError("Mobile is required").test('len', 'Mobile must be exactly 10 digits', val => val.toString().length === 10),
         name: yup.string().required("Name is required"),
         address: yup.string().required("Address is required"),
@@ -76,7 +76,7 @@ const BillsForm = () => {
                 quantity: yup.number().optional().typeError("Quantity is required")
                     .test('maxQuantity', 'Quantity must be less than or equal to stock.', function (value) {
                         const { stock_in_hand, product_id } = this.parent;
-                        const billItem = bill?.bill_items?.find(item => item.product_id === product_id);
+                        const billItem = bill?.order_items?.find(item => item.product_id === product_id);
                         const maxQuantity = formType === 'update' && billItem ? stock_in_hand + billItem.quantity : stock_in_hand;
                         return value <= maxQuantity;
                     }),
@@ -107,15 +107,15 @@ const BillsForm = () => {
                 return sub_total === (discount + advance + value);
             }),
         is_delivered: yup.boolean().optional(),
-        send_bill_on_whatsapp: yup.boolean().optional(),
+        send_order_on_whatsapp: yup.boolean().optional(),
     });
-    // const bill_id = searchParams.get("bill_id");
+    // const order_id = searchParams.get("order_id");
     const form = useForm({
         mode: "onChange", // Validate as the user types
         reValidateMode: "onBlur",
         resolver: yupResolver(schema),
         defaultValues: {
-            bill_no: null,
+            order_no: null,
             mobile: "",
             name: "",
             address: "",
@@ -129,7 +129,7 @@ const BillsForm = () => {
             advance: 0,
             total_due: 0,
             is_delivered: false,
-            send_bill_on_whatsapp: true,
+            send_order_on_whatsapp: true,
         },
     });
 
@@ -141,11 +141,11 @@ const BillsForm = () => {
         },
         enabled: !!activeCollection,
     });
-    const { data: nextBillNo, isLoading: isNextBillNoLoading, error: nextBillNoError } = useQuery({
-        queryKey: ["nextBillNo", activeCollection],
+    const { data: nextOrderNo, isLoading: isNextBillNoLoading, error: nextOrderNoError } = useQuery({
+        queryKey: ["nextOrderNo", activeCollection],
         queryFn: async () => {
-            const response = await getNextBillNo({ collection_id: activeCollection, bill_type: billType });
-            return response.data?.bill_no;
+            const response = await getNextOrderNo({ collection_id: activeCollection, order_type: orderType });
+            return response.data?.order_no;
         },
         enabled: !!activeCollection && formType === "new",
     });
@@ -168,108 +168,108 @@ const BillsForm = () => {
         },
         enabled: mobile?.length === 10,
     });
-    const productsOptions = useMemo(() => products?.filter(product => product?.[`${billType}_price`] > 0)?.map(product => ({ label: product?.product_name, value: product?.product_id })) || [], [products]);
+    const productsOptions = useMemo(() => products?.filter(product => product?.[`${orderType}_price`] > 0)?.map(product => ({ label: product?.product_name, value: product?.product_id })) || [], [products]);
 
-    const createBillMutation = useMutation({
-        mutationFn: createBill,
+    const createOrderMutation = useMutation({
+        mutationFn: createOrder,
         onSuccess: (res) => {
-            navigate(`/bills/${billType}?bill_id=${res.data?.bill?.bill_id}`);
+            navigate(`/orders/${orderType}?order_id=${res.data?.order?.order_id}`);
             queryClient.invalidateQueries(["bills", activeCollection]);
-            toast.success("Bill created successfully");
+            toast.success("Order created successfully");
             if (res.data?.whatsapp_delivery?.queued === false) {
                 toast.warn(
                     res.data.whatsapp_delivery.warning ||
-                    "Bill was created, but WhatsApp delivery could not be queued."
+                    "Order was created, but WhatsApp delivery could not be queued."
                 );
             }
         },
         onError: (error) => {
-            toast.error(`Error creating bill: ${error.message}`);
+            toast.error(`Error Creating order: ${error.message}`);
         },
     });
 
-    const updateBillMutation = useMutation({
-        mutationFn: updateBillById,
+    const updateOrderMutation = useMutation({
+        mutationFn: updateOrderById,
         onSuccess: (res) => {
-            const updatedBill = res.data?.bill;
+            const updatedOrder = res.data?.order;
             queryClient.invalidateQueries(["bills", activeCollection]);
-            toast.success("Bill updated successfully");
+            toast.success("Order updated successfully");
 
             // Resending after an edit stays an explicit choice (PRD 31). Asking
             // only when the answer can actually be acted on keeps the ordinary
             // update flow unchanged whenever delivery is unavailable.
-            if (whatsappServiceEnabled && canResendWhatsAppDelivery(updatedBill)) {
-                setBillPendingSendDecision(updatedBill);
+            if (whatsappServiceEnabled && canResendWhatsAppDelivery(updatedOrder)) {
+                setBillPendingSendDecision(updatedOrder);
                 return;
             }
 
-            navigate(`/bills/${billType}?bill_id=${updatedBill?.bill_id}`);
+            navigate(`/orders/${orderType}?order_id=${updatedOrder?.order_id}`);
         },
         onError: (error) => {
             const response = error?.response?.data;
             // A delivery enqueued since the form loaded lands here; pulling the
             // bill back in raises the lock notice with its force-cancel path.
             if (response?.code === "WHATSAPP_DELIVERY_IN_PROGRESS") {
-                queryClient.invalidateQueries({ queryKey: ["bill"] });
-                queryClient.invalidateQueries({ queryKey: ["bills"] });
+                queryClient.invalidateQueries({ queryKey: ["order"] });
+                queryClient.invalidateQueries({ queryKey: ["orders"] });
                 toast.error(response.message || EDIT_LOCK_REASON);
                 return;
             }
-            toast.error(`Error updating bill: ${response?.message || error.message}`);
+            toast.error(`Error updating order: ${response?.message || error.message}`);
         },
     })
 
     const handleSendDecisionDone = () => {
-        if (!billPendingSendDecision) return;
-        const decidedBillId = billPendingSendDecision.bill_id;
+        if (!orderPendingSendDecision) return;
+        const decidedBillId = orderPendingSendDecision.order_id;
         setBillPendingSendDecision(null);
-        navigate(`/bills/${billType}?bill_id=${decidedBillId}`);
+        navigate(`/orders/${orderType}?order_id=${decidedBillId}`);
     };
 
     const onSubmit = async (data) => {
-        if (createBillMutation.isPending || updateBillMutation.isPending) return;
+        if (createOrderMutation.isPending || updateOrderMutation.isPending) return;
         if (isEditLocked) {
             toast.error(EDIT_LOCK_REASON);
             return;
         }
         const filteredProducts = data.products.filter(product => product.quantity > 0);
-        data.bill_items = filteredProducts;
-        data.bill_no = formType === 'new' ? nextBillNo : data.bill_no;
-        data.bill_type = billType;
+        data.order_items = filteredProducts;
+        data.order_no = formType === 'new' ? nextOrderNo : data.order_no;
+        data.order_type = orderType;
         data.mobile = data.mobile.toString();
         if (formType === "new") {
             if (!whatsappServiceEnabled) {
-                delete data.send_bill_on_whatsapp;
+                delete data.send_order_on_whatsapp;
             }
-            createBillMutation.mutate({ collection_id: activeCollection, data });
+            createOrderMutation.mutate({ collection_id: activeCollection, data });
         } else {
-            delete data.send_bill_on_whatsapp;
+            delete data.send_order_on_whatsapp;
             console.log({ data });
-            updateBillMutation.mutate({ collection_id: activeCollection, bill_id, data });
+            updateOrderMutation.mutate({ collection_id: activeCollection, order_id, data });
         }
     };
 
     useEffect(() => {
         const oldsProducts = form.getValues('products');
-        const showProducts = products?.filter(product => product?.[`${billType}_price`] > 0)?.map(product => {
+        const showProducts = products?.filter(product => product?.[`${orderType}_price`] > 0)?.map(product => {
             const oldProd = oldsProducts?.find(p => p.product_id === product?.product_id);
-            return ({ product_id: product?.product_id, product_name: product?.product_name, is_labour: product?.is_labour, quantity: oldProd?.quantity || 0, price: product[`${billType}_price`], stock_in_hand: product?.stock_in_hand, total: oldProd?.total || 0 })
+            return ({ product_id: product?.product_id, product_name: product?.product_name, is_labour: product?.is_labour, quantity: oldProd?.quantity || 0, price: product[`${orderType}_price`], stock_in_hand: product?.stock_in_hand, total: oldProd?.total || 0 })
         }) || [];
         form.setValue('products', sortProductsByNames(showProducts, productNamesOrder));
-    }, [products, billType]);
+    }, [products, orderType]);
 
     useEffect(() => {
         if (formType === 'update' && bill) {
-            form.setValue('bill_no', bill.bill_no);
+            form.setValue('order_no', bill.order_no);
             form.setValue('mobile', bill.mobile);
             form.setValue('name', bill.name);
             form.setValue('address', bill.address);
             form.setValue('order_date', new Date(bill.order_date));
             form.setValue('delivery_date', new Date(bill.delivery_date));
-            const showProducts = products?.filter(product => product?.[`${bill.bill_type}_price`] > 0)?.map(product => {
+            const showProducts = products?.filter(product => product?.[`${bill.order_type}_price`] > 0)?.map(product => {
                 console.log({ product, bill });
-                const billItem = bill.bill_items.find(item => item.product_id === product.product_id);
-                const price = product[`${bill.bill_type}_price`];
+                const billItem = bill.order_items.find(item => item.product_id === product.product_id);
+                const price = product[`${bill.order_type}_price`];
                 const quantity = billItem?.quantity || 0;
                 return {
                     product_id: product.product_id,
@@ -294,21 +294,21 @@ const BillsForm = () => {
     }, [bill, formType, products]);
 
     useEffect(() => {
-        if (formType === 'new' && nextBillNo) {
-            form.setValue('bill_no', nextBillNo);
-            form.trigger('bill_no');
+        if (formType === 'new' && nextOrderNo) {
+            form.setValue('order_no', nextOrderNo);
+            form.trigger('order_no');
         }
-    }, [nextBillNo, form]);
+    }, [nextOrderNo, form]);
 
     useEffect(() => {
         if (productsError) {
             toast.error(`Error getting products: ${productsError.message}`);
         }
-        if (nextBillNoError) {
-            toast.error(`Error getting next ${BILL_NUMBER_LABEL.toLowerCase()}: ${nextBillNoError.message}`);
+        if (nextOrderNoError) {
+            toast.error(`Error getting next ${BILL_NUMBER_LABEL.toLowerCase()}: ${nextOrderNoError.message}`);
         }
         if (billError) {
-            toast.error(`Error getting bill: ${billError.message}`);
+            toast.error(`Error getting order: ${billError.message}`);
         }
         if (clientDetailsError) {
             toast.error(`Error getting client details: ${clientDetailsError.message}`);
@@ -316,7 +316,7 @@ const BillsForm = () => {
         if (whatsappServiceSettingError) {
             toast.error(`Could not load WhatsApp service setting: ${whatsappServiceSettingError.message}`);
         }
-    }, [productsError, nextBillNoError, billError, clientDetailsError, whatsappServiceSettingError]);
+    }, [productsError, nextOrderNoError, billError, clientDetailsError, whatsappServiceSettingError]);
 
     useEffect(() => {
         if (clientDetails?.name && clientDetails?.address) {
@@ -327,9 +327,9 @@ const BillsForm = () => {
     return (
         <>
             {product_id && <AddStockModal open={!!product_id} onClose={() => navigate(-1)} />}
-            {billPendingSendDecision && (
+            {orderPendingSendDecision && (
                 <SendUpdatedBillDialog
-                    bill={billPendingSendDecision}
+                    bill={orderPendingSendDecision}
                     collectionId={activeCollection}
                     open
                     onDone={handleSendDecisionDone}
@@ -345,9 +345,9 @@ const BillsForm = () => {
                             <BreadCrum
                                 path={[
                                     { path: "/", label: "Dashboard" },
-                                    { path: "/bills", label: "Bills" },
+                                    { path: "/orders", label: "Orders" },
                                     {
-                                        path: `/bills/${billType}`,
+                                        path: `/orders/${orderType}`,
                                         label: `${formType}`,
                                     },
                                 ]}
@@ -364,7 +364,7 @@ const BillsForm = () => {
                                 <div className="">
                                     <FormField
                                         control={form.control}
-                                        name="bill_no"
+                                        name="order_no"
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormLabel>{BILL_NUMBER_LABEL}</FormLabel>
@@ -523,7 +523,7 @@ const BillsForm = () => {
                                                         </FormItem>
                                                     )}
                                                 />
-                                                <Button className="px-2 ml-2" tabIndex="-1" type="button" onClick={() => formType === 'new' ? navigate(`/bills/${formType}?bill_type=${billType}&product_id=${product?.product_id}`) : navigate(`/bills/${formType}/${bill_id}?bill_type=${billType}&product_id=${product?.product_id}`)}>
+                                                <Button className="px-2 ml-2" tabIndex="-1" type="button" onClick={() => formType === 'new' ? navigate(`/orders/${formType}?order_type=${orderType}&product_id=${product?.product_id}`) : navigate(`/orders/${formType}/${order_id}?order_type=${orderType}&product_id=${product?.product_id}`)}>
                                                     <Plus size={16} />
                                                 </Button>
                                             </div>
@@ -733,10 +733,10 @@ const BillsForm = () => {
                                     />}
                                     {formType === "new" && whatsappServiceEnabled && <FormField
                                         control={form.control}
-                                        name="send_bill_on_whatsapp"
+                                        name="send_order_on_whatsapp"
                                         render={({ field }) => (
                                             <FormItem className="flex items-center gap-2 space-y-0">
-                                                <FormLabel>Send Bill on WhatsApp</FormLabel>
+                                                <FormLabel>Send Order on WhatsApp</FormLabel>
                                                 <FormControl>
                                                     <Checkbox {...field} checked={field.value} onCheckedChange={field.onChange} />
                                                 </FormControl>
@@ -747,10 +747,10 @@ const BillsForm = () => {
                                 </div>
                             </div>
                             <div className="w-full mt-5 flex items-center justify-center col-span-5 mb-20">
-                                <MutationError mutation={createBillMutation} />
-                                <Button variant="" disabled={isEditLocked || createBillMutation.isPending || updateBillMutation.isPending} title={isEditLocked ? EDIT_LOCK_REASON : undefined} isLoading={createBillMutation.isPending || updateBillMutation.isPending} loadingText={formType === 'update' ? `updating ${form.watch("bill_no")}...` : `creating ${form.watch("bill_no")}...`} className="bg-indigo-500 hover:bg-indigo-600" type="submit">
+                                <MutationError mutation={createOrderMutation} />
+                                <Button variant="" disabled={isEditLocked || createOrderMutation.isPending || updateOrderMutation.isPending} title={isEditLocked ? EDIT_LOCK_REASON : undefined} isLoading={createOrderMutation.isPending || updateOrderMutation.isPending} loadingText={formType === 'update' ? `updating ${form.watch("order_no")}...` : `creating ${form.watch("order_no")}...`} className="bg-indigo-500 hover:bg-indigo-600" type="submit">
                                     {formType === "update" ? "Update" : "Create"}{" "}
-                                    {BILL_NUMBER_LABEL}. {form.watch("bill_no")}
+                                    {BILL_NUMBER_LABEL}. {form.watch("order_no")}
                                 </Button>
                             </div>
                         </form>{" "}

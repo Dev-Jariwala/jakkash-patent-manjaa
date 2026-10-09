@@ -1,4 +1,4 @@
-import { getWholeSaleBillsByMobile } from '@/services/bills';
+import { getWholeSaleOrdersByMobile } from '@/services/orders';
 import { PDFViewer } from '@react-pdf/renderer';
 import { useQuery } from '@tanstack/react-query';
 import { useLocalStorage } from '@uidotdev/usehooks'
@@ -14,9 +14,9 @@ const ClientReport = () => {
     const mobile = searchParams.get('mobile');
 
     const { data: billData, isLoading: isBillDataLoading, error: billDataError } = useQuery({
-        queryKey: ['billsDataReport', { mobile, collection_id: activeCollection }],
+        queryKey: ['ordersDataReport', { mobile, collection_id: activeCollection }],
         queryFn: async () => {
-            const response = await getWholeSaleBillsByMobile({ mobile, collection_id: activeCollection });
+            const response = await getWholeSaleOrdersByMobile({ mobile, collection_id: activeCollection });
             return response.data || {};
         }
     });

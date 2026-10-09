@@ -44,10 +44,10 @@ const Layout = () => {
       active: ["stocks"],
     },
     {
-      link: "/bills",
-      label: "Bills",
+      link: "/orders",
+      label: "Orders",
       icon: <BillSvg />,
-      active: ["bills"],
+      active: ["orders"],
     },
     {
       link: "/clients",

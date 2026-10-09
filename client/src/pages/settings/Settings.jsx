@@ -31,8 +31,8 @@ const Settings = () => {
       queryClient.setQueryData(["whatsappServiceSetting"], res.data);
       toast.success(
         res.data.whatsapp_service_enabled
-          ? "WhatsApp bill delivery enabled"
-          : "WhatsApp bill delivery disabled"
+          ? "WhatsApp order delivery enabled"
+          : "WhatsApp order delivery disabled"
       );
     },
     onError: () => {
@@ -69,11 +69,11 @@ const Settings = () => {
             <div className="flex items-start justify-between gap-4">
               <div className="space-y-1">
                 <h2 className="text-lg font-semibold text-foreground">
-                  WhatsApp Bill Delivery
+                  WhatsApp order delivery
                 </h2>
                 <p className="text-sm text-muted-foreground">
-                  Enable automatic bill delivery through WhatsApp. When disabled,
-                  billing works exactly as it does today and no bills are sent
+                  Enable automatic order delivery through WhatsApp. When disabled,
+                  selling works exactly as it does today and no orders are sent
                   through WhatsApp.
                 </p>
               </div>

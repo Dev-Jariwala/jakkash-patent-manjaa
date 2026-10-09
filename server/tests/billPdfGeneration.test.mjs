@@ -57,7 +57,7 @@ describe("server-side bill PDF generation", () => {
   });
 
   it("names the attachment after the bill number", async () => {
-    assert.equal(buildBillPdfFilename(createBill({ bill_no: 101 })), "Jakkash-Bill-101.pdf");
+    assert.equal(buildBillPdfFilename(createBill({ order_no: 101 })), "Jakkash-Bill-101.pdf");
     assert.equal(buildBillPdfFilename({}), "Jakkash-Bill-unknown.pdf");
   });
 });

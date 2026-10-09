@@ -5,13 +5,13 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import WhatsAppResendAction from "@/components/bills/WhatsAppResendAction";
 import { billWithStatus, renderWithProviders } from "@/test/renderWithProviders";
 
-const { resendBillWhatsAppDelivery, getWhatsAppServiceSetting, toastError } = vi.hoisted(() => ({
-  resendBillWhatsAppDelivery: vi.fn(),
+const { resendOrderWhatsAppDelivery, getWhatsAppServiceSetting, toastError } = vi.hoisted(() => ({
+  resendOrderWhatsAppDelivery: vi.fn(),
   getWhatsAppServiceSetting: vi.fn(),
   toastError: vi.fn(),
 }));
 
-vi.mock("@/services/bills", () => ({ resendBillWhatsAppDelivery }));
+vi.mock("@/services/orders", () => ({ resendOrderWhatsAppDelivery }));
 vi.mock("@/services/settings", () => ({ getWhatsAppServiceSetting }));
 vi.mock("react-toastify", () => ({
   toast: { success: vi.fn(), error: toastError },
@@ -30,10 +30,10 @@ function renderAction(bill) {
 }
 
 beforeEach(() => {
-  resendBillWhatsAppDelivery.mockReset();
+  resendOrderWhatsAppDelivery.mockReset();
   getWhatsAppServiceSetting.mockReset();
   toastError.mockReset();
-  resendBillWhatsAppDelivery.mockResolvedValue({ data: {} });
+  resendOrderWhatsAppDelivery.mockResolvedValue({ data: {} });
 });
 
 describe("resend action", () => {
@@ -54,7 +54,7 @@ describe("resend action", () => {
     await user.click(await screen.findByRole("button", { name: /resend on whatsapp/i }));
 
     expect(await screen.findByText(/already delivered/i)).toBeInTheDocument();
-    expect(resendBillWhatsAppDelivery).not.toHaveBeenCalled();
+    expect(resendOrderWhatsAppDelivery).not.toHaveBeenCalled();
   });
 
   it("sends only once the operator confirms", async () => {
@@ -66,9 +66,9 @@ describe("resend action", () => {
     await user.click(await screen.findByRole("button", { name: "Send" }));
 
     await waitFor(() =>
-      expect(resendBillWhatsAppDelivery).toHaveBeenCalledWith({
+      expect(resendOrderWhatsAppDelivery).toHaveBeenCalledWith({
         collection_id: "collection-1",
-        bill_id: "bill-1",
+        order_id: "bill-1",
       })
     );
   });
@@ -92,14 +92,14 @@ describe("resend action", () => {
 
     expect(await screen.findByText(/turned off/i)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /go to settings/i })).toBeInTheDocument();
-    expect(resendBillWhatsAppDelivery).not.toHaveBeenCalled();
+    expect(resendOrderWhatsAppDelivery).not.toHaveBeenCalled();
   });
 
   it("explains a toggle switched off since the page loaded", async () => {
     // The cached setting can be stale; the backend is the source of truth, so a
     // 403 has to produce the same explanation rather than a bare failure toast.
     serviceEnabled(true);
-    resendBillWhatsAppDelivery.mockRejectedValue({
+    resendOrderWhatsAppDelivery.mockRejectedValue({
       response: { data: { code: "WHATSAPP_SERVICE_DISABLED", message: "disabled" } },
     });
     const user = userEvent.setup();
@@ -114,11 +114,11 @@ describe("resend action", () => {
 
   it("reports the backend's reason when a resend is refused", async () => {
     serviceEnabled(true);
-    resendBillWhatsAppDelivery.mockRejectedValue({
+    resendOrderWhatsAppDelivery.mockRejectedValue({
       response: {
         data: {
           code: "WHATSAPP_RESEND_NOT_ALLOWED",
-          message: "This bill already has a WhatsApp delivery in progress.",
+          message: "this order already has a WhatsApp delivery in progress.",
         },
       },
     });
@@ -130,7 +130,7 @@ describe("resend action", () => {
 
     await waitFor(() =>
       expect(toastError).toHaveBeenCalledWith(
-        "This bill already has a WhatsApp delivery in progress."
+        "this order already has a WhatsApp delivery in progress."
       )
     );
   });

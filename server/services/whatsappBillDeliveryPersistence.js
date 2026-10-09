@@ -2,9 +2,9 @@ import { query } from "../utils/query.js";
 
 export async function persistWhatsAppMetadata({ billId, collectionId, metadata }) {
   const [updatedBill] = await query(
-    `UPDATE bills
+    `UPDATE orders
      SET whatsapp_metadata = $1::jsonb
-     WHERE bill_id = $2 AND collection_id = $3
+     WHERE order_id = $2 AND collection_id = $3
      RETURNING *`,
     [JSON.stringify(metadata), billId, collectionId]
   );
@@ -37,9 +37,9 @@ export async function persistWhatsAppDeliveryOutcome({
   jobId,
 }) {
   const [updatedBill] = await query(
-    `UPDATE bills
+    `UPDATE orders
      SET whatsapp_metadata = $1::jsonb
-     WHERE bill_id = $2
+     WHERE order_id = $2
        AND collection_id = $3
        AND whatsapp_metadata->>'queue_job_id' = $4
        AND COALESCE((whatsapp_metadata->>'cancel_requested')::boolean, false) = false
@@ -85,9 +85,9 @@ export async function persistWhatsAppDeliveryCancellation({
   allowedStatuses,
 }) {
   const [updatedBill] = await query(
-    `UPDATE bills
+    `UPDATE orders
      SET whatsapp_metadata = $1::jsonb
-     WHERE bill_id = $2
+     WHERE order_id = $2
        AND collection_id = $3
        AND whatsapp_metadata->>'queue_job_id' IS NOT DISTINCT FROM $4
        AND whatsapp_metadata->>'status' = ANY($5)

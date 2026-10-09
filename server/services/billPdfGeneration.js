@@ -10,7 +10,7 @@ export async function generateBillPdfBuffer(bill) {
     throw error;
   }
 
-  const qrCodeDataUrl = await QRCode.toDataURL(String(bill.bill_id || ""), {
+  const qrCodeDataUrl = await QRCode.toDataURL(String(bill.order_id || bill.bill_id || ""), {
     width: 150,
     margin: 1,
   });
@@ -24,6 +24,6 @@ export async function generateBillPdfBuffer(bill) {
 }
 
 export function buildBillPdfFilename(bill) {
-  const billNo = bill?.bill_no ?? "unknown";
+  const billNo = bill?.order_no ?? bill?.bill_no ?? "unknown";
   return `Jakkash-Bill-${billNo}.pdf`;
 }

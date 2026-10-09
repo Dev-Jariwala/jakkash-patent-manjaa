@@ -91,7 +91,7 @@ export function formatWhatsAppDeliveryStatusLabel(status, elapsedSeconds = 0) {
  * How long `processing` may run before the UI treats it as stuck.
  *
  * A delivery takes seconds. Minutes means the worker is down, Redis is
- * unreachable, or the provider is hanging — none of which the bill can report on
+ * unreachable, or the provider is hanging — none of which the order can report on
  * its own, because the status only changes when a worker writes to it. Without
  * this the operator watches a counter climb with no hint that force cancel is
  * the way out (PRD 19, ADR 0006).
@@ -106,7 +106,7 @@ export function isProcessingStalled(status, elapsedSeconds) {
 }
 
 export const PROCESSING_STALL_REASON =
-  "This delivery has been running unusually long. The delivery worker may be stopped. Force cancel it to unlock the bill and try again.";
+  "This delivery has been running unusually long. The delivery worker may be stopped. Force cancel it to unlock the order and try again.";
 
 export function getWhatsAppDeliveryStatusColor(status, { stalled = false } = {}) {
   switch (status) {
@@ -191,7 +191,7 @@ export function isBillLockedForEditing(statusOrBill) {
 }
 
 export const EDIT_LOCK_REASON =
-  "This bill is locked while its WhatsApp delivery is in progress. Force cancel the delivery to edit it.";
+  "this order is locked while its WhatsApp delivery is in progress. Force cancel the delivery to edit it.";
 
 export function getResendActionLabel(statusOrBill) {
   const status =

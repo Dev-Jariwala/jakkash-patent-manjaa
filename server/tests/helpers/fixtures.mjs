@@ -44,9 +44,12 @@ export function clone(value) {
 
 export function createBill(overrides = {}) {
   return {
+    order_id: "11111111-1111-1111-1111-111111111111",
     bill_id: "11111111-1111-1111-1111-111111111111",
     collection_id: "22222222-2222-2222-2222-222222222222",
+    order_no: 101,
     bill_no: 101,
+    order_type: "retail",
     bill_type: "retail",
     name: "Test Client",
     client_name: "Test Client",

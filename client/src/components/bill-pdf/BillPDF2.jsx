@@ -10,7 +10,7 @@ const BillPDF2 = ({ bill }) => {
   useEffect(() => {
     const generateQRCode = async () => {
       try {
-        const qrData = bill?.bill_id || "";
+        const qrData = bill?.order_id || "";
         const dataUrl = await QRCode.toDataURL(String(qrData), {
           width: 150,
           margin: 1,
@@ -20,10 +20,10 @@ const BillPDF2 = ({ bill }) => {
         console.error("Error generating QR code:", err);
       }
     };
-    if (bill?.bill_no) {
+    if (bill?.order_no) {
       generateQRCode();
     }
-  }, [bill?.bill_no]);
+  }, [bill?.order_no]);
 
   return (
     <>

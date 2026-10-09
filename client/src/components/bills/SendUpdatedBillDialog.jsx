@@ -14,7 +14,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import WhatsAppServiceDisabledDialog from "@/components/bills/WhatsAppServiceDisabledDialog";
-import { resendBillWhatsAppDelivery } from "@/services/bills";
+import { resendOrderWhatsAppDelivery } from "@/services/orders";
 import {
   getWhatsAppDeliveryStatus,
   WHATSAPP_DELIVERY_STATUS,
@@ -22,12 +22,12 @@ import {
 import { BILL_NUMBER_LABEL } from "@jakkash/bill-pdf";
 
 /**
- * Post-update prompt: "send the updated bill?" (PRD 31).
+ * Post-update prompt: "send the updated order?" (PRD 31).
  *
  * Sending goes through the existing resend endpoint rather than a second
  * delivery path (PRD 32), so the service toggle, status eligibility, and
  * `processing` transition all behave exactly as they do for a manual resend.
- * Declining leaves the bill updated and undelivered, which is a valid outcome —
+ * Declining leaves the order updated and undelivered, which is a valid outcome —
  * so `onDone` runs either way.
  */
 const SendUpdatedBillDialog = ({ bill, collectionId, open, onDone }) => {
@@ -37,11 +37,11 @@ const SendUpdatedBillDialog = ({ bill, collectionId, open, onDone }) => {
   const previousStatus = getWhatsAppDeliveryStatus(bill);
 
   const resendMutation = useMutation({
-    mutationFn: resendBillWhatsAppDelivery,
+    mutationFn: resendOrderWhatsAppDelivery,
     onSuccess: () => {
-      toast.success("Updated bill queued for WhatsApp delivery");
-      queryClient.invalidateQueries({ queryKey: ["bills"] });
-      queryClient.invalidateQueries({ queryKey: ["bill"] });
+      toast.success("updated order queued for WhatsApp delivery");
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
+      queryClient.invalidateQueries({ queryKey: ["order"] });
       onDone();
     },
     onError: (error) => {
@@ -57,7 +57,7 @@ const SendUpdatedBillDialog = ({ bill, collectionId, open, onDone }) => {
       toast.error(
         response?.message || `Failed to queue WhatsApp delivery: ${error.message}`
       );
-      queryClient.invalidateQueries({ queryKey: ["bills"] });
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
       onDone();
     },
   });
@@ -65,7 +65,7 @@ const SendUpdatedBillDialog = ({ bill, collectionId, open, onDone }) => {
   const handleSend = (event) => {
     // Keep the dialog mounted while the request is in flight.
     event.preventDefault();
-    resendMutation.mutate({ collection_id: collectionId, bill_id: bill?.bill_id });
+    resendMutation.mutate({ collection_id: collectionId, order_id: bill?.order_id });
   };
 
   return (
@@ -78,11 +78,11 @@ const SendUpdatedBillDialog = ({ bill, collectionId, open, onDone }) => {
       >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Send the updated bill on WhatsApp?</AlertDialogTitle>
+            <AlertDialogTitle>Send the updated order on WhatsApp?</AlertDialogTitle>
             <AlertDialogDescription>
               {previousStatus === WHATSAPP_DELIVERY_STATUS.SUCCESS
-                ? `${BILL_NUMBER_LABEL} ${bill?.bill_no} was already delivered before this edit. Sending now delivers the updated copy to ${bill?.mobile}, and the client keeps the earlier one.`
-                : `${BILL_NUMBER_LABEL} ${bill?.bill_no} was updated. Sending delivers the updated bill to ${bill?.mobile} on WhatsApp.`}
+                ? `${BILL_NUMBER_LABEL} ${bill?.order_no} was already delivered before this edit. Sending now delivers the updated copy to ${bill?.mobile}, and the client keeps the earlier one.`
+                : `${BILL_NUMBER_LABEL} ${bill?.order_no} was updated. Sending delivers the updated order to ${bill?.mobile} on WhatsApp.`}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -92,7 +92,7 @@ const SendUpdatedBillDialog = ({ bill, collectionId, open, onDone }) => {
               Not now
             </AlertDialogCancel>
             <AlertDialogAction onClick={handleSend} disabled={resendMutation.isPending}>
-              {resendMutation.isPending ? "Queueing..." : "Send updated bill"}
+              {resendMutation.isPending ? "Queueing..." : "Send updated order"}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -104,7 +104,7 @@ const SendUpdatedBillDialog = ({ bill, collectionId, open, onDone }) => {
           setIsServiceDisabledOpen(false);
           onDone();
         }}
-        action="send this bill"
+        action="send this order"
       />
     </>
   );

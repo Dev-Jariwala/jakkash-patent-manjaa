@@ -27,6 +27,7 @@ import Sidebar from "@/components/ui/sidebar/Sidebar";
 import Dashboard from "@/pages/dashboard/Dashboard";
 import Landing from "@/pages/landing/Landing";
 import Settings from "@/pages/settings/Settings";
+import { LegacyBillsPathRedirect, LegacyBillsRedirect } from "@/routes/LegacyBillsRedirect";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -99,26 +100,50 @@ const Routes = () => {
             },
             {
               path: "/bills",
-              element: <Navigate to={'/bills/retail'} />,
+              element: <LegacyBillsPathRedirect to="/orders/retail" />,
             },
             {
               path: "/bills/new",
-              element: <BillsForm />,
+              element: <LegacyBillsPathRedirect to="/orders/new" />,
             },
             {
               path: "/bills/view",
-              element: <BillsView />,
+              element: <LegacyBillsPathRedirect to="/orders/view" />,
             },
             {
-              path: '/bills/:billType/report',
-              element: <BillsReport />
+              path: "/bills/:orderType/report",
+              element: <LegacyBillsRedirect />,
             },
             {
-              path: "/bills/update/:bill_id",
+              path: "/bills/update/:order_id",
+              element: <LegacyBillsRedirect />,
+            },
+            {
+              path: "/bills/:orderType",
+              element: <LegacyBillsRedirect />,
+            },
+            {
+              path: "/orders",
+              element: <Navigate to={'/orders/retail'} />,
+            },
+            {
+              path: "/orders/new",
               element: <BillsForm />,
             },
             {
-              path: "/bills/:billType",
+              path: "/orders/view",
+              element: <BillsView />,
+            },
+            {
+              path: '/orders/:orderType/report',
+              element: <BillsReport />
+            },
+            {
+              path: "/orders/update/:order_id",
+              element: <BillsForm />,
+            },
+            {
+              path: "/orders/:orderType",
               element: <Bills />,
             },
             {

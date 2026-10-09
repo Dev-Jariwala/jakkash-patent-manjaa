@@ -22,7 +22,7 @@
 -- Uncomment ONLY if you want to wipe and rebuild from scratch.
 -- This destroys all data. Order matters (children first).
 --
--- DROP TABLE IF EXISTS bill_items CASCADE;
+-- DROP TABLE IF EXISTS order_items CASCADE;
 -- DROP TABLE IF EXISTS bills       CASCADE;
 -- DROP TABLE IF EXISTS stocks      CASCADE;
 -- DROP TABLE IF EXISTS purchases   CASCADE;
@@ -129,14 +129,14 @@ CREATE TABLE IF NOT EXISTS purchases (
     quantity         INT            NOT NULL
 );
 
--- bills ---------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS bills (
+ -- orders ---------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS orders (
     sr_no             SERIAL PRIMARY KEY,
-    bill_id           UUID        NOT NULL UNIQUE DEFAULT gen_random_uuid(),
+    order_id           UUID        NOT NULL UNIQUE DEFAULT gen_random_uuid(),
     collection_id     UUID        NOT NULL REFERENCES collections (collection_id),
-    bill_no           INT         NOT NULL,
-    bill_type         VARCHAR(50) NOT NULL
-                                  CHECK (bill_type IN ('retail', 'wholesale')),
+    order_no           INT         NOT NULL,
+    order_type         VARCHAR(50) NOT NULL
+                                  CHECK (order_type IN ('retail', 'wholesale')),
     mobile            VARCHAR(20)  NOT NULL,
     name              VARCHAR(100) NOT NULL,
     address           VARCHAR(500) NOT NULL,
@@ -170,25 +170,25 @@ CREATE TABLE IF NOT EXISTS bills (
       "canceled_at": null
     }'::jsonb,
 
-    CONSTRAINT bills_collection_id_bill_no_bill_type_key
-        UNIQUE (collection_id, bill_no, bill_type)
+    CONSTRAINT orders_collection_id_order_no_order_type_key
+        UNIQUE (collection_id, order_no, order_type)
 );
 
--- bill_items ----------------------------------------------------------
+-- order_items ----------------------------------------------------------
 -- price is snapshotted at bill time (retail_price or wholesale_price
--- depending on bills.bill_type), so later product price edits do not
+-- depending on bills.order_type), so later product price edits do not
 -- rewrite historical bills.
-CREATE TABLE IF NOT EXISTS bill_items (
+CREATE TABLE IF NOT EXISTS order_items (
     sr_no        SERIAL PRIMARY KEY,
-    bill_item_id UUID  NOT NULL UNIQUE DEFAULT gen_random_uuid(),
-    bill_id      UUID  NOT NULL REFERENCES bills (bill_id),
+    order_item_id UUID  NOT NULL UNIQUE DEFAULT gen_random_uuid(),
+    order_id      UUID  NOT NULL REFERENCES orders (order_id),
     product_id   UUID  NOT NULL REFERENCES products (product_id),
     quantity     INT   NOT NULL,
     price        FLOAT NOT NULL,
-    CONSTRAINT bill_items_bill_id_product_id_key UNIQUE (bill_id, product_id)
+    CONSTRAINT order_items_order_id_product_id_key UNIQUE (order_id, product_id)
 );
--- Note: no ON DELETE CASCADE by design — controllers/bills.js deletes
--- bill_items explicitly so it can restore products.stock_in_hand.
+-- Note: no ON DELETE CASCADE by design — controllers/orders.js deletes
+-- order_items explicitly so it can restore products.stock_in_hand.
 
 -- app_settings --------------------------------------------------------
 -- Global key/value shop settings (ADR-0009, ADR-0010). Currently holds
@@ -216,10 +216,10 @@ ALTER TABLE stocks
     ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ;
 
-ALTER TABLE bills
+ALTER TABLE orders
     ADD COLUMN IF NOT EXISTS delivered_at TIMESTAMPTZ DEFAULT NULL;
 
-ALTER TABLE bills
+ALTER TABLE orders
     ADD COLUMN IF NOT EXISTS whatsapp_metadata JSONB NOT NULL DEFAULT '{
       "status": "no",
       "delivery_requested": false,
@@ -237,7 +237,7 @@ ALTER TABLE bills
 -- Backfill: migration 002 shipped without provider_accepted_at, but the
 -- metadata builders in services/whatsappBillMetadata.js always write it.
 -- This aligns pre-existing rows with the canonical shape.
-UPDATE bills
+UPDATE orders
 SET whatsapp_metadata = whatsapp_metadata || '{"provider_accepted_at": null}'::jsonb
 WHERE NOT (whatsapp_metadata ? 'provider_accepted_at');
 
@@ -247,7 +247,7 @@ WHERE NOT (whatsapp_metadata ? 'provider_accepted_at');
 -- ---------------------------------------------------------------------
 -- Every index below backs a query that actually exists in the codebase.
 -- UNIQUE columns (users.username, clients.mobile, *_id, and the bills
--- (collection_id, bill_no, bill_type) constraint) are already indexed.
+-- (collection_id, order_no, order_type) constraint) are already indexed.
 
 -- products: collection listing + ILIKE search + report joins
 CREATE INDEX IF NOT EXISTS idx_products_collection_id
@@ -267,19 +267,19 @@ CREATE INDEX IF NOT EXISTS idx_stocks_collection_date
 CREATE INDEX IF NOT EXISTS idx_purchases_collection_id
     ON purchases (collection_id);
 
--- bills: the paginated list filters on (collection_id, bill_type) and
--- sorts by bill_no; wholesale-by-mobile report filters on mobile.
-CREATE INDEX IF NOT EXISTS idx_bills_collection_type_billno
-    ON bills (collection_id, bill_type, bill_no DESC);
-CREATE INDEX IF NOT EXISTS idx_bills_mobile
-    ON bills (mobile);
+-- bills: the paginated list filters on (collection_id, order_type) and
+-- sorts by order_no; wholesale-by-mobile report filters on mobile.
+CREATE INDEX IF NOT EXISTS idx_orders_collection_type_orderno
+    ON orders (collection_id, order_type, order_no DESC);
+CREATE INDEX IF NOT EXISTS idx_orders_mobile
+    ON orders (mobile);
 
--- bill_items: joined by bill_id on every bill fetch, by product_id in
+-- order_items: joined by order_id on every bill fetch, by product_id in
 -- the products report and analytics subqueries.
-CREATE INDEX IF NOT EXISTS idx_bill_items_bill_id
-    ON bill_items (bill_id);
-CREATE INDEX IF NOT EXISTS idx_bill_items_product_id
-    ON bill_items (product_id);
+CREATE INDEX IF NOT EXISTS idx_order_items_order_id
+    ON order_items (order_id);
+CREATE INDEX IF NOT EXISTS idx_order_items_product_id
+    ON order_items (product_id);
 
 
 -- ---------------------------------------------------------------------

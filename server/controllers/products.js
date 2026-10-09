@@ -174,13 +174,13 @@ export const getProductsReport = async (req, res, next) => {
       SELECT 
         p.product_id, 
         p.product_name, 
-        SUM(CASE WHEN b.bill_type = 'retail' THEN bi.quantity ELSE 0 END) as retail_quantity,
-        SUM(CASE WHEN b.bill_type = 'wholesale' THEN bi.quantity ELSE 0 END) as wholesale_quantity,
-        SUM(CASE WHEN b.bill_type = 'retail' THEN bi.quantity * bi.price ELSE 0 END) as retail_amount,
-        SUM(CASE WHEN b.bill_type = 'wholesale' THEN bi.quantity * bi.price ELSE 0 END) as wholesale_amount
+        SUM(CASE WHEN b.order_type = 'retail' THEN bi.quantity ELSE 0 END) as retail_quantity,
+        SUM(CASE WHEN b.order_type = 'wholesale' THEN bi.quantity ELSE 0 END) as wholesale_quantity,
+        SUM(CASE WHEN b.order_type = 'retail' THEN bi.quantity * bi.price ELSE 0 END) as retail_amount,
+        SUM(CASE WHEN b.order_type = 'wholesale' THEN bi.quantity * bi.price ELSE 0 END) as wholesale_amount
       FROM products p
-      LEFT JOIN bill_items bi ON p.product_id = bi.product_id
-      LEFT JOIN bills b ON bi.bill_id = b.bill_id
+      LEFT JOIN order_items bi ON p.product_id = bi.product_id
+      LEFT JOIN orders b ON bi.order_id = b.order_id
       WHERE p.collection_id = $1
       GROUP BY p.product_id, p.product_name
       ORDER BY p.product_name

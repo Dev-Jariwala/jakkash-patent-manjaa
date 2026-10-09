@@ -1,6 +1,6 @@
 import { body, param, validationResult } from "express-validator";
 import { query } from "../utils/query.js";
-export const validateCreateBill = [
+export const validateCreateOrder = [
   param("collection_id")
     .notEmpty()
     .withMessage("collection_id is required")
@@ -18,52 +18,52 @@ export const validateCreateBill = [
       req.collection = collection;
       return true;
     }),
-  body("bill_type")
+  body("order_type")
     .notEmpty()
-    .withMessage("bill_type is required")
+    .withMessage("order_type is required")
     .isIn(["retail", "wholesale"])
-    .withMessage("bill_type must be either retail or wholesale"),
-  body("bill_no")
+    .withMessage("order_type must be either retail or wholesale"),
+  body("order_no")
     .notEmpty()
-    .withMessage("bill_no is required")
+    .withMessage("order_no is required")
     .isInt({ min: 1 })
-    .withMessage("bill_no must be an positive integer")
+    .withMessage("order_no must be an positive integer")
     .custom(async (value, { req }) => {
       if (!value) {
-        throw new Error("bill_no is required");
+        throw new Error("order_no is required");
       }
       const [bill] = await query(
-        "SELECT * FROM bills WHERE bill_no = $1 and bill_type = $2 and collection_id = $3",
-        [value, req.body.bill_type, req.body.collection_id]
+        "SELECT * FROM orders WHERE order_no = $1 and order_type = $2 and collection_id = $3",
+        [value, req.body.order_type, req.body.collection_id]
       );
       if (bill) {
-        throw new Error("Bill with this bill_no already exists");
+        throw new Error("Order with this order_no already exists");
       }
       return true;
     }),
-  body("bill_items")
+  body("order_items")
     .isArray({ min: 1 })
-    .withMessage("bill_items must be an array"),
-  body("bill_items")
+    .withMessage("order_items must be an array"),
+  body("order_items")
     .isArray({ min: 1 })
-    .withMessage("bill_items must be an array")
+    .withMessage("order_items must be an array")
     .custom((billItems, { req }) => {
       const productIds = billItems.map((item) => item.product_id);
       const uniqueProductIds = new Set(productIds);
       if (productIds.length !== uniqueProductIds.size) {
-        throw new Error("Each bill_item must have a unique product_id");
+        throw new Error("Each order_item must have a unique product_id");
       }
       return true;
     }),
-  body("bill_items.*.product_id")
+  body("order_items.*.product_id")
     .notEmpty()
-    .withMessage("product_id is required for each bill_item")
+    .withMessage("product_id is required for each order_item")
     .custom(async (value, { req }) => {
-      const bill_items = req.body.bill_items;
-      const currProd = bill_items.find((item) => item.product_id === value);
-      const priceKey = req.body.bill_type + "_price";
+      const order_items = req.body.order_items;
+      const currProd = order_items.find((item) => item.product_id === value);
+      const priceKey = req.body.order_type + "_price";
       if (!value) {
-        throw new Error("product_id is required for each bill_item");
+        throw new Error("product_id is required for each order_item");
       }
       const [product] = await query(
         "SELECT * FROM products WHERE product_id =$1 and collection_id =$2",
@@ -76,7 +76,7 @@ export const validateCreateBill = [
         throw new Error("Insufficient stock in hand for product_id");
       }
       if (product[priceKey] <= 0) {
-        throw new Error("price says product is not for this bill_type");
+        throw new Error("price says product is not for this order_type");
       }
       if (!req.products) {
         req.products = [product];
@@ -86,9 +86,9 @@ export const validateCreateBill = [
 
       return true;
     }),
-  body("bill_items.*.quantity")
+  body("order_items.*.quantity")
     .notEmpty()
-    .withMessage("quantity is required for each bill_item")
+    .withMessage("quantity is required for each order_item")
     .isInt({ gt: 0 })
     .withMessage("quantity must be a positive integer"),
   body("mobile")
@@ -131,10 +131,10 @@ export const validateCreateBill = [
     .withMessage("sub_total must be a positive float")
     .custom((value, { req }) => {
       const products = req.products;
-      const items = req.body.bill_items;
+      const items = req.body.order_items;
       const sub_total = items.reduce((acc, item) => {
         const prod = products.find(prod => prod.product_id === item.product_id);
-        const price = prod[`${req.body.bill_type}_price`];
+        const price = prod[`${req.body.order_type}_price`];
         return acc + item.quantity * price;
       }, 0);
       if (value !== sub_total) {
@@ -190,10 +190,10 @@ export const validateCreateBill = [
       }
       return true;
     }),
-  body("send_bill_on_whatsapp")
+  body("send_order_on_whatsapp")
     .optional()
     .isBoolean()
-    .withMessage("send_bill_on_whatsapp must be a boolean"),
+    .withMessage("send_order_on_whatsapp must be a boolean"),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -202,7 +202,7 @@ export const validateCreateBill = [
     next();
   },
 ];
-export const validateUpdateBillById = [
+export const validateUpdateOrderById = [
   param("collection_id")
     .notEmpty()
     .withMessage("collection_id is required")
@@ -220,52 +220,52 @@ export const validateUpdateBillById = [
       req.collection = collection;
       return true;
     }),
-  body("bill_type")
+  body("order_type")
     .notEmpty()
-    .withMessage("bill_type is required")
+    .withMessage("order_type is required")
     .isIn(["retail", "wholesale"])
-    .withMessage("bill_type must be either retail or wholesale"),
-  body("bill_no")
+    .withMessage("order_type must be either retail or wholesale"),
+  body("order_no")
     .notEmpty()
-    .withMessage("bill_no is required")
+    .withMessage("order_no is required")
     .isInt({ min: 1 })
-    .withMessage("bill_no must be an positive integer")
+    .withMessage("order_no must be an positive integer")
     .custom(async (value, { req }) => {
       if (!value) {
-        throw new Error("bill_no is required");
+        throw new Error("order_no is required");
       }
       const [bill] = await query(
-        "SELECT * FROM bills WHERE bill_no = $1 and bill_type = $2 and collection_id = $3",
-        [value, req.body.bill_type, req.body.collection_id]
+        "SELECT * FROM orders WHERE order_no = $1 and order_type = $2 and collection_id = $3",
+        [value, req.body.order_type, req.body.collection_id]
       );
       if (bill) {
-        throw new Error("Bill with this bill_no already exists");
+        throw new Error("Order with this order_no already exists");
       }
       return true;
     }),
-  body("bill_items")
+  body("order_items")
     .isArray({ min: 1 })
-    .withMessage("bill_items must be an array"),
-  body("bill_items")
+    .withMessage("order_items must be an array"),
+  body("order_items")
     .isArray({ min: 1 })
-    .withMessage("bill_items must be an array")
+    .withMessage("order_items must be an array")
     .custom((billItems, { req }) => {
       const productIds = billItems.map((item) => item.product_id);
       const uniqueProductIds = new Set(productIds);
       if (productIds.length !== uniqueProductIds.size) {
-        throw new Error("Each bill_item must have a unique product_id");
+        throw new Error("Each order_item must have a unique product_id");
       }
       return true;
     }),
-  body("bill_items.*.product_id")
+  body("order_items.*.product_id")
     .notEmpty()
-    .withMessage("product_id is required for each bill_item")
+    .withMessage("product_id is required for each order_item")
     .custom(async (value, { req }) => {
-      const bill_items = req.body.bill_items;
-      const currProd = bill_items.find((item) => item.product_id === value);
-      const priceKey = req.body.bill_type + "_price";
+      const order_items = req.body.order_items;
+      const currProd = order_items.find((item) => item.product_id === value);
+      const priceKey = req.body.order_type + "_price";
       if (!value) {
-        throw new Error("product_id is required for each bill_item");
+        throw new Error("product_id is required for each order_item");
       }
       const [product] = await query(
         "SELECT * FROM products WHERE product_id =$1 and collection_id =$2",
@@ -274,7 +274,7 @@ export const validateUpdateBillById = [
       if (!product) {
         throw new Error(`product not found in collection`);
       }
-      const [billItem] = await query(`SELECT * FROM bill_items WHERE product_id = $1 and bill_id = $2`, [value, req.params.bill_id]);
+      const [billItem] = await query(`SELECT * FROM order_items WHERE product_id = $1 and order_id = $2`, [value, req.params.order_id]);
 
       if (billItem) {
         if (product.stock_in_hand + billItem.quantity < currProd.quantity) {
@@ -286,7 +286,7 @@ export const validateUpdateBillById = [
         }
       }
       if (product[priceKey] <= 0) {
-        throw new Error("price says product is not for this bill_type");
+        throw new Error("price says product is not for this order_type");
       }
       if (!req.products) {
         req.products = [product];
@@ -296,9 +296,9 @@ export const validateUpdateBillById = [
 
       return true;
     }),
-  body("bill_items.*.quantity")
+  body("order_items.*.quantity")
     .notEmpty()
-    .withMessage("quantity is required for each bill_item")
+    .withMessage("quantity is required for each order_item")
     .isInt({ gt: 0 })
     .withMessage("quantity must be a positive integer"),
   body("mobile")
@@ -341,10 +341,10 @@ export const validateUpdateBillById = [
     .withMessage("sub_total must be a positive float")
     .custom((value, { req }) => {
       const products = req.products;
-      const items = req.body.bill_items;
+      const items = req.body.order_items;
       const sub_total = items.reduce((acc, item) => {
         const prod = products.find(prod => prod.product_id === item.product_id);
-        const price = prod[`${req.body.bill_type}_price`];
+        const price = prod[`${req.body.order_type}_price`];
         return acc + item.quantity * price;
       }, 0);
       if (value !== sub_total) {
@@ -409,7 +409,7 @@ export const validateUpdateBillById = [
   },
 ];
 
-export const validateUpdateBillDeliveryStatus = [
+export const validateUpdateOrderDeliveryStatus = [
   param("collection_id")
     .notEmpty()
     .withMessage("collection_id is required")
@@ -427,19 +427,19 @@ export const validateUpdateBillDeliveryStatus = [
       req.collection = collection;
       return true;
     }),
-  param("bill_id")
+  param("order_id")
     .notEmpty()
-    .withMessage("bill_id is required")
+    .withMessage("order_id is required")
     .custom(async (value, { req }) => {
       if (!value) {
-        throw new Error("bill_id is required");
+        throw new Error("order_id is required");
       }
       const [bill] = await query(
-        "SELECT * FROM bills WHERE bill_id = $1 and collection_id = $2",
+        "SELECT * FROM orders WHERE order_id = $1 and collection_id = $2",
         [value, req.collection.collection_id]
       );
       if (!bill) {
-        throw new Error("bill not found");
+        throw new Error("order not found");
       }
       req.bill = bill;
       return true;
@@ -458,7 +458,7 @@ export const validateUpdateBillDeliveryStatus = [
   },
 ]
 
-export const validateResendBillWhatsAppDelivery = [
+export const validateResendOrderWhatsAppDelivery = [
   param("collection_id")
     .notEmpty()
     .withMessage("collection_id is required")
@@ -473,11 +473,11 @@ export const validateResendBillWhatsAppDelivery = [
       req.collection = collection;
       return true;
     }),
-  param("bill_id")
+  param("order_id")
     .notEmpty()
-    .withMessage("bill_id is required")
+    .withMessage("order_id is required")
     .isUUID()
-    .withMessage("bill_id must be a valid UUID"),
+    .withMessage("order_id must be a valid UUID"),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -487,7 +487,7 @@ export const validateResendBillWhatsAppDelivery = [
   },
 ];
 
-export const validateForceCancelBillWhatsAppDelivery = [
+export const validateForceCancelOrderWhatsAppDelivery = [
   param("collection_id")
     .notEmpty()
     .withMessage("collection_id is required")
@@ -502,11 +502,11 @@ export const validateForceCancelBillWhatsAppDelivery = [
       req.collection = collection;
       return true;
     }),
-  param("bill_id")
+  param("order_id")
     .notEmpty()
-    .withMessage("bill_id is required")
+    .withMessage("order_id is required")
     .isUUID()
-    .withMessage("bill_id must be a valid UUID"),
+    .withMessage("order_id must be a valid UUID"),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -516,7 +516,7 @@ export const validateForceCancelBillWhatsAppDelivery = [
   },
 ];
 
-export const validateUpdateBillPaymentStatus = [
+export const validateUpdateOrderPaymentStatus = [
   param("collection_id")
     .notEmpty()
     .withMessage("collection_id is required")
@@ -537,19 +537,19 @@ export const validateUpdateBillPaymentStatus = [
       req.collection = collection;
       return true;
     }),
-  param("bill_id")
+  param("order_id")
     .notEmpty()
-    .withMessage("bill_id is required")
+    .withMessage("order_id is required")
     .isUUID()
-    .withMessage("bill_id must be a valid UUID")
+    .withMessage("order_id must be a valid UUID")
     .custom(async (value, { req }) => {
       const [bill] = await query(
-        "SELECT * FROM bills WHERE bill_id = $1 and collection_id = $2",
+        "SELECT * FROM orders WHERE order_id = $1 and collection_id = $2",
         [value, req.params.collection_id]
       );
 
       if (!bill) {
-        throw new Error("Bill not found");
+        throw new Error("Order not found");
       }
 
       req.bill = bill;

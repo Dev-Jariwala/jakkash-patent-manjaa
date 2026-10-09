@@ -17,7 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import WhatsAppServiceDisabledDialog from "@/components/bills/WhatsAppServiceDisabledDialog";
-import { resendBillWhatsAppDelivery } from "@/services/bills";
+import { resendOrderWhatsAppDelivery } from "@/services/orders";
 import { getWhatsAppServiceSetting } from "@/services/settings";
 import {
   canResendWhatsAppDelivery,
@@ -28,7 +28,7 @@ import {
 import { BILL_NUMBER_LABEL } from "@jakkash/bill-pdf";
 
 /**
- * Dedicated resend affordance for WhatsApp bill delivery.
+ * Dedicated resend affordance for WhatsApp order delivery.
  *
  * Three mutually exclusive states drive the UX:
  *  - service disabled  -> explain why and offer a path to Settings (PRD 37/38)
@@ -58,12 +58,12 @@ const WhatsAppResendAction = ({ bill, collectionId, variant = "icon", className 
   const label = getResendActionLabel(status);
 
   const resendMutation = useMutation({
-    mutationFn: resendBillWhatsAppDelivery,
+    mutationFn: resendOrderWhatsAppDelivery,
     onSuccess: () => {
-      toast.success("WhatsApp bill delivery queued");
+      toast.success("WhatsApp order delivery queued");
       setDialog(null);
-      queryClient.invalidateQueries({ queryKey: ["bills"] });
-      queryClient.invalidateQueries({ queryKey: ["bill"] });
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
+      queryClient.invalidateQueries({ queryKey: ["order"] });
     },
     onError: (error) => {
       const response = error?.response?.data;
@@ -77,8 +77,8 @@ const WhatsAppResendAction = ({ bill, collectionId, variant = "icon", className 
 
       setDialog(null);
       toast.error(response?.message || `Failed to queue WhatsApp delivery: ${error.message}`);
-      queryClient.invalidateQueries({ queryKey: ["bills"] });
-      queryClient.invalidateQueries({ queryKey: ["bill"] });
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
+      queryClient.invalidateQueries({ queryKey: ["order"] });
     },
   });
 
@@ -93,11 +93,11 @@ const WhatsAppResendAction = ({ bill, collectionId, variant = "icon", className 
   const handleConfirm = (event) => {
     // Keep the dialog mounted while the request is in flight.
     event.preventDefault();
-    resendMutation.mutate({ collection_id: collectionId, bill_id: bill?.bill_id });
+    resendMutation.mutate({ collection_id: collectionId, order_id: bill?.order_id });
   };
 
   const disabledReason = isProcessing
-    ? "A WhatsApp delivery is already in progress for this bill"
+    ? "A WhatsApp delivery is already in progress for this order"
     : !statusAllowsResend
       ? `WhatsApp delivery cannot be resent from status "${status}"`
       : undefined;
@@ -149,8 +149,8 @@ const WhatsAppResendAction = ({ bill, collectionId, variant = "icon", className 
             <AlertDialogTitle>{label}?</AlertDialogTitle>
             <AlertDialogDescription>
               {status === WHATSAPP_DELIVERY_STATUS.SUCCESS
-                ? `${BILL_NUMBER_LABEL} ${bill?.bill_no} was already delivered on WhatsApp. Sending again will deliver a second copy to ${bill?.mobile}.`
-                : `${BILL_NUMBER_LABEL} ${bill?.bill_no} will be generated and sent to ${bill?.mobile} on WhatsApp.`}
+                ? `${BILL_NUMBER_LABEL} ${bill?.order_no} was already delivered on WhatsApp. Sending again will deliver a second copy to ${bill?.mobile}.`
+                : `${BILL_NUMBER_LABEL} ${bill?.order_no} will be generated and sent to ${bill?.mobile} on WhatsApp.`}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -165,7 +165,7 @@ const WhatsAppResendAction = ({ bill, collectionId, variant = "icon", className 
       <WhatsAppServiceDisabledDialog
         open={dialog === "disabled"}
         onClose={() => setDialog(null)}
-        action="resend this bill"
+        action="resend this order"
       />
     </>
   );

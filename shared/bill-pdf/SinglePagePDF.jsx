@@ -15,7 +15,8 @@ import { billPdfStyles as styles } from "./styles.js";
 
 const SinglePagePDF = ({ bill, qrCodeDataUrl }) => {
   const {
-    bill_no,
+    order_no: orderNoFromField,
+    bill_no: billNoLegacy,
     name,
     order_date,
     mobile,
@@ -28,6 +29,7 @@ const SinglePagePDF = ({ bill, qrCodeDataUrl }) => {
     advance,
     total_due,
   } = bill;
+  const bill_no = orderNoFromField ?? billNoLegacy;
   return (
     <>
       <Page size="A5">
