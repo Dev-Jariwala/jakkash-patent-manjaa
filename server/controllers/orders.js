@@ -520,6 +520,17 @@ export const getAllOrders = async (req, res) => {
   }
 };
 
+const ORDER_NO_MAX = 2147483647;
+
+/** Whole order numbers only. Anything else must not be compared to order_no. */
+function parseWholeOrderNo(value) {
+  const text = String(value ?? "").trim();
+  if (!/^\d+$/.test(text)) return null;
+  const number = Number(text);
+  if (!Number.isSafeInteger(number) || number > ORDER_NO_MAX) return null;
+  return number;
+}
+
 export const getOrderReport = async (req, res) => {
   const { collection_id, order_type } = req.params;
   const { fromBillNo, toBillNo } = req.query;
@@ -528,9 +539,19 @@ export const getOrderReport = async (req, res) => {
       select order_no, name, total_firki from orders where collection_id = $1 AND order_type = $2
     `;
     let billsParams = [collection_id, order_type];
-    if (fromBillNo && toBillNo) {
+    const fromText = String(fromBillNo ?? "").trim();
+    const toText = String(toBillNo ?? "").trim();
+    if (fromText || toText) {
+      const fromNo = parseWholeOrderNo(fromText);
+      const toNo = parseWholeOrderNo(toText);
+      if (fromNo === null || toNo === null) {
+        const error = new Error("Order numbers must be whole numbers.");
+        error.statusCode = 400;
+        error.code = "INVALID_ORDER_NUMBER";
+        throw error;
+      }
       billsQuery += ` AND order_no >= $3 AND order_no <= $4`;
-      billsParams.push(fromBillNo, toBillNo);
+      billsParams.push(fromNo, toNo);
     }
     const orders = await query(billsQuery, billsParams);
     res.status(200).json({ message: 'Orders retrieved successfully', orders });
@@ -592,7 +613,7 @@ export const getWholeSaleOrdersByMobile = async (req, res) => {
   try {
     const client = (await getClientByMobileWithLocation(mobile)) ?? {};
     // SQL query to fetch bills with their items and product names
-    const bills = await query(`
+    const orders = await query(`
       SELECT 
         o.*, 
         json_agg(json_build_object('quantity', bi.quantity, 'price', bi.price, 'product_name', p.product_name, 'product_id', p.product_id)) AS order_items
@@ -603,7 +624,7 @@ export const getWholeSaleOrdersByMobile = async (req, res) => {
       GROUP BY o.order_id, o.sr_no
     `, [mobile, collection_id]);
 
-    res.status(200).json({ bills, ...client });
+    res.status(200).json({ orders, ...client });
   } catch (error) {
     handleError('getAllOrdersByClientMobile', res, error);
   }

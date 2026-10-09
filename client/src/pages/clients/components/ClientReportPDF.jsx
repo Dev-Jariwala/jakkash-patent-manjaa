@@ -73,13 +73,14 @@ const ClientReportPDF = ({ client }) => {
         gst_number,
         contact_person,
         contact_number,
-        bills = [],
+        orders: ordersFromClient,
+        bills: billsFromClient,
     } = client;
+    const orders = ordersFromClient ?? billsFromClient ?? [];
     const getProductArray = () => {
         const productArray = [];
 
-        // Iterate through each bill
-        bills?.forEach((bill) => {
+        orders?.forEach((bill) => {
             // Iterate through each product in the order
             bill?.order_items?.forEach((prod) => {
                 const existingProduct = productArray.find(
@@ -429,7 +430,7 @@ const ClientReportPDF = ({ client }) => {
                                 {/* Add more cells for additional data */}
                             </View>
                         </View>
-                        {/* Bill Table */}
+                        {/* Order table */}
                         <View
                             style={{
                                 ...styles.billHead,
@@ -437,7 +438,7 @@ const ClientReportPDF = ({ client }) => {
                                 borderTop: "1px solid black",
                             }}
                         >
-                            <Text>BILL TABLE</Text>
+                            <Text>ORDER TABLE</Text>
                         </View>
                         <View
                             style={{
@@ -537,7 +538,7 @@ const ClientReportPDF = ({ client }) => {
                                 {/* Add more cells for additional data */}
                             </View>
                             {/* Table Rows */}
-                            {bills?.map((bill, index) => (
+                            {orders?.map((bill, index) => (
                                 <View key={index}>
                                     {bill?.order_items?.map((prod, prodIndex) => {
                                         return (

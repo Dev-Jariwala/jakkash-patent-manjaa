@@ -22,7 +22,7 @@ const ClientReport = () => {
     });
     useEffect(() => {
         if (billDataError) {
-            toast.error(`Error getting bills`)
+            toast.error(billDataError?.message || "Error getting orders");
         }
     }, [billDataError]);
     return (
@@ -32,7 +32,7 @@ const ClientReport = () => {
             </div>
                 :
                 <PDFViewer width="100%" height="100%">
-                    <ClientReportPDF client={billData || { name: "", address: "", mobile: "", bills: [] }} />
+                    <ClientReportPDF client={billData || { name: "", address: "", mobile: "", orders: [] }} />
                 </PDFViewer>}
         </div>
     )

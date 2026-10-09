@@ -5,6 +5,8 @@ import {
   createOrder,
   getOrderById,
   getOrderReport,
+  getWholeSaleOrdersByMobile,
+  getWholesaleOrdersCsvReport,
   updateOrderPaymentStatus,
 } from "../controllers/orders.js";
 import { __setWhatsAppBillDeliveryJobAddForTests } from "../services/whatsappBillDeliveryEnqueue.js";
@@ -182,7 +184,11 @@ describe("orders controller handlers (regression)", () => {
       { order_no: 10, name: "Acme", total_firki: 3 },
       { order_no: 11, name: "Beta", total_firki: 1 },
     ];
-    __setQueryImplementationForTests(async () => reportRows);
+    let boundRange;
+    __setQueryImplementationForTests(async (_sql, values) => {
+      boundRange = values?.slice(2);
+      return reportRows;
+    });
 
     const res = createMockResponse();
     await getOrderReport(
@@ -195,6 +201,59 @@ describe("orders controller handlers (regression)", () => {
 
     assert.equal(res.statusCode, 200);
     assert.deepEqual(res.body.orders, reportRows);
+    assert.deepEqual(boundRange, [10, 11]);
+  });
+
+  it("getOrderReport rejects a non-numeric range before querying", async () => {
+    __setQueryImplementationForTests(async () => {
+      throw new Error("query should not run");
+    });
+
+    const res = createMockResponse();
+    await getOrderReport(
+      {
+        params: { collection_id: collectionId, order_type: "retail" },
+        query: { fromBillNo: "`", toBillNo: "100" },
+      },
+      res
+    );
+
+    assert.equal(res.statusCode, 400);
+    assert.equal(res.body.message, "Order numbers must be whole numbers.");
+  });
+
+  it("getWholesaleOrdersCsvReport returns wholesale rows under wholesale_orders", async () => {
+    const rows = [{ order_no: 1, order_type: "wholesale" }];
+    __setQueryImplementationForTests(async () => rows);
+
+    const res = createMockResponse();
+    await getWholesaleOrdersCsvReport(
+      { params: { collection_id: collectionId } },
+      res
+    );
+
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(res.body.wholesale_orders, rows);
+  });
+
+  it("getWholeSaleOrdersByMobile returns client orders under orders", async () => {
+    const orderRows = [{ order_no: 5, order_items: [] }];
+    __setQueryImplementationForTests(async (sql) => {
+      if (String(sql).includes("FROM orders o")) {
+        return orderRows;
+      }
+      return [];
+    });
+
+    const res = createMockResponse();
+    await getWholeSaleOrdersByMobile(
+      { params: { mobile: "9876543210", collection_id: collectionId } },
+      res
+    );
+
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(res.body.orders, orderRows);
+    assert.equal(res.body.bills, undefined);
   });
 });
 

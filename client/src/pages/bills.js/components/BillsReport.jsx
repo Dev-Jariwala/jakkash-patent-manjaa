@@ -38,7 +38,7 @@ const BillsReport = () => {
             setReportData(data);
         },
         onError: (error) => {
-            toast.error(error?.message || "An error occurred while fetching the report.");
+            toast.error(error?.response?.data?.message || error?.message || "An error occurred while fetching the order report.");
         },
     });
 
@@ -47,12 +47,16 @@ const BillsReport = () => {
             toast.error("Please provide all required inputs.");
             return;
         }
+        if (!/^\d+$/.test(fromBillNo) || !/^\d+$/.test(toBillNo)) {
+            toast.error("Order numbers must be whole numbers.");
+            return;
+        }
         fetchReport();
     };
 
     useEffect(() => {
         if (reportError) {
-            toast.error(reportError?.message || "An error occurred while fetching the report.");
+            toast.error(reportError?.response?.data?.message || reportError?.message || "An error occurred while fetching the order report.");
         }
     }, [reportError])
 
@@ -63,14 +67,15 @@ const BillsReport = () => {
                     <Input
                         value={fromBillNo}
                         placeholder={`From ${BILL_NUMBER_LABEL}`}
-                        onChange={(e) => setFromBillNo(e.target.value)}
+                        onChange={(e) => setFromBillNo(e.target.value.replace(/\D/g, ""))}
                     />
                 </div>
                 <div className="space-y-2">
                     <Input
                         value={toBillNo}
+                        inputMode="numeric"
                         placeholder={`To ${BILL_NUMBER_LABEL}`}
-                        onChange={(e) => setToBillNo(e.target.value)}
+                        onChange={(e) => setToBillNo(e.target.value.replace(/\D/g, ""))}
                     />
                 </div>
                 <Button onClick={handleGenerateReport}>
