@@ -28,6 +28,7 @@ import Dashboard from "@/pages/dashboard/Dashboard";
 import Landing from "@/pages/landing/Landing";
 import Settings from "@/pages/settings/Settings";
 import Masters from "@/pages/masters/Masters";
+import BankDetails from "@/pages/bank-details/BankDetails";
 import { LegacyBillsPathRedirect, LegacyBillsRedirect } from "@/routes/LegacyBillsRedirect";
 
 const Routes = () => {
@@ -174,6 +175,10 @@ const Routes = () => {
             {
               path: "/masters",
               element: <Masters />,
+            },
+            {
+              path: "/bank-details",
+              element: <BankDetails />,
             },
             {
               path: "/settings",

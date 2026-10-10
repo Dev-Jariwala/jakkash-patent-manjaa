@@ -12,5 +12,7 @@ router.get("/masters/cities", commonControllers.getMastersCities);
 router.get("/masters/tax-codes", commonControllers.getMastersTaxCodes);
 router.post("/masters/tax-codes", commonControllers.createMastersTaxCode);
 router.put("/masters/tax-codes/:tax_code_id", commonControllers.updateMastersTaxCode);
+router.get("/shop-bank-account", commonControllers.getShopBankAccountHandler);
+router.put("/shop-bank-account", commonControllers.saveShopBankAccountHandler);
 
 export default router;

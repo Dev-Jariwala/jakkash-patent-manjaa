@@ -2,6 +2,11 @@ import { handleError } from "../utils/error.js";
 import { query } from "../utils/query.js";
 import { createTaxCode, listTaxCodes, updateTaxCode } from "../services/taxCodeMaintenance.js";
 import { createTaxCodeMaintenanceDeps } from "../services/taxCodeMaintenanceStore.js";
+import {
+  getShopBankAccount,
+  saveShopBankAccount,
+} from "../services/shopBankAccount.js";
+import { createShopBankAccountDeps } from "../services/shopBankAccountStore.js";
 
 function parseMastersListPagination(queryParams) {
   const { page = 1, limit = 10 } = queryParams;
@@ -192,5 +197,26 @@ export const updateMastersTaxCode = async (req, res) => {
     res.status(200).json({ tax_code: taxCode });
   } catch (error) {
     handleError("updateMastersTaxCode", res, error);
+  }
+};
+
+export const getShopBankAccountHandler = async (req, res) => {
+  try {
+    const shopBankAccount = await getShopBankAccount(createShopBankAccountDeps());
+    res.status(200).json({ shop_bank_account: shopBankAccount });
+  } catch (error) {
+    handleError("getShopBankAccount", res, error);
+  }
+};
+
+export const saveShopBankAccountHandler = async (req, res) => {
+  try {
+    const shopBankAccount = await saveShopBankAccount(
+      createShopBankAccountDeps(),
+      req.body
+    );
+    res.status(200).json({ shop_bank_account: shopBankAccount });
+  } catch (error) {
+    handleError("saveShopBankAccount", res, error);
   }
 };

@@ -32,6 +32,14 @@ _Avoid_: Town, locality
 A catalog row on Masters (HSN/SAC tab) for goods or services: a stable id, a digits-only statutory code, a required description, and default CGST, SGST, and IGST rates. HSN is 4, 6, or 8 digits; SAC is 6 digits. The code is unique within its type; the same digits may exist once as HSN and once as SAC. Type is fixed at create; there is no delete.
 _Avoid_: Product tax field, live rate lookup on a future Bill
 
+**Shop bank account**:
+The shop's one current account of bank name, bank address, account number, and IFSC, maintained on Bank details. The first save creates the only row; every later save updates that same row. There is no delete.
+_Avoid_: Bank details as a second concept, a list of accounts
+
+**Bill bank block**:
+The copy of bank name, bank address, account number, and IFSC stored on a Bill when it is raised and printed only on that Bill's PDF. It does not store a bank id and is not refreshed when the shop bank account or the Bill is edited later.
+_Avoid_: Live account lookup on the Bill PDF, bank fields on the Order PDF
+
 **Bill**:
 The future GST document raised from a sale. Not the commercial sale record itself.
 _Avoid_: Order, invoice as a synonym for Order
