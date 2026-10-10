@@ -27,6 +27,7 @@ import Sidebar from "@/components/ui/sidebar/Sidebar";
 import Dashboard from "@/pages/dashboard/Dashboard";
 import Landing from "@/pages/landing/Landing";
 import Settings from "@/pages/settings/Settings";
+import Masters from "@/pages/masters/Masters";
 import { LegacyBillsPathRedirect, LegacyBillsRedirect } from "@/routes/LegacyBillsRedirect";
 
 const Routes = () => {
@@ -169,6 +170,10 @@ const Routes = () => {
             {
               path: "/analytics",
               element: <Analytics />,
+            },
+            {
+              path: "/masters",
+              element: <Masters />,
             },
             {
               path: "/settings",

@@ -28,3 +28,35 @@ export const getCities = async (state_id) => {
   });
   return response;
 };
+
+const mastersListParams = ({ pageIndex, pageSize }) => ({
+  page: pageIndex + 1,
+  limit: pageSize,
+});
+
+export const getMastersCountries = async ({ pageIndex, pageSize }) => {
+  const response = await axios({
+    method: "GET",
+    url: `${import.meta.env.VITE_BACKEND_URL}common/masters/countries`,
+    params: mastersListParams({ pageIndex, pageSize }),
+  });
+  return response;
+};
+
+export const getMastersStates = async ({ pageIndex, pageSize }) => {
+  const response = await axios({
+    method: "GET",
+    url: `${import.meta.env.VITE_BACKEND_URL}common/masters/states`,
+    params: mastersListParams({ pageIndex, pageSize }),
+  });
+  return response;
+};
+
+export const getMastersCities = async ({ pageIndex, pageSize }) => {
+  const response = await axios({
+    method: "GET",
+    url: `${import.meta.env.VITE_BACKEND_URL}common/masters/cities`,
+    params: mastersListParams({ pageIndex, pageSize }),
+  });
+  return response;
+};

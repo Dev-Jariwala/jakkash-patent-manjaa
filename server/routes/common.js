@@ -6,5 +6,8 @@ const router = express.Router();
 router.get("/countries", commonControllers.getCountries);
 router.get("/states", commonControllers.getStates);
 router.get("/cities", commonControllers.getCities);
+router.get("/masters/countries", commonControllers.getMastersCountries);
+router.get("/masters/states", commonControllers.getMastersStates);
+router.get("/masters/cities", commonControllers.getMastersCities);
 
 export default router;

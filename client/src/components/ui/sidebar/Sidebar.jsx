@@ -20,9 +20,10 @@ import PurchaseSvg from "@/components/svgs/PurchaseSvg";
 import AnalyticsSvg from "@/components/svgs/AnalyticsSvg";
 import { cn } from "@/lib/utils";
 import CollectionsSvg from "@/components/svgs/Collections";
-import { Settings as SettingsIcon } from "lucide-react";
+import { BookMarked, Settings as SettingsIcon } from "lucide-react";
 
 const SettingsNavIcon = () => <SettingsIcon className="w-6 h-6" />;
+const MastersNavIcon = () => <BookMarked className="w-6 h-6" />;
 
 
 const data = {
@@ -73,6 +74,12 @@ const data = {
             title: 'Analytics',
             icon: AnalyticsSvg,
             link: '/analytics',
+            isCollapsible: false,
+        },
+        {
+            title: 'Masters',
+            icon: MastersNavIcon,
+            link: '/masters',
             isCollapsible: false,
         },
         {

@@ -1,6 +1,28 @@
 import { handleError } from "../utils/error.js";
 import { query } from "../utils/query.js";
 
+function parseMastersListPagination(queryParams) {
+  const { page = 1, limit = 10 } = queryParams;
+  const parsedPage = Math.max(1, Number.parseInt(page, 10) || 1);
+  const parsedLimit = Math.min(
+    100,
+    Math.max(1, Number.parseInt(limit, 10) || 10)
+  );
+  const offset = (parsedPage - 1) * parsedLimit;
+  return { page: parsedPage, limit: parsedLimit, offset };
+}
+
+function mastersListResponse({ rows, totalCount, page, limit, key }) {
+  const totalPages = Math.max(1, Math.ceil(totalCount / limit));
+  return {
+    [key]: rows,
+    totalCount,
+    totalPages,
+    page,
+    limit,
+  };
+}
+
 export const getCountries = async (req, res) => {
   try {
     const countries = await query(
@@ -45,5 +67,88 @@ export const getCities = async (req, res) => {
     res.status(200).json({ cities });
   } catch (error) {
     handleError("getCities", res, error);
+  }
+};
+
+export const getMastersCountries = async (req, res) => {
+  const { page, limit, offset } = parseMastersListPagination(req.query);
+  try {
+    const [{ count: totalCount }] = await query(
+      `select count(*)::int as count from countries`
+    );
+    const countries = await query(
+      `select sr_no, country_id, name, iso2, iso3, is_active
+       from countries
+       order by name
+       limit $1 offset $2`,
+      [limit, offset]
+    );
+    res.status(200).json(
+      mastersListResponse({
+        rows: countries,
+        totalCount,
+        page,
+        limit,
+        key: "countries",
+      })
+    );
+  } catch (error) {
+    handleError("getMastersCountries", res, error);
+  }
+};
+
+export const getMastersStates = async (req, res) => {
+  const { page, limit, offset } = parseMastersListPagination(req.query);
+  try {
+    const [{ count: totalCount }] = await query(
+      `select count(*)::int as count from states`
+    );
+    const states = await query(
+      `select s.sr_no, s.state_id, s.name, s.is_active, c.name as country_name
+       from states s
+       inner join countries c on c.country_id = s.country_id
+       order by c.name, s.name
+       limit $1 offset $2`,
+      [limit, offset]
+    );
+    res.status(200).json(
+      mastersListResponse({
+        rows: states,
+        totalCount,
+        page,
+        limit,
+        key: "states",
+      })
+    );
+  } catch (error) {
+    handleError("getMastersStates", res, error);
+  }
+};
+
+export const getMastersCities = async (req, res) => {
+  const { page, limit, offset } = parseMastersListPagination(req.query);
+  try {
+    const [{ count: totalCount }] = await query(
+      `select count(*)::int as count from cities`
+    );
+    const cities = await query(
+      `select ci.sr_no, ci.city_id, ci.name, ci.is_active, s.name as state_name
+       from cities ci
+       inner join states s on s.state_id = ci.state_id
+       order by s.name, ci.name
+       limit $1 offset $2`,
+      [limit, offset]
+    );
+    res.status(200).json(
+      mastersListResponse({
+        rows: cities,
+        totalCount,
+        page,
+        limit,
+        key: "cities",
+      })
+    );
+  } catch (error) {
+    handleError("getMastersCities", res, error);
   }
 };
