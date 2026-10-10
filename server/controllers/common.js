@@ -1,5 +1,7 @@
 import { handleError } from "../utils/error.js";
 import { query } from "../utils/query.js";
+import { createTaxCode, listTaxCodes, updateTaxCode } from "../services/taxCodeMaintenance.js";
+import { createTaxCodeMaintenanceDeps } from "../services/taxCodeMaintenanceStore.js";
 
 function parseMastersListPagination(queryParams) {
   const { page = 1, limit = 10 } = queryParams;
@@ -150,5 +152,45 @@ export const getMastersCities = async (req, res) => {
     );
   } catch (error) {
     handleError("getMastersCities", res, error);
+  }
+};
+
+export const getMastersTaxCodes = async (req, res) => {
+  const { page, limit, offset } = parseMastersListPagination(req.query);
+  try {
+    const { taxCodes, totalCount } = await listTaxCodes(createTaxCodeMaintenanceDeps(), {
+      limit,
+      offset,
+    });
+    res.status(200).json(
+      mastersListResponse({
+        rows: taxCodes,
+        totalCount,
+        page,
+        limit,
+        key: "tax_codes",
+      })
+    );
+  } catch (error) {
+    handleError("getMastersTaxCodes", res, error);
+  }
+};
+
+export const createMastersTaxCode = async (req, res) => {
+  try {
+    const taxCode = await createTaxCode(createTaxCodeMaintenanceDeps(), req.body);
+    res.status(201).json({ tax_code: taxCode });
+  } catch (error) {
+    handleError("createMastersTaxCode", res, error);
+  }
+};
+
+export const updateMastersTaxCode = async (req, res) => {
+  const { tax_code_id } = req.params;
+  try {
+    const taxCode = await updateTaxCode(createTaxCodeMaintenanceDeps(), tax_code_id, req.body);
+    res.status(200).json({ tax_code: taxCode });
+  } catch (error) {
+    handleError("updateMastersTaxCode", res, error);
   }
 };

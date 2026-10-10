@@ -9,5 +9,8 @@ router.get("/cities", commonControllers.getCities);
 router.get("/masters/countries", commonControllers.getMastersCountries);
 router.get("/masters/states", commonControllers.getMastersStates);
 router.get("/masters/cities", commonControllers.getMastersCities);
+router.get("/masters/tax-codes", commonControllers.getMastersTaxCodes);
+router.post("/masters/tax-codes", commonControllers.createMastersTaxCode);
+router.put("/masters/tax-codes/:tax_code_id", commonControllers.updateMastersTaxCode);
 
 export default router;

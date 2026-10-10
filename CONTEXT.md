@@ -13,8 +13,32 @@ The person or business identified by mobile number who receives an order.
 _Avoid_: Customer, buyer, account
 
 **Client profile**:
-Pincode, state, city, GST number, contact person, and contact number for a client. Maintained only from the clients screen; order create updates name and address but does not write the profile.
+Pincode, state, city, GST number, contact person, and contact number for a client. Maintained only from the clients screen; order create updates name and address but does not write the profile. Stores a state id and a city id only, not a country.
 _Avoid_: Customer account, invoice address
+
+**Country**:
+A shared location row in the countries list, identified by name and ISO codes. The client form resolves India without a country control; Masters shows every country row, including inactive ones.
+_Avoid_: Nation, region
+
+**State**:
+A shared location row tied to a country. A client profile stores a state id. The client form offers active states for India only; Masters shows every state row, including inactive ones, with the country name.
+_Avoid_: Province, territory
+
+**City**:
+A shared location row tied to a state. A client profile stores a city id that must belong to the selected state. The client form offers active cities for the selected state; Masters shows every city row, including inactive ones, with the state name.
+_Avoid_: Town, locality
+
+**Tax code**:
+A catalog row on Masters (HSN/SAC tab) for goods or services: a stable id, a digits-only statutory code, a required description, and default CGST, SGST, and IGST rates. HSN is 4, 6, or 8 digits; SAC is 6 digits. The code is unique within its type; the same digits may exist once as HSN and once as SAC. Type is fixed at create; there is no delete.
+_Avoid_: Product tax field, live rate lookup on a future Bill
+
+**Bill**:
+The future GST document raised from a sale. Not the commercial sale record itself.
+_Avoid_: Order, invoice as a synonym for Order
+
+**Bill line**:
+A future line on a Bill that stores the tax code id and a copy of the code, description, and CGST, SGST, and IGST rates actually charged, so a later catalog edit does not rewrite that Bill.
+_Avoid_: Order line, joining live catalog rates at display time
 
 **Order Delivery**:
 The act of sending an order to a client through an outbound channel after the order has been created.

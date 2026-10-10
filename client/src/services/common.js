@@ -60,3 +60,30 @@ export const getMastersCities = async ({ pageIndex, pageSize }) => {
   });
   return response;
 };
+
+export const getMastersTaxCodes = async ({ pageIndex, pageSize }) => {
+  const response = await axios({
+    method: "GET",
+    url: `${import.meta.env.VITE_BACKEND_URL}common/masters/tax-codes`,
+    params: mastersListParams({ pageIndex, pageSize }),
+  });
+  return response;
+};
+
+export const createMastersTaxCode = async (data) => {
+  const response = await axios({
+    method: "POST",
+    url: `${import.meta.env.VITE_BACKEND_URL}common/masters/tax-codes`,
+    data,
+  });
+  return response;
+};
+
+export const updateMastersTaxCode = async (taxCodeId, data) => {
+  const response = await axios({
+    method: "PUT",
+    url: `${import.meta.env.VITE_BACKEND_URL}common/masters/tax-codes/${taxCodeId}`,
+    data,
+  });
+  return response;
+};

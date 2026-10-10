@@ -18,6 +18,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import TaxCodesTab from "@/pages/masters/components/TaxCodesTab";
 import {
   getMastersCities,
   getMastersCountries,
@@ -229,7 +230,7 @@ const Masters = () => {
       </div>
 
       <Tabs defaultValue="countries" className="px-5">
-        <TabsList className="w-full max-w-2xl gap-2 border-b pb-0 border-border">
+        <TabsList className="w-full max-w-3xl gap-2 border-b pb-0 border-border">
           <TabsTrigger
             className="border-b-2 flex-1 border-transparent data-[state=active]:rounded-none data-[state=active]:border-b-indigo-500"
             variant="sliding"
@@ -250,6 +251,13 @@ const Masters = () => {
             value="cities"
           >
             Cities
+          </TabsTrigger>
+          <TabsTrigger
+            className="border-b-2 flex-1 border-transparent data-[state=active]:rounded-none data-[state=active]:border-b-indigo-500"
+            variant="sliding"
+            value="tax-codes"
+          >
+            HSN/SAC
           </TabsTrigger>
         </TabsList>
         <TabsContent value="countries" className="mt-4">
@@ -309,6 +317,9 @@ const Masters = () => {
               }))
             }
           />
+        </TabsContent>
+        <TabsContent value="tax-codes" className="mt-4">
+          <TaxCodesTab />
         </TabsContent>
       </Tabs>
     </div>
