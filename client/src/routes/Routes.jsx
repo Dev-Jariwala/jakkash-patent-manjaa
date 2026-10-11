@@ -29,6 +29,8 @@ import Landing from "@/pages/landing/Landing";
 import Settings from "@/pages/settings/Settings";
 import Masters from "@/pages/masters/Masters";
 import BankDetails from "@/pages/bank-details/BankDetails";
+import GstBillsList from "@/pages/gst-bills/GstBillsList";
+import GstBillForm from "@/pages/gst-bills/GstBillForm";
 import { LegacyBillsPathRedirect, LegacyBillsRedirect } from "@/routes/LegacyBillsRedirect";
 
 const Routes = () => {
@@ -101,12 +103,12 @@ const Routes = () => {
               element: <StocksReport />,
             },
             {
-              path: "/bills",
-              element: <LegacyBillsPathRedirect to="/orders/retail" />,
+              path: "/bills/new",
+              element: <GstBillForm />,
             },
             {
-              path: "/bills/new",
-              element: <LegacyBillsPathRedirect to="/orders/new" />,
+              path: "/bills",
+              element: <GstBillsList />,
             },
             {
               path: "/bills/view",

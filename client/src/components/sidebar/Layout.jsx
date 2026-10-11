@@ -50,6 +50,12 @@ const Layout = () => {
       active: ["orders"],
     },
     {
+      link: "/bills",
+      label: "Bills",
+      icon: <BillSvg />,
+      active: ["bills"],
+    },
+    {
       link: "/clients",
       label: "Clients",
       icon: <ClientSvg />,

@@ -14,6 +14,7 @@ import purchaseRoutes from "./routes/purchases.js";
 import analyticsRoutes from "./routes/analytics.js";
 import settingsRoutes from "./routes/settings.js";
 import commonRoutes from "./routes/common.js";
+import gstBillsRoutes from "./routes/gstBills.js";
 import { verifyDatabaseConnection } from "./config/db.js";
 import { verifyRedisConnection } from "./config/redis.js";
 import { closeWhatsAppBillDeliveryQueue } from "./queues/whatsappBillDeliveryQueue.js";
@@ -42,7 +43,16 @@ app.use("/api/users", userRoutes);
 app.use("/api/settings", settingsRoutes);
 app.use("/api/clients", clientRoutes);
 app.use("/api/common", commonRoutes);
-app.use("/api/collections", collectionRoutes, productRoutes, stockRoutes, orderRoutes, purchaseRoutes, analyticsRoutes);
+app.use(
+  "/api/collections",
+  collectionRoutes,
+  productRoutes,
+  stockRoutes,
+  orderRoutes,
+  gstBillsRoutes,
+  purchaseRoutes,
+  analyticsRoutes
+);
 
 const port = process.env.PORT;
 const server = app.listen(port, () => {

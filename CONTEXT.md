@@ -1,6 +1,6 @@
 # Jakkash Billing
 
-This context covers order creation, client records, and outbound delivery of orders. It exists to keep the billing language consistent as the app grows beyond local PDF viewing into message-driven delivery flows.
+This context covers Orders, Bills, client records, and outbound delivery of orders. It exists to keep the billing language consistent as the app grows beyond local PDF viewing into message-driven delivery flows.
 
 ## Language
 
@@ -41,12 +41,28 @@ The copy of bank name, bank address, account number, and IFSC stored on a Bill w
 _Avoid_: Live account lookup on the Bill PDF, bank fields on the Order PDF
 
 **Bill**:
-The future GST document raised from a sale. Not the commercial sale record itself.
-_Avoid_: Order, invoice as a synonym for Order
+A GST document entered directly for one collection. It is not created from an Order, and it does not change stock.
+_Avoid_: Order, invoice, calling it an invoice or an Order
+
+**Bill number**:
+The three-part number typed for a Bill, stored as one hyphenated value, unique across the shop.
+_Avoid_: Invoice number, order number, generated sequence
+
+**Receiver**:
+The GST client a Bill was raised to. The Bill stores that client's id and a copy of the name, address, GST number, contact person, and contact number taken when that client was chosen for the save.
+_Avoid_: Live client lookup, customer
 
 **Bill line**:
-A future line on a Bill that stores the tax code id and a copy of the code, description, and CGST, SGST, and IGST rates actually charged, so a later catalog edit does not rewrite that Bill.
-_Avoid_: Order line, joining live catalog rates at display time
+A line on a Bill. It stores the product id, a copy of the product name, and the rate charged, plus the tax code id and a copy of the code, the tax code's description, and the CGST, SGST, and IGST percents charged.
+_Avoid_: Order line, joining the live product or tax code at display time
+
+**Bill discount**:
+A percent on a Bill that reduces each line's price before that line's tax.
+_Avoid_: The Order's rupee discount
+
+**Total bill**:
+The amount of a Bill after the bill discount and the tax.
+_Avoid_: Total invoice, amount due
 
 **Order Delivery**:
 The act of sending an order to a client through an outbound channel after the order has been created.

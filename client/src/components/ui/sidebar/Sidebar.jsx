@@ -60,6 +60,12 @@ const data = {
             isCollapsible: false,
         },
         {
+            title: 'Bills',
+            icon: BillSvg,
+            link: '/bills',
+            isCollapsible: false,
+        },
+        {
             title: 'Clients',
             icon: ClientSvg,
             link: '/clients',
