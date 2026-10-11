@@ -1,5 +1,32 @@
 import pool from "../config/db.js";
 
+/**
+ * Runs queries in a single transaction. On failure, rolls back so partial writes are not left behind.
+ * @param {(txQuery: typeof query) => Promise<T>} fn
+ * @returns {Promise<T>}
+ */
+export async function withTransaction(fn) {
+    if (queryImplementationOverride) {
+        return fn(query);
+    }
+    const client = await pool.connect();
+    try {
+        await client.query("BEGIN");
+        const txQuery = async (sql, values) => {
+            const { rows } = await client.query(sql, values);
+            return rows;
+        };
+        const result = await fn(txQuery);
+        await client.query("COMMIT");
+        return result;
+    } catch (error) {
+        await client.query("ROLLBACK");
+        throw error;
+    } finally {
+        client.release();
+    }
+}
+
 /** @type {((sql: string, values?: unknown[]) => Promise<unknown[]>) | null} */
 let queryImplementationOverride = null;
 

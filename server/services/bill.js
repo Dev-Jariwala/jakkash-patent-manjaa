@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { normalizeBillCalendarDate } from "../utils/billCalendarDate.js";
 import {
   BillDuplicateNumberError,
   BillNotFoundError,
@@ -302,7 +303,7 @@ function formatBillRow(row, lines) {
     collection_id: row.collection_id,
     bill_number: row.bill_number,
     bill_number_parts: splitBillNumber(row.bill_number),
-    bill_date: row.bill_date,
+    bill_date: normalizeBillCalendarDate(row.bill_date),
     receiver_mobile: row.receiver_mobile,
     receiver_name: row.receiver_name,
     receiver_address: row.receiver_address,
@@ -326,7 +327,7 @@ function formatBillListRow(row) {
   return {
     bill_id: row.bill_id,
     bill_number: row.bill_number,
-    bill_date: row.bill_date,
+    bill_date: normalizeBillCalendarDate(row.bill_date),
     receiver_name: row.receiver_name,
     total_bill: Number(row.total_bill),
     saved_at: row.saved_at,

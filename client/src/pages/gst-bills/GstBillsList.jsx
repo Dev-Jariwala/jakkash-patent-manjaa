@@ -11,18 +11,10 @@ import {
 } from "@/components/ui/table";
 import { listGstBills } from "@/services/gstBills";
 import { useQuery } from "@tanstack/react-query";
-import { format, parseISO } from "date-fns";
-import { Plus } from "lucide-react";
+import { formatBillCalendarDate } from "@/pages/gst-bills/billCalendarDate";
+import { Pencil, Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@uidotdev/usehooks";
-
-function formatBillDate(isoDate) {
-  try {
-    return format(parseISO(isoDate), "dd/MM/yyyy");
-  } catch {
-    return isoDate;
-  }
-}
 
 function formatAmount(value) {
   const n = Number(value);
@@ -75,7 +67,9 @@ const GstBillsList = () => {
       {!activeCollection ? (
         <div className="px-5 text-muted-foreground">Choose a collection to see bills.</div>
       ) : isLoading ? (
-        <div className="px-5">Loading…</div>
+        <div className="flex justify-center items-center h-64">
+          <div className="basic-loader"></div>
+        </div>
       ) : isError ? (
         <QueryError error={error} />
       ) : bills.length === 0 ? (
@@ -89,15 +83,26 @@ const GstBillsList = () => {
                 <TableHead>Date</TableHead>
                 <TableHead>Receiver</TableHead>
                 <TableHead className="text-right">Total bill</TableHead>
+                <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {bills.map((bill) => (
                 <TableRow key={bill.bill_id}>
                   <TableCell>{bill.bill_number}</TableCell>
-                  <TableCell>{formatBillDate(bill.bill_date)}</TableCell>
+                  <TableCell>{formatBillCalendarDate(bill.bill_date)}</TableCell>
                   <TableCell>{bill.receiver_name}</TableCell>
                   <TableCell className="text-right">{formatAmount(bill.total_bill)}</TableCell>
+                  <TableCell className="flex items-center space-x-2">
+                    <button
+                      type="button"
+                      onClick={() => navigate(`/bills/edit/${bill.bill_id}`)}
+                      className="hover:bg-accent rounded-full size-8 flex items-center justify-center"
+                      aria-label="Edit bill"
+                    >
+                      <Pencil size={16} className="text-green-500" />
+                    </button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

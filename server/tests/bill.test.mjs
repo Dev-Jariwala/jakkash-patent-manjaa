@@ -3,9 +3,11 @@ import { describe, it } from "node:test";
 
 import {
   createBill,
+  getBill,
   listBills,
   previewBillTotals,
   computeLineFinancials,
+  updateBill,
 } from "../services/bill.js";
 import {
   BillDuplicateNumberError,
@@ -14,6 +16,7 @@ import {
 import {
   createBillWorld,
   standardBillPayload,
+  updatePayloadFromBill,
 } from "./helpers/billWorld.mjs";
 
 describe("createBill", () => {
@@ -444,6 +447,366 @@ describe("previewBillTotals", () => {
     });
     assert.equal(totals.total_bill, 0);
     assert.equal(totals.line_previews[0], null);
+  });
+});
+
+describe("updateBill", () => {
+  it("keeps an unchanged receiver copy after the client is renamed and loses GST", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const product = world.seedProduct(collectionId);
+    const taxCode = world.seedTaxCode();
+
+    const created = await createBill(
+      world.deps,
+      collectionId,
+      standardBillPayload({ world, collectionId, product, taxCode, client })
+    );
+
+    world.seedClient({
+      mobile: client.mobile,
+      name: "Renamed Fabrics",
+      gst_number: null,
+    });
+
+    const updated = await updateBill(
+      world.deps,
+      collectionId,
+      created.bill_id,
+      updatePayloadFromBill(created, {
+        lines: [
+          {
+            bill_line_id: created.lines[0].bill_line_id,
+            product_id: product.product_id,
+            tax_code_id: taxCode.tax_code_id,
+            quantity: 200,
+            rate: 215,
+            cgst_percent: 2.5,
+            sgst_percent: 2.5,
+            igst_percent: 0,
+          },
+        ],
+      })
+    );
+
+    assert.equal(updated.receiver_name, "Acme Fabrics");
+    assert.equal(updated.receiver_gst_number, "24AABCU9603R1ZM");
+    assert.equal(updated.lines[0].rate, 215);
+  });
+
+  it("replaces the receiver copy when a different client is chosen", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const clientA = world.seedClient();
+    const clientB = world.seedClient({
+      mobile: "9000000099",
+      name: "Beta Textiles",
+      address: "Station Road",
+      gst_number: "24AAAAA0000A1Z5",
+    });
+    const product = world.seedProduct(collectionId);
+    const taxCode = world.seedTaxCode();
+
+    const created = await createBill(
+      world.deps,
+      collectionId,
+      standardBillPayload({ world, collectionId, product, taxCode, client: clientA })
+    );
+
+    const updated = await updateBill(
+      world.deps,
+      collectionId,
+      created.bill_id,
+      updatePayloadFromBill(created, { receiver_mobile: clientB.mobile })
+    );
+
+    assert.equal(updated.receiver_name, "Beta Textiles");
+    assert.equal(updated.receiver_address, "Station Road");
+    assert.equal(updated.receiver_mobile, clientB.mobile);
+  });
+
+  it("keeps stored product name and tax-code description when ids stay the same", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const product = world.seedProduct(collectionId);
+    const taxCode = world.seedTaxCode();
+
+    const created = await createBill(
+      world.deps,
+      collectionId,
+      standardBillPayload({ world, collectionId, product, taxCode, client })
+    );
+
+    world.seedProduct(collectionId, {
+      product_id: product.product_id,
+      product_name: "Renamed cotton",
+      wholesale_price: 999,
+    });
+    world.seedTaxCode({
+      tax_code_id: taxCode.tax_code_id,
+      description: "New catalog wording",
+      code: "9999",
+    });
+
+    const updated = await updateBill(
+      world.deps,
+      collectionId,
+      created.bill_id,
+      updatePayloadFromBill(created, {
+        lines: [
+          {
+            bill_line_id: created.lines[0].bill_line_id,
+            product_id: product.product_id,
+            tax_code_id: taxCode.tax_code_id,
+            quantity: 200,
+            rate: 225,
+            cgst_percent: 3,
+            sgst_percent: 3,
+            igst_percent: 0,
+          },
+        ],
+      })
+    );
+
+    assert.equal(updated.lines[0].product_name, "Cotton fabric");
+    assert.equal(updated.lines[0].tax_code, "5209");
+    assert.equal(updated.lines[0].tax_code_description, "Woven fabrics of cotton");
+    assert.equal(updated.lines[0].rate, 225);
+    assert.equal(updated.lines[0].cgst_percent, 3);
+  });
+
+  it("copies fresh product and tax-code fields when those ids change", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const productA = world.seedProduct(collectionId, { product_name: "Fabric A" });
+    const productB = world.seedProduct(collectionId, {
+      product_name: "Fabric B",
+      wholesale_price: 50,
+    });
+    const taxA = world.seedTaxCode({ code: "1111", description: "Tax A" });
+    const taxB = world.seedTaxCode({
+      code: "2222",
+      description: "Tax B",
+      cgst: 9,
+      sgst: 9,
+      igst: 18,
+    });
+
+    const created = await createBill(
+      world.deps,
+      collectionId,
+      standardBillPayload({
+        world,
+        collectionId,
+        product: productA,
+        taxCode: taxA,
+        client,
+        overrides: { bill_number_parts: ["8", "8", "8"] },
+      })
+    );
+
+    const updated = await updateBill(
+      world.deps,
+      collectionId,
+      created.bill_id,
+      updatePayloadFromBill(created, {
+        lines: [
+          {
+            bill_line_id: created.lines[0].bill_line_id,
+            product_id: productB.product_id,
+            tax_code_id: taxB.tax_code_id,
+            quantity: 10,
+            rate: 50,
+            cgst_percent: 9,
+            sgst_percent: 9,
+            igst_percent: 0,
+          },
+        ],
+      })
+    );
+
+    assert.equal(updated.lines[0].product_name, "Fabric B");
+    assert.equal(updated.lines[0].tax_code, "2222");
+    assert.equal(updated.lines[0].tax_code_description, "Tax B");
+  });
+
+  it("leaves the bank block alone after the shop account changes", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const product = world.seedProduct(collectionId);
+    const taxCode = world.seedTaxCode();
+
+    const created = await createBill(
+      world.deps,
+      collectionId,
+      standardBillPayload({ world, collectionId, product, taxCode, client })
+    );
+
+    world.setShopBankAccount({
+      bank_name: "ICICI Bank",
+      bank_address: "New address",
+      account_number: "999",
+      ifsc: "ICIC0000999",
+      updated_at: new Date().toISOString(),
+    });
+
+    const updated = await updateBill(
+      world.deps,
+      collectionId,
+      created.bill_id,
+      updatePayloadFromBill(created)
+    );
+
+    assert.equal(updated.bank_name, "HDFC Bank");
+    assert.equal(updated.bank_account_number, "012345678");
+  });
+
+  it("accepts this bill's own number and rejects another bill's number", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const product = world.seedProduct(collectionId);
+    const taxCode = world.seedTaxCode();
+
+    const first = await createBill(
+      world.deps,
+      collectionId,
+      standardBillPayload({ world, collectionId, product, taxCode, client })
+    );
+    await createBill(world.deps, collectionId, {
+      ...standardBillPayload({ world, collectionId, product, taxCode, client }),
+      bill_number_parts: ["1", "0", "0"],
+    });
+
+    await updateBill(
+      world.deps,
+      collectionId,
+      first.bill_id,
+      updatePayloadFromBill(first)
+    );
+
+    await assert.rejects(
+      () =>
+        updateBill(
+          world.deps,
+          collectionId,
+          first.bill_id,
+          updatePayloadFromBill(first, { bill_number_parts: ["1", "0", "0"] })
+        ),
+      (error) => {
+        assert.ok(error instanceof BillDuplicateNumberError);
+        return true;
+      }
+    );
+  });
+
+  it("drops a removed line, saves a new line, and keeps submitted order", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const productA = world.seedProduct(collectionId, { product_name: "Line A" });
+    const productB = world.seedProduct(collectionId, { product_name: "Line B" });
+    const productC = world.seedProduct(collectionId, { product_name: "Line C" });
+    const taxCode = world.seedTaxCode();
+
+    const created = await createBill(world.deps, collectionId, {
+      ...standardBillPayload({
+        world,
+        collectionId,
+        product: productA,
+        taxCode,
+        client,
+      }),
+      bill_number_parts: ["6", "6", "6"],
+      lines: [
+        {
+          product_id: productA.product_id,
+          tax_code_id: taxCode.tax_code_id,
+          quantity: 1,
+          rate: 10,
+          cgst_percent: 2.5,
+          sgst_percent: 2.5,
+          igst_percent: 0,
+        },
+        {
+          product_id: productB.product_id,
+          tax_code_id: taxCode.tax_code_id,
+          quantity: 2,
+          rate: 20,
+          cgst_percent: 2.5,
+          sgst_percent: 2.5,
+          igst_percent: 0,
+        },
+      ],
+    });
+
+    const lineToKeep = created.lines[1];
+    const updated = await updateBill(
+      world.deps,
+      collectionId,
+      created.bill_id,
+      {
+        ...updatePayloadFromBill(created),
+        lines: [
+          {
+            bill_line_id: lineToKeep.bill_line_id,
+            product_id: productB.product_id,
+            tax_code_id: taxCode.tax_code_id,
+            quantity: 2,
+            rate: 20,
+            cgst_percent: 2.5,
+            sgst_percent: 2.5,
+            igst_percent: 0,
+          },
+          {
+            product_id: productC.product_id,
+            tax_code_id: taxCode.tax_code_id,
+            quantity: 3,
+            rate: 30,
+            cgst_percent: 2.5,
+            sgst_percent: 2.5,
+            igst_percent: 0,
+          },
+        ],
+      }
+    );
+
+    assert.equal(updated.lines.length, 2);
+    assert.equal(updated.lines[0].product_name, "Line B");
+    assert.equal(updated.lines[0].bill_line_id, lineToKeep.bill_line_id);
+    assert.equal(updated.lines[1].product_name, "Line C");
+    assert.ok(updated.lines[1].bill_line_id);
+  });
+
+  it("reads a saved bill for the collection that raised it", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const otherCollection = world.seedCollection();
+    const client = world.seedClient();
+    const product = world.seedProduct(collectionId);
+    const taxCode = world.seedTaxCode();
+
+    const created = await createBill(
+      world.deps,
+      collectionId,
+      standardBillPayload({ world, collectionId, product, taxCode, client })
+    );
+
+    const read = await getBill(world.deps, collectionId, created.bill_id);
+    assert.equal(read.bill_number_parts.join("-"), created.bill_number);
+    assert.equal(read.lines[0].bill_line_id, created.lines[0].bill_line_id);
+
+    await assert.rejects(
+      () => getBill(world.deps, otherCollection, created.bill_id),
+      (error) => {
+        assert.equal(error.name, "BillNotFoundError");
+        return true;
+      }
+    );
   });
 });
 

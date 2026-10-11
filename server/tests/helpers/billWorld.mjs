@@ -183,3 +183,23 @@ export function standardBillPayload({
     ...overrides,
   };
 }
+
+export function updatePayloadFromBill(bill, overrides = {}) {
+  return {
+    bill_number_parts: bill.bill_number_parts ?? bill.bill_number.split("-"),
+    bill_date: bill.bill_date,
+    receiver_mobile: bill.receiver_mobile,
+    discount_percent: bill.discount_percent,
+    lines: bill.lines.map((line) => ({
+      bill_line_id: line.bill_line_id,
+      product_id: line.product_id,
+      tax_code_id: line.tax_code_id,
+      quantity: line.quantity,
+      rate: line.rate,
+      cgst_percent: line.cgst_percent,
+      sgst_percent: line.sgst_percent,
+      igst_percent: line.igst_percent,
+    })),
+    ...overrides,
+  };
+}

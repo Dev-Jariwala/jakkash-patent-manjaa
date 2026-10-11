@@ -107,6 +107,10 @@ const Routes = () => {
               element: <GstBillForm />,
             },
             {
+              path: "/bills/edit/:bill_id",
+              element: <GstBillForm />,
+            },
+            {
               path: "/bills",
               element: <GstBillsList />,
             },

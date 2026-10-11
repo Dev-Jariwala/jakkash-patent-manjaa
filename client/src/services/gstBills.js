@@ -21,6 +21,23 @@ export async function createGstBill(collectionId, data) {
   return response;
 }
 
+export async function getGstBill(collectionId, billId) {
+  const response = await axios({
+    method: "GET",
+    url: `${BACKEND_URL}collections/${collectionId}/gst-bills/${billId}`,
+  });
+  return response;
+}
+
+export async function updateGstBill(collectionId, billId, data) {
+  const response = await axios({
+    method: "PUT",
+    url: `${BACKEND_URL}collections/${collectionId}/gst-bills/${billId}`,
+    data,
+  });
+  return response;
+}
+
 export async function previewGstBillTotals(collectionId, data) {
   const response = await axios({
     method: "POST",
