@@ -366,6 +366,27 @@ function assertProductTaxCodeForNewLine(product, submittedTaxCodeId) {
   }
 }
 
+function isTruthyFlag(raw) {
+  if (raw === true || raw === 1) {
+    return true;
+  }
+  if (typeof raw === "string") {
+    const text = raw.trim().toLowerCase();
+    return text === "true" || text === "1" || text === "yes";
+  }
+  return false;
+}
+
+function isFreshProductChoice(existingLine, productId, productChosenAgain) {
+  if (!existingLine) {
+    return true;
+  }
+  if (existingLine.product_id !== productId) {
+    return true;
+  }
+  return isTruthyFlag(productChosenAgain);
+}
+
 async function resolveReceiver(deps, receiverMobile) {
   if (!receiverMobile || String(receiverMobile).trim() === "") {
     throw new BillValidationError("Receiver is required");
@@ -631,18 +652,38 @@ async function resolveKeptLinesForUpdate(deps, collectionId, billId, rawLines, d
     );
 
     const existingLine = lineId ? existingByLineId.get(lineId) : null;
-    const productName =
-      existingLine && existingLine.product_id === productId
-        ? existingLine.product_name
-        : product.product_name;
-    const taxCodeValue =
-      existingLine && existingLine.tax_code_id === taxCodeId
-        ? existingLine.tax_code
-        : taxCode.code;
-    const taxCodeDescription =
-      existingLine && existingLine.tax_code_id === taxCodeId
-        ? existingLine.tax_code_description
-        : taxCode.description;
+    const freshProductChoice = isFreshProductChoice(
+      existingLine,
+      productId,
+      line.product_chosen_again
+    );
+
+    let resolvedTaxCodeId = taxCodeId;
+    let taxCodeValue;
+    let taxCodeDescription;
+    let productName;
+
+    if (!freshProductChoice) {
+      const storedTaxCodeId = String(existingLine.tax_code_id).trim();
+      if (taxCodeId !== storedTaxCodeId) {
+        throw new BillValidationError(
+          "The tax code cannot change unless the product is chosen again"
+        );
+      }
+      resolvedTaxCodeId = storedTaxCodeId;
+      taxCodeValue = existingLine.tax_code;
+      taxCodeDescription = existingLine.tax_code_description;
+      productName = existingLine.product_name;
+    } else {
+      assertProductTaxCodeForNewLine(product, taxCodeId);
+      resolvedTaxCodeId = taxCodeId;
+      taxCodeValue = taxCode.code;
+      taxCodeDescription = taxCode.description;
+      productName =
+        existingLine && existingLine.product_id === productId
+          ? existingLine.product_name
+          : product.product_name;
+    }
 
     const financials = computeLineFinancials({
       quantity,
@@ -657,7 +698,7 @@ async function resolveKeptLinesForUpdate(deps, collectionId, billId, rawLines, d
       bill_line_id: lineId ?? randomUUID(),
       product_id: productId,
       product_name: productName,
-      tax_code_id: taxCodeId,
+      tax_code_id: resolvedTaxCodeId,
       tax_code: taxCodeValue,
       tax_code_description: taxCodeDescription,
       quantity,

@@ -199,16 +199,22 @@ export function updatePayloadFromBill(bill, overrides = {}) {
     bill_date: bill.bill_date,
     receiver_mobile: bill.receiver_mobile,
     discount_percent: bill.discount_percent,
-    lines: bill.lines.map((line) => ({
-      bill_line_id: line.bill_line_id,
-      product_id: line.product_id,
-      tax_code_id: line.tax_code_id,
-      quantity: line.quantity,
-      rate: line.rate,
-      cgst_percent: line.cgst_percent,
-      sgst_percent: line.sgst_percent,
-      igst_percent: line.igst_percent,
-    })),
+    lines: bill.lines.map((line) => {
+      const mapped = {
+        bill_line_id: line.bill_line_id,
+        product_id: line.product_id,
+        tax_code_id: line.tax_code_id,
+        quantity: line.quantity,
+        rate: line.rate,
+        cgst_percent: line.cgst_percent,
+        sgst_percent: line.sgst_percent,
+        igst_percent: line.igst_percent,
+      };
+      if (line.product_chosen_again) {
+        mapped.product_chosen_again = true;
+      }
+      return mapped;
+    }),
     ...overrides,
   };
 }

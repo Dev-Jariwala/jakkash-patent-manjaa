@@ -57,8 +57,8 @@ The GST client a Bill was raised to. The Bill stores that client's id and a copy
 _Avoid_: Live client lookup, customer
 
 **Bill line**:
-A line on a Bill. It stores the product id, a copy of the product name, and the rate charged, plus the tax code id and a copy of the code, the tax code's description, and the CGST, SGST, and IGST percents charged.
-_Avoid_: Order line, joining the live product or tax code at display time
+A line on a Bill. It stores the product id, a copy of the product name, and the rate charged, plus the tax code id and a copy of the code, the tax code's description, and the CGST, SGST, and IGST percents charged. The tax code is the product's tax code, copied when that product was chosen on the line.
+_Avoid_: Order line, joining the live product or tax code at display time, a separate HSN/SAC choice on the Bill
 
 **Bill discount**:
 A percent on a Bill that reduces each line's price before that line's tax.

@@ -74,6 +74,7 @@ function emptyLine() {
     stored_product_name: "",
     loaded_tax_code_id: "",
     stored_tax_code: "",
+    product_chosen_again: false,
     quantity: "",
     rate: "",
     cgst_percent: 0,
@@ -98,33 +99,6 @@ function productOptionsForLine(line, catalogOptions, isEdit) {
         value: line.product_id,
         label: line.stored_product_name,
         wholesale_price: line.rate,
-      });
-    }
-  }
-  return options;
-}
-
-function taxCodeOptionsForLine(line, catalogOptions, taxCodes, isEdit) {
-  const options = catalogOptions.map((o) => ({ ...o }));
-  if (
-    isEdit &&
-    line.loaded_tax_code_id &&
-    line.tax_code_id === line.loaded_tax_code_id &&
-    line.stored_tax_code
-  ) {
-    const catalog = taxCodes.find((t) => t.tax_code_id === line.tax_code_id);
-    const type = catalog?.type ?? "HSN";
-    const storedLabel = `${line.stored_tax_code} (${type})`;
-    const index = options.findIndex((o) => o.value === line.tax_code_id);
-    if (index >= 0) {
-      options[index] = { ...options[index], label: storedLabel };
-    } else {
-      options.push({
-        value: line.tax_code_id,
-        label: storedLabel,
-        cgst: line.cgst_percent,
-        sgst: line.sgst_percent,
-        igst: line.igst_percent,
       });
     }
   }
@@ -180,6 +154,34 @@ function taxCodeLabel(taxCode) {
     return "";
   }
   return `${taxCode.type} ${taxCode.code}`;
+}
+
+function hsnSacDisplayForLine(line, taxCodes) {
+  const catalog = taxCodes.find((t) => t.tax_code_id === line.tax_code_id);
+  if (
+    line.loaded_tax_code_id &&
+    line.tax_code_id === line.loaded_tax_code_id &&
+    line.stored_tax_code
+  ) {
+    const type = catalog?.type ?? "HSN";
+    return `${type} ${line.stored_tax_code}`;
+  }
+  return taxCodeLabel(catalog);
+}
+
+function taxCodeFieldsFromProduct(option, taxCodes) {
+  const taxCode = taxCodes.find((t) => t.tax_code_id === option.tax_code_id);
+  if (!taxCode) {
+    return {};
+  }
+  return {
+    tax_code_id: taxCode.tax_code_id,
+    cgst_percent: taxCode.cgst,
+    sgst_percent: taxCode.sgst,
+    igst_percent: 0,
+    loaded_tax_code_id: "",
+    stored_tax_code: "",
+  };
 }
 
 function productSelectComponentsForReselect(currentProductId, onReselectSame) {
@@ -291,6 +293,7 @@ const GstBillForm = () => {
             cgst_percent: line.cgst_percent,
             sgst_percent: line.sgst_percent,
             igst_percent: line.igst_percent,
+            product_chosen_again: false,
           }))
         : [emptyLine()]
     );
@@ -319,26 +322,14 @@ const GstBillForm = () => {
   }, [clients, isEdit, originalReceiverMobile, receiverMobile, storedReceiverCopy]);
 
   const productOptions = useMemo(() => {
-    const catalog = isEdit ? products : products.filter((p) => p.tax_code_id);
+    const catalog = products.filter((p) => p.tax_code_id);
     return catalog.map((p) => ({
       value: p.product_id,
       label: p.product_name,
       wholesale_price: p.wholesale_price,
       tax_code_id: p.tax_code_id,
     }));
-  }, [products, isEdit]);
-
-  const taxCodeOptions = useMemo(
-    () =>
-      taxCodes.map((t) => ({
-        value: t.tax_code_id,
-        label: `${t.code} (${t.type})`,
-        cgst: t.cgst,
-        sgst: t.sgst,
-        igst: t.igst,
-      })),
-    [taxCodes]
-  );
+  }, [products]);
 
   const clientOptions = useMemo(() => {
     const options = clients.map((c) => ({ value: c.mobile, label: c.name }));
@@ -401,6 +392,7 @@ const GstBillForm = () => {
       cgst_percent: line.cgst_percent,
       sgst_percent: line.sgst_percent,
       igst_percent: line.igst_percent,
+      ...(line.product_chosen_again ? { product_chosen_again: true } : {}),
     })),
   });
 
@@ -442,43 +434,17 @@ const GstBillForm = () => {
         igst_percent: 0,
         loaded_product_id: "",
         stored_product_name: "",
+        product_chosen_again: false,
       });
       return;
     }
     const patch = {
       product_id: option.value,
       rate: String(option.wholesale_price ?? ""),
+      ...taxCodeFieldsFromProduct(option, taxCodes),
+      ...(isEdit ? { product_chosen_again: true } : {}),
     };
-    if (!isEdit) {
-      const taxCode = taxCodes.find((t) => t.tax_code_id === option.tax_code_id);
-      if (taxCode) {
-        patch.tax_code_id = taxCode.tax_code_id;
-        patch.cgst_percent = taxCode.cgst;
-        patch.sgst_percent = taxCode.sgst;
-        patch.igst_percent = 0;
-      }
-    }
     updateLine(index, patch);
-  };
-
-  const onTaxCodeChange = (index, option) => {
-    if (!option) {
-      updateLine(index, {
-        tax_code_id: "",
-        loaded_tax_code_id: "",
-        stored_tax_code: "",
-        cgst_percent: 0,
-        sgst_percent: 0,
-        igst_percent: 0,
-      });
-      return;
-    }
-    updateLine(index, {
-      tax_code_id: option.value,
-      cgst_percent: option.cgst,
-      sgst_percent: option.sgst,
-      igst_percent: 0,
-    });
   };
 
   const addLine = () => setLines((prev) => [...prev, emptyLine()]);
@@ -648,12 +614,6 @@ const GstBillForm = () => {
                   {lines.map((line, index) => {
                     const display = lineDisplay(index);
                     const rowProductOptions = productOptionsForLine(line, productOptions, isEdit);
-                    const rowTaxCodeOptions = taxCodeOptionsForLine(
-                      line,
-                      taxCodeOptions,
-                      taxCodes,
-                      isEdit
-                    );
                     return (
                       <TableRow key={line.bill_line_id || `line-${index}`} className="hover:bg-muted/30">
                         <TableCell className="p-2 align-middle">
@@ -664,46 +624,26 @@ const GstBillForm = () => {
                             }
                             onChange={(option) => onProductChange(index, option)}
                             placeholder="Product"
-                            components={
-                              !isEdit
-                                ? productSelectComponentsForReselect(line.product_id, (option) =>
-                                    onProductChange(index, option)
-                                  )
-                                : undefined
-                            }
+                            components={productSelectComponentsForReselect(line.product_id, (option) =>
+                              onProductChange(index, option)
+                            )}
                             {...billSelectProps}
                           />
                         </TableCell>
                         <TableCell className="p-2 align-middle">
-                          {isEdit ? (
-                            <ReactSelect
-                              options={rowTaxCodeOptions}
-                              value={
-                                rowTaxCodeOptions.find((o) => o.value === line.tax_code_id) ?? null
-                              }
-                              onChange={(option) => onTaxCodeChange(index, option)}
-                              placeholder="Code"
-                              {...billSelectProps}
-                            />
-                          ) : (
-                            <Input
-                              readOnly
-                              tabIndex={-1}
-                              value={taxCodeLabel(
-                                taxCodes.find((t) => t.tax_code_id === line.tax_code_id)
-                              )}
-                              placeholder="HSN/SAC"
-                              title={taxCodeLabel(
-                                taxCodes.find((t) => t.tax_code_id === line.tax_code_id)
-                              )}
-                              className={cn(
-                                compactInputClass,
-                                "w-full min-w-[8.5rem]",
-                                "cursor-default border-input bg-muted/25 shadow-none",
-                                "focus-visible:border-input focus-visible:ring-0 focus-visible:ring-offset-0"
-                              )}
-                            />
-                          )}
+                          <Input
+                            readOnly
+                            tabIndex={-1}
+                            value={hsnSacDisplayForLine(line, taxCodes)}
+                            placeholder="HSN/SAC"
+                            title={hsnSacDisplayForLine(line, taxCodes)}
+                            className={cn(
+                              compactInputClass,
+                              "w-full min-w-[8.5rem]",
+                              "cursor-default border-input bg-muted/25 shadow-none",
+                              "focus-visible:border-input focus-visible:ring-0 focus-visible:ring-offset-0"
+                            )}
+                          />
                         </TableCell>
                         <TableCell className="p-2 align-middle">
                           <Input
