@@ -46,16 +46,38 @@ describe("createClient", () => {
     assert.equal(world.clientsByMobile.get("9876543210").name, "Acme Traders");
   });
 
-  it("requires state and city", async () => {
+  it("allows creating without state and city", async () => {
+    const world = createClientMaintenanceWorld();
+
+    const client = await createClient(
+      world.deps,
+      validCreatePayload({ state_id: "", city_id: "", mobile: "9000000099" })
+    );
+
+    assert.equal(client.state_id, null);
+    assert.equal(client.city_id, null);
+    assert.equal(client.state_name, null);
+    assert.equal(client.city_name, null);
+  });
+
+  it("rejects a city without a state", async () => {
     const world = createClientMaintenanceWorld();
 
     await assert.rejects(
-      () => createClient(world.deps, validCreatePayload({ state_id: "" })),
-      ClientValidationError
-    );
-    await assert.rejects(
-      () => createClient(world.deps, validCreatePayload({ city_id: "" })),
-      ClientValidationError
+      () =>
+        createClient(
+          world.deps,
+          validCreatePayload({
+            state_id: "",
+            city_id: SURAT_CITY_ID,
+            mobile: "9000000098",
+          })
+        ),
+      (error) => {
+        assert.ok(error instanceof ClientValidationError);
+        assert.match(error.message, /state is required when city/i);
+        return true;
+      }
     );
   });
 

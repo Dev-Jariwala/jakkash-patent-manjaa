@@ -37,12 +37,8 @@ function requireText(raw, fieldLabel, maxLength) {
   return value;
 }
 
-function requireUuid(raw, fieldLabel) {
-  const value = optionalText(raw, { fieldLabel });
-  if (value === null) {
-    throw new ClientValidationError(`${fieldLabel} is required`);
-  }
-  return value;
+function optionalUuid(raw, fieldLabel) {
+  return optionalText(raw, { fieldLabel });
 }
 
 function normalizeMobile(raw) {
@@ -91,8 +87,8 @@ function parseClientProfileInput(raw, { includeMobile }) {
     name: requireText(raw?.name, "Name", 100),
     address: requireText(raw?.address, "Address", 255),
     pincode: normalizePincode(raw?.pincode),
-    stateId: requireUuid(raw?.state_id, "State"),
-    cityId: requireUuid(raw?.city_id, "City"),
+    stateId: optionalUuid(raw?.state_id, "State"),
+    cityId: optionalUuid(raw?.city_id, "City"),
     gstNumber: normalizeGst(raw?.gst_number),
     contactPerson: optionalText(raw?.contact_person, {
       maxLength: 100,
@@ -125,11 +121,16 @@ async function assertCityBelongsToState(deps, { stateId, cityId }) {
   return city;
 }
 
-async function assertLocationForCreate(deps, { stateId, cityId }) {
+async function assertActiveStateInIndia(deps, stateId) {
   const state = await deps.getActiveStateInIndia(stateId);
   if (!state) {
     throw new ClientValidationError("State is not available");
   }
+  return state;
+}
+
+async function assertActiveCityWithState(deps, { stateId, cityId }) {
+  const state = await assertActiveStateInIndia(deps, stateId);
 
   const city = await deps.getActiveCity(cityId);
   if (!city) {
@@ -141,20 +142,46 @@ async function assertLocationForCreate(deps, { stateId, cityId }) {
   return { state, city };
 }
 
-async function assertLocationForUpdate(deps, existingClient, { stateId, cityId }) {
-  const locationUnchanged =
-    existingClient.state_id === stateId && existingClient.city_id === cityId;
+async function resolveClientLocation(deps, { stateId, cityId }) {
+  if (!stateId && !cityId) {
+    return { state: null, city: null };
+  }
+  if (!stateId && cityId) {
+    throw new ClientValidationError("State is required when city is set");
+  }
+  if (stateId && !cityId) {
+    const state = await assertActiveStateInIndia(deps, stateId);
+    return { state, city: null };
+  }
+  return assertActiveCityWithState(deps, { stateId, cityId });
+}
 
-  if (locationUnchanged) {
+async function resolveClientLocationForUpdate(deps, existingClient, { stateId, cityId }) {
+  const locationUnchanged =
+    (existingClient.state_id ?? null) === (stateId ?? null) &&
+    (existingClient.city_id ?? null) === (cityId ?? null);
+
+  if (!locationUnchanged) {
+    return resolveClientLocation(deps, { stateId, cityId });
+  }
+
+  if (!stateId && !cityId) {
+    return { state: null, city: null };
+  }
+  if (stateId && !cityId) {
     const state = await deps.getStateById(stateId);
     if (!state) {
       throw new ClientValidationError("State is not available");
     }
-    const city = await assertCityBelongsToState(deps, { stateId, cityId });
-    return { state, city };
+    return { state, city: null };
   }
 
-  return assertLocationForCreate(deps, { stateId, cityId });
+  const state = await deps.getStateById(stateId);
+  if (!state) {
+    throw new ClientValidationError("State is not available");
+  }
+  const city = await assertCityBelongsToState(deps, { stateId, cityId });
+  return { state, city };
 }
 
 async function assertGstAvailableForSave(deps, gstNumber, existingMobile) {
@@ -173,8 +200,8 @@ async function assertGstAvailableForSave(deps, gstNumber, existingMobile) {
 function withLocationNames(client, state, city) {
   return {
     ...client,
-    state_name: state.name,
-    city_name: city.name,
+    state_name: state?.name ?? null,
+    city_name: city?.name ?? null,
   };
 }
 
@@ -191,7 +218,7 @@ export async function createClient(deps, rawInput) {
 
   await assertGstAvailableForSave(deps, input.gstNumber, null);
 
-  const { state, city } = await assertLocationForCreate(deps, {
+  const { state, city } = await resolveClientLocation(deps, {
     stateId: input.stateId,
     cityId: input.cityId,
   });
@@ -225,7 +252,7 @@ export async function updateClient(deps, mobile, rawInput) {
 
   await assertGstAvailableForSave(deps, input.gstNumber, normalizedMobile);
 
-  const { state, city } = await assertLocationForUpdate(deps, existing, {
+  const { state, city } = await resolveClientLocationForUpdate(deps, existing, {
     stateId: input.stateId,
     cityId: input.cityId,
   });
