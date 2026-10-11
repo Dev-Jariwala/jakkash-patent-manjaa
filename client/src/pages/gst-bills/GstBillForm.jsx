@@ -14,12 +14,13 @@ import {
 } from "@/components/ui/table";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import ReactSelect from "@/components/ui/react-select/react-select";
+import { Option as SelectOption } from "@/components/ui/react-select/components";
 import { defaultStyles } from "@/components/ui/react-select/helper";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { getAllClients } from "@/services/clients";
 import { createGstBill, getGstBill, previewGstBillTotals, updateGstBill } from "@/services/gstBills";
-import { getMastersTaxCodes } from "@/services/common";
+import { getAllMastersTaxCodes } from "@/services/common";
 import { getProductsByCollectionId } from "@/services/products";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useLocalStorage } from "@uidotdev/usehooks";
@@ -156,10 +157,54 @@ function isCompleteLine(line) {
   );
 }
 
+function canSubmitGstBill({ hasCompleteLine, preview, previewError, discountPercent }) {
+  if (!hasCompleteLine || !preview || previewError) {
+    return false;
+  }
+  const totalBill = Number(preview.total_bill);
+  if (Number.isFinite(totalBill) && totalBill > 0) {
+    return true;
+  }
+  const discount = Number(String(discountPercent ?? "").trim());
+  return Number.isFinite(discount) && discount === 100;
+}
+
 function formatAmount(value) {
   const n = Number(value);
   if (!Number.isFinite(n)) return "";
   return n.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function taxCodeLabel(taxCode) {
+  if (!taxCode?.type || !taxCode?.code) {
+    return "";
+  }
+  return `${taxCode.type} ${taxCode.code}`;
+}
+
+function productSelectComponentsForReselect(currentProductId, onReselectSame) {
+  if (!currentProductId) {
+    return {};
+  }
+  return {
+    Option: (props) => {
+      const { innerProps, data } = props;
+      return (
+        <SelectOption
+          {...props}
+          innerProps={{
+            ...innerProps,
+            onMouseDown: (event) => {
+              if (data.value === currentProductId) {
+                onReselectSame(data);
+              }
+              innerProps.onMouseDown?.(event);
+            },
+          }}
+        />
+      );
+    },
+  };
 }
 
 const GstBillForm = () => {
@@ -194,10 +239,7 @@ const GstBillForm = () => {
 
   const { data: taxCodes = [], isLoading: taxCodesLoading, error: taxCodesError } = useQuery({
     queryKey: ["masters", "tax-codes", "all"],
-    queryFn: async () => {
-      const response = await getMastersTaxCodes({ pageIndex: 0, pageSize: 200 });
-      return response.data?.tax_codes ?? [];
-    },
+    queryFn: () => getAllMastersTaxCodes(),
   });
 
   const { data: clients = [], isLoading: clientsLoading, error: clientsError } = useQuery({
@@ -276,15 +318,15 @@ const GstBillForm = () => {
     };
   }, [clients, isEdit, originalReceiverMobile, receiverMobile, storedReceiverCopy]);
 
-  const productOptions = useMemo(
-    () =>
-      products.map((p) => ({
-        value: p.product_id,
-        label: p.product_name,
-        wholesale_price: p.wholesale_price,
-      })),
-    [products]
-  );
+  const productOptions = useMemo(() => {
+    const catalog = isEdit ? products : products.filter((p) => p.tax_code_id);
+    return catalog.map((p) => ({
+      value: p.product_id,
+      label: p.product_name,
+      wholesale_price: p.wholesale_price,
+      tax_code_id: p.tax_code_id,
+    }));
+  }, [products, isEdit]);
 
   const taxCodeOptions = useMemo(
     () =>
@@ -394,15 +436,29 @@ const GstBillForm = () => {
       updateLine(index, {
         product_id: "",
         rate: "",
+        tax_code_id: "",
+        cgst_percent: 0,
+        sgst_percent: 0,
+        igst_percent: 0,
         loaded_product_id: "",
         stored_product_name: "",
       });
       return;
     }
-    updateLine(index, {
+    const patch = {
       product_id: option.value,
       rate: String(option.wholesale_price ?? ""),
-    });
+    };
+    if (!isEdit) {
+      const taxCode = taxCodes.find((t) => t.tax_code_id === option.tax_code_id);
+      if (taxCode) {
+        patch.tax_code_id = taxCode.tax_code_id;
+        patch.cgst_percent = taxCode.cgst;
+        patch.sgst_percent = taxCode.sgst;
+        patch.igst_percent = 0;
+      }
+    }
+    updateLine(index, patch);
   };
 
   const onTaxCodeChange = (index, option) => {
@@ -460,6 +516,12 @@ const GstBillForm = () => {
   const formReady = !isEdit || formHydrated;
   const hasCompleteLine = lines.some(isCompleteLine);
   const showFooterTotals = preview && hasCompleteLine;
+  const canSubmit = canSubmitGstBill({
+    hasCompleteLine,
+    preview,
+    previewError,
+    discountPercent,
+  });
 
   return (
     <div>
@@ -602,19 +664,46 @@ const GstBillForm = () => {
                             }
                             onChange={(option) => onProductChange(index, option)}
                             placeholder="Product"
+                            components={
+                              !isEdit
+                                ? productSelectComponentsForReselect(line.product_id, (option) =>
+                                    onProductChange(index, option)
+                                  )
+                                : undefined
+                            }
                             {...billSelectProps}
                           />
                         </TableCell>
                         <TableCell className="p-2 align-middle">
-                          <ReactSelect
-                            options={rowTaxCodeOptions}
-                            value={
-                              rowTaxCodeOptions.find((o) => o.value === line.tax_code_id) ?? null
-                            }
-                            onChange={(option) => onTaxCodeChange(index, option)}
-                            placeholder="Code"
-                            {...billSelectProps}
-                          />
+                          {isEdit ? (
+                            <ReactSelect
+                              options={rowTaxCodeOptions}
+                              value={
+                                rowTaxCodeOptions.find((o) => o.value === line.tax_code_id) ?? null
+                              }
+                              onChange={(option) => onTaxCodeChange(index, option)}
+                              placeholder="Code"
+                              {...billSelectProps}
+                            />
+                          ) : (
+                            <Input
+                              readOnly
+                              tabIndex={-1}
+                              value={taxCodeLabel(
+                                taxCodes.find((t) => t.tax_code_id === line.tax_code_id)
+                              )}
+                              placeholder="HSN/SAC"
+                              title={taxCodeLabel(
+                                taxCodes.find((t) => t.tax_code_id === line.tax_code_id)
+                              )}
+                              className={cn(
+                                compactInputClass,
+                                "w-full min-w-[8.5rem]",
+                                "cursor-default border-input bg-muted/25 shadow-none",
+                                "focus-visible:border-input focus-visible:ring-0 focus-visible:ring-offset-0"
+                              )}
+                            />
+                          )}
                         </TableCell>
                         <TableCell className="p-2 align-middle">
                           <Input
@@ -736,7 +825,7 @@ const GstBillForm = () => {
             <Button variant="outline" onClick={() => navigate("/bills")}>Cancel</Button>
             <Button
               variant="indigo"
-              disabled={saveMutation.isPending || !hasCompleteLine}
+              disabled={saveMutation.isPending || !canSubmit}
               onClick={() => saveMutation.mutate()}
             >
               Final Save

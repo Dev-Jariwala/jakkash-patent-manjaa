@@ -51,21 +51,145 @@ describe("createBill", () => {
     assert.equal(saved.receiver_name, client.name);
   });
 
+  it("copies the product tax code and description on create", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode({
+      code: "520910",
+      description: "Cotton yarn, unbleached",
+    });
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+
+    const saved = await createBill(
+      world.deps,
+      collectionId,
+      standardBillPayload({ world, collectionId, product, taxCode, client })
+    );
+
+    assert.equal(saved.lines[0].tax_code, "520910");
+    assert.equal(saved.lines[0].tax_code_description, "Cotton yarn, unbleached");
+  });
+
+  it("rejects a create when the submitted tax code does not match the product", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxOnProduct = world.seedTaxCode({ code: "1111" });
+    const otherTax = world.seedTaxCode({ code: "2222" });
+    const product = world.seedProduct(collectionId, { tax_code_id: taxOnProduct.tax_code_id });
+
+    await assert.rejects(
+      () =>
+        createBill(world.deps, collectionId, {
+          ...standardBillPayload({
+            world,
+            collectionId,
+            product,
+            taxCode: taxOnProduct,
+            client,
+          }),
+          lines: [
+            {
+              product_id: product.product_id,
+              tax_code_id: otherTax.tax_code_id,
+              quantity: 1,
+              rate: 100,
+              cgst_percent: 2.5,
+              sgst_percent: 2.5,
+              igst_percent: 0,
+            },
+          ],
+        }),
+      (error) => {
+        assert.ok(error instanceof BillValidationError);
+        assert.match(error.message, /match the product's HSN\/SAC/);
+        return true;
+      }
+    );
+  });
+
+  it("rejects a create when the product has no HSN/SAC", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const product = world.seedProduct(collectionId, { tax_code_id: null });
+
+    await assert.rejects(
+      () =>
+        createBill(world.deps, collectionId, {
+          bill_number_parts: ["4", "4", "4"],
+          bill_date: "2026-10-11",
+          receiver_mobile: client.mobile,
+          discount_percent: 0,
+          lines: [
+            {
+              product_id: product.product_id,
+              tax_code_id: taxCode.tax_code_id,
+              quantity: 1,
+              rate: 100,
+              cgst_percent: 2.5,
+              sgst_percent: 2.5,
+              igst_percent: 0,
+            },
+          ],
+        }),
+      (error) => {
+        assert.ok(error instanceof BillValidationError);
+        assert.match(error.message, /no HSN\/SAC/);
+        return true;
+      }
+    );
+  });
+
+  it("stores submitted percents on create even when they differ from the tax code defaults", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode({ cgst: 2.5, sgst: 2.5, igst: 5 });
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+
+    const saved = await createBill(world.deps, collectionId, {
+      ...standardBillPayload({ world, collectionId, product, taxCode, client }),
+      bill_number_parts: ["3", "3", "3"],
+      lines: [
+        {
+          product_id: product.product_id,
+          tax_code_id: taxCode.tax_code_id,
+          quantity: 100,
+          rate: 10,
+          cgst_percent: 0,
+          sgst_percent: 0,
+          igst_percent: 5,
+        },
+      ],
+    });
+
+    assert.equal(saved.lines[0].cgst_percent, 0);
+    assert.equal(saved.lines[0].sgst_percent, 0);
+    assert.equal(saved.lines[0].igst_percent, 5);
+  });
+
   it("saves a 10% discount on two lines with totals 39600, 2448, and 42048", async () => {
     const world = createBillWorld();
     const collectionId = world.seedCollection();
     const client = world.seedClient();
-    const productA = world.seedProduct(collectionId, { wholesale_price: 200 });
-    const productB = world.seedProduct(collectionId, {
-      product_name: "Lining",
-      wholesale_price: 40,
-    });
     const taxLow = world.seedTaxCode();
     const taxHigh = world.seedTaxCode({
       code: "5407",
       cgst: 9,
       sgst: 9,
       igst: 18,
+    });
+    const productA = world.seedProduct(collectionId, {
+      wholesale_price: 200,
+      tax_code_id: taxLow.tax_code_id,
+    });
+    const productB = world.seedProduct(collectionId, {
+      product_name: "Lining",
+      wholesale_price: 40,
+      tax_code_id: taxHigh.tax_code_id,
     });
 
     const saved = await createBill(world.deps, collectionId, {
@@ -708,10 +832,19 @@ describe("updateBill", () => {
     const world = createBillWorld();
     const collectionId = world.seedCollection();
     const client = world.seedClient();
-    const productA = world.seedProduct(collectionId, { product_name: "Line A" });
-    const productB = world.seedProduct(collectionId, { product_name: "Line B" });
-    const productC = world.seedProduct(collectionId, { product_name: "Line C" });
     const taxCode = world.seedTaxCode();
+    const productA = world.seedProduct(collectionId, {
+      product_name: "Line A",
+      tax_code_id: taxCode.tax_code_id,
+    });
+    const productB = world.seedProduct(collectionId, {
+      product_name: "Line B",
+      tax_code_id: taxCode.tax_code_id,
+    });
+    const productC = world.seedProduct(collectionId, {
+      product_name: "Line C",
+      tax_code_id: taxCode.tax_code_id,
+    });
 
     const created = await createBill(world.deps, collectionId, {
       ...standardBillPayload({

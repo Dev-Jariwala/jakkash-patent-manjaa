@@ -134,6 +134,7 @@ export function createBillWorld({
         collection_id: collectionId,
         product_name: "Cotton fabric",
         wholesale_price: 220,
+        tax_code_id: null,
         ...overrides,
       };
       productsById.set(product.product_id, product);
@@ -164,6 +165,14 @@ export function standardBillPayload({
   client,
   overrides = {},
 }) {
+  world.seedProduct(collectionId, {
+    product_id: product.product_id,
+    collection_id: collectionId,
+    product_name: product.product_name,
+    wholesale_price: product.wholesale_price,
+    tax_code_id: taxCode.tax_code_id,
+  });
+
   return {
     bill_number_parts: ["9", "26", "15"],
     bill_date: "2026-10-11",

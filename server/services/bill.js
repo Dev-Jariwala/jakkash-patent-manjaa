@@ -348,6 +348,24 @@ export async function getBill(deps, collectionId, billId) {
   return formatBillRow(row, lines);
 }
 
+function productTaxCodeId(product) {
+  const raw = product?.tax_code_id;
+  if (raw === undefined || raw === null) {
+    return "";
+  }
+  return String(raw).trim();
+}
+
+function assertProductTaxCodeForNewLine(product, submittedTaxCodeId) {
+  const productTaxCodeIdValue = productTaxCodeId(product);
+  if (!productTaxCodeIdValue) {
+    throw new BillValidationError("This product has no HSN/SAC");
+  }
+  if (submittedTaxCodeId !== productTaxCodeIdValue) {
+    throw new BillValidationError("The tax code must match the product's HSN/SAC");
+  }
+}
+
 async function resolveReceiver(deps, receiverMobile) {
   if (!receiverMobile || String(receiverMobile).trim() === "") {
     throw new BillValidationError("Receiver is required");
@@ -389,6 +407,7 @@ async function resolveKeptLines(deps, collectionId, rawLines, discountPercent) {
     if (product.collection_id !== collectionId) {
       throw new BillValidationError("Product must belong to this collection");
     }
+    assertProductTaxCodeForNewLine(product, taxCodeId);
     const taxCode = await deps.getTaxCodeById(taxCodeId);
     if (!taxCode) {
       throw new BillValidationError("Tax code is not known");

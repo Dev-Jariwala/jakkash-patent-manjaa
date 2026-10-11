@@ -32,7 +32,7 @@ export function createBillDeps() {
 
     async getProductById(productId) {
       const [row] = await query(
-        `select product_id, collection_id, product_name, wholesale_price
+        `select product_id, collection_id, product_name, wholesale_price, tax_code_id
          from products
          where product_id = $1`,
         [productId]
