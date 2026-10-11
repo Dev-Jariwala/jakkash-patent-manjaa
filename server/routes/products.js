@@ -8,7 +8,7 @@ const router = express.Router();
 router.get("/:collection_id/products", productValidators.validateGetProducts, productControllers.getProductsByCollectionId);
 router.get("/:collection_id/products/report", productControllers.getProductsReport);
 router.get("/:collection_id/products/:product_id", productControllers.getProductById);
-router.post("/:collection_id/products", productValidators.validateCreateProduct, productControllers.createProduct);
+router.post("/:collection_id/products", productValidators.validateCreateProduct, productControllers.createProductHandler);
 router.put("/:collection_id/products/:product_id", productValidators.validateUpdateProduct, productControllers.updateProductById);
 router.delete("/:collection_id/products/:product_id", productValidators.validateDeleteProduct, productControllers.deleteProductById);
 

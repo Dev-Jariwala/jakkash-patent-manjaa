@@ -28,9 +28,13 @@ _Avoid_: Province, territory
 A shared location row tied to a state. A client profile stores a city id that must belong to the selected state. The client form offers active cities for the selected state; Masters shows every city row, including inactive ones, with the state name.
 _Avoid_: Town, locality
 
+**Product**:
+An item in one collection whose category is Product or Labour. Category Product names one HSN; Labour names one SAC. The product stores the tax code id only and shows the type, code, and description currently on that Masters row. It does not keep CGST, SGST, or IGST rates.
+_Avoid_: Bill line, storing rates on the product
+
 **Tax code**:
-A catalog row on Masters (HSN/SAC tab) for goods or services: a stable id, a digits-only statutory code, a required description, and default CGST, SGST, and IGST rates. HSN is 4, 6, or 8 digits; SAC is 6 digits. The code is unique within its type; the same digits may exist once as HSN and once as SAC. Type is fixed at create; there is no delete.
-_Avoid_: Product tax field, live rate lookup on a future Bill
+A catalog row on Masters (HSN/SAC tab) for goods or services: a stable id, a digits-only statutory code, a required description, and default CGST, SGST, and IGST rates. HSN is 4, 6, or 8 digits; SAC is 6 digits. The code is unique within its type; the same digits may exist once as HSN and once as SAC. Type is fixed at create; there is no delete. A product names one tax code by id.
+_Avoid_: Live rate lookup on a saved Bill line
 
 **Shop bank account**:
 The shop's one current account of bank name, bank address, account number, and IFSC, maintained on Bank details. The first save creates the only row; every later save updates that same row. There is no delete.

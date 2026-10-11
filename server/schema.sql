@@ -87,6 +87,20 @@ CREATE TABLE IF NOT EXISTS clients (
     contact_number   VARCHAR(10)
 );
 
+-- tax_codes -----------------------------------------------------------
+-- HSN/SAC catalog on Masters for GST Bills and product tax codes.
+CREATE TABLE IF NOT EXISTS tax_codes (
+    sr_no         SERIAL PRIMARY KEY,
+    tax_code_id   UUID           NOT NULL UNIQUE DEFAULT gen_random_uuid(),
+    type          VARCHAR(3)     NOT NULL CHECK (type IN ('HSN', 'SAC')),
+    code          VARCHAR(8)     NOT NULL,
+    description   VARCHAR(255)   NOT NULL,
+    cgst          NUMERIC(5, 2)  NOT NULL,
+    sgst          NUMERIC(5, 2)  NOT NULL,
+    igst          NUMERIC(5, 2)  NOT NULL,
+    UNIQUE (type, code)
+);
+
 -- products ------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS products (
     sr_no           SERIAL PRIMARY KEY,
@@ -210,7 +224,8 @@ ALTER TABLE products
     ADD COLUMN IF NOT EXISTS is_labour  BOOLEAN     DEFAULT FALSE,
     ADD COLUMN IF NOT EXISTS is_delete  BOOLEAN     DEFAULT FALSE,
     ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-    ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ;
+    ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ,
+    ADD COLUMN IF NOT EXISTS tax_code_id UUID REFERENCES tax_codes (tax_code_id);
 
 ALTER TABLE stocks
     ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
@@ -254,6 +269,10 @@ CREATE INDEX IF NOT EXISTS idx_products_collection_id
     ON products (collection_id);
 CREATE INDEX IF NOT EXISTS idx_products_collection_created_at
     ON products (collection_id, created_at DESC);
+CREATE INDEX IF NOT EXISTS products_tax_code_id_idx
+    ON products (tax_code_id);
+CREATE INDEX IF NOT EXISTS tax_codes_type_code_idx
+    ON tax_codes (type, code);
 
 -- stocks: collection listing, product join, default sort is date DESC
 CREATE INDEX IF NOT EXISTS idx_stocks_collection_id

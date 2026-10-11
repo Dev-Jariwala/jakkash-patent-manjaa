@@ -70,6 +70,27 @@ export const getMastersTaxCodes = async ({ pageIndex, pageSize }) => {
   return response;
 };
 
+const MASTERS_TAX_CODES_PAGE_SIZE = 100;
+
+export async function getAllMastersTaxCodes() {
+  const rows = [];
+  let pageIndex = 0;
+  let totalPages = 1;
+
+  while (pageIndex < totalPages) {
+    const response = await getMastersTaxCodes({
+      pageIndex,
+      pageSize: MASTERS_TAX_CODES_PAGE_SIZE,
+    });
+    const data = response.data ?? {};
+    rows.push(...(data.tax_codes ?? []));
+    totalPages = data.totalPages ?? 1;
+    pageIndex += 1;
+  }
+
+  return rows;
+}
+
 export const createMastersTaxCode = async (data) => {
   const response = await axios({
     method: "POST",

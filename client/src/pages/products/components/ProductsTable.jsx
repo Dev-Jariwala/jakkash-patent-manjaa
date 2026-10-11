@@ -29,6 +29,22 @@ const columnsDef = [
   columnHelper.accessor("product_name", {
     header: "Product Name",
   }),
+  columnHelper.accessor((row) => row, {
+    id: "tax_code",
+    header: "HSN/SAC",
+    cell: (info) => {
+      const row = info.getValue();
+      if (!row.tax_code_id) {
+        return "-";
+      }
+      const type = row.tax_code_type ?? "";
+      const code = row.tax_code_code ?? "";
+      if (!type || !code) {
+        return "-";
+      }
+      return `${type} ${code}`;
+    },
+  }),
   columnHelper.accessor("retail_price", {
     header: "Retail Price",
     cell: (info) => {
