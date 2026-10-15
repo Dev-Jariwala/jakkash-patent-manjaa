@@ -13,7 +13,7 @@ import { useLocalStorage } from "@uidotdev/usehooks";
 import { toast } from "react-toastify";
 import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
 import { Calendar } from "@/components/ui/calendar"
-import { format } from "date-fns";
+import { format, startOfDay } from "date-fns";
 import { CalendarIcon, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ReactSelect from "@/components/ui/react-select/react-select";
@@ -34,6 +34,7 @@ import {
     shouldPollWhatsAppDeliveryStatus,
 } from "@/lib/whatsappDelivery";
 import { BILL_NUMBER_LABEL } from "@jakkash/bill-pdf";
+import { RequiredMark } from "@/components/form/RequiredMark";
 
 const BillsForm = () => {
     const { order_id } = useParams();
@@ -67,8 +68,22 @@ const BillsForm = () => {
         mobile: yup.number().required("Mobile is required").typeError("Mobile is required").test('len', 'Mobile must be exactly 10 digits', val => val.toString().length === 10),
         name: yup.string().required("Name is required"),
         address: yup.string().required("Address is required"),
-        order_date: yup.date().required("Order Date is required").typeError("Order Date is required"),
-        delivery_date: yup.date().required("Delivery Date is required").typeError("Delivery Date is required"),
+        order_date: yup.date().required("Date is required").typeError("Date is required"),
+        delivery_date: yup
+            .date()
+            .required("Delivery Date is required")
+            .typeError("Delivery Date is required")
+            .test(
+                "min-order-date",
+                "Delivery Date cannot be before Date",
+                function (value) {
+                    const { order_date } = this.parent;
+                    if (!value || !order_date) return true;
+                    return (
+                        startOfDay(value).getTime() >= startOfDay(order_date).getTime()
+                    );
+                }
+            ),
         products: yup.array().of(
             yup.object().shape({
                 product_id: yup.string().required("Product is required"),
@@ -367,7 +382,10 @@ const BillsForm = () => {
                                         name="order_no"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>{BILL_NUMBER_LABEL}</FormLabel>
+                                                <FormLabel>
+                                                    {BILL_NUMBER_LABEL}{" "}
+                                                    <RequiredMark />
+                                                </FormLabel>
                                                 <FormControl>
                                                     <Input className="" {...field} disabled />
                                                 </FormControl>
@@ -383,7 +401,9 @@ const BillsForm = () => {
                                     name="mobile"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Mobile</FormLabel>
+                                            <FormLabel>
+                                                Mobile <RequiredMark />
+                                            </FormLabel>
                                             <FormControl>
                                                 <Input className="" {...field} onChange={(e) => handleNumberInputChange(e, field)} />
                                             </FormControl>
@@ -396,7 +416,9 @@ const BillsForm = () => {
                                     name="name"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Name</FormLabel>
+                                            <FormLabel>
+                                                Name <RequiredMark />
+                                            </FormLabel>
                                             <FormControl>
                                                 <Input className="" {...field} />
                                             </FormControl>
@@ -409,7 +431,9 @@ const BillsForm = () => {
                                     name="address"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Address</FormLabel>
+                                            <FormLabel>
+                                                Address <RequiredMark />
+                                            </FormLabel>
                                             <FormControl>
                                                 <Input className="" {...field} />
                                             </FormControl>
@@ -422,7 +446,9 @@ const BillsForm = () => {
                                     name="order_date"
                                     render={({ field }) => (
                                         <FormItem className="flex flex-col">
-                                            <FormLabel>Date</FormLabel>
+                                            <FormLabel>
+                                                Date <RequiredMark />
+                                            </FormLabel>
                                             <Popover>
                                                 <PopoverTrigger asChild>
                                                     <FormControl>
@@ -460,7 +486,9 @@ const BillsForm = () => {
                                     name="delivery_date"
                                     render={({ field }) => (
                                         <FormItem className="flex flex-col">
-                                            <FormLabel>Delivery Date</FormLabel>
+                                            <FormLabel>
+                                                Delivery Date <RequiredMark />
+                                            </FormLabel>
                                             <Popover>
                                                 <PopoverTrigger asChild>
                                                     <FormControl>
@@ -497,10 +525,16 @@ const BillsForm = () => {
                             <div className="mt-5">
                                 <div className="grid gap-4 mt-2">
                                     <div className="grid grid-cols-5 gap-5 bg-muted py-3 px-5">
-                                        <div className="text-sm font-medium text-foreground">Product</div>
+                                        <div className="text-sm font-medium text-foreground">
+                                            Product <RequiredMark />
+                                        </div>
                                         <div className="text-sm font-medium text-foreground">Stock in Hand</div>
-                                        <div className="text-sm font-medium text-foreground">Price</div>
-                                        <div className="text-sm font-medium text-foreground">Quantity</div>
+                                        <div className="text-sm font-medium text-foreground">
+                                            Price <RequiredMark />
+                                        </div>
+                                        <div className="text-sm font-medium text-foreground">
+                                            Quantity <RequiredMark />
+                                        </div>
                                         <div className="text-sm font-medium text-foreground">Total</div>
                                     </div>
                                     {form.watch('products')?.map((product, index) => (
@@ -638,7 +672,9 @@ const BillsForm = () => {
                                         name="total_firki"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Total Firki</FormLabel>
+                                                <FormLabel>
+                                                    Total Firki <RequiredMark />
+                                                </FormLabel>
                                                 <FormControl>
                                                     <Input className="" {...field} onChange={(e) => handleNumberInputChange(e, field)} />
                                                 </FormControl>
@@ -653,7 +689,9 @@ const BillsForm = () => {
                                         name="sub_total"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Sub Total</FormLabel>
+                                                <FormLabel>
+                                                    Sub Total <RequiredMark />
+                                                </FormLabel>
                                                 <FormControl>
                                                     <Input className="" {...field} disabled />
                                                 </FormControl>
@@ -672,7 +710,9 @@ const BillsForm = () => {
                                         name="discount"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Discount</FormLabel>
+                                                <FormLabel>
+                                                    Discount <RequiredMark />
+                                                </FormLabel>
                                                 <FormControl>
                                                     <Input className="" {...field} onChange={
                                                         e => {
@@ -691,7 +731,9 @@ const BillsForm = () => {
                                         name="advance"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Advance</FormLabel>
+                                                <FormLabel>
+                                                    Advance <RequiredMark />
+                                                </FormLabel>
                                                 <FormControl>
                                                     <Input className="" {...field} onChange={
                                                         e => {
@@ -710,7 +752,9 @@ const BillsForm = () => {
                                         name="total_due"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Total Due</FormLabel>
+                                                <FormLabel>
+                                                    Total Due <RequiredMark />
+                                                </FormLabel>
                                                 <FormControl>
                                                     <Input className="" {...field} disabled />
                                                 </FormControl>
@@ -746,7 +790,7 @@ const BillsForm = () => {
                                     />}
                                 </div>
                             </div>
-                            <div className="w-full mt-5 flex items-center justify-center col-span-5 mb-20">
+                            <div className="w-full mt-5 flex items-center justify-center col-span-5 mb-20 gap-2">
                                 <MutationError mutation={createOrderMutation} />
                                 <Button variant="" disabled={isEditLocked || createOrderMutation.isPending || updateOrderMutation.isPending} title={isEditLocked ? EDIT_LOCK_REASON : undefined} isLoading={createOrderMutation.isPending || updateOrderMutation.isPending} loadingText={formType === 'update' ? `updating ${form.watch("order_no")}...` : `creating ${form.watch("order_no")}...`} className="bg-indigo-500 hover:bg-indigo-600" type="submit">
                                     {formType === "update" ? "Update" : "Create"}{" "}

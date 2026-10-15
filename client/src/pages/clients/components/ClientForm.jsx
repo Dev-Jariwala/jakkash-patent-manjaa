@@ -24,6 +24,7 @@ import { getCities, getCountries, getStates } from "@/services/common";
 import { Textarea } from "@/components/ui/textarea";
 import { Spinner } from "@/components/ui/spinner";
 import { ArrowLeft } from "lucide-react";
+import { RequiredMark } from "@/components/form/RequiredMark";
 
 const placeCursorAtEnd = (event) => {
     const field = event.target;
@@ -329,11 +330,12 @@ const ClientForm = () => {
                 <div className="w-full rounded-lg border border-border bg-card p-6 shadow-sm">
                     <div className="mb-6 space-y-1">
                         <h2 className="text-lg font-semibold text-foreground">{pageTitle}</h2>
-                        <p className="text-sm text-muted-foreground max-w-3xl">
-                            {isEdit
-                                ? "Name and address can change the next time a bill is created for this mobile."
-                                : "Required: name, mobile, and address. Profile fields such as location and GST are optional."}
-                        </p>
+                        {isEdit ? (
+                            <p className="text-sm text-muted-foreground max-w-3xl">
+                                Name and address can change the next time a bill is created for this
+                                mobile.
+                            </p>
+                        ) : null}
                     </div>
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -346,7 +348,10 @@ const ClientForm = () => {
                                         name="name"
                                         render={({ field }) => (
                                             <FormItem className="md:col-span-2 lg:col-span-2">
-                                                <FormLabel>Name</FormLabel>
+                                                <FormLabel>
+                                                    Name
+                                                    <RequiredMark />
+                                                </FormLabel>
                                                 <FormControl>
                                                     <Input
                                                         placeholder="Client or business name"
@@ -366,7 +371,10 @@ const ClientForm = () => {
                                         name="mobile"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Mobile</FormLabel>
+                                                <FormLabel>
+                                                    Mobile
+                                                    <RequiredMark />
+                                                </FormLabel>
                                                 <FormControl>
                                                     <Input
                                                         placeholder="10-digit mobile"
@@ -385,16 +393,16 @@ const ClientForm = () => {
                                 </div>
                             </FormSection>
 
-                            <FormSection
-                                title="Address & location"
-                                description="Pincode, state, and city are optional. Cities are limited to the selected state."
-                            >
+                            <FormSection title="Address & location">
                                 <FormField
                                     control={form.control}
                                     name="address"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Address</FormLabel>
+                                            <FormLabel>
+                                                Address
+                                                <RequiredMark />
+                                            </FormLabel>
                                             <FormControl>
                                                 <Textarea
                                                     placeholder="Street, area, landmark"
@@ -495,10 +503,7 @@ const ClientForm = () => {
                                 </div>
                             </FormSection>
 
-                            <FormSection
-                                title="GST & contact"
-                                description="Optional billing and alternate contact details."
-                            >
+                            <FormSection title="GST & contact">
                                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                                     <FormField
                                         control={form.control}

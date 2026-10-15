@@ -31,13 +31,47 @@ import {
   normalizeBillCalendarDate,
 } from "@/pages/gst-bills/billCalendarDate";
 import { CalendarIcon, Plus, Trash2 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import {
+  emptyLineFieldErrors,
+  validateGstBillForm,
+} from "@/pages/gst-bills/gstBillFormValidation";
+import { RequiredMark } from "@/components/form/RequiredMark";
 
 const compactInputClass = "h-9 tabular-nums";
+const invalidInputClass = "border-destructive focus-visible:ring-destructive";
 const percentInputClass = "h-9 w-[3.25rem] min-w-[3.25rem] px-1 text-center tabular-nums";
 const taxSectionClass = "border-l border-border/70 bg-muted/20";
+const LINE_TABLE_COLUMN_COUNT = 13;
+
+function FieldError({ message }) {
+  if (!message) {
+    return null;
+  }
+  return <p className="text-xs text-destructive mt-1">{message}</p>;
+}
+
+/** One message per table row — avoids uneven column heights in line-item grids. */
+function summarizeLineErrors(lineErrors) {
+  if (!lineErrors) {
+    return null;
+  }
+  const fieldMessages = [
+    lineErrors.product,
+    lineErrors.quantity,
+    lineErrors.rate,
+    lineErrors.cgst,
+    lineErrors.sgst,
+    lineErrors.igst,
+    lineErrors.tax,
+  ].filter(Boolean);
+  if (fieldMessages.length > 0) {
+    return [...new Set(fieldMessages)].join(" · ");
+  }
+  return lineErrors.line || null;
+}
 
 function ReadonlyAmount({ value }) {
   return (
@@ -226,6 +260,7 @@ const GstBillForm = () => {
   const [preview, setPreview] = useState(null);
   const [previewError, setPreviewError] = useState(null);
   const [formHydrated, setFormHydrated] = useState(!isEdit);
+  const [validationErrors, setValidationErrors] = useState(null);
 
   const { data: products = [], isLoading: productsLoading, error: productsError } = useQuery({
     queryKey: ["products", activeCollection],
@@ -421,6 +456,68 @@ const GstBillForm = () => {
 
   const updateLine = (index, patch) => {
     setLines((prev) => prev.map((line, i) => (i === index ? { ...line, ...patch } : line)));
+    setValidationErrors((prev) => {
+      if (!prev?.lines?.[index]) {
+        return prev;
+      }
+      return {
+        ...prev,
+        lines: prev.lines.map((lineErrors, i) =>
+          i === index ? emptyLineFieldErrors() : lineErrors
+        ),
+      };
+    });
+  };
+
+  const onCgstPercentChange = (index, rawValue) => {
+    const patch = { cgst_percent: rawValue, sgst_percent: rawValue };
+    const amount = Number(String(rawValue).trim());
+    if (rawValue !== "" && Number.isFinite(amount) && amount > 0) {
+      patch.igst_percent = 0;
+    }
+    updateLine(index, patch);
+  };
+
+  const onSgstPercentChange = (index, rawValue) => {
+    onCgstPercentChange(index, rawValue);
+  };
+
+  const onIgstPercentChange = (index, rawValue) => {
+    const patch = { igst_percent: rawValue };
+    const amount = Number(String(rawValue).trim());
+    if (rawValue !== "" && Number.isFinite(amount) && amount > 0) {
+      patch.cgst_percent = 0;
+      patch.sgst_percent = 0;
+    }
+    updateLine(index, patch);
+  };
+
+  const attemptSave = () => {
+    const { hasError, errors } = validateGstBillForm({
+      billNumberParts,
+      billDate,
+      receiverMobile,
+      discountPercent,
+      lines,
+      clients,
+    });
+    setValidationErrors(errors);
+    if (hasError) {
+      toast.error("Fix the highlighted fields before saving");
+      return;
+    }
+    if (
+      !canSubmitGstBill({
+        hasCompleteLine,
+        preview,
+        previewError,
+        discountPercent,
+      })
+    ) {
+      toast.error(previewError || "Check line amounts and discount before saving");
+      return;
+    }
+    saveMutation.mutate();
   };
 
   const onProductChange = (index, option) => {
@@ -447,13 +544,17 @@ const GstBillForm = () => {
     updateLine(index, patch);
   };
 
-  const addLine = () => setLines((prev) => [...prev, emptyLine()]);
+  const addLine = () => {
+    setLines((prev) => [...prev, emptyLine()]);
+    setValidationErrors(null);
+  };
 
   const removeLine = (index) => {
     setLines((prev) => {
       const next = prev.filter((_, i) => i !== index);
       return next.length === 0 ? [emptyLine()] : next;
     });
+    setValidationErrors(null);
   };
 
   const lineDisplay = (index) => {
@@ -482,12 +583,6 @@ const GstBillForm = () => {
   const formReady = !isEdit || formHydrated;
   const hasCompleteLine = lines.some(isCompleteLine);
   const showFooterTotals = preview && hasCompleteLine;
-  const canSubmit = canSubmitGstBill({
-    hasCompleteLine,
-    preview,
-    previewError,
-    discountPercent,
-  });
 
   return (
     <div>
@@ -515,24 +610,47 @@ const GstBillForm = () => {
         <div className="px-5 space-y-6 pb-10">
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <label className="text-sm font-medium">Bill number</label>
+              <label className="text-sm font-medium whitespace-nowrap">
+                Bill number <RequiredMark />
+              </label>
               <div className="flex gap-2 mt-1">
                 {billNumberParts.map((part, index) => (
                   <Input
                     key={index}
                     value={part}
                     maxLength={20}
+                    className={cn(
+                      validationErrors?.billNumberParts?.[index] && invalidInputClass
+                    )}
                     onChange={(e) => {
                       const next = [...billNumberParts];
                       next[index] = e.target.value;
                       setBillNumberParts(next);
+                      setValidationErrors((prev) => {
+                        if (!prev?.billNumberParts?.[index]) {
+                          return prev;
+                        }
+                        const billNumberPartsErrors = [...prev.billNumberParts];
+                        billNumberPartsErrors[index] = null;
+                        return { ...prev, billNumberParts: billNumberPartsErrors };
+                      });
                     }}
                   />
                 ))}
               </div>
+              {validationErrors?.billNumberParts?.some(Boolean) ? (
+                <FieldError
+                  message={
+                    validationErrors.billNumberParts.find(Boolean) ??
+                    "Bill number is incomplete"
+                  }
+                />
+              ) : null}
             </div>
             <div>
-              <label className="text-sm font-medium">Date</label>
+              <label className="text-sm font-medium">
+                Date <RequiredMark />
+              </label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button variant="outline" className={cn("w-full mt-1 justify-start text-left font-normal")}>
@@ -544,25 +662,44 @@ const GstBillForm = () => {
                   <Calendar
                     mode="single"
                     selected={billCalendarDateToLocalDate(billDate) ?? undefined}
-                    onSelect={(date) => date && setBillDate(localDateToBillCalendarIso(date))}
+                    onSelect={(date) => {
+                      if (date) {
+                        setBillDate(localDateToBillCalendarIso(date));
+                        setValidationErrors((prev) =>
+                          prev ? { ...prev, billDate: null } : prev
+                        );
+                      }
+                    }}
                     initialFocus
                   />
                 </PopoverContent>
               </Popover>
+              <FieldError message={validationErrors?.billDate} />
             </div>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <label className="text-sm font-medium">Receiver (Bill to)</label>
+              <label className="text-sm font-medium">
+                Receiver (Bill to) <RequiredMark />
+              </label>
               <ReactSelect
-                className="mt-1"
+                className={cn(
+                  "mt-1",
+                  validationErrors?.receiver && "[&_.select__control]:border-destructive"
+                )}
                 options={clientOptions}
                 value={clientOptions.find((o) => o.value === receiverMobile) ?? null}
-                onChange={(option) => setReceiverMobile(option?.value ?? "")}
+                onChange={(option) => {
+                  setReceiverMobile(option?.value ?? "");
+                  setValidationErrors((prev) =>
+                    prev ? { ...prev, receiver: null } : prev
+                  );
+                }}
                 placeholder="Select client"
                 {...billSelectProps}
               />
+              <FieldError message={validationErrors?.receiver} />
             </div>
             <div className="space-y-2">
               <Textarea readOnly value={receiverDisplay?.address ?? ""} placeholder="Address" />
@@ -573,6 +710,10 @@ const GstBillForm = () => {
               </div>
             </div>
           </div>
+
+          <p className="text-xs text-muted-foreground">
+            <RequiredMark /> Filled lines need product, qty, rate, CGST %, and SGST %.
+          </p>
 
           <div className="rounded-lg border bg-card shadow-sm">
               <Table className="min-w-[1040px]">
@@ -593,16 +734,35 @@ const GstBillForm = () => {
                     <TableHead colSpan={2} className="h-9 py-2" />
                   </TableRow>
                   <TableRow className="hover:bg-transparent bg-muted/40">
-                    <TableHead className="h-10 min-w-[11rem] p-2 text-xs">Description</TableHead>
-                    <TableHead className="h-10 min-w-[9rem] p-2 text-xs">HSN/SAC</TableHead>
-                    <TableHead className="h-10 w-16 p-2 text-center text-xs">Qty</TableHead>
-                    <TableHead className="h-10 w-24 p-2 text-right text-xs">Rate</TableHead>
-                    <TableHead className="h-10 w-28 p-2 text-right text-xs">Price</TableHead>
-                    <TableHead className={cn("h-10 w-14 p-2 text-center text-xs", taxSectionClass)}>
+                    <TableHead className="h-10 min-w-[11rem] p-2 text-xs whitespace-nowrap">
+                      Description
+                    </TableHead>
+                    <TableHead className="h-10 min-w-[9rem] p-2 text-xs whitespace-nowrap">
+                      HSN/SAC
+                    </TableHead>
+                    <TableHead className="h-10 w-16 p-2 text-center text-xs whitespace-nowrap">
+                      Qty
+                    </TableHead>
+                    <TableHead className="h-10 w-24 p-2 text-right text-xs whitespace-nowrap">
+                      Rate
+                    </TableHead>
+                    <TableHead className="h-10 w-28 p-2 text-right text-xs whitespace-nowrap">
+                      Price
+                    </TableHead>
+                    <TableHead
+                      className={cn(
+                        "h-10 w-14 p-2 text-center text-xs whitespace-nowrap",
+                        taxSectionClass
+                      )}
+                    >
                       CGST %
                     </TableHead>
-                    <TableHead className="h-10 w-24 p-2 text-right text-xs">CGST</TableHead>
-                    <TableHead className="h-10 w-14 p-2 text-center text-xs">SGST %</TableHead>
+                    <TableHead className="h-10 w-24 p-2 text-right text-xs whitespace-nowrap">
+                      CGST
+                    </TableHead>
+                    <TableHead className="h-10 w-14 p-2 text-center text-xs whitespace-nowrap">
+                      SGST %
+                    </TableHead>
                     <TableHead className="h-10 w-24 p-2 text-right text-xs">SGST</TableHead>
                     <TableHead className="h-10 w-14 p-2 text-center text-xs">IGST %</TableHead>
                     <TableHead className="h-10 w-24 p-2 text-right text-xs">IGST</TableHead>
@@ -614,10 +774,19 @@ const GstBillForm = () => {
                   {lines.map((line, index) => {
                     const display = lineDisplay(index);
                     const rowProductOptions = productOptionsForLine(line, productOptions, isEdit);
+                    const lineErrors = validationErrors?.lines?.[index];
+                    const lineErrorSummary = summarizeLineErrors(lineErrors);
+                    const lineRowKey = line.bill_line_id || `line-${index}`;
+                    const productInvalid =
+                      lineErrors?.product || lineErrors?.line;
                     return (
-                      <TableRow key={line.bill_line_id || `line-${index}`} className="hover:bg-muted/30">
+                      <Fragment key={lineRowKey}>
+                      <TableRow className="hover:bg-muted/30">
                         <TableCell className="p-2 align-middle">
                           <ReactSelect
+                            className={cn(
+                              productInvalid && "[&_.select__control]:border-destructive"
+                            )}
                             options={rowProductOptions}
                             value={
                               rowProductOptions.find((o) => o.value === line.product_id) ?? null
@@ -647,7 +816,11 @@ const GstBillForm = () => {
                         </TableCell>
                         <TableCell className="p-2 align-middle">
                           <Input
-                            className={cn(compactInputClass, "w-16 text-center")}
+                            className={cn(
+                              compactInputClass,
+                              "w-16 text-center",
+                              lineErrors?.quantity && invalidInputClass
+                            )}
                             value={line.quantity}
                             onChange={(e) => updateLine(index, { quantity: e.target.value })}
                             inputMode="numeric"
@@ -655,7 +828,11 @@ const GstBillForm = () => {
                         </TableCell>
                         <TableCell className="p-2 align-middle">
                           <Input
-                            className={cn(compactInputClass, "text-right")}
+                            className={cn(
+                              compactInputClass,
+                              "text-right",
+                              lineErrors?.rate && invalidInputClass
+                            )}
                             value={line.rate}
                             onChange={(e) => updateLine(index, { rate: e.target.value })}
                             inputMode="decimal"
@@ -666,9 +843,12 @@ const GstBillForm = () => {
                         </TableCell>
                         <TableCell className={cn("p-2 align-middle", taxSectionClass)}>
                           <Input
-                            className={percentInputClass}
+                            className={cn(
+                              percentInputClass,
+                              (lineErrors?.cgst || lineErrors?.tax) && invalidInputClass
+                            )}
                             value={line.cgst_percent}
-                            onChange={(e) => updateLine(index, { cgst_percent: e.target.value })}
+                            onChange={(e) => onCgstPercentChange(index, e.target.value)}
                             inputMode="decimal"
                           />
                         </TableCell>
@@ -677,9 +857,12 @@ const GstBillForm = () => {
                         </TableCell>
                         <TableCell className="p-2 align-middle">
                           <Input
-                            className={percentInputClass}
+                            className={cn(
+                              percentInputClass,
+                              (lineErrors?.sgst || lineErrors?.tax) && invalidInputClass
+                            )}
                             value={line.sgst_percent}
-                            onChange={(e) => updateLine(index, { sgst_percent: e.target.value })}
+                            onChange={(e) => onSgstPercentChange(index, e.target.value)}
                             inputMode="decimal"
                           />
                         </TableCell>
@@ -688,9 +871,12 @@ const GstBillForm = () => {
                         </TableCell>
                         <TableCell className="p-2 align-middle">
                           <Input
-                            className={percentInputClass}
+                            className={cn(
+                              percentInputClass,
+                              lineErrors?.igst && invalidInputClass
+                            )}
                             value={line.igst_percent}
-                            onChange={(e) => updateLine(index, { igst_percent: e.target.value })}
+                            onChange={(e) => onIgstPercentChange(index, e.target.value)}
                             inputMode="decimal"
                           />
                         </TableCell>
@@ -713,6 +899,17 @@ const GstBillForm = () => {
                           </Button>
                         </TableCell>
                       </TableRow>
+                      {lineErrorSummary ? (
+                        <TableRow className="hover:bg-transparent border-b border-border/80">
+                          <TableCell
+                            colSpan={LINE_TABLE_COLUMN_COUNT}
+                            className="py-1.5 px-3 bg-destructive/5"
+                          >
+                            <p className="text-xs text-destructive">{lineErrorSummary}</p>
+                          </TableCell>
+                        </TableRow>
+                      ) : null}
+                      </Fragment>
                     );
                   })}
                 </TableBody>
@@ -726,12 +923,23 @@ const GstBillForm = () => {
 
           <div className="border-t pt-6 flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
             <div className="w-full max-w-[12rem]">
-              <label className="text-sm font-medium">Discount(%)</label>
+              <label className="text-sm font-medium">
+                Discount(%) <RequiredMark />
+              </label>
               <Input
-                className="mt-1"
+                className={cn(
+                  "mt-1",
+                  validationErrors?.discountPercent && invalidInputClass
+                )}
                 value={discountPercent}
-                onChange={(e) => setDiscountPercent(e.target.value)}
+                onChange={(e) => {
+                  setDiscountPercent(e.target.value);
+                  setValidationErrors((prev) =>
+                    prev ? { ...prev, discountPercent: null } : prev
+                  );
+                }}
               />
+              <FieldError message={validationErrors?.discountPercent} />
             </div>
             <div className="w-full max-w-md rounded-lg border bg-muted/30 p-4 shadow-sm">
               <div className="space-y-2 text-sm">
@@ -760,13 +968,16 @@ const GstBillForm = () => {
             </div>
           </div>
 
+          {validationErrors?.general ? (
+            <p className="text-sm text-destructive">{validationErrors.general}</p>
+          ) : null}
           <MutationError mutation={saveMutation} />
           <div className="flex gap-2 pt-2">
             <Button variant="outline" onClick={() => navigate("/bills")}>Cancel</Button>
             <Button
               variant="indigo"
-              disabled={saveMutation.isPending || !canSubmit}
-              onClick={() => saveMutation.mutate()}
+              disabled={saveMutation.isPending}
+              onClick={attemptSave}
             >
               Final Save
             </Button>

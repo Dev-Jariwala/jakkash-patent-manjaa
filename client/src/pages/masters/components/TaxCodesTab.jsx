@@ -51,6 +51,7 @@ import {
 } from "react-icons/md";
 import { toast } from "react-toastify";
 import * as yup from "yup";
+import { RequiredMark } from "@/components/form/RequiredMark";
 
 const DEFAULT_PAGE_SIZE = 10;
 
@@ -160,7 +161,9 @@ const TaxCodeFormDialog = ({ open, onClose, editingRow }) => {
               name="type"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Type</FormLabel>
+                  <FormLabel>
+                    Type <RequiredMark />
+                  </FormLabel>
                   <Select
                     value={field.value}
                     onValueChange={field.onChange}
@@ -185,7 +188,9 @@ const TaxCodeFormDialog = ({ open, onClose, editingRow }) => {
               name="code"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Code</FormLabel>
+                  <FormLabel>
+                    Code <RequiredMark />
+                  </FormLabel>
                   <FormControl>
                     <Input {...field} inputMode="numeric" autoComplete="off" />
                   </FormControl>
@@ -198,7 +203,9 @@ const TaxCodeFormDialog = ({ open, onClose, editingRow }) => {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>
+                    Description <RequiredMark />
+                  </FormLabel>
                   <FormControl>
                     <Textarea rows={3} {...field} />
                   </FormControl>
@@ -214,7 +221,9 @@ const TaxCodeFormDialog = ({ open, onClose, editingRow }) => {
                   name={name}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="uppercase">{name}</FormLabel>
+                      <FormLabel className="uppercase">
+                        {name} <RequiredMark />
+                      </FormLabel>
                       <FormControl>
                         <Input {...field} inputMode="decimal" autoComplete="off" />
                       </FormControl>

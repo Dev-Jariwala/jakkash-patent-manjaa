@@ -20,6 +20,7 @@ import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import ReactSelect from "@/components/ui/react-select/react-select";
 import { toast } from "react-toastify";
+import { RequiredMark } from "@/components/form/RequiredMark";
 import { handleNumberInputChange } from "@/helper/formHelper";
 
 const schema = yup.object().shape({
@@ -151,7 +152,7 @@ const StocksForm = () => {
                             name="date"
                             render={({ field }) => (
                                 <FormItem className="flex flex-col">
-                                    <FormLabel>Date <sup className="text-red-500 text-base -top-0">*</sup></FormLabel>
+                                    <FormLabel>Date <RequiredMark /></FormLabel>
                                     <Popover>
                                         <PopoverTrigger asChild>
                                             <FormControl>
@@ -190,7 +191,7 @@ const StocksForm = () => {
                             render={({ field }) => (
                                 <FormItem className="col-span-1">
                                     <FormLabel>
-                                        Product <sup className="text-red-500 text-base -top-0">*</sup>
+                                        Product <RequiredMark />
                                     </FormLabel>
                                     <FormControl>
                                         <ReactSelect
@@ -212,7 +213,7 @@ const StocksForm = () => {
                             render={({ field }) => (
                                 <FormItem className="">
                                     <FormLabel>
-                                        Quantity <sup className="text-red-500 text-base -top-0">*</sup>
+                                        Quantity <RequiredMark />
                                     </FormLabel>
                                     <FormControl>
                                         <Input variant='ringShadow' {...field} onChange={(e) => handleNumberInputChange(e, field)} />

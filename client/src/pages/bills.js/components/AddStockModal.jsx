@@ -21,6 +21,7 @@ import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
+import { RequiredMark } from "@/components/form/RequiredMark";
 
 const schema = yup.object().shape({
     product_id: yup.string().required("Product ID is required").typeError("Product ID is required"),
@@ -110,7 +111,7 @@ const AddStockModal = ({ open, onClose }) => {
                                     name="date"
                                     render={({ field }) => (
                                         <FormItem className="">
-                                            <FormLabel>Date <sup className="text-red-500 text-base -top-0">*</sup></FormLabel>
+                                            <FormLabel>Date <RequiredMark /></FormLabel>
                                             <FormControl>
                                                 <Popover className="relative">
                                                     {({ open }) => (
@@ -157,7 +158,7 @@ const AddStockModal = ({ open, onClose }) => {
                                     render={({ field }) => (
                                         <FormItem className="col-span-1">
                                             <FormLabel>
-                                                Product <sup className="text-red-500 text-base -top-0">*</sup>
+                                                Product <RequiredMark />
                                             </FormLabel>
                                             <FormControl>
                                                 <ReactSelect
@@ -179,7 +180,7 @@ const AddStockModal = ({ open, onClose }) => {
                                     render={({ field }) => (
                                         <FormItem className="">
                                             <FormLabel>
-                                                Quantity <sup className="text-red-500 text-base -top-0">*</sup>
+                                                Quantity <RequiredMark />
                                             </FormLabel>
                                             <FormControl>
                                                 <Input variant='ringShadow' {...field} onChange={(e) => handleNumberInputChange(e, field)} />

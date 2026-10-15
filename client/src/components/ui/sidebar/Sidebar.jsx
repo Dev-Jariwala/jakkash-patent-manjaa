@@ -15,16 +15,17 @@ import DashboardSvg from "@/components/svgs/DashboardSvg";
 import ProductSvg from "@/components/svgs/ProductSvg";
 import StocksSvg from "@/components/svgs/StocksSvg";
 import BillSvg from "@/components/svgs/BillSvg";
+import OrderSvg from "@/components/svgs/OrderSvg";
 import ClientSvg from "@/components/svgs/ClientSvg";
 import PurchaseSvg from "@/components/svgs/PurchaseSvg";
 import AnalyticsSvg from "@/components/svgs/AnalyticsSvg";
 import { cn } from "@/lib/utils";
 import CollectionsSvg from "@/components/svgs/Collections";
-import { BookMarked, Landmark, Settings as SettingsIcon } from "lucide-react";
+import MastersSvg from "@/components/svgs/MastersSvg";
+import BankSvg from "@/components/svgs/BankSvg";
+import { Settings as SettingsIcon } from "lucide-react";
 
-const SettingsNavIcon = () => <SettingsIcon className="w-6 h-6" />;
-const MastersNavIcon = () => <BookMarked className="w-6 h-6" />;
-const BankDetailsNavIcon = () => <Landmark className="w-6 h-6" />;
+const SettingsNavIcon = () => <SettingsIcon className="w-6 h-6" strokeWidth={1.75} />;
 
 
 const data = {
@@ -32,72 +33,84 @@ const data = {
         {
             title: 'Dashboard',
             icon: DashboardSvg,
+            iconScale: 1.11,
             link: '/',
             isCollapsible: false,
         },
         {
             title: 'Collections',
             icon: CollectionsSvg,
+            iconScale: 0.92,
             link: '/collections',
             isCollapsible: false,
         },
         {
             title: 'Products',
             icon: ProductSvg,
+            iconScale: 0.96,
             link: '/products',
             isCollapsible: false,
         },
         {
             title: 'Stocks',
             icon: StocksSvg,
+            iconScale: 0.9,
             link: '/stocks',
             isCollapsible: false,
         },
         {
             title: 'Orders',
-            icon: BillSvg,
+            icon: OrderSvg,
+            iconScale: 1.17,
             link: '/orders',
             isCollapsible: false,
         },
         {
             title: 'Bills',
             icon: BillSvg,
+            iconScale: 0.98,
             link: '/bills',
             isCollapsible: false,
         },
         {
             title: 'Clients',
             icon: ClientSvg,
+            iconScale: 0.94,
             link: '/clients',
             isCollapsible: false,
         },
         {
             title: 'Purchases',
             icon: PurchaseSvg,
+            iconScale: 1.01,
             link: '/purchases',
             isCollapsible: false,
         },
         {
             title: 'Analytics',
             icon: AnalyticsSvg,
+            iconScale: 0.92,
             link: '/analytics',
             isCollapsible: false,
         },
         {
             title: 'Masters',
-            icon: MastersNavIcon,
+            icon: MastersSvg,
+            iconScale: 1.15,
             link: '/masters',
             isCollapsible: false,
         },
         {
             title: 'Bank details',
-            icon: BankDetailsNavIcon,
+            icon: BankSvg,
+            iconScale: 1.06,
             link: '/bank-details',
             isCollapsible: false,
         },
         {
             title: 'Settings',
             icon: SettingsNavIcon,
+            iconScale: 0.96,
             link: '/settings',
             isCollapsible: false,
         },
@@ -192,7 +205,10 @@ const Sidebar = () => {
                                                 tooltip={item.title}
                                             >
                                                 <Link className={cn("no-underline text-inherit !h-10 ", isActive(item.link) ? '!bg-sidebar-accent !text-sidebar-accent-foreground' : 'hover:!bg-sidebar-accent')} to={item.link}>
-                                                    <span className="mx-1">
+                                                    <span
+                                                        className="mx-1 flex size-6 shrink-0 items-center justify-center [&_img]:object-contain"
+                                                        style={{ transform: `scale(${item.iconScale ?? 1})` }}
+                                                    >
                                                         {item.icon && <item.icon />}
                                                     </span>
                                                     <span className=" animate-fade animate-duration-300">{item.title}</span>

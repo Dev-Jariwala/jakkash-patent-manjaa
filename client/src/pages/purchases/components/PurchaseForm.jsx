@@ -21,6 +21,7 @@ import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Textarea } from "@/components/ui/textarea";
 import { handleDecimalInputChange, handleNumberInputChange } from "@/helper/formHelper";
+import { RequiredMark } from "@/components/form/RequiredMark";
 const schema = yup.object().shape({
     purchase_date: yup.date().required("Purchase Date is required").typeError("Purchase Date is required"),
     invoice_no: yup.string().required("Invoice Number is required"),
@@ -132,7 +133,7 @@ const PurchaseForm = () => {
                             name="purchase_date"
                             render={({ field }) => (
                                 <FormItem className="flex flex-col">
-                                    <FormLabel>Date <sup className="text-red-500 text-base -top-0">*</sup></FormLabel>
+                                    <FormLabel>Date <RequiredMark /></FormLabel>
                                     <Popover>
                                         <PopoverTrigger asChild>
                                             <FormControl>
@@ -170,7 +171,7 @@ const PurchaseForm = () => {
                             name="invoice_no"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Invoice No <sup className="text-red-500 text-base -top-0">*</sup></FormLabel>
+                                    <FormLabel>Invoice No <RequiredMark /></FormLabel>
                                     <FormControl>
                                         <Input className="" {...field} />
                                     </FormControl>
@@ -183,7 +184,7 @@ const PurchaseForm = () => {
                             name="supplier_name"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Supplier Name <sup className="text-red-500 text-base -top-0">*</sup></FormLabel>
+                                    <FormLabel>Supplier Name <RequiredMark /></FormLabel>
                                     <FormControl>
                                         <Input className="" {...field} />
                                     </FormControl>
@@ -196,7 +197,7 @@ const PurchaseForm = () => {
                             name="rate"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Rate <sup className="text-red-500 text-base -top-0">*</sup></FormLabel>
+                                    <FormLabel>Rate <RequiredMark /></FormLabel>
                                     <FormControl>
                                         <Input className="" {...field} onChange={e => handleDecimalInputChange(e, field)} />
                                     </FormControl>
@@ -209,7 +210,7 @@ const PurchaseForm = () => {
                             name="quantity"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Quantity <sup className="text-red-500 text-base -top-0">*</sup></FormLabel>
+                                    <FormLabel>Quantity <RequiredMark /></FormLabel>
                                     <FormControl>
                                         <Input className="" {...field} onChange={e => handleNumberInputChange(e, field)} />
                                     </FormControl>

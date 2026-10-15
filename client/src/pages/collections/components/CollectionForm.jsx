@@ -11,6 +11,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import MutationError from "@/components/Errors/MutationError";
 import QueryError from "@/components/Errors/QueryError";
 import { toast } from "react-toastify";
+import { RequiredMark } from "@/components/form/RequiredMark";
 import { createCollection, getCollectionById, updateCollection } from "@/services/collections";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -129,7 +130,8 @@ const CollectionForm = () => {
                             render={({ field }) => (
                                 <FormItem className="">
                                     <FormLabel>
-                                        Collection Name <sup className="text-red-500 text-base -top-0">*</sup>
+                                        Collection Name
+                                        <RequiredMark />
                                     </FormLabel>
                                     <FormControl>
                                         <Input variant='ringShadow' {...field} />

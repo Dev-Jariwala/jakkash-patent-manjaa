@@ -19,7 +19,47 @@ import {
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { toast } from "react-toastify";
+import { RequiredMark } from "@/components/form/RequiredMark";
+
+const IFSC_PATTERN = /^[A-Z]{4}0[A-Z0-9]{6}$/;
+
+const schema = yup.object().shape({
+  bank_name: yup
+    .string()
+    .trim()
+    .required("Bank name is required")
+    .max(120, "Bank name is too long"),
+  bank_address: yup
+    .string()
+    .trim()
+    .required("Bank address is required")
+    .max(255, "Bank address is too long"),
+  account_number: yup
+    .string()
+    .trim()
+    .required("Account number is required")
+    .matches(/^\d{9,18}$/, "Account number must be 9 to 18 digits"),
+  ifsc: yup
+    .string()
+    .trim()
+    .required("IFSC is required")
+    .test(
+      "ifsc",
+      "IFSC must be the standard 11-character IFSC",
+      (value) => {
+        if (!value) {
+          return true;
+        }
+        if (/\s/.test(value)) {
+          return false;
+        }
+        return IFSC_PATTERN.test(value.toUpperCase());
+      }
+    ),
+});
 
 const emptyValues = {
   bank_name: "",
@@ -32,6 +72,7 @@ const BankDetails = () => {
   const queryClient = useQueryClient();
 
   const form = useForm({
+    resolver: yupResolver(schema),
     defaultValues: emptyValues,
   });
 
@@ -65,10 +106,10 @@ const BankDetails = () => {
   const saveMutation = useMutation({
     mutationFn: async (data) => {
       const response = await saveShopBankAccount({
-        bank_name: data.bank_name,
-        bank_address: data.bank_address,
-        account_number: data.account_number,
-        ifsc: data.ifsc,
+        bank_name: data.bank_name.trim(),
+        bank_address: data.bank_address.trim(),
+        account_number: data.account_number.trim(),
+        ifsc: data.ifsc.trim().toUpperCase(),
       });
       return response.data;
     },
@@ -131,7 +172,10 @@ const BankDetails = () => {
                   name="bank_name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Bank name</FormLabel>
+                      <FormLabel>
+                        Bank name
+                        <RequiredMark />
+                      </FormLabel>
                       <FormControl>
                         <Input {...field} autoComplete="off" />
                       </FormControl>
@@ -144,7 +188,10 @@ const BankDetails = () => {
                   name="bank_address"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Bank address</FormLabel>
+                      <FormLabel>
+                        Bank address
+                        <RequiredMark />
+                      </FormLabel>
                       <FormControl>
                         <Textarea {...field} rows={3} />
                       </FormControl>
@@ -157,7 +204,10 @@ const BankDetails = () => {
                   name="account_number"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Account number</FormLabel>
+                      <FormLabel>
+                        Account number
+                        <RequiredMark />
+                      </FormLabel>
                       <FormControl>
                         <Input {...field} autoComplete="off" inputMode="numeric" />
                       </FormControl>
@@ -170,7 +220,10 @@ const BankDetails = () => {
                   name="ifsc"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>IFSC</FormLabel>
+                      <FormLabel>
+                        IFSC
+                        <RequiredMark />
+                      </FormLabel>
                       <FormControl>
                         <Input {...field} autoComplete="off" />
                       </FormControl>

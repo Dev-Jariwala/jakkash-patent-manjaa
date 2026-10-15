@@ -1,5 +1,23 @@
 import { body, param, validationResult } from "express-validator";
 import { query } from "../utils/query.js";
+
+function toDateOnlyString(value) {
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) {
+    return null;
+  }
+  return parsed.toISOString().slice(0, 10);
+}
+
+function assertDeliveryDateNotBeforeOrderDate(deliveryDate, { req }) {
+  const orderDay = toDateOnlyString(req.body.order_date);
+  const deliveryDay = toDateOnlyString(deliveryDate);
+  if (orderDay && deliveryDay && deliveryDay < orderDay) {
+    throw new Error("delivery_date cannot be before order_date");
+  }
+  return true;
+}
+
 export const validateCreateOrder = [
   param("collection_id")
     .notEmpty()
@@ -117,13 +135,14 @@ export const validateCreateOrder = [
     .notEmpty()
     .withMessage("delivery_date is required")
     .isISO8601()
-    .withMessage("order_date must be a valid date in ISO 8601 format"),
+    .withMessage("order_date must be a valid date in ISO 8601 format")
+    .custom(assertDeliveryDateNotBeforeOrderDate),
   body("notes").isString().withMessage("notes must be a string"),
   body("total_firki")
     .notEmpty()
     .withMessage("total_firki is required")
-    .isInt({ gt: 0 })
-    .withMessage("total_firki must be a positive integer"),
+    .isInt({ min: 0 })
+    .withMessage("total_firki must be a non-negative integer"),
   body("sub_total")
     .notEmpty()
     .withMessage("sub_total is required")
@@ -327,13 +346,14 @@ export const validateUpdateOrderById = [
     .notEmpty()
     .withMessage("delivery_date is required")
     .isISO8601()
-    .withMessage("order_date must be a valid date in ISO 8601 format"),
+    .withMessage("order_date must be a valid date in ISO 8601 format")
+    .custom(assertDeliveryDateNotBeforeOrderDate),
   body("notes").isString().withMessage("notes must be a string"),
   body("total_firki")
     .notEmpty()
     .withMessage("total_firki is required")
-    .isInt({ gt: 0 })
-    .withMessage("total_firki must be a positive integer"),
+    .isInt({ min: 0 })
+    .withMessage("total_firki must be a non-negative integer"),
   body("sub_total")
     .notEmpty()
     .withMessage("sub_total is required")

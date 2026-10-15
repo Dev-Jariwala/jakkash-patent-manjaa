@@ -34,6 +34,7 @@ import QueryError from "@/components/Errors/QueryError";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { handleDecimalInputChange } from "@/helper/formHelper";
 import { toast } from "react-toastify";
+import { RequiredMark } from "@/components/form/RequiredMark";
 
 const schema = yup.object().shape({
   product_name: yup.string().required("Product Name is required"),
@@ -202,7 +203,9 @@ const ProductForm = () => {
                 name="product_name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Product Name</FormLabel>
+                    <FormLabel>
+                      Product Name <RequiredMark />
+                    </FormLabel>
                     <FormControl>
                       <Input className="truncate" {...field} />
                     </FormControl>
@@ -215,7 +218,9 @@ const ProductForm = () => {
                 name="wholesale_price"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Wholesale Price</FormLabel>
+                    <FormLabel>
+                      Wholesale Price <RequiredMark />
+                    </FormLabel>
                     <FormControl>
                       <Input
                         className=""
@@ -232,7 +237,9 @@ const ProductForm = () => {
                 name="retail_price"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Retail Price</FormLabel>
+                    <FormLabel>
+                      Retail Price <RequiredMark />
+                    </FormLabel>
                     <FormControl>
                       <Input
                         className=""
@@ -249,7 +256,9 @@ const ProductForm = () => {
                 name="tax_code_id"
                 render={({ field }) => (
                   <FormItem className="order-5 lg:order-4">
-                    <FormLabel>HSN/SAC</FormLabel>
+                    <FormLabel>
+                      HSN/SAC <RequiredMark />
+                    </FormLabel>
                     <FormControl>
                       <Select
                         value={field.value || undefined}
@@ -283,7 +292,9 @@ const ProductForm = () => {
                 name="is_labour"
                 render={({ field }) => (
                   <FormItem className="order-4 lg:order-5">
-                    <FormLabel>Category</FormLabel>
+                    <FormLabel>
+                      Category <RequiredMark />
+                    </FormLabel>
                     <FormControl>
                       <Select value={String(field.value)} onValueChange={field.onChange}>
                         <SelectTrigger className="w-full lg:w-[180px]">
