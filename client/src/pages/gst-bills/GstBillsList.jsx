@@ -9,11 +9,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import GstBillPdfModal from "@/pages/gst-bills/GstBillPdfModal";
 import { listGstBills } from "@/services/gstBills";
 import { useQuery } from "@tanstack/react-query";
 import { formatBillCalendarDate } from "@/pages/gst-bills/billCalendarDate";
-import { Pencil, Plus } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Eye, Pencil, Plus } from "lucide-react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useLocalStorage } from "@uidotdev/usehooks";
 
 function formatAmount(value) {
@@ -29,6 +30,8 @@ function formatAmount(value) {
 
 const GstBillsList = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const viewBillId = searchParams.get("bill_id");
   const [activeCollection] = useLocalStorage("activeCollection", null);
 
   const { data, isLoading, isError, error } = useQuery({
@@ -94,6 +97,13 @@ const GstBillsList = () => {
                   <TableCell>{bill.receiver_name}</TableCell>
                   <TableCell className="text-right">{formatAmount(bill.total_bill)}</TableCell>
                   <TableCell className="flex items-center space-x-2">
+                    <Link
+                      to={`/bills?bill_id=${bill.bill_id}`}
+                      className="hover:bg-accent rounded-full size-8 flex items-center justify-center"
+                      aria-label="View bill"
+                    >
+                      <Eye size={16} className="text-blue-500" />
+                    </Link>
                     <button
                       type="button"
                       onClick={() => navigate(`/bills/edit/${bill.bill_id}`)}
@@ -109,6 +119,9 @@ const GstBillsList = () => {
           </Table>
         </div>
       )}
+      {viewBillId ? (
+        <GstBillPdfModal open={Boolean(viewBillId)} onClose={() => navigate("/bills")} />
+      ) : null}
     </div>
   );
 };

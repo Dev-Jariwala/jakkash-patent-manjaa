@@ -31,6 +31,7 @@ import Masters from "@/pages/masters/Masters";
 import BankDetails from "@/pages/bank-details/BankDetails";
 import GstBillsList from "@/pages/gst-bills/GstBillsList";
 import GstBillForm from "@/pages/gst-bills/GstBillForm";
+import GstBillView from "@/pages/gst-bills/GstBillView";
 import { LegacyBillsPathRedirect, LegacyBillsRedirect } from "@/routes/LegacyBillsRedirect";
 
 const Routes = () => {
@@ -109,6 +110,10 @@ const Routes = () => {
             {
               path: "/bills/edit/:bill_id",
               element: <GstBillForm />,
+            },
+            {
+              path: "/bills/view/:bill_id",
+              element: <GstBillView />,
             },
             {
               path: "/bills",
