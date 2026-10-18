@@ -165,16 +165,12 @@ function isCompleteLine(line) {
   );
 }
 
-function canSubmitGstBill({ hasCompleteLine, preview, previewError, discountPercent }) {
+function canSubmitGstBill({ hasCompleteLine, preview, previewError }) {
   if (!hasCompleteLine || !preview || previewError) {
     return false;
   }
   const totalBill = Number(preview.total_bill);
-  if (Number.isFinite(totalBill) && totalBill > 0) {
-    return true;
-  }
-  const discount = Number(String(discountPercent ?? "").trim());
-  return Number.isFinite(discount) && discount === 100;
+  return Number.isFinite(totalBill) && totalBill > 0;
 }
 
 function formatAmount(value) {
@@ -255,7 +251,6 @@ const GstBillForm = () => {
   const [receiverMobile, setReceiverMobile] = useState("");
   const [originalReceiverMobile, setOriginalReceiverMobile] = useState("");
   const [storedReceiverCopy, setStoredReceiverCopy] = useState(null);
-  const [discountPercent, setDiscountPercent] = useState("0");
   const [lines, setLines] = useState([emptyLine()]);
   const [preview, setPreview] = useState(null);
   const [previewError, setPreviewError] = useState(null);
@@ -312,7 +307,6 @@ const GstBillForm = () => {
     setReceiverMobile(existingBill.receiver_mobile);
     setOriginalReceiverMobile(existingBill.receiver_mobile);
     setStoredReceiverCopy(receiverCopyFromBill(existingBill));
-    setDiscountPercent(String(existingBill.discount_percent));
     setLines(
       existingBill.lines.length > 0
         ? existingBill.lines.map((line) => ({
@@ -392,7 +386,6 @@ const GstBillForm = () => {
     const timer = setTimeout(async () => {
       try {
         const response = await previewGstBillTotals(activeCollection, {
-          discount_percent: discountPercent,
           lines: lines.map((line) => ({
             product_id: line.product_id || undefined,
             tax_code_id: line.tax_code_id || undefined,
@@ -411,13 +404,12 @@ const GstBillForm = () => {
       }
     }, 250);
     return () => clearTimeout(timer);
-  }, [activeCollection, lines, discountPercent]);
+  }, [activeCollection, lines]);
 
   const buildSavePayload = () => ({
     bill_number_parts: billNumberParts,
     bill_date: billDate,
     receiver_mobile: receiverMobile,
-    discount_percent: discountPercent,
     lines: lines.map((line) => ({
       bill_line_id: line.bill_line_id || undefined,
       product_id: line.product_id,
@@ -497,7 +489,6 @@ const GstBillForm = () => {
       billNumberParts,
       billDate,
       receiverMobile,
-      discountPercent,
       lines,
       clients,
     });
@@ -511,10 +502,9 @@ const GstBillForm = () => {
         hasCompleteLine,
         preview,
         previewError,
-        discountPercent,
       })
     ) {
-      toast.error(previewError || "Check line amounts and discount before saving");
+      toast.error(previewError || "Check line amounts before saving");
       return;
     }
     saveMutation.mutate();
@@ -921,26 +911,7 @@ const GstBillForm = () => {
             Add New Item
           </Button>
 
-          <div className="border-t pt-6 flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-            <div className="w-full max-w-[12rem]">
-              <label className="text-sm font-medium">
-                Discount(%) <RequiredMark />
-              </label>
-              <Input
-                className={cn(
-                  "mt-1",
-                  validationErrors?.discountPercent && invalidInputClass
-                )}
-                value={discountPercent}
-                onChange={(e) => {
-                  setDiscountPercent(e.target.value);
-                  setValidationErrors((prev) =>
-                    prev ? { ...prev, discountPercent: null } : prev
-                  );
-                }}
-              />
-              <FieldError message={validationErrors?.discountPercent} />
-            </div>
+          <div className="border-t pt-6 flex flex-col lg:flex-row lg:items-start lg:justify-end gap-6">
             <div className="w-full max-w-md rounded-lg border bg-muted/30 p-4 shadow-sm">
               <div className="space-y-2 text-sm">
                 <div className="flex items-center justify-between gap-4">
@@ -976,7 +947,10 @@ const GstBillForm = () => {
             <Button variant="outline" onClick={() => navigate("/bills")}>Cancel</Button>
             <Button
               variant="indigo"
-              disabled={saveMutation.isPending}
+              disabled={
+                saveMutation.isPending ||
+                !canSubmitGstBill({ hasCompleteLine, preview, previewError })
+              }
               onClick={attemptSave}
             >
               Final Save

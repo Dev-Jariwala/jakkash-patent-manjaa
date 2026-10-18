@@ -8,7 +8,6 @@ import {
 
 const BILL_NUMBER_PART_MAX = 20;
 const RATE_PATTERN = /^\d+(\.\d{1,2})?$/;
-const PERCENT_PATTERN = /^\d+(\.\d{1,2})?$/;
 
 export function roundHalfUpToPaise(amount) {
   const n = Number(amount);
@@ -16,17 +15,6 @@ export function roundHalfUpToPaise(amount) {
     return 0;
   }
   return Math.round((n + Number.EPSILON) * 100) / 100;
-}
-
-function parsePercent(raw, label) {
-  if (raw === undefined || raw === null || raw === "") {
-    throw new BillValidationError(`${label} is required`);
-  }
-  const text = String(raw).trim();
-  if (!PERCENT_PATTERN.test(text)) {
-    throw new BillValidationError(`${label} must be zero or greater with at most two decimal places`);
-  }
-  return roundHalfUpToPaise(Number(text));
 }
 
 export function parseBillNumberParts(rawParts) {
@@ -109,12 +97,14 @@ function parseRate(raw) {
   return roundHalfUpToPaise(Number(text));
 }
 
-export function parseDiscountPercent(raw) {
-  const discount = parsePercent(raw, "Discount(%)");
-  if (discount < 0 || discount > 100) {
-    throw new BillValidationError("Discount(%) must be from 0 to 100");
+export function rejectDiscountInPayload(rawInput) {
+  if (
+    rawInput !== null &&
+    rawInput !== undefined &&
+    Object.prototype.hasOwnProperty.call(rawInput, "discount_percent")
+  ) {
+    throw new BillValidationError("A Bill has no Discount(%)");
   }
-  return discount;
 }
 
 export function isBlankBillLine(line) {
@@ -165,23 +155,18 @@ export function validateTaxPercentShape(cgstPercent, sgstPercent, igstPercent) {
 export function computeLineFinancials({
   quantity,
   rate,
-  discountPercent,
   cgstPercent,
   sgstPercent,
   igstPercent,
 }) {
   const price = roundHalfUpToPaise(quantity * rate);
-  const discountedPrice = roundHalfUpToPaise(price * (1 - discountPercent / 100));
   const { cgst, sgst, igst } = validateTaxPercentShape(cgstPercent, sgstPercent, igstPercent);
-  const cgstAmount = roundHalfUpToPaise((discountedPrice * cgst) / 100);
-  const sgstAmount = roundHalfUpToPaise((discountedPrice * sgst) / 100);
-  const igstAmount = roundHalfUpToPaise((discountedPrice * igst) / 100);
-  const lineTotal = roundHalfUpToPaise(
-    discountedPrice + cgstAmount + sgstAmount + igstAmount
-  );
+  const cgstAmount = roundHalfUpToPaise((price * cgst) / 100);
+  const sgstAmount = roundHalfUpToPaise((price * sgst) / 100);
+  const igstAmount = roundHalfUpToPaise((price * igst) / 100);
+  const lineTotal = roundHalfUpToPaise(price + cgstAmount + sgstAmount + igstAmount);
   return {
     price,
-    discounted_price: discountedPrice,
     cgst_percent: cgst,
     sgst_percent: sgst,
     igst_percent: igst,
@@ -192,20 +177,18 @@ export function computeLineFinancials({
   };
 }
 
-export function computeBillTotalsFromLines(lines, discountPercent) {
-  const discount = parseDiscountPercent(discountPercent);
+export function computeBillTotalsFromLines(lines) {
   let totalValue = 0;
   let totalTax = 0;
   const computedLines = lines.map((line) => {
     const financials = computeLineFinancials({
       quantity: line.quantity,
       rate: line.rate,
-      discountPercent: discount,
       cgstPercent: line.cgst_percent,
       sgstPercent: line.sgst_percent,
       igstPercent: line.igst_percent,
     });
-    totalValue = roundHalfUpToPaise(totalValue + financials.discounted_price);
+    totalValue = roundHalfUpToPaise(totalValue + financials.price);
     totalTax = roundHalfUpToPaise(
       totalTax + financials.cgst_amount + financials.sgst_amount + financials.igst_amount
     );
@@ -213,7 +196,6 @@ export function computeBillTotalsFromLines(lines, discountPercent) {
   });
   const totalBill = roundHalfUpToPaise(totalValue + totalTax);
   return {
-    discount_percent: discount,
     total_value: totalValue,
     total_tax: totalTax,
     total_bill: totalBill,
@@ -222,7 +204,7 @@ export function computeBillTotalsFromLines(lines, discountPercent) {
 }
 
 export function previewBillTotals(input) {
-  const discountPercent = parseDiscountPercent(input?.discount_percent ?? 0);
+  rejectDiscountInPayload(input);
   const kept = [];
   const linePreviews = [];
   for (const line of input?.lines ?? []) {
@@ -248,7 +230,6 @@ export function previewBillTotals(input) {
     const financials = computeLineFinancials({
       quantity,
       rate,
-      discountPercent,
       cgstPercent: line.cgst_percent ?? 0,
       sgstPercent: line.sgst_percent ?? 0,
       igstPercent: line.igst_percent ?? 0,
@@ -264,14 +245,13 @@ export function previewBillTotals(input) {
   }
   if (kept.length === 0) {
     return {
-      discount_percent: discountPercent,
       total_value: 0,
       total_tax: 0,
       total_bill: 0,
       line_previews: linePreviews,
     };
   }
-  const totals = computeBillTotalsFromLines(kept, discountPercent);
+  const totals = computeBillTotalsFromLines(kept);
   return { ...totals, line_previews: linePreviews };
 }
 
@@ -292,7 +272,6 @@ function formatBillLineRow(row) {
     cgst_amount: Number(row.cgst_amount),
     sgst_amount: Number(row.sgst_amount),
     igst_amount: Number(row.igst_amount),
-    discounted_price: Number(row.discounted_price),
     line_total: Number(row.line_total),
   };
 }
@@ -310,7 +289,6 @@ function formatBillRow(row, lines) {
     receiver_gst_number: row.receiver_gst_number,
     receiver_contact_person: row.receiver_contact_person,
     receiver_contact_number: row.receiver_contact_number,
-    discount_percent: Number(row.discount_percent),
     total_value: Number(row.total_value),
     total_tax: Number(row.total_tax),
     total_bill: Number(row.total_bill),
@@ -410,7 +388,13 @@ async function resolveReceiver(deps, receiverMobile) {
   };
 }
 
-async function resolveKeptLines(deps, collectionId, rawLines, discountPercent) {
+function assertTotalBillGreaterThanZero(totalBill) {
+  if (roundHalfUpToPaise(totalBill) <= 0) {
+    throw new BillValidationError("The Total bill must be greater than 0");
+  }
+}
+
+async function resolveKeptLines(deps, collectionId, rawLines) {
   const keptInputs = [];
   for (const line of rawLines ?? []) {
     if (isBlankBillLine(line)) {
@@ -443,7 +427,6 @@ async function resolveKeptLines(deps, collectionId, rawLines, discountPercent) {
     const financials = computeLineFinancials({
       quantity,
       rate,
-      discountPercent,
       cgstPercent: percents.cgst,
       sgstPercent: percents.sgst,
       igstPercent: percents.igst,
@@ -486,28 +469,24 @@ async function assertBillNumberAvailable(deps, billNumber, excludeBillId = null)
 }
 
 export async function createBill(deps, collectionId, rawInput) {
+  rejectDiscountInPayload(rawInput);
   const { billNumber } = parseBillNumberParts(rawInput?.bill_number_parts);
   const billDate = parseBillDate(rawInput?.bill_date);
-  const discountPercent = parseDiscountPercent(rawInput?.discount_percent ?? 0);
   await assertBillNumberAvailable(deps, billNumber);
   const receiver = await resolveReceiver(deps, rawInput?.receiver_mobile);
   const bank = await copyShopBankBlock(deps);
-  const keptLines = await resolveKeptLines(
-    deps,
-    collectionId,
-    rawInput?.lines,
-    discountPercent
-  );
+  const keptLines = await resolveKeptLines(deps, collectionId, rawInput?.lines);
 
   let totalValue = 0;
   let totalTax = 0;
   for (const line of keptLines) {
-    totalValue = roundHalfUpToPaise(totalValue + line.discounted_price);
+    totalValue = roundHalfUpToPaise(totalValue + line.price);
     totalTax = roundHalfUpToPaise(
       totalTax + line.cgst_amount + line.sgst_amount + line.igst_amount
     );
   }
   const totalBill = roundHalfUpToPaise(totalValue + totalTax);
+  assertTotalBillGreaterThanZero(totalBill);
 
   const billId = randomUUID();
   const savedAt = new Date().toISOString();
@@ -517,7 +496,6 @@ export async function createBill(deps, collectionId, rawInput) {
     bill_number: billNumber,
     bill_date: billDate,
     ...receiver,
-    discount_percent: discountPercent,
     total_value: totalValue,
     total_tax: totalTax,
     total_bill: totalBill,
@@ -544,13 +522,13 @@ export async function createBill(deps, collectionId, rawInput) {
 }
 
 export async function updateBill(deps, collectionId, billId, rawInput) {
+  rejectDiscountInPayload(rawInput);
   const existing = await deps.getBillById(billId);
   if (!existing || existing.collection_id !== collectionId) {
     throw new BillNotFoundError();
   }
   const { billNumber } = parseBillNumberParts(rawInput?.bill_number_parts);
   const billDate = parseBillDate(rawInput?.bill_date);
-  const discountPercent = parseDiscountPercent(rawInput?.discount_percent ?? 0);
   await assertBillNumberAvailable(deps, billNumber, billId);
 
   const receiverMobile = rawInput?.receiver_mobile ?? existing.receiver_mobile;
@@ -568,23 +546,18 @@ export async function updateBill(deps, collectionId, billId, rawInput) {
     receiver = await resolveReceiver(deps, receiverMobile);
   }
 
-  const keptLines = await resolveKeptLinesForUpdate(
-    deps,
-    collectionId,
-    billId,
-    rawInput?.lines,
-    discountPercent
-  );
+  const keptLines = await resolveKeptLinesForUpdate(deps, collectionId, billId, rawInput?.lines);
 
   let totalValue = 0;
   let totalTax = 0;
   for (const line of keptLines) {
-    totalValue = roundHalfUpToPaise(totalValue + line.discounted_price);
+    totalValue = roundHalfUpToPaise(totalValue + line.price);
     totalTax = roundHalfUpToPaise(
       totalTax + line.cgst_amount + line.sgst_amount + line.igst_amount
     );
   }
   const totalBill = roundHalfUpToPaise(totalValue + totalTax);
+  assertTotalBillGreaterThanZero(totalBill);
 
   const savedAt = new Date().toISOString();
   const billRow = {
@@ -592,7 +565,6 @@ export async function updateBill(deps, collectionId, billId, rawInput) {
     bill_number: billNumber,
     bill_date: billDate,
     ...receiver,
-    discount_percent: discountPercent,
     total_value: totalValue,
     total_tax: totalTax,
     total_bill: totalBill,
@@ -613,7 +585,7 @@ export async function updateBill(deps, collectionId, billId, rawInput) {
   return formatBillRow(billRow, lines);
 }
 
-async function resolveKeptLinesForUpdate(deps, collectionId, billId, rawLines, discountPercent) {
+async function resolveKeptLinesForUpdate(deps, collectionId, billId, rawLines) {
   const existingLines = await deps.listBillLines(billId);
   const existingByLineId = new Map(existingLines.map((line) => [line.bill_line_id, line]));
   const keptInputs = [];
@@ -688,7 +660,6 @@ async function resolveKeptLinesForUpdate(deps, collectionId, billId, rawLines, d
     const financials = computeLineFinancials({
       quantity,
       rate,
-      discountPercent,
       cgstPercent: percents.cgst,
       sgstPercent: percents.sgst,
       igstPercent: percents.igst,

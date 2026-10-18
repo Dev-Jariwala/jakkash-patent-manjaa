@@ -6,7 +6,6 @@ import {
   getBill,
   listBills,
   previewBillTotals,
-  computeLineFinancials,
   updateBill,
 } from "../services/bill.js";
 import {
@@ -122,7 +121,6 @@ describe("createBill", () => {
           bill_number_parts: ["4", "4", "4"],
           bill_date: "2026-10-11",
           receiver_mobile: client.mobile,
-          discount_percent: 0,
           lines: [
             {
               product_id: product.product_id,
@@ -171,7 +169,7 @@ describe("createBill", () => {
     assert.equal(saved.lines[0].igst_percent, 5);
   });
 
-  it("saves a 10% discount on two lines with totals 39600, 2448, and 42048", async () => {
+  it("saves two lines taxed on the full price with totals 44000, 2720, and 46720", async () => {
     const world = createBillWorld();
     const collectionId = world.seedCollection();
     const client = world.seedClient();
@@ -196,7 +194,6 @@ describe("createBill", () => {
       bill_number_parts: ["1", "2", "3"],
       bill_date: "2026-10-11",
       receiver_mobile: client.mobile,
-      discount_percent: 10,
       lines: [
         {
           product_id: productA.product_id,
@@ -221,24 +218,192 @@ describe("createBill", () => {
 
     assert.equal(saved.lines[0].price, 40000);
     assert.equal(saved.lines[1].price, 4000);
-    assert.equal(saved.total_value, 39600);
-    assert.equal(saved.total_tax, 2448);
-    assert.equal(saved.total_bill, 42048);
+    assert.equal(saved.total_value, 44000);
+    assert.equal(saved.total_tax, 2720);
+    assert.equal(saved.total_bill, 46720);
   });
 
-  it("rounds each rupee half up to the paise on a discounted line", async () => {
-    const financials = computeLineFinancials({
-      quantity: 1,
-      rate: 10.05,
-      discountPercent: 10,
-      cgstPercent: 2.5,
-      sgstPercent: 2.5,
-      igstPercent: 0,
+  it("rounds each tax rupee half up to the paise on the full price", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+
+    const saved = await createBill(world.deps, collectionId, {
+      bill_number_parts: ["1", "0", "9"],
+      bill_date: "2026-10-11",
+      receiver_mobile: client.mobile,
+      lines: [
+        {
+          product_id: product.product_id,
+          tax_code_id: taxCode.tax_code_id,
+          quantity: 1,
+          rate: 10.2,
+          cgst_percent: 2.5,
+          sgst_percent: 2.5,
+          igst_percent: 0,
+        },
+      ],
     });
-    assert.equal(financials.discounted_price, 9.05);
-    assert.equal(financials.cgst_amount, 0.23);
-    assert.equal(financials.sgst_amount, 0.23);
-    assert.equal(financials.line_total, 9.51);
+
+    assert.equal(saved.lines[0].cgst_amount, 0.26);
+    assert.equal(saved.lines[0].sgst_amount, 0.26);
+    assert.equal(saved.total_bill, 10.72);
+  });
+
+  it("saves a rate of 0 beside a line that makes the Total bill greater than 0", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const productA = world.seedProduct(collectionId, {
+      product_name: "Free sample",
+      tax_code_id: taxCode.tax_code_id,
+    });
+    const productB = world.seedProduct(collectionId, {
+      product_name: "Paid line",
+      tax_code_id: taxCode.tax_code_id,
+    });
+
+    const saved = await createBill(world.deps, collectionId, {
+      bill_number_parts: ["1", "1", "0"],
+      bill_date: "2026-10-11",
+      receiver_mobile: client.mobile,
+      lines: [
+        {
+          product_id: productA.product_id,
+          tax_code_id: taxCode.tax_code_id,
+          quantity: 1,
+          rate: 0,
+          cgst_percent: 2.5,
+          sgst_percent: 2.5,
+          igst_percent: 0,
+        },
+        {
+          product_id: productB.product_id,
+          tax_code_id: taxCode.tax_code_id,
+          quantity: 1,
+          rate: 100,
+          cgst_percent: 2.5,
+          sgst_percent: 2.5,
+          igst_percent: 0,
+        },
+      ],
+    });
+
+    assert.equal(saved.lines[0].price, 0);
+    assert.equal(saved.total_bill, 105);
+  });
+
+  it("rejects a create whose kept lines add up to a Total bill of 0", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+
+    await assert.rejects(
+      () =>
+        createBill(world.deps, collectionId, {
+          bill_number_parts: ["0", "0", "1"],
+          bill_date: "2026-10-11",
+          receiver_mobile: client.mobile,
+          lines: [
+            {
+              product_id: product.product_id,
+              tax_code_id: taxCode.tax_code_id,
+              quantity: 1,
+              rate: 0,
+              cgst_percent: 0,
+              sgst_percent: 0,
+              igst_percent: 0,
+            },
+          ],
+        }),
+      (error) => {
+        assert.ok(error instanceof BillValidationError);
+        assert.match(error.message, /Total bill must be greater than 0/);
+        return true;
+      }
+    );
+  });
+
+  it("rejects a create, update, and preview that send a discount", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const product = world.seedProduct(collectionId);
+    const taxCode = world.seedTaxCode();
+
+    const rejectDiscount = (error) => {
+      assert.ok(error instanceof BillValidationError);
+      assert.match(error.message, /Discount/);
+      return true;
+    };
+
+    await assert.rejects(
+      () =>
+        createBill(world.deps, collectionId, {
+          ...standardBillPayload({ world, collectionId, product, taxCode, client }),
+          discount_percent: 0,
+        }),
+      rejectDiscount
+    );
+
+    const created = await createBill(
+      world.deps,
+      collectionId,
+      standardBillPayload({ world, collectionId, product, taxCode, client })
+    );
+
+    await assert.rejects(
+      () =>
+        updateBill(world.deps, collectionId, created.bill_id, {
+          ...updatePayloadFromBill(created),
+          discount_percent: 5,
+        }),
+      rejectDiscount
+    );
+
+    assert.throws(
+      () =>
+        previewBillTotals({
+          discount_percent: 0,
+          lines: [
+            {
+              product_id: "p1",
+              tax_code_id: "t1",
+              quantity: 1,
+              rate: 100,
+              cgst_percent: 2.5,
+              sgst_percent: 2.5,
+              igst_percent: 0,
+            },
+          ],
+        }),
+      rejectDiscount
+    );
+  });
+
+  it("reads a saved bill with no discount percent and no reduced price on the line", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const product = world.seedProduct(collectionId);
+    const taxCode = world.seedTaxCode();
+
+    const created = await createBill(
+      world.deps,
+      collectionId,
+      standardBillPayload({ world, collectionId, product, taxCode, client })
+    );
+
+    const read = await getBill(world.deps, collectionId, created.bill_id);
+    assert.equal(read.discount_percent, undefined);
+    assert.equal(read.lines[0].discounted_price, undefined);
+    assert.equal(read.lines[0].price, 44000);
+    assert.equal(read.total_bill, 46200);
   });
 
   it("accepts IGST-only and exempt tax shapes and rejects mixed or unequal CGST and SGST", async () => {
@@ -506,7 +671,6 @@ describe("listBills", () => {
 describe("previewBillTotals", () => {
   it("matches footer math for the operator form", () => {
     const totals = previewBillTotals({
-      discount_percent: 0,
       lines: [
         {
           product_id: "p1",
@@ -524,7 +688,6 @@ describe("previewBillTotals", () => {
 
   it("ignores blank and incomplete lines without failing the footer", () => {
     const totals = previewBillTotals({
-      discount_percent: 0,
       lines: [
         {},
         { product_id: "p1" },
@@ -547,7 +710,6 @@ describe("previewBillTotals", () => {
 
   it("returns zero footer totals when no line is complete yet", () => {
     const totals = previewBillTotals({
-      discount_percent: 0,
       lines: [{}, { product_id: "p1", tax_code_id: "t1" }],
     });
     assert.equal(totals.total_value, 0);
@@ -557,7 +719,6 @@ describe("previewBillTotals", () => {
 
   it("ignores a line that has product, tax code, and quantity but no rate yet", () => {
     const totals = previewBillTotals({
-      discount_percent: 0,
       lines: [
         {
           product_id: "p1",

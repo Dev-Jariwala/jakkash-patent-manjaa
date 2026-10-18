@@ -87,14 +87,14 @@ export function createBillDeps() {
           bill_id, collection_id, bill_number, bill_date,
           receiver_mobile, receiver_name, receiver_address, receiver_gst_number,
           receiver_contact_person, receiver_contact_number,
-          discount_percent, total_value, total_tax, total_bill,
+          total_value, total_tax, total_bill,
           bank_name, bank_address, bank_account_number, bank_ifsc, saved_at
         ) values (
           $1, $2, $3, $4,
           $5, $6, $7, $8,
           $9, $10,
-          $11, $12, $13, $14,
-          $15, $16, $17, $18, $19
+          $11, $12, $13,
+          $14, $15, $16, $17, $18
         )`,
         [
           billRow.bill_id,
@@ -107,7 +107,6 @@ export function createBillDeps() {
           billRow.receiver_gst_number,
           billRow.receiver_contact_person,
           billRow.receiver_contact_number,
-          billRow.discount_percent,
           billRow.total_value,
           billRow.total_tax,
           billRow.total_bill,
@@ -127,14 +126,14 @@ export function createBillDeps() {
             quantity, rate, price,
             cgst_percent, sgst_percent, igst_percent,
             cgst_amount, sgst_amount, igst_amount,
-            discounted_price, line_total
+            line_total
           ) values (
             $1, $2, $3,
             $4, $5, $6, $7, $8,
             $9, $10, $11,
             $12, $13, $14,
             $15, $16, $17,
-            $18, $19
+            $18
           )`,
           [
             line.bill_line_id,
@@ -154,7 +153,6 @@ export function createBillDeps() {
             line.cgst_amount,
             line.sgst_amount,
             line.igst_amount,
-            line.discounted_price,
             line.line_total,
           ]
         );
@@ -174,11 +172,10 @@ export function createBillDeps() {
                receiver_gst_number = $7,
                receiver_contact_person = $8,
                receiver_contact_number = $9,
-               discount_percent = $10,
-               total_value = $11,
-               total_tax = $12,
-               total_bill = $13,
-               saved_at = $14
+               total_value = $10,
+               total_tax = $11,
+               total_bill = $12,
+               saved_at = $13
            where bill_id = $1`,
           [
             billId,
@@ -190,7 +187,6 @@ export function createBillDeps() {
             billRow.receiver_gst_number,
             billRow.receiver_contact_person,
             billRow.receiver_contact_number,
-            billRow.discount_percent,
             billRow.total_value,
             billRow.total_tax,
             billRow.total_bill,
@@ -206,14 +202,14 @@ export function createBillDeps() {
               quantity, rate, price,
               cgst_percent, sgst_percent, igst_percent,
               cgst_amount, sgst_amount, igst_amount,
-              discounted_price, line_total
+              line_total
             ) values (
               $1, $2, $3,
               $4, $5, $6, $7, $8,
               $9, $10, $11,
               $12, $13, $14,
               $15, $16, $17,
-              $18, $19
+              $18
             )`,
             [
               line.bill_line_id,
@@ -233,7 +229,6 @@ export function createBillDeps() {
               line.cgst_amount,
               line.sgst_amount,
               line.igst_amount,
-              line.discounted_price,
               line.line_total,
             ]
           );

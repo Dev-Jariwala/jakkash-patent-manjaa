@@ -177,7 +177,6 @@ export function standardBillPayload({
     bill_number_parts: ["9", "26", "15"],
     bill_date: "2026-10-11",
     receiver_mobile: client.mobile,
-    discount_percent: 0,
     lines: [
       {
         product_id: product.product_id,
@@ -198,7 +197,6 @@ export function updatePayloadFromBill(bill, overrides = {}) {
     bill_number_parts: bill.bill_number_parts ?? bill.bill_number.split("-"),
     bill_date: bill.bill_date,
     receiver_mobile: bill.receiver_mobile,
-    discount_percent: bill.discount_percent,
     lines: bill.lines.map((line) => {
       const mapped = {
         bill_line_id: line.bill_line_id,

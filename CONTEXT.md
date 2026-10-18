@@ -60,12 +60,8 @@ _Avoid_: Live client lookup, customer
 A line on a Bill. It stores the product id, a copy of the product name, and the rate charged, plus the tax code id and a copy of the code, the tax code's description, and the CGST, SGST, and IGST percents charged. The tax code is the product's tax code, copied when that product was chosen on the line.
 _Avoid_: Order line, joining the live product or tax code at display time, a separate HSN/SAC choice on the Bill
 
-**Bill discount**:
-A percent on a Bill that reduces each line's price before that line's tax.
-_Avoid_: The Order's rupee discount
-
 **Total bill**:
-The amount of a Bill after the bill discount and the tax.
+The amount of a Bill after the tax.
 _Avoid_: Total invoice, amount due
 
 **Order Delivery**:

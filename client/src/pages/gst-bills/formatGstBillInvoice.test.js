@@ -2,8 +2,6 @@ import { describe, expect, it } from "vitest";
 
 import {
   amountInWords,
-  discountRupees,
-  formatDiscountAmount,
   formatInvoiceDate,
   formatLineAmount,
   formatSummaryAmount,
@@ -39,10 +37,6 @@ describe("formatGstBillInvoice", () => {
     expect(formatSummaryAmount(0)).toBe("₹ 0/-");
   });
 
-  it("prints a zero discount without a space", () => {
-    expect(formatDiscountAmount(0)).toBe("₹0/-");
-  });
-
   it("uses the contact number, then the receiver mobile", () => {
     expect(
       receiverContactPhone({
@@ -53,18 +47,18 @@ describe("formatGstBillInvoice", () => {
     expect(receiverContactPhone({ receiver_mobile: "9999999999" })).toBe("9999999999");
   });
 
-  it("shows the rupee discount as the gap between line prices and taxable value", () => {
+  it("sets Total Taxable Value to total value and Final Amount to total bill", () => {
     const bill = {
-      total_value: 900,
-      total_bill: 945,
+      total_value: 44000,
+      total_bill: 46200,
       lines: [
-        { price: 1000, cgst_amount: 22.5, sgst_amount: 22.5, igst_amount: 0 },
+        { price: 44000, cgst_amount: 1100, sgst_amount: 1100, igst_amount: 0 },
       ],
     };
     const figures = invoiceFigures(bill);
-    expect(discountRupees(bill.lines, bill.total_value)).toBe(100);
-    expect(figures.discount).toBe(100);
-    expect(figures.cgst).toBe(22.5);
-    expect(figures.words).toBe("NINE HUNDRED FORTY FIVE INR ONLY");
+    expect(figures.taxable).toBe(44000);
+    expect(figures.finalAmount).toBe(46200);
+    expect(figures.cgst).toBe(1100);
+    expect(figures.words).toBe("FORTY SIX THOUSAND TWO HUNDRED INR ONLY");
   });
 });

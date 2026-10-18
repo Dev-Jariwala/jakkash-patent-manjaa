@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Document, Font, Image, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
 import {
-  formatDiscountAmount,
   formatInvoiceDate,
   formatLineAmount,
   formatSummaryAmount,
@@ -439,7 +438,6 @@ const GstBillInvoiceDocument = ({ bill }) => {
               <SummaryLine label="CGST" value={formatSummaryAmount(figures.cgst)} />
               <SummaryLine label="SGST" value={formatSummaryAmount(figures.sgst)} />
               <SummaryLine label="IGST" value={formatSummaryAmount(figures.igst)} />
-              <SummaryLine label="Discount" value={formatDiscountAmount(figures.discount)} />
               <SummaryLine
                 label="Final Amount"
                 value={formatSummaryAmount(figures.finalAmount)}

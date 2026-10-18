@@ -124,14 +124,6 @@ export function formatSummaryAmount(value) {
   return `₹ ${sign}${formatted}/-`;
 }
 
-export function formatDiscountAmount(value) {
-  const n = roundHalfUpToPaise(value);
-  if (n === 0) {
-    return "₹0/-";
-  }
-  return formatSummaryAmount(n);
-}
-
 export function receiverContactPhone(bill) {
   const contactNumber = String(bill?.receiver_contact_number ?? "").trim();
   if (contactNumber) {
@@ -145,12 +137,6 @@ export function sumLineAmount(lines, key) {
   return roundHalfUpToPaise(total);
 }
 
-export function discountRupees(lines, totalValue) {
-  const priceSum = (lines ?? []).reduce((sum, line) => sum + Number(line?.price ?? 0), 0);
-  const discount = roundHalfUpToPaise(priceSum - Number(totalValue ?? 0));
-  return discount > 0 ? discount : 0;
-}
-
 export function invoiceFigures(bill) {
   const lines = bill?.lines ?? [];
   const taxable = roundHalfUpToPaise(bill?.total_value);
@@ -160,7 +146,6 @@ export function invoiceFigures(bill) {
     cgst: sumLineAmount(lines, "cgst_amount"),
     sgst: sumLineAmount(lines, "sgst_amount"),
     igst: sumLineAmount(lines, "igst_amount"),
-    discount: discountRupees(lines, taxable),
     finalAmount,
     words: amountInWords(finalAmount),
   };

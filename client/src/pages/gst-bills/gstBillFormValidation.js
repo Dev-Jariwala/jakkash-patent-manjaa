@@ -20,7 +20,6 @@ export function emptyGstBillFormErrors(lineCount) {
     billNumberParts: [null, null, null],
     billDate: null,
     receiver: null,
-    discountPercent: null,
     lines: Array.from({ length: lineCount }, () => emptyLineFieldErrors()),
     general: null,
   };
@@ -98,7 +97,6 @@ export function validateGstBillForm({
   billNumberParts,
   billDate,
   receiverMobile,
-  discountPercent,
   lines,
   clients,
 }) {
@@ -143,18 +141,6 @@ export function validateGstBillForm({
       hasError = true;
     } else if (!String(client.gst_number ?? "").trim()) {
       errors.receiver = "Receiver must be a client with a GST number";
-      hasError = true;
-    }
-  }
-
-  const discountMessage = parsePercentMessage(discountPercent, "Discount(%)");
-  if (discountMessage) {
-    errors.discountPercent = discountMessage;
-    hasError = true;
-  } else {
-    const discount = Number(String(discountPercent).trim());
-    if (discount < 0 || discount > 100) {
-      errors.discountPercent = "Discount(%) must be from 0 to 100";
       hasError = true;
     }
   }
