@@ -19,7 +19,7 @@ export function createBillWorld({
 } = {}) {
   const billsById = new Map();
   const linesByBillId = new Map();
-  const billByNumber = new Map();
+  const billByCollectionAndNumber = new Map();
   const clientsByMobile = new Map(clients.map((c) => [c.mobile, c]));
   const productsById = new Map(products.map((p) => [p.product_id, p]));
   const taxCodesById = new Map(taxCodes.map((t) => [t.tax_code_id, t]));
@@ -67,8 +67,8 @@ export function createBillWorld({
       return billsById.get(billId) ?? null;
     },
 
-    async getBillByBillNumber(billNumber) {
-      const id = billByNumber.get(billNumber);
+    async getBillByBillNumber(collectionId, billNumber) {
+      const id = billByCollectionAndNumber.get(`${collectionId}:${billNumber}`);
       return id ? billsById.get(id) : null;
     },
 
@@ -78,7 +78,10 @@ export function createBillWorld({
 
     async insertBill(billRow, lineRows) {
       billsById.set(billRow.bill_id, billRow);
-      billByNumber.set(billRow.bill_number, billRow.bill_id);
+      billByCollectionAndNumber.set(
+        `${billRow.collection_id}:${billRow.bill_number}`,
+        billRow.bill_id
+      );
       linesByBillId.set(
         billRow.bill_id,
         lineRows.map((line) => ({ ...line }))
@@ -88,8 +91,11 @@ export function createBillWorld({
     async replaceBillLines(billId, lineRows, billRow) {
       const previous = billsById.get(billId);
       if (previous && previous.bill_number !== billRow.bill_number) {
-        billByNumber.delete(previous.bill_number);
-        billByNumber.set(billRow.bill_number, billId);
+        billByCollectionAndNumber.delete(`${previous.collection_id}:${previous.bill_number}`);
+        billByCollectionAndNumber.set(
+          `${billRow.collection_id}:${billRow.bill_number}`,
+          billId
+        );
       }
       billsById.set(billId, billRow);
       linesByBillId.set(

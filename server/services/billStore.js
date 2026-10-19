@@ -66,8 +66,11 @@ export function createBillDeps() {
       return mapBillRow(row);
     },
 
-    async getBillByBillNumber(billNumber) {
-      const [row] = await query(`select * from gst_bills where bill_number = $1`, [billNumber]);
+    async getBillByBillNumber(collectionId, billNumber) {
+      const [row] = await query(
+        `select * from gst_bills where collection_id = $1 and bill_number = $2`,
+        [collectionId, billNumber]
+      );
       return mapBillRow(row);
     },
 

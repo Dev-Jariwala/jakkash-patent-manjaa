@@ -461,8 +461,8 @@ async function copyShopBankBlock(deps) {
   };
 }
 
-async function assertBillNumberAvailable(deps, billNumber, excludeBillId = null) {
-  const existing = await deps.getBillByBillNumber(billNumber);
+async function assertBillNumberAvailable(deps, collectionId, billNumber, excludeBillId = null) {
+  const existing = await deps.getBillByBillNumber(collectionId, billNumber);
   if (existing && existing.bill_id !== excludeBillId) {
     throw new BillDuplicateNumberError();
   }
@@ -472,7 +472,7 @@ export async function createBill(deps, collectionId, rawInput) {
   rejectDiscountInPayload(rawInput);
   const { billNumber } = parseBillNumberParts(rawInput?.bill_number_parts);
   const billDate = parseBillDate(rawInput?.bill_date);
-  await assertBillNumberAvailable(deps, billNumber);
+  await assertBillNumberAvailable(deps, collectionId, billNumber);
   const receiver = await resolveReceiver(deps, rawInput?.receiver_mobile);
   const bank = await copyShopBankBlock(deps);
   const keptLines = await resolveKeptLines(deps, collectionId, rawInput?.lines);
@@ -529,7 +529,7 @@ export async function updateBill(deps, collectionId, billId, rawInput) {
   }
   const { billNumber } = parseBillNumberParts(rawInput?.bill_number_parts);
   const billDate = parseBillDate(rawInput?.bill_date);
-  await assertBillNumberAvailable(deps, billNumber, billId);
+  await assertBillNumberAvailable(deps, collectionId, billNumber, billId);
 
   const receiverMobile = rawInput?.receiver_mobile ?? existing.receiver_mobile;
   let receiver;

@@ -49,7 +49,7 @@ A GST document entered directly for one collection. It is not created from an Or
 _Avoid_: Order, invoice, calling it an invoice or an Order
 
 **Bill number**:
-The three-part number typed for a Bill, stored as one hyphenated value, unique across the shop.
+The three-part number typed for a Bill, stored as one hyphenated value, unique within the collection it was raised in.
 _Avoid_: Invoice number, order number, generated sequence
 
 **Receiver**:

@@ -1386,6 +1386,131 @@ describe("updateBill", () => {
   });
 });
 
+describe("bill number per collection", () => {
+  const sharedNumberParts = ["00", "26", "01"];
+
+  it("saves 00-26-01 in two collections and rejects a second 00-26-01 in one collection", async () => {
+    const world = createBillWorld();
+    const collectionA = world.seedCollection();
+    const collectionB = world.seedCollection();
+    const client = world.seedClient();
+    const productA = world.seedProduct(collectionA);
+    const productB = world.seedProduct(collectionB);
+    const taxCode = world.seedTaxCode();
+
+    const inA = await createBill(world.deps, collectionA, {
+      ...standardBillPayload({
+        world,
+        collectionId: collectionA,
+        product: productA,
+        taxCode,
+        client,
+      }),
+      bill_number_parts: sharedNumberParts,
+    });
+    const inB = await createBill(world.deps, collectionB, {
+      ...standardBillPayload({
+        world,
+        collectionId: collectionB,
+        product: productB,
+        taxCode,
+        client,
+      }),
+      bill_number_parts: sharedNumberParts,
+    });
+
+    assert.equal(inA.bill_number, "00-26-01");
+    assert.equal(inB.bill_number, "00-26-01");
+
+    await assert.rejects(
+      () =>
+        createBill(world.deps, collectionA, {
+          ...standardBillPayload({
+            world,
+            collectionId: collectionA,
+            product: productA,
+            taxCode,
+            client,
+          }),
+          bill_number_parts: sharedNumberParts,
+        }),
+      (error) => {
+        assert.ok(error instanceof BillDuplicateNumberError);
+        assert.equal(error.message, "This bill number is already in use");
+        return true;
+      }
+    );
+  });
+
+  it("edit keeps its own number and may take a number used only in another collection", async () => {
+    const world = createBillWorld();
+    const collectionA = world.seedCollection();
+    const collectionB = world.seedCollection();
+    const client = world.seedClient();
+    const productA = world.seedProduct(collectionA);
+    const productB = world.seedProduct(collectionB);
+    const taxCode = world.seedTaxCode();
+
+    await createBill(world.deps, collectionA, {
+      ...standardBillPayload({
+        world,
+        collectionId: collectionA,
+        product: productA,
+        taxCode,
+        client,
+      }),
+      bill_number_parts: sharedNumberParts,
+    });
+    const billInB = await createBill(world.deps, collectionB, {
+      ...standardBillPayload({
+        world,
+        collectionId: collectionB,
+        product: productB,
+        taxCode,
+        client,
+      }),
+      bill_number_parts: ["1", "0", "0"],
+    });
+
+    const kept = await updateBill(
+      world.deps,
+      collectionB,
+      billInB.bill_id,
+      updatePayloadFromBill(billInB)
+    );
+    assert.equal(kept.bill_number, "1-0-0");
+
+    const retargeted = await updateBill(
+      world.deps,
+      collectionB,
+      billInB.bill_id,
+      updatePayloadFromBill(billInB, { bill_number_parts: sharedNumberParts })
+    );
+    assert.equal(retargeted.bill_number, "00-26-01");
+  });
+
+  it("treats 00-26-01 and 0-26-1 as different numbers", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const product = world.seedProduct(collectionId);
+    const taxCode = world.seedTaxCode();
+    const base = standardBillPayload({ world, collectionId, product, taxCode, client });
+
+    const first = await createBill(world.deps, collectionId, {
+      ...base,
+      bill_number_parts: ["00", "26", "01"],
+    });
+    const second = await createBill(world.deps, collectionId, {
+      ...base,
+      bill_number_parts: ["0", "26", "1"],
+    });
+
+    assert.equal(first.bill_number, "00-26-01");
+    assert.equal(second.bill_number, "0-26-1");
+  });
+});
+
 describe("createBill rate required", () => {
   it("rejects a kept line with no rate instead of treating it as zero", async () => {
     const world = createBillWorld();
