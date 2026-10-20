@@ -62,6 +62,16 @@ export function createProductDeps() {
       return updated ?? null;
     },
 
+    async listProductsForCollectionCopy(collectionId) {
+      return query(
+        `select *
+         from products
+         where collection_id = $1
+         order by sr_no asc`,
+        [collectionId]
+      );
+    },
+
     async listProducts({
       collectionId,
       limit,

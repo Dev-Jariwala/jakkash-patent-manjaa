@@ -67,6 +67,12 @@ export function createProductWorld({ taxCodes: initialTaxCodes = [] } = {}) {
       return { ...updated };
     },
 
+    async listProductsForCollectionCopy(collectionId) {
+      return [...productsById.values()]
+        .filter((row) => row.collection_id === collectionId)
+        .sort((a, b) => a.sr_no - b.sr_no);
+    },
+
     async listProducts({
       collectionId,
       limit,

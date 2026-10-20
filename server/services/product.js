@@ -18,7 +18,7 @@ export const PRODUCT_SORT_FIELDS = {
   updated_at: "updated_at",
 };
 
-const DEFAULT_PRODUCT_SORT_FIELD = "created_at";
+const DEFAULT_PRODUCT_SORT_FIELD = "sr_no";
 
 export function resolveProductsListOrdering({ sortField, sortOrder }) {
   const column = Object.hasOwn(PRODUCT_SORT_FIELDS, String(sortField ?? ""))
@@ -27,7 +27,7 @@ export function resolveProductsListOrdering({ sortField, sortOrder }) {
 
   return {
     column,
-    direction: String(sortOrder ?? "desc").toLowerCase() === "asc" ? "ASC" : "DESC",
+    direction: String(sortOrder ?? "asc").toLowerCase() === "asc" ? "ASC" : "DESC",
   };
 }
 
@@ -197,6 +197,36 @@ export async function getProduct(deps, productId) {
     return null;
   }
   return formatProductWithTaxCode(deps, row);
+}
+
+export async function copyProductsToCollection(deps, sourceCollectionId, targetCollectionId) {
+  const sourceId = String(sourceCollectionId ?? "").trim();
+  const targetId = String(targetCollectionId ?? "").trim();
+  if (!sourceId) {
+    throw new ProductValidationError("source collection_id is required");
+  }
+  if (!targetId) {
+    throw new ProductValidationError("target collection_id is required");
+  }
+
+  const rows = await deps.listProductsForCollectionCopy(sourceId);
+  const copied = [];
+
+  for (const row of rows) {
+    const inserted = await deps.insertProduct({
+      collection_id: targetId,
+      product_name: row.product_name,
+      wholesale_price: 0,
+      retail_price: 0,
+      stock_in_hand: 0,
+      total_stock: 0,
+      is_labour: Boolean(row.is_labour),
+      tax_code_id: row.tax_code_id ?? null,
+    });
+    copied.push(await formatProductWithTaxCode(deps, inserted));
+  }
+
+  return copied;
 }
 
 export async function listProducts(

@@ -1,6 +1,8 @@
 // controllers/collection.js
 import { handleError } from "../utils/error.js";
 import { query } from "../utils/query.js";
+import { copyProductsToCollection } from "../services/product.js";
+import { createProductDeps } from "../services/productStore.js";
 
 /* -- Table: collections
 CREATE TABLE collections (
@@ -21,18 +23,11 @@ export const createCollection = async (req, res) => {
       res.status(400).json({ error: "Error creating collection" })
     }
     if (copy_collection_id) {
-      const productsFromCopyCollection = await query(
-        "SELECT product_name FROM products WHERE collection_id=$1",
-        [copy_collection_id]
+      await copyProductsToCollection(
+        createProductDeps(),
+        copy_collection_id,
+        newCollection.collection_id
       );
-      let insertMultipelProductsQuery = `INSERT INTO products (collection_id, product_name, wholesale_price, retail_price, stock_in_hand, total_stock, is_labour) VALUES `;
-      productsFromCopyCollection.map((product, index) => {
-        insertMultipelProductsQuery += `('${newCollection.collection_id}', '${product.product_name}', 0, 0, 0, 0, false)`;
-        if (index !== productsFromCopyCollection.length - 1) {
-          insertMultipelProductsQuery += ',';
-        }
-      });
-      await query(insertMultipelProductsQuery);
     }
 
     res.status(201).json({

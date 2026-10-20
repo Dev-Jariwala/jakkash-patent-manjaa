@@ -95,7 +95,7 @@ On a Bill, choosing a product fills HSN/SAC from that product and the field stay
 
 ## Implementation Decisions
 
-- One product module is the only place that decides the tax code on a product. Create and update of a product go through it. It does not write Bills, tax codes, stock, or Orders. The screen calls it. Soft delete of a product does not go through it and does not clear a tax code. Copying products into a new collection does not go through it.
+- One product module is the only place that decides the tax code on a product and the copy when Include all products is used on a new collection. Create and update of a product go through it. It does not write Bills, tax codes, stock, or Orders. The screen calls it. Soft delete of a product does not go through it and does not clear a tax code.
 - A product stores the tax code id only. It does not store the type, the code, the description, or the three rates. A read joins the Masters row, so the product shows that row's current type, code, and description. A product with no tax code reads back with those empty.
 - Create requires a tax code. Update requires a tax code and may change which row the product names. Clearing the tax code is rejected. An unknown id is rejected. Category Product accepts only HSN. Labour accepts only SAC. The rejection names the rule: HSN/SAC is required, the tax code is not known, a product must use an HSN, or labour must use a SAC.
 - The product form gains one required select, labeled HSN/SAC, after the prices and beside the category. Options are the tax codes of the matching type, each labeled with type, code, and description. Switching category clears a selection of the other type. There are no percent fields. Name, prices, category, and stock stay as they are.
@@ -125,7 +125,7 @@ On a Bill, choosing a product fills HSN/SAC from that product and the field stay
 - Showing HSN/SAC on an Order, or copying it onto an Order line.
 - The product report.
 - Search by HSN/SAC.
-- Copying products into a new collection. Those products can still be created with no tax code, and a Bill cannot newly use them until they are edited.
+- Collection copy rules beyond naming the tax code on the copy. See the Copy HSN/SAC into a new collection PRD.
 - Soft delete and restore of a product.
 - Moving stock, or changing a product's name, prices, or category rules beyond the tax-code check.
 - Storing CGST, SGST, or IGST on the product.

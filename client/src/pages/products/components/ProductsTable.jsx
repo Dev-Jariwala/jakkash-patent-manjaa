@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { createColumnHelper, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable, } from "@tanstack/react-table";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
@@ -86,9 +86,48 @@ columnsDef.forEach((column) => {
   headers[column.accessorKey] = column.header;
 });
 
+function normalizeProductsPagination(value) {
+  const pageIndex = Number.parseInt(value?.pageIndex, 10);
+  const pageSize = Number.parseInt(value?.pageSize, 10);
+  return {
+    pageIndex: Number.isFinite(pageIndex) && pageIndex >= 0 ? pageIndex : 0,
+    pageSize: Number.isFinite(pageSize) && pageSize > 0 ? pageSize : 5,
+  };
+}
+
 const ProductsTable = () => {
   const [activeCollection] = useLocalStorage("activeCollection", null);
-  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 5, });
+  const [paginationByCollection, setPaginationByCollection] = useLocalStorage(
+    "productsListPagination",
+    {}
+  );
+  const rememberedPagination = paginationByCollection?.[activeCollection];
+  const rememberedPageIndex = rememberedPagination?.pageIndex;
+  const rememberedPageSize = rememberedPagination?.pageSize;
+  const pagination = useMemo(
+    () =>
+      normalizeProductsPagination({
+        pageIndex: rememberedPageIndex,
+        pageSize: rememberedPageSize,
+      }),
+    [rememberedPageIndex, rememberedPageSize]
+  );
+  const setPagination = useCallback(
+    (updater) => {
+      if (!activeCollection) {
+        return;
+      }
+      setPaginationByCollection((prev) => {
+        const current = normalizeProductsPagination(prev?.[activeCollection]);
+        const next = typeof updater === "function" ? updater(current) : updater;
+        return {
+          ...prev,
+          [activeCollection]: normalizeProductsPagination(next),
+        };
+      });
+    },
+    [activeCollection, setPaginationByCollection]
+  );
   const [columnVisibility, setColumnVisibility] = useState({});
   const [columnOrder, setColumnOrder] = useState([]);
   const [search, setSearch] = useState("");
