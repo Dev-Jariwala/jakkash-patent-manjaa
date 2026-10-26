@@ -50,15 +50,42 @@ export function createBillDeps() {
       return row ?? null;
     },
 
-    async listBillsByCollection(collectionId) {
+    async listBillsByCollection(collectionId, { limit, offset, search } = {}) {
+      const params = [collectionId];
+      let searchClause = "";
+      if (search) {
+        params.push(`%${search}%`);
+        searchClause = `and (
+           bill_number ilike $2
+           or receiver_name ilike $2
+           or receiver_mobile ilike $2
+         )`;
+      }
+
+      const [{ total_count }] = await query(
+        `select count(*) as total_count
+         from gst_bills
+         where collection_id = $1
+         ${searchClause}`,
+        params
+      );
+
+      const limitParam = params.length + 1;
+      const offsetParam = params.length + 2;
       const rows = await query(
         `select bill_id, bill_number, bill_date, receiver_name, total_bill, saved_at
          from gst_bills
          where collection_id = $1
-         order by bill_date desc, saved_at desc`,
-        [collectionId]
+         ${searchClause}
+         order by bill_date desc, saved_at desc
+         limit $${limitParam} offset $${offsetParam}`,
+        [...params, limit, offset]
       );
-      return rows.map(mapBillRow);
+
+      return {
+        rows: rows.map(mapBillRow),
+        totalItems: Number(total_count),
+      };
     },
 
     async getBillById(billId) {
@@ -90,14 +117,14 @@ export function createBillDeps() {
           bill_id, collection_id, bill_number, bill_date,
           receiver_mobile, receiver_name, receiver_address, receiver_gst_number,
           receiver_contact_person, receiver_contact_number,
-          total_value, total_tax, total_bill,
+          total_value, total_tax, total_bill, tax_shape,
           bank_name, bank_address, bank_account_number, bank_ifsc, saved_at
         ) values (
           $1, $2, $3, $4,
           $5, $6, $7, $8,
           $9, $10,
-          $11, $12, $13,
-          $14, $15, $16, $17, $18
+          $11, $12, $13, $14,
+          $15, $16, $17, $18, $19
         )`,
         [
           billRow.bill_id,
@@ -113,6 +140,7 @@ export function createBillDeps() {
           billRow.total_value,
           billRow.total_tax,
           billRow.total_bill,
+          billRow.tax_shape ?? null,
           billRow.bank_name,
           billRow.bank_address,
           billRow.bank_account_number,
@@ -129,6 +157,7 @@ export function createBillDeps() {
             quantity, rate, price,
             cgst_percent, sgst_percent, igst_percent,
             cgst_amount, sgst_amount, igst_amount,
+            tax_rates_are_copy,
             line_total
           ) values (
             $1, $2, $3,
@@ -136,7 +165,8 @@ export function createBillDeps() {
             $9, $10, $11,
             $12, $13, $14,
             $15, $16, $17,
-            $18
+            $18,
+            $19
           )`,
           [
             line.bill_line_id,
@@ -156,6 +186,7 @@ export function createBillDeps() {
             line.cgst_amount,
             line.sgst_amount,
             line.igst_amount,
+            line.tax_rates_are_copy ?? false,
             line.line_total,
           ]
         );
@@ -178,7 +209,8 @@ export function createBillDeps() {
                total_value = $10,
                total_tax = $11,
                total_bill = $12,
-               saved_at = $13
+               tax_shape = $13,
+               saved_at = $14
            where bill_id = $1`,
           [
             billId,
@@ -193,6 +225,7 @@ export function createBillDeps() {
             billRow.total_value,
             billRow.total_tax,
             billRow.total_bill,
+            billRow.tax_shape ?? null,
             billRow.saved_at,
           ]
         );
@@ -205,6 +238,7 @@ export function createBillDeps() {
               quantity, rate, price,
               cgst_percent, sgst_percent, igst_percent,
               cgst_amount, sgst_amount, igst_amount,
+              tax_rates_are_copy,
               line_total
             ) values (
               $1, $2, $3,
@@ -212,7 +246,8 @@ export function createBillDeps() {
               $9, $10, $11,
               $12, $13, $14,
               $15, $16, $17,
-              $18
+              $18,
+              $19
             )`,
             [
               line.bill_line_id,
@@ -232,6 +267,7 @@ export function createBillDeps() {
               line.cgst_amount,
               line.sgst_amount,
               line.igst_amount,
+              line.tax_rates_are_copy ?? false,
               line.line_total,
             ]
           );

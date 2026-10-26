@@ -1,9 +1,13 @@
 import assert from "node:assert/strict";
+import { randomUUID } from "node:crypto";
 import { describe, it } from "node:test";
 
 import {
+  TAX_SHAPE_INTERSTATE,
+  TAX_SHAPE_WITHIN_STATE,
   createBill,
   getBill,
+  inferLegacyBillSharedShape,
   listBills,
   previewBillTotals,
   updateBill,
@@ -13,7 +17,9 @@ import {
   BillValidationError,
 } from "../services/billErrors.js";
 import {
+  copyTrioPercentsFromTaxCode,
   createBillWorld,
+  insertLegacyBill,
   standardBillPayload,
   updatePayloadFromBill,
 } from "./helpers/billWorld.mjs";
@@ -43,6 +49,8 @@ describe("createBill", () => {
     assert.equal(line.sgst_amount, 1100);
     assert.equal(line.igst_amount, 0);
     assert.equal(line.line_total, 46200);
+    assert.equal(line.igst_percent, 5);
+    assert.equal(saved.tax_shape, TAX_SHAPE_WITHIN_STATE);
     assert.equal(line.product_name, product.product_name);
     assert.equal(line.tax_code, taxCode.code);
     assert.equal(line.tax_code_description, taxCode.description);
@@ -94,9 +102,7 @@ describe("createBill", () => {
               tax_code_id: otherTax.tax_code_id,
               quantity: 1,
               rate: 100,
-              cgst_percent: 2.5,
-              sgst_percent: 2.5,
-              igst_percent: 0,
+              ...copyTrioPercentsFromTaxCode(otherTax),
             },
           ],
         }),
@@ -121,15 +127,14 @@ describe("createBill", () => {
           bill_number_parts: ["4", "4", "4"],
           bill_date: "2026-10-11",
           receiver_mobile: client.mobile,
+          tax_shape: TAX_SHAPE_WITHIN_STATE,
           lines: [
             {
               product_id: product.product_id,
               tax_code_id: taxCode.tax_code_id,
               quantity: 1,
               rate: 100,
-              cgst_percent: 2.5,
-              sgst_percent: 2.5,
-              igst_percent: 0,
+              ...copyTrioPercentsFromTaxCode(taxCode),
             },
           ],
         }),
@@ -141,7 +146,7 @@ describe("createBill", () => {
     );
   });
 
-  it("stores submitted percents on create even when they differ from the tax code defaults", async () => {
+  it("stores a legal copied trio on create even when it differs from the tax code defaults", async () => {
     const world = createBillWorld();
     const collectionId = world.seedCollection();
     const client = world.seedClient();
@@ -157,16 +162,16 @@ describe("createBill", () => {
           tax_code_id: taxCode.tax_code_id,
           quantity: 100,
           rate: 10,
-          cgst_percent: 0,
-          sgst_percent: 0,
-          igst_percent: 5,
+          cgst_percent: 3,
+          sgst_percent: 3,
+          igst_percent: 6,
         },
       ],
     });
 
-    assert.equal(saved.lines[0].cgst_percent, 0);
-    assert.equal(saved.lines[0].sgst_percent, 0);
-    assert.equal(saved.lines[0].igst_percent, 5);
+    assert.equal(saved.lines[0].cgst_percent, 3);
+    assert.equal(saved.lines[0].sgst_percent, 3);
+    assert.equal(saved.lines[0].igst_percent, 6);
   });
 
   it("saves two lines taxed on the full price with totals 44000, 2720, and 46720", async () => {
@@ -194,24 +199,21 @@ describe("createBill", () => {
       bill_number_parts: ["1", "2", "3"],
       bill_date: "2026-10-11",
       receiver_mobile: client.mobile,
+      tax_shape: TAX_SHAPE_WITHIN_STATE,
       lines: [
         {
           product_id: productA.product_id,
           tax_code_id: taxLow.tax_code_id,
           quantity: 200,
           rate: 200,
-          cgst_percent: 2.5,
-          sgst_percent: 2.5,
-          igst_percent: 0,
+          ...copyTrioPercentsFromTaxCode(taxLow),
         },
         {
           product_id: productB.product_id,
           tax_code_id: taxHigh.tax_code_id,
           quantity: 100,
           rate: 40,
-          cgst_percent: 9,
-          sgst_percent: 9,
-          igst_percent: 0,
+          ...copyTrioPercentsFromTaxCode(taxHigh),
         },
       ],
     });
@@ -234,15 +236,14 @@ describe("createBill", () => {
       bill_number_parts: ["1", "0", "9"],
       bill_date: "2026-10-11",
       receiver_mobile: client.mobile,
+      tax_shape: TAX_SHAPE_WITHIN_STATE,
       lines: [
         {
           product_id: product.product_id,
           tax_code_id: taxCode.tax_code_id,
           quantity: 1,
           rate: 10.2,
-          cgst_percent: 2.5,
-          sgst_percent: 2.5,
-          igst_percent: 0,
+          ...copyTrioPercentsFromTaxCode(taxCode),
         },
       ],
     });
@@ -270,24 +271,21 @@ describe("createBill", () => {
       bill_number_parts: ["1", "1", "0"],
       bill_date: "2026-10-11",
       receiver_mobile: client.mobile,
+      tax_shape: TAX_SHAPE_WITHIN_STATE,
       lines: [
         {
           product_id: productA.product_id,
           tax_code_id: taxCode.tax_code_id,
           quantity: 1,
           rate: 0,
-          cgst_percent: 2.5,
-          sgst_percent: 2.5,
-          igst_percent: 0,
+          ...copyTrioPercentsFromTaxCode(taxCode),
         },
         {
           product_id: productB.product_id,
           tax_code_id: taxCode.tax_code_id,
           quantity: 1,
           rate: 100,
-          cgst_percent: 2.5,
-          sgst_percent: 2.5,
-          igst_percent: 0,
+          ...copyTrioPercentsFromTaxCode(taxCode),
         },
       ],
     });
@@ -309,6 +307,7 @@ describe("createBill", () => {
           bill_number_parts: ["0", "0", "1"],
           bill_date: "2026-10-11",
           receiver_mobile: client.mobile,
+          tax_shape: TAX_SHAPE_WITHIN_STATE,
           lines: [
             {
               product_id: product.product_id,
@@ -370,6 +369,7 @@ describe("createBill", () => {
       () =>
         previewBillTotals({
           discount_percent: 0,
+          tax_shape: TAX_SHAPE_WITHIN_STATE,
           lines: [
             {
               product_id: "p1",
@@ -378,7 +378,7 @@ describe("createBill", () => {
               rate: 100,
               cgst_percent: 2.5,
               sgst_percent: 2.5,
-              igst_percent: 0,
+              igst_percent: 5,
             },
           ],
         }),
@@ -406,7 +406,7 @@ describe("createBill", () => {
     assert.equal(read.total_bill, 46200);
   });
 
-  it("accepts IGST-only and exempt tax shapes and rejects mixed or unequal CGST and SGST", async () => {
+  it("accepts interstate and exempt copied trios and rejects illegal copies", async () => {
     const world = createBillWorld();
     const collectionId = world.seedCollection();
     const client = world.seedClient();
@@ -415,6 +415,7 @@ describe("createBill", () => {
 
     await createBill(world.deps, collectionId, {
       ...standardBillPayload({ world, collectionId, product, taxCode, client }),
+      tax_shape: TAX_SHAPE_INTERSTATE,
       bill_number_parts: ["1", "1", "1"],
       lines: [
         {
@@ -422,9 +423,7 @@ describe("createBill", () => {
           tax_code_id: taxCode.tax_code_id,
           quantity: 1,
           rate: 100,
-          cgst_percent: 0,
-          sgst_percent: 0,
-          igst_percent: 5,
+          ...copyTrioPercentsFromTaxCode(taxCode),
         },
       ],
     });
@@ -458,7 +457,7 @@ describe("createBill", () => {
               rate: 100,
               cgst_percent: 2.5,
               sgst_percent: 2.5,
-              igst_percent: 5,
+              igst_percent: 0,
             },
           ],
         }),
@@ -480,8 +479,31 @@ describe("createBill", () => {
               quantity: 1,
               rate: 100,
               cgst_percent: 2.5,
+              sgst_percent: 2.5,
+              igst_percent: 6,
+            },
+          ],
+        }),
+      (error) => {
+        assert.ok(error instanceof BillValidationError);
+        return true;
+      }
+    );
+
+    await assert.rejects(
+      () =>
+        createBill(world.deps, collectionId, {
+          ...standardBillPayload({ world, collectionId, product, taxCode, client }),
+          bill_number_parts: ["1", "1", "5"],
+          lines: [
+            {
+              product_id: product.product_id,
+              tax_code_id: taxCode.tax_code_id,
+              quantity: 1,
+              rate: 100,
+              cgst_percent: 2.5,
               sgst_percent: 9,
-              igst_percent: 0,
+              igst_percent: 11.5,
             },
           ],
         }),
@@ -566,9 +588,7 @@ describe("createBill", () => {
           tax_code_id: taxCode.tax_code_id,
           quantity: 1,
           rate: 10,
-          cgst_percent: 2.5,
-          sgst_percent: 2.5,
-          igst_percent: 0,
+          ...copyTrioPercentsFromTaxCode(taxCode),
         },
         {},
         {
@@ -576,9 +596,7 @@ describe("createBill", () => {
           tax_code_id: taxCode.tax_code_id,
           quantity: 2,
           rate: 10,
-          cgst_percent: 2.5,
-          sgst_percent: 2.5,
-          igst_percent: 0,
+          ...copyTrioPercentsFromTaxCode(taxCode),
         },
       ],
     });
@@ -657,20 +675,88 @@ describe("listBills", () => {
       bill_number_parts: ["9", "9", "9"],
     });
 
-    const listA = await listBills(world.deps, collectionA);
-    assert.equal(listA.length, 2);
-    assert.equal(listA[0].bill_number, "1-0-2");
-    assert.equal(listA[1].bill_number, "1-0-1");
+    const listA = await listBills(world.deps, collectionA, { page: 1, limit: 10 });
+    assert.equal(listA.bills.length, 2);
+    assert.equal(listA.bills[0].bill_number, "1-0-2");
+    assert.equal(listA.bills[1].bill_number, "1-0-1");
+    assert.equal(listA.pagination.page, 1);
+    assert.equal(listA.pagination.totalItems, 2);
 
-    const listB = await listBills(world.deps, collectionB);
-    assert.equal(listB.length, 1);
-    assert.equal(listB[0].bill_number, "9-9-9");
+    const page2 = await listBills(world.deps, collectionA, { page: 2, limit: 1 });
+    assert.equal(page2.bills.length, 1);
+    assert.equal(page2.bills[0].bill_number, "1-0-1");
+    assert.equal(page2.pagination.page, 2);
+    assert.equal(page2.pagination.limit, 1);
+    assert.equal(page2.pagination.totalItems, 2);
+    assert.equal(page2.pagination.totalPages, 2);
+
+    const listB = await listBills(world.deps, collectionB, { page: 1, limit: 10 });
+    assert.equal(listB.bills.length, 1);
+    assert.equal(listB.bills[0].bill_number, "9-9-9");
+  });
+
+  it("matches a bill number or receiver name and stays inside the collection", async () => {
+    const world = createBillWorld();
+    const collectionA = world.seedCollection();
+    const collectionB = world.seedCollection();
+    const acme = world.seedClient({ mobile: "9000000001", name: "Acme Fabrics" });
+    const beta = world.seedClient({ mobile: "9000000002", name: "Beta Textiles" });
+    const productA = world.seedProduct(collectionA);
+    const productB = world.seedProduct(collectionB);
+    const taxCode = world.seedTaxCode();
+
+    await createBill(world.deps, collectionA, {
+      ...standardBillPayload({
+        world,
+        collectionId: collectionA,
+        product: productA,
+        taxCode,
+        client: acme,
+      }),
+      bill_number_parts: ["1", "0", "1"],
+    });
+    await createBill(world.deps, collectionA, {
+      ...standardBillPayload({
+        world,
+        collectionId: collectionA,
+        product: productA,
+        taxCode,
+        client: beta,
+      }),
+      bill_number_parts: ["1", "0", "2"],
+    });
+    await createBill(world.deps, collectionB, {
+      ...standardBillPayload({
+        world,
+        collectionId: collectionB,
+        product: productB,
+        taxCode,
+        client: beta,
+      }),
+      bill_number_parts: ["9", "9", "9"],
+    });
+
+    const byName = await listBills(world.deps, collectionA, { search: "beta" });
+    assert.equal(byName.bills.length, 1);
+    assert.equal(byName.bills[0].bill_number, "1-0-2");
+    assert.equal(byName.bills[0].receiver_name, "Beta Textiles");
+    assert.equal(byName.pagination.totalItems, 1);
+
+    const byNumber = await listBills(world.deps, collectionA, { search: "1-0-1" });
+    assert.equal(byNumber.bills.length, 1);
+    assert.equal(byNumber.bills[0].bill_number, "1-0-1");
+    assert.equal(byNumber.bills[0].receiver_name, "Acme Fabrics");
+
+    const otherCollection = await listBills(world.deps, collectionA, { search: "9-9-9" });
+    assert.equal(otherCollection.bills.length, 0);
+    assert.equal(otherCollection.pagination.totalItems, 0);
   });
 });
 
 describe("previewBillTotals", () => {
   it("matches footer math for the operator form", () => {
     const totals = previewBillTotals({
+      tax_shape: TAX_SHAPE_WITHIN_STATE,
       lines: [
         {
           product_id: "p1",
@@ -679,7 +765,7 @@ describe("previewBillTotals", () => {
           rate: 220,
           cgst_percent: 2.5,
           sgst_percent: 2.5,
-          igst_percent: 0,
+          igst_percent: 5,
         },
       ],
     });
@@ -688,6 +774,7 @@ describe("previewBillTotals", () => {
 
   it("ignores blank and incomplete lines without failing the footer", () => {
     const totals = previewBillTotals({
+      tax_shape: TAX_SHAPE_WITHIN_STATE,
       lines: [
         {},
         { product_id: "p1" },
@@ -698,7 +785,7 @@ describe("previewBillTotals", () => {
           rate: 220,
           cgst_percent: 2.5,
           sgst_percent: 2.5,
-          igst_percent: 0,
+          igst_percent: 5,
         },
       ],
     });
@@ -767,9 +854,9 @@ describe("updateBill", () => {
             tax_code_id: taxCode.tax_code_id,
             quantity: 200,
             rate: 215,
-            cgst_percent: 2.5,
-            sgst_percent: 2.5,
-            igst_percent: 0,
+            cgst_percent: created.lines[0].cgst_percent,
+            sgst_percent: created.lines[0].sgst_percent,
+            igst_percent: created.lines[0].igst_percent,
           },
         ],
       })
@@ -847,9 +934,9 @@ describe("updateBill", () => {
             tax_code_id: taxCode.tax_code_id,
             quantity: 200,
             rate: 225,
-            cgst_percent: 3,
-            sgst_percent: 3,
-            igst_percent: 0,
+            cgst_percent: created.lines[0].cgst_percent,
+            sgst_percent: created.lines[0].sgst_percent,
+            igst_percent: created.lines[0].igst_percent,
           },
         ],
       })
@@ -859,7 +946,7 @@ describe("updateBill", () => {
     assert.equal(updated.lines[0].tax_code, "5209");
     assert.equal(updated.lines[0].tax_code_description, "Woven fabrics of cotton");
     assert.equal(updated.lines[0].rate, 225);
-    assert.equal(updated.lines[0].cgst_percent, 3);
+    assert.equal(updated.lines[0].cgst_percent, 2.5);
   });
 
   it("keeps the copied tax code when the product is retargeted and the line is untouched", async () => {
@@ -900,9 +987,9 @@ describe("updateBill", () => {
             tax_code_id: taxOld.tax_code_id,
             quantity: 200,
             rate: 220,
-            cgst_percent: 2.5,
-            sgst_percent: 2.5,
-            igst_percent: 0,
+            cgst_percent: created.lines[0].cgst_percent,
+            sgst_percent: created.lines[0].sgst_percent,
+            igst_percent: created.lines[0].igst_percent,
           },
         ],
       })
@@ -945,9 +1032,9 @@ describe("updateBill", () => {
               tax_code_id: otherTax.tax_code_id,
               quantity: 200,
               rate: 220,
-              cgst_percent: 2.5,
-              sgst_percent: 2.5,
-              igst_percent: 0,
+              cgst_percent: created.lines[0].cgst_percent,
+              sgst_percent: created.lines[0].sgst_percent,
+              igst_percent: created.lines[0].igst_percent,
             },
           ],
         }),
@@ -1003,9 +1090,7 @@ describe("updateBill", () => {
             tax_code_id: taxNew.tax_code_id,
             quantity: 200,
             rate: 220,
-            cgst_percent: 6,
-            sgst_percent: 6,
-            igst_percent: 0,
+            ...copyTrioPercentsFromTaxCode(taxNew),
             product_chosen_again: true,
           },
         ],
@@ -1015,6 +1100,7 @@ describe("updateBill", () => {
     assert.equal(updated.lines[0].tax_code, "520911");
     assert.equal(updated.lines[0].tax_code_description, "Now on Cotton");
     assert.equal(updated.lines[0].cgst_percent, 6);
+    assert.equal(updated.lines[0].igst_percent, 12);
   });
 
   it("copies new digits on the same Masters row when the product is chosen again", async () => {
@@ -1055,9 +1141,7 @@ describe("updateBill", () => {
             tax_code_id: taxCode.tax_code_id,
             quantity: 200,
             rate: 220,
-            cgst_percent: 2.5,
-            sgst_percent: 2.5,
-            igst_percent: 0,
+            ...copyTrioPercentsFromTaxCode(taxCode),
             product_chosen_again: true,
           },
         ],
@@ -1187,9 +1271,7 @@ describe("updateBill", () => {
             tax_code_id: taxB.tax_code_id,
             quantity: 10,
             rate: 50,
-            cgst_percent: 9,
-            sgst_percent: 9,
-            igst_percent: 0,
+            ...copyTrioPercentsFromTaxCode(taxB),
           },
         ],
       })
@@ -1304,18 +1386,14 @@ describe("updateBill", () => {
           tax_code_id: taxCode.tax_code_id,
           quantity: 1,
           rate: 10,
-          cgst_percent: 2.5,
-          sgst_percent: 2.5,
-          igst_percent: 0,
+          ...copyTrioPercentsFromTaxCode(taxCode),
         },
         {
           product_id: productB.product_id,
           tax_code_id: taxCode.tax_code_id,
           quantity: 2,
           rate: 20,
-          cgst_percent: 2.5,
-          sgst_percent: 2.5,
-          igst_percent: 0,
+          ...copyTrioPercentsFromTaxCode(taxCode),
         },
       ],
     });
@@ -1334,18 +1412,16 @@ describe("updateBill", () => {
             tax_code_id: taxCode.tax_code_id,
             quantity: 2,
             rate: 20,
-            cgst_percent: 2.5,
-            sgst_percent: 2.5,
-            igst_percent: 0,
+            cgst_percent: lineToKeep.cgst_percent,
+            sgst_percent: lineToKeep.sgst_percent,
+            igst_percent: lineToKeep.igst_percent,
           },
           {
             product_id: productC.product_id,
             tax_code_id: taxCode.tax_code_id,
             quantity: 3,
             rate: 30,
-            cgst_percent: 2.5,
-            sgst_percent: 2.5,
-            igst_percent: 0,
+            ...copyTrioPercentsFromTaxCode(taxCode),
           },
         ],
       }
@@ -1529,13 +1605,1092 @@ describe("createBill rate required", () => {
               product_id: product.product_id,
               tax_code_id: taxCode.tax_code_id,
               quantity: 10,
-              cgst_percent: 2.5,
-              sgst_percent: 2.5,
-              igst_percent: 0,
+              ...copyTrioPercentsFromTaxCode(taxCode),
             },
           ],
         }),
       /Rate is required/
     );
   });
+});
+
+describe("bill tax shape", () => {
+  it("switches a saved bill to interstate using the stored copy after Masters moves the tax code", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode({ cgst: 2.5, sgst: 2.5, igst: 5 });
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+
+    const created = await createBill(
+      world.deps,
+      collectionId,
+      standardBillPayload({ world, collectionId, product, taxCode, client })
+    );
+
+    world.seedTaxCode({
+      tax_code_id: taxCode.tax_code_id,
+      cgst: 9,
+      sgst: 9,
+      igst: 18,
+    });
+
+    const switched = await updateBill(
+      world.deps,
+      collectionId,
+      created.bill_id,
+      updatePayloadFromBill(created, {
+        tax_shape: TAX_SHAPE_INTERSTATE,
+        lines: [
+          {
+            bill_line_id: created.lines[0].bill_line_id,
+            product_id: product.product_id,
+            tax_code_id: taxCode.tax_code_id,
+            quantity: 200,
+            rate: 220,
+            cgst_percent: 2.5,
+            sgst_percent: 2.5,
+            igst_percent: 5,
+          },
+        ],
+      })
+    );
+
+    assert.equal(switched.tax_shape, TAX_SHAPE_INTERSTATE);
+    assert.equal(switched.lines[0].cgst_amount, 0);
+    assert.equal(switched.lines[0].sgst_amount, 0);
+    assert.equal(switched.lines[0].igst_amount, 2200);
+    assert.equal(switched.lines[0].line_total, 46200);
+    assert.equal(switched.total_bill, 46200);
+  });
+
+  it("re-choosing the product on one line copies today's trio while the other line keeps its copy", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode({ cgst: 2.5, sgst: 2.5, igst: 5 });
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+
+    const created = await createBill(
+      world.deps,
+      collectionId,
+      {
+        ...standardBillPayload({ world, collectionId, product, taxCode, client }),
+        bill_number_parts: ["8", "1", "1"],
+        lines: [
+          {
+            product_id: product.product_id,
+            tax_code_id: taxCode.tax_code_id,
+            quantity: 1,
+            rate: 100,
+            ...copyTrioPercentsFromTaxCode(taxCode),
+          },
+          {
+            product_id: product.product_id,
+            tax_code_id: taxCode.tax_code_id,
+            quantity: 1,
+            rate: 100,
+            ...copyTrioPercentsFromTaxCode(taxCode),
+          },
+        ],
+      }
+    );
+
+    world.seedTaxCode({
+      tax_code_id: taxCode.tax_code_id,
+      cgst: 9,
+      sgst: 9,
+      igst: 18,
+    });
+
+    const updated = await updateBill(
+      world.deps,
+      collectionId,
+      created.bill_id,
+      updatePayloadFromBill(created, {
+        lines: [
+          {
+            bill_line_id: created.lines[0].bill_line_id,
+            product_id: product.product_id,
+            tax_code_id: taxCode.tax_code_id,
+            quantity: 1,
+            rate: 100,
+            cgst_percent: 9,
+            sgst_percent: 9,
+            igst_percent: 18,
+            product_chosen_again: true,
+          },
+          {
+            bill_line_id: created.lines[1].bill_line_id,
+            product_id: product.product_id,
+            tax_code_id: taxCode.tax_code_id,
+            quantity: 1,
+            rate: 100,
+            cgst_percent: 2.5,
+            sgst_percent: 2.5,
+            igst_percent: 5,
+          },
+        ],
+      })
+    );
+
+    assert.equal(updated.lines[0].igst_percent, 18);
+    assert.equal(updated.lines[1].igst_percent, 5);
+    assert.equal(updated.lines[0].cgst_amount, 9);
+    assert.equal(updated.lines[1].cgst_amount, 2.5);
+  });
+
+  it("rejects a missing tax shape on create and illegal copied trios", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const product = world.seedProduct(collectionId);
+    const taxCode = world.seedTaxCode();
+    const base = standardBillPayload({ world, collectionId, product, taxCode, client });
+
+    await assert.rejects(
+      () =>
+        createBill(world.deps, collectionId, {
+          ...base,
+          tax_shape: undefined,
+        }),
+      /Tax shape is required/
+    );
+
+    await assert.rejects(
+      () =>
+        createBill(world.deps, collectionId, {
+          ...base,
+          bill_number_parts: ["8", "2", "1"],
+          lines: [
+            {
+              product_id: product.product_id,
+              tax_code_id: taxCode.tax_code_id,
+              quantity: 1,
+              rate: 10,
+              cgst_percent: 2.5,
+              sgst_percent: 2.5,
+              igst_percent: 0,
+            },
+          ],
+        }),
+      /IGST on the copied rates/
+    );
+  });
+
+  it("previews interstate rounding for rate 10.20 separately from within-state", () => {
+    const within = previewBillTotals({
+      tax_shape: TAX_SHAPE_WITHIN_STATE,
+      lines: [
+        {
+          product_id: "p1",
+          tax_code_id: "t1",
+          quantity: 1,
+          rate: 10.2,
+          cgst_percent: 2.5,
+          sgst_percent: 2.5,
+          igst_percent: 5,
+        },
+      ],
+    });
+    const interstate = previewBillTotals({
+      tax_shape: TAX_SHAPE_INTERSTATE,
+      lines: [
+        {
+          product_id: "p1",
+          tax_code_id: "t1",
+          quantity: 1,
+          rate: 10.2,
+          cgst_percent: 2.5,
+          sgst_percent: 2.5,
+          igst_percent: 5,
+        },
+      ],
+    });
+
+    assert.equal(within.line_previews[0].cgst_amount, 0.26);
+    assert.equal(within.total_bill, 10.72);
+    assert.equal(interstate.line_previews[0].igst_amount, 0.51);
+    assert.equal(interstate.total_bill, 10.71);
+  });
+
+  it("keeps an old bill on charged percents when it has no tax shape", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+    const billId = randomUUID();
+    const lineId = randomUUID();
+    const savedAt = new Date().toISOString();
+
+    await world.deps.insertBill(
+      {
+        bill_id: billId,
+        collection_id: collectionId,
+        bill_number: "7-7-7",
+        bill_date: "2026-10-11",
+        receiver_mobile: client.mobile,
+        receiver_name: client.name,
+        receiver_address: client.address,
+        receiver_gst_number: client.gst_number,
+        receiver_contact_person: client.contact_person,
+        receiver_contact_number: client.contact_number,
+        total_value: 1000,
+        total_tax: 50,
+        total_bill: 1050,
+        tax_shape: null,
+        bank_name: "HDFC Bank",
+        bank_address: "MG Road",
+        bank_account_number: "012345678",
+        bank_ifsc: "HDFC0000123",
+        saved_at: savedAt,
+      },
+      [
+        {
+          bill_line_id: lineId,
+          bill_id: billId,
+          line_order: 0,
+          product_id: product.product_id,
+          product_name: product.product_name,
+          tax_code_id: taxCode.tax_code_id,
+          tax_code: taxCode.code,
+          tax_code_description: taxCode.description,
+          quantity: 10,
+          rate: 100,
+          price: 1000,
+          cgst_percent: 2.5,
+          sgst_percent: 2.5,
+          igst_percent: 0,
+          cgst_amount: 25,
+          sgst_amount: 25,
+          igst_amount: 0,
+          tax_rates_are_copy: false,
+          line_total: 1050,
+        },
+      ]
+    );
+
+    const updated = await updateBill(world.deps, collectionId, billId, {
+      bill_number_parts: ["7", "7", "7"],
+      bill_date: "2026-10-11",
+      receiver_mobile: client.mobile,
+      lines: [
+        {
+          bill_line_id: lineId,
+          product_id: product.product_id,
+          tax_code_id: taxCode.tax_code_id,
+          quantity: 10,
+          rate: 100,
+          cgst_percent: 2.5,
+          sgst_percent: 2.5,
+          igst_percent: 0,
+        },
+      ],
+    });
+
+    assert.equal(updated.tax_shape, null);
+    assert.equal(updated.lines[0].igst_percent, 0);
+    assert.equal(updated.total_bill, 1050);
+  });
+
+  it("stores a trio on one re-choice without unlocking tax shape", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const productA = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+    const productB = world.seedProduct(collectionId, {
+      product_name: "Linen",
+      tax_code_id: taxCode.tax_code_id,
+    });
+    const lineA = randomUUID();
+    const lineB = randomUUID();
+    const { billId } = await insertLegacyBill(world, {
+      collectionId,
+      client,
+      lines: [
+        {
+          bill_line_id: lineA,
+          product_id: productA.product_id,
+          product_name: productA.product_name,
+          tax_code_id: taxCode.tax_code_id,
+          tax_code: taxCode.code,
+          tax_code_description: taxCode.description,
+          quantity: 10,
+          rate: 100,
+          price: 1000,
+          cgst_percent: 2.5,
+          sgst_percent: 2.5,
+          igst_percent: 0,
+          cgst_amount: 25,
+          sgst_amount: 25,
+          igst_amount: 0,
+          line_total: 1050,
+        },
+        {
+          bill_line_id: lineB,
+          product_id: productB.product_id,
+          product_name: productB.product_name,
+          tax_code_id: taxCode.tax_code_id,
+          tax_code: taxCode.code,
+          tax_code_description: taxCode.description,
+          quantity: 5,
+          rate: 100,
+          price: 500,
+          cgst_percent: 2.5,
+          sgst_percent: 2.5,
+          igst_percent: 0,
+          cgst_amount: 12.5,
+          sgst_amount: 12.5,
+          igst_amount: 0,
+          line_total: 525,
+        },
+      ],
+      totals: { total_value: 1500, total_tax: 75, total_bill: 1575 },
+    });
+
+    const updated = await updateBill(world.deps, collectionId, billId, {
+      bill_number_parts: ["7", "7", "7"],
+      bill_date: "2026-10-11",
+      receiver_mobile: client.mobile,
+      lines: [
+        {
+          bill_line_id: lineA,
+          product_id: productA.product_id,
+          tax_code_id: taxCode.tax_code_id,
+          quantity: 10,
+          rate: 100,
+          ...copyTrioPercentsFromTaxCode(taxCode),
+          product_chosen_again: true,
+        },
+        {
+          bill_line_id: lineB,
+          product_id: productB.product_id,
+          tax_code_id: taxCode.tax_code_id,
+          quantity: 5,
+          rate: 100,
+          cgst_percent: 2.5,
+          sgst_percent: 2.5,
+          igst_percent: 0,
+        },
+      ],
+    });
+
+    assert.equal(updated.tax_shape, null);
+    assert.equal(updated.lines[0].igst_percent, 5);
+    assert.equal(updated.lines[0].tax_rates_are_copy, true);
+    assert.equal(updated.lines[0].igst_amount, 0);
+    assert.equal(updated.lines[1].tax_rates_are_copy, false);
+  });
+
+  it("unlocks tax shape when every line has been chosen again", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const productA = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+    const productB = world.seedProduct(collectionId, {
+      product_name: "Linen",
+      tax_code_id: taxCode.tax_code_id,
+    });
+    const lineA = randomUUID();
+    const lineB = randomUUID();
+    const { billId } = await insertLegacyBill(world, {
+      collectionId,
+      client,
+      lines: [
+        {
+          bill_line_id: lineA,
+          product_id: productA.product_id,
+          product_name: productA.product_name,
+          tax_code_id: taxCode.tax_code_id,
+          tax_code: taxCode.code,
+          tax_code_description: taxCode.description,
+          quantity: 10,
+          rate: 100,
+          price: 1000,
+          cgst_percent: 2.5,
+          sgst_percent: 2.5,
+          igst_percent: 0,
+          cgst_amount: 25,
+          sgst_amount: 25,
+          igst_amount: 0,
+          line_total: 1050,
+        },
+        {
+          bill_line_id: lineB,
+          product_id: productB.product_id,
+          product_name: productB.product_name,
+          tax_code_id: taxCode.tax_code_id,
+          tax_code: taxCode.code,
+          tax_code_description: taxCode.description,
+          quantity: 5,
+          rate: 100,
+          price: 500,
+          cgst_percent: 2.5,
+          sgst_percent: 2.5,
+          igst_percent: 0,
+          cgst_amount: 12.5,
+          sgst_amount: 12.5,
+          igst_amount: 0,
+          line_total: 525,
+        },
+      ],
+      totals: { total_value: 1500, total_tax: 75, total_bill: 1575 },
+    });
+
+    const updated = await updateBill(world.deps, collectionId, billId, {
+      bill_number_parts: ["7", "7", "7"],
+      bill_date: "2026-10-11",
+      receiver_mobile: client.mobile,
+      tax_shape: TAX_SHAPE_WITHIN_STATE,
+      lines: [
+        {
+          bill_line_id: lineA,
+          product_id: productA.product_id,
+          tax_code_id: taxCode.tax_code_id,
+          quantity: 10,
+          rate: 100,
+          ...copyTrioPercentsFromTaxCode(taxCode),
+          product_chosen_again: true,
+        },
+        {
+          bill_line_id: lineB,
+          product_id: productB.product_id,
+          tax_code_id: taxCode.tax_code_id,
+          quantity: 5,
+          rate: 100,
+          ...copyTrioPercentsFromTaxCode(taxCode),
+          product_chosen_again: true,
+        },
+      ],
+    });
+
+    assert.equal(updated.tax_shape, TAX_SHAPE_WITHIN_STATE);
+    assert.equal(updated.lines[0].tax_rates_are_copy, true);
+    assert.equal(updated.lines[1].tax_rates_are_copy, true);
+    assert.equal(updated.lines[0].igst_amount, 0);
+    assert.equal(updated.lines[1].igst_amount, 0);
+  });
+
+  it("rejects an early tax shape and a wrong shape on unlock", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+    const lineId = randomUUID();
+    const { billId } = await insertLegacyBill(world, {
+      collectionId,
+      client,
+      lines: [
+        {
+          bill_line_id: lineId,
+          product_id: product.product_id,
+          product_name: product.product_name,
+          tax_code_id: taxCode.tax_code_id,
+          tax_code: taxCode.code,
+          tax_code_description: taxCode.description,
+          quantity: 10,
+          rate: 100,
+          price: 1000,
+          cgst_percent: 2.5,
+          sgst_percent: 2.5,
+          igst_percent: 0,
+          cgst_amount: 25,
+          sgst_amount: 25,
+          igst_amount: 0,
+          line_total: 1050,
+        },
+      ],
+    });
+
+    await assert.rejects(
+      () =>
+        updateBill(world.deps, collectionId, billId, {
+          bill_number_parts: ["7", "7", "7"],
+          bill_date: "2026-10-11",
+          receiver_mobile: client.mobile,
+          tax_shape: TAX_SHAPE_WITHIN_STATE,
+          lines: [
+            {
+              bill_line_id: lineId,
+              product_id: product.product_id,
+              tax_code_id: taxCode.tax_code_id,
+              quantity: 10,
+              rate: 100,
+              cgst_percent: 2.5,
+              sgst_percent: 2.5,
+              igst_percent: 0,
+            },
+          ],
+        }),
+      /Tax shape cannot be set until every line has been chosen again/
+    );
+
+    await assert.rejects(
+      () =>
+        updateBill(world.deps, collectionId, billId, {
+          bill_number_parts: ["7", "7", "7"],
+          bill_date: "2026-10-11",
+          receiver_mobile: client.mobile,
+          tax_shape: TAX_SHAPE_INTERSTATE,
+          lines: [
+            {
+              bill_line_id: lineId,
+              product_id: product.product_id,
+              tax_code_id: taxCode.tax_code_id,
+              quantity: 10,
+              rate: 100,
+              ...copyTrioPercentsFromTaxCode(taxCode),
+              product_chosen_again: true,
+            },
+          ],
+        }),
+      /Tax shape does not match/
+    );
+
+    const converted = await updateBill(world.deps, collectionId, billId, {
+      bill_number_parts: ["7", "7", "7"],
+      bill_date: "2026-10-11",
+      receiver_mobile: client.mobile,
+      tax_shape: TAX_SHAPE_WITHIN_STATE,
+      lines: [
+        {
+          bill_line_id: lineId,
+          product_id: product.product_id,
+          tax_code_id: taxCode.tax_code_id,
+          quantity: 10,
+          rate: 100,
+          ...copyTrioPercentsFromTaxCode(taxCode),
+          product_chosen_again: true,
+        },
+      ],
+    });
+    assert.equal(converted.tax_shape, TAX_SHAPE_WITHIN_STATE);
+  });
+
+  it("keeps an old interstate line on IGST after the product is chosen again", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+    const lineId = randomUUID();
+    const { billId } = await insertLegacyBill(world, {
+      collectionId,
+      client,
+      billNumber: "8-8-8",
+      lines: [
+        {
+          bill_line_id: lineId,
+          product_id: product.product_id,
+          product_name: product.product_name,
+          tax_code_id: taxCode.tax_code_id,
+          tax_code: taxCode.code,
+          tax_code_description: taxCode.description,
+          quantity: 10,
+          rate: 100,
+          price: 1000,
+          cgst_percent: 0,
+          sgst_percent: 0,
+          igst_percent: 5,
+          cgst_amount: 0,
+          sgst_amount: 0,
+          igst_amount: 50,
+          line_total: 1050,
+        },
+      ],
+    });
+
+    const updated = await updateBill(world.deps, collectionId, billId, {
+      bill_number_parts: ["8", "8", "8"],
+      bill_date: "2026-10-11",
+      receiver_mobile: client.mobile,
+      tax_shape: TAX_SHAPE_INTERSTATE,
+      lines: [
+        {
+          bill_line_id: lineId,
+          product_id: product.product_id,
+          tax_code_id: taxCode.tax_code_id,
+          quantity: 10,
+          rate: 100,
+          ...copyTrioPercentsFromTaxCode(taxCode),
+          product_chosen_again: true,
+        },
+      ],
+    });
+
+    assert.equal(updated.tax_shape, TAX_SHAPE_INTERSTATE);
+    assert.equal(updated.lines[0].igst_percent, 5);
+    assert.equal(updated.lines[0].cgst_amount, 0);
+    assert.equal(updated.lines[0].igst_amount, 50);
+  });
+
+  it("does not treat an exempt line as a copy until the product is chosen again", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode({ cgst: 0, sgst: 0, igst: 0 });
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+    const lineId = randomUUID();
+    const { billId } = await insertLegacyBill(world, {
+      collectionId,
+      client,
+      billNumber: "8-8-9",
+      lines: [
+        {
+          bill_line_id: lineId,
+          product_id: product.product_id,
+          product_name: product.product_name,
+          tax_code_id: taxCode.tax_code_id,
+          tax_code: taxCode.code,
+          tax_code_description: taxCode.description,
+          quantity: 2,
+          rate: 100,
+          price: 200,
+          cgst_percent: 0,
+          sgst_percent: 0,
+          igst_percent: 0,
+          cgst_amount: 0,
+          sgst_amount: 0,
+          igst_amount: 0,
+          line_total: 200,
+        },
+      ],
+    });
+
+    const untouched = await updateBill(world.deps, collectionId, billId, {
+      bill_number_parts: ["8", "8", "9"],
+      bill_date: "2026-10-11",
+      receiver_mobile: client.mobile,
+      lines: [
+        {
+          bill_line_id: lineId,
+          product_id: product.product_id,
+          tax_code_id: taxCode.tax_code_id,
+          quantity: 2,
+          rate: 100,
+          cgst_percent: 0,
+          sgst_percent: 0,
+          igst_percent: 0,
+        },
+      ],
+    });
+    assert.equal(untouched.lines[0].tax_rates_are_copy, false);
+
+    const converted = await updateBill(world.deps, collectionId, billId, {
+      bill_number_parts: ["8", "8", "9"],
+      bill_date: "2026-10-11",
+      receiver_mobile: client.mobile,
+      tax_shape: TAX_SHAPE_WITHIN_STATE,
+      lines: [
+        {
+          bill_line_id: lineId,
+          product_id: product.product_id,
+          tax_code_id: taxCode.tax_code_id,
+          quantity: 2,
+          rate: 100,
+          cgst_percent: 0,
+          sgst_percent: 0,
+          igst_percent: 0,
+          product_chosen_again: true,
+        },
+      ],
+    });
+    assert.equal(converted.tax_shape, TAX_SHAPE_WITHIN_STATE);
+    assert.equal(converted.lines[0].tax_rates_are_copy, true);
+
+    const interstate = await updateBill(world.deps, collectionId, billId, {
+      bill_number_parts: ["8", "8", "9"],
+      bill_date: "2026-10-11",
+      receiver_mobile: client.mobile,
+      tax_shape: TAX_SHAPE_INTERSTATE,
+      lines: [
+        {
+          bill_line_id: lineId,
+          product_id: product.product_id,
+          tax_code_id: taxCode.tax_code_id,
+          quantity: 2,
+          rate: 100,
+          cgst_percent: 0,
+          sgst_percent: 0,
+          igst_percent: 0,
+        },
+      ],
+    });
+    assert.equal(interstate.total_tax, 0);
+  });
+
+  it("counts a new line as a copy and unlocks after the last old line is removed", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const oldProduct = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+    const newProduct = world.seedProduct(collectionId, {
+      product_name: "New yarn",
+      tax_code_id: taxCode.tax_code_id,
+    });
+    const oldLineId = randomUUID();
+    const { billId } = await insertLegacyBill(world, {
+      collectionId,
+      client,
+      billNumber: "8-9-0",
+      lines: [
+        {
+          bill_line_id: oldLineId,
+          product_id: oldProduct.product_id,
+          product_name: oldProduct.product_name,
+          tax_code_id: taxCode.tax_code_id,
+          tax_code: taxCode.code,
+          tax_code_description: taxCode.description,
+          quantity: 1,
+          rate: 100,
+          price: 100,
+          cgst_percent: 2.5,
+          sgst_percent: 2.5,
+          igst_percent: 0,
+          cgst_amount: 2.5,
+          sgst_amount: 2.5,
+          igst_amount: 0,
+          line_total: 105,
+        },
+      ],
+    });
+
+    const withNewLine = await updateBill(world.deps, collectionId, billId, {
+      bill_number_parts: ["8", "9", "0"],
+      bill_date: "2026-10-11",
+      receiver_mobile: client.mobile,
+      lines: [
+        {
+          bill_line_id: oldLineId,
+          product_id: oldProduct.product_id,
+          tax_code_id: taxCode.tax_code_id,
+          quantity: 1,
+          rate: 100,
+          cgst_percent: 2.5,
+          sgst_percent: 2.5,
+          igst_percent: 0,
+        },
+        {
+          product_id: newProduct.product_id,
+          tax_code_id: taxCode.tax_code_id,
+          quantity: 2,
+          rate: 50,
+          ...copyTrioPercentsFromTaxCode(taxCode),
+        },
+      ],
+    });
+    assert.equal(withNewLine.tax_shape, null);
+    assert.equal(withNewLine.lines[1].tax_rates_are_copy, true);
+
+    const unlocked = await updateBill(world.deps, collectionId, billId, {
+      bill_number_parts: ["8", "9", "0"],
+      bill_date: "2026-10-11",
+      receiver_mobile: client.mobile,
+      tax_shape: TAX_SHAPE_WITHIN_STATE,
+      lines: [
+        {
+          bill_line_id: withNewLine.lines[1].bill_line_id,
+          product_id: newProduct.product_id,
+          tax_code_id: taxCode.tax_code_id,
+          quantity: 2,
+          rate: 50,
+          ...copyTrioPercentsFromTaxCode(taxCode),
+        },
+      ],
+    });
+    assert.equal(unlocked.tax_shape, TAX_SHAPE_WITHIN_STATE);
+    assert.equal(unlocked.lines.length, 1);
+    assert.equal(unlocked.lines[0].tax_rates_are_copy, true);
+  });
+
+  it("leaves a mixed old bill without a tax shape", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const withinProduct = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+    const interstateProduct = world.seedProduct(collectionId, {
+      product_name: "Interstate goods",
+      tax_code_id: taxCode.tax_code_id,
+    });
+    const lineA = randomUUID();
+    const lineB = randomUUID();
+    const { billId } = await insertLegacyBill(world, {
+      collectionId,
+      client,
+      billNumber: "8-9-1",
+      lines: [
+        {
+          bill_line_id: lineA,
+          product_id: withinProduct.product_id,
+          product_name: withinProduct.product_name,
+          tax_code_id: taxCode.tax_code_id,
+          tax_code: taxCode.code,
+          tax_code_description: taxCode.description,
+          quantity: 1,
+          rate: 100,
+          price: 100,
+          cgst_percent: 2.5,
+          sgst_percent: 2.5,
+          igst_percent: 0,
+          cgst_amount: 2.5,
+          sgst_amount: 2.5,
+          igst_amount: 0,
+          line_total: 105,
+        },
+        {
+          bill_line_id: lineB,
+          product_id: interstateProduct.product_id,
+          product_name: interstateProduct.product_name,
+          tax_code_id: taxCode.tax_code_id,
+          tax_code: taxCode.code,
+          tax_code_description: taxCode.description,
+          quantity: 1,
+          rate: 100,
+          price: 100,
+          cgst_percent: 0,
+          sgst_percent: 0,
+          igst_percent: 5,
+          cgst_amount: 0,
+          sgst_amount: 0,
+          igst_amount: 5,
+          line_total: 105,
+        },
+      ],
+      totals: { total_value: 200, total_tax: 10, total_bill: 210 },
+    });
+
+    const updated = await updateBill(world.deps, collectionId, billId, {
+      bill_number_parts: ["8", "9", "1"],
+      bill_date: "2026-10-11",
+      receiver_mobile: client.mobile,
+      lines: [
+        {
+          bill_line_id: lineA,
+          product_id: withinProduct.product_id,
+          tax_code_id: taxCode.tax_code_id,
+          quantity: 1,
+          rate: 100,
+          ...copyTrioPercentsFromTaxCode(taxCode),
+          product_chosen_again: true,
+        },
+        {
+          bill_line_id: lineB,
+          product_id: interstateProduct.product_id,
+          tax_code_id: taxCode.tax_code_id,
+          quantity: 1,
+          rate: 100,
+          ...copyTrioPercentsFromTaxCode(taxCode),
+          product_chosen_again: true,
+        },
+      ],
+    });
+
+    assert.equal(updated.tax_shape, null);
+    assert.equal(updated.lines[0].tax_rates_are_copy, false);
+    assert.equal(updated.lines[0].cgst_percent, 2.5);
+    assert.equal(updated.lines[0].sgst_percent, 2.5);
+    assert.equal(updated.lines[0].igst_percent, 0);
+    assert.equal(updated.lines[1].tax_rates_are_copy, false);
+    assert.equal(updated.lines[1].cgst_percent, 0);
+    assert.equal(updated.lines[1].sgst_percent, 0);
+    assert.equal(updated.lines[1].igst_percent, 5);
+  });
+
+  it("rejects a tax shape on a mixed old bill", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const withinProduct = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+    const interstateProduct = world.seedProduct(collectionId, {
+      product_name: "Interstate goods",
+      tax_code_id: taxCode.tax_code_id,
+    });
+    const lineA = randomUUID();
+    const lineB = randomUUID();
+    const { billId } = await insertLegacyBill(world, {
+      collectionId,
+      client,
+      lines: [
+        {
+          bill_line_id: lineA,
+          product_id: withinProduct.product_id,
+          product_name: withinProduct.product_name,
+          tax_code_id: taxCode.tax_code_id,
+          tax_code: taxCode.code,
+          tax_code_description: taxCode.description,
+          quantity: 1,
+          rate: 100,
+          price: 100,
+          cgst_percent: 2.5,
+          sgst_percent: 2.5,
+          igst_percent: 0,
+          cgst_amount: 2.5,
+          sgst_amount: 2.5,
+          igst_amount: 0,
+          line_total: 105,
+        },
+        {
+          bill_line_id: lineB,
+          product_id: interstateProduct.product_id,
+          product_name: interstateProduct.product_name,
+          tax_code_id: taxCode.tax_code_id,
+          tax_code: taxCode.code,
+          tax_code_description: taxCode.description,
+          quantity: 1,
+          rate: 100,
+          price: 100,
+          cgst_percent: 0,
+          sgst_percent: 0,
+          igst_percent: 5,
+          cgst_amount: 0,
+          sgst_amount: 0,
+          igst_amount: 5,
+          line_total: 105,
+        },
+      ],
+      totals: { total_value: 200, total_tax: 10, total_bill: 210 },
+    });
+
+    await assert.rejects(
+      () =>
+        updateBill(world.deps, collectionId, billId, {
+          bill_number_parts: ["8", "9", "2"],
+          bill_date: "2026-10-11",
+          receiver_mobile: client.mobile,
+          tax_shape: TAX_SHAPE_WITHIN_STATE,
+          lines: [
+            {
+              bill_line_id: lineA,
+              product_id: withinProduct.product_id,
+              tax_code_id: taxCode.tax_code_id,
+              quantity: 1,
+              rate: 100,
+              cgst_percent: 2.5,
+              sgst_percent: 2.5,
+              igst_percent: 0,
+            },
+            {
+              bill_line_id: lineB,
+              product_id: interstateProduct.product_id,
+              tax_code_id: taxCode.tax_code_id,
+              quantity: 1,
+              rate: 100,
+              cgst_percent: 0,
+              sgst_percent: 0,
+              igst_percent: 5,
+            },
+          ],
+        }),
+      (err) => {
+        assert.ok(err instanceof BillValidationError);
+        assert.equal(err.message, "This bill does not use a tax shape");
+        return true;
+      }
+    );
+  });
+
+  it("unlocks tax shape when a mixed bill loses the conflicting line in the same save", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const withinProduct = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+    const interstateProduct = world.seedProduct(collectionId, {
+      product_name: "Interstate goods",
+      tax_code_id: taxCode.tax_code_id,
+    });
+    const lineA = randomUUID();
+    const lineB = randomUUID();
+    const { billId } = await insertLegacyBill(world, {
+      collectionId,
+      client,
+      lines: [
+        {
+          bill_line_id: lineA,
+          product_id: withinProduct.product_id,
+          product_name: withinProduct.product_name,
+          tax_code_id: taxCode.tax_code_id,
+          tax_code: taxCode.code,
+          tax_code_description: taxCode.description,
+          quantity: 1,
+          rate: 100,
+          price: 100,
+          cgst_percent: 2.5,
+          sgst_percent: 2.5,
+          igst_percent: 0,
+          cgst_amount: 2.5,
+          sgst_amount: 2.5,
+          igst_amount: 0,
+          line_total: 105,
+        },
+        {
+          bill_line_id: lineB,
+          product_id: interstateProduct.product_id,
+          product_name: interstateProduct.product_name,
+          tax_code_id: taxCode.tax_code_id,
+          tax_code: taxCode.code,
+          tax_code_description: taxCode.description,
+          quantity: 1,
+          rate: 100,
+          price: 100,
+          cgst_percent: 0,
+          sgst_percent: 0,
+          igst_percent: 5,
+          cgst_amount: 0,
+          sgst_amount: 0,
+          igst_amount: 5,
+          line_total: 105,
+        },
+      ],
+      totals: { total_value: 200, total_tax: 10, total_bill: 210 },
+    });
+
+    const converted = await updateBill(world.deps, collectionId, billId, {
+      bill_number_parts: ["8", "9", "3"],
+      bill_date: "2026-10-11",
+      receiver_mobile: client.mobile,
+      tax_shape: TAX_SHAPE_WITHIN_STATE,
+      lines: [
+        {
+          bill_line_id: lineA,
+          product_id: withinProduct.product_id,
+          tax_code_id: taxCode.tax_code_id,
+          quantity: 1,
+          rate: 100,
+          ...copyTrioPercentsFromTaxCode(taxCode),
+          product_chosen_again: true,
+        },
+      ],
+    });
+
+    assert.equal(converted.tax_shape, TAX_SHAPE_WITHIN_STATE);
+    assert.equal(converted.lines.length, 1);
+    assert.equal(converted.lines[0].tax_rates_are_copy, true);
+    assert.equal(converted.lines[0].igst_percent, 5);
+    assert.equal(converted.lines[0].igst_amount, 0);
+  });
+
+  it("infers interstate from copy lines without amounts when the shared shape was remembered", () => {
+    const copyLines = [
+      {
+        tax_rates_are_copy: true,
+        cgst_percent: 2.5,
+        sgst_percent: 2.5,
+        igst_percent: 5,
+      },
+    ];
+    assert.equal(
+      inferLegacyBillSharedShape(copyLines, TAX_SHAPE_INTERSTATE),
+      TAX_SHAPE_INTERSTATE
+    );
+    assert.equal(inferLegacyBillSharedShape(copyLines), TAX_SHAPE_WITHIN_STATE);
+  });
+
 });

@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { TAX_SHAPE_WITHIN_STATE } from "../../services/bill.js";
 
 export function validShopBankAccount() {
   return {
@@ -44,9 +45,18 @@ export function createBillWorld({
       return taxCodesById.get(taxCodeId) ?? null;
     },
 
-    async listBillsByCollection(collectionId) {
-      return [...billsById.values()]
+    async listBillsByCollection(collectionId, { limit, offset, search } = {}) {
+      const term = String(search ?? "").toLowerCase();
+      const matched = [...billsById.values()]
         .filter((bill) => bill.collection_id === collectionId)
+        .filter((bill) => {
+          if (!search) {
+            return true;
+          }
+          return [bill.bill_number, bill.receiver_name, bill.receiver_mobile].some((value) =>
+            String(value ?? "").toLowerCase().includes(term)
+          );
+        })
         .sort((a, b) => {
           if (a.bill_date !== b.bill_date) {
             return a.bill_date < b.bill_date ? 1 : -1;
@@ -61,6 +71,13 @@ export function createBillWorld({
           total_bill: bill.total_bill,
           saved_at: bill.saved_at,
         }));
+
+      const start = offset ?? 0;
+      const end = limit == null ? matched.length : start + limit;
+      return {
+        rows: matched.slice(start, end),
+        totalItems: matched.length,
+      };
     },
 
     async getBillById(billId) {
@@ -183,19 +200,84 @@ export function standardBillPayload({
     bill_number_parts: ["9", "26", "15"],
     bill_date: "2026-10-11",
     receiver_mobile: client.mobile,
+    tax_shape: TAX_SHAPE_WITHIN_STATE,
     lines: [
       {
         product_id: product.product_id,
         tax_code_id: taxCode.tax_code_id,
         quantity: 200,
         rate: 220,
-        cgst_percent: 2.5,
-        sgst_percent: 2.5,
-        igst_percent: 0,
+        cgst_percent: taxCode.cgst,
+        sgst_percent: taxCode.sgst,
+        igst_percent: taxCode.igst,
       },
     ],
     ...overrides,
   };
+}
+
+export function copyTrioPercentsFromTaxCode(taxCode) {
+  return {
+    cgst_percent: taxCode.cgst,
+    sgst_percent: taxCode.sgst,
+    igst_percent: taxCode.igst,
+  };
+}
+
+export async function insertLegacyBill(
+  world,
+  {
+    collectionId,
+    client,
+    billNumber = "7-7-7",
+    billDate = "2026-10-11",
+    taxShape = null,
+    lines,
+    totals = null,
+  }
+) {
+  const billId = randomUUID();
+  const savedAt = new Date().toISOString();
+  const totalValue = totals?.total_value ?? lines.reduce((sum, line) => sum + line.price, 0);
+  const totalTax =
+    totals?.total_tax ??
+    lines.reduce(
+      (sum, line) => sum + line.cgst_amount + line.sgst_amount + line.igst_amount,
+      0
+    );
+  const totalBill = totals?.total_bill ?? totalValue + totalTax;
+
+  await world.deps.insertBill(
+    {
+      bill_id: billId,
+      collection_id: collectionId,
+      bill_number: billNumber,
+      bill_date: billDate,
+      receiver_mobile: client.mobile,
+      receiver_name: client.name,
+      receiver_address: client.address,
+      receiver_gst_number: client.gst_number,
+      receiver_contact_person: client.contact_person,
+      receiver_contact_number: client.contact_number,
+      total_value: totalValue,
+      total_tax: totalTax,
+      total_bill: totalBill,
+      tax_shape: taxShape,
+      bank_name: "HDFC Bank",
+      bank_address: "MG Road",
+      bank_account_number: "012345678",
+      bank_ifsc: "HDFC0000123",
+      saved_at: savedAt,
+    },
+    lines.map((line, index) => ({
+      bill_id: billId,
+      line_order: index,
+      tax_rates_are_copy: false,
+      ...line,
+    }))
+  );
+
+  return { billId, savedAt };
 }
 
 export function updatePayloadFromBill(bill, overrides = {}) {
@@ -203,6 +285,7 @@ export function updatePayloadFromBill(bill, overrides = {}) {
     bill_number_parts: bill.bill_number_parts ?? bill.bill_number.split("-"),
     bill_date: bill.bill_date,
     receiver_mobile: bill.receiver_mobile,
+    ...(bill.tax_shape ? { tax_shape: bill.tax_shape } : {}),
     lines: bill.lines.map((line) => {
       const mapped = {
         bill_line_id: line.bill_line_id,

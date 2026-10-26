@@ -10,7 +10,7 @@ A Bill asks for a discount percent. The operator knows the rupees they would giv
 
 Take the discount off the Bill. A new Bill and an edited Bill have no Discount(%) box. Tax is charged on the full Price. Total value is the sum of the Price columns. Total bill is that value plus the tax, and a save whose Total bill is 0 is rejected. The printed summary has no Discount row. Bills already raised in local and sandbox are deleted, because none have been issued. An Order keeps its rupee discount, its advance, and its total due.
 
-The discount stories in the Bill PRD are replaced by this document. The rest of that PRD stands: the bill number, the receiver copy, the line copy, the tax shapes, and the bank block.
+The discount stories in the Bill PRD are replaced by this document. The rest of that PRD stands: the bill number, the receiver copy, the line copy, the tax shapes, and the bank block. A new Bill uses the Bill tax shape: one within-state or interstate switch for the whole Bill, with read-only percents copied from the tax code.
 
 ## User Stories
 

@@ -59,6 +59,33 @@ function parsePercentMessage(raw, label) {
   return null;
 }
 
+function validateTaxCopyTrioMessage(cgstPercent, sgstPercent, igstPercent) {
+  const cgstMessage = parsePercentMessage(cgstPercent, "CGST");
+  if (cgstMessage) {
+    return cgstMessage;
+  }
+  const sgstMessage = parsePercentMessage(sgstPercent, "SGST");
+  if (sgstMessage) {
+    return sgstMessage;
+  }
+  const igstMessage = parsePercentMessage(igstPercent, "IGST");
+  if (igstMessage) {
+    return igstMessage;
+  }
+  const toAmount = (raw) =>
+    Math.round((Number(String(raw).trim()) + Number.EPSILON) * 100) / 100;
+  const cgst = toAmount(cgstPercent);
+  const sgst = toAmount(sgstPercent);
+  const igst = toAmount(igstPercent);
+  if (cgst !== sgst) {
+    return "CGST and SGST on the copied rates must be equal";
+  }
+  if (igst !== Math.round((cgst + sgst + Number.EPSILON) * 100) / 100) {
+    return "IGST on the copied rates must equal CGST plus SGST";
+  }
+  return null;
+}
+
 function validateTaxPercentShapeMessage(cgstPercent, sgstPercent, igstPercent) {
   const toAmount = (raw) =>
     Math.round((Number(String(raw).trim()) + Number.EPSILON) * 100) / 100;
@@ -99,6 +126,8 @@ export function validateGstBillForm({
   receiverMobile,
   lines,
   clients,
+  taxShape = null,
+  legacySharedShape = null,
 }) {
   const errors = emptyGstBillFormErrors(lines.length);
   let hasError = false;
@@ -197,13 +226,23 @@ export function validateGstBillForm({
     }
 
     if (!cgstMessage && !sgstMessage && !igstMessage) {
-      const taxShapeMessage = validateTaxPercentShapeMessage(
-        line.cgst_percent,
-        line.sgst_percent,
-        line.igst_percent
-      );
+      const usesCopyTrioRules =
+        Boolean(taxShape) ||
+        (legacySharedShape && Boolean(line.tax_rates_are_copy));
+      const taxShapeMessage = usesCopyTrioRules
+        ? validateTaxCopyTrioMessage(
+            line.cgst_percent,
+            line.sgst_percent,
+            line.igst_percent
+          )
+        : validateTaxPercentShapeMessage(
+            line.cgst_percent,
+            line.sgst_percent,
+            line.igst_percent
+          );
       if (taxShapeMessage) {
         errors.lines[index].tax = taxShapeMessage;
+        hasError = true;
       }
     }
 

@@ -56,9 +56,13 @@ _Avoid_: Invoice number, order number, generated sequence
 The GST client a Bill was raised to. The Bill stores that client's id and a copy of the name, address, GST number, contact person, and contact number taken when that client was chosen for the save.
 _Avoid_: Live client lookup, customer
 
+**Tax shape**:
+A Bill's single choice of which copied rates are charged. Within-state charges the copied CGST and SGST. Interstate charges the copied IGST. A new Bill opens on within-state. The client's state does not set it.
+_Avoid_: A three-way CGST, SGST, or IGST switch, outside-state, intrastate
+
 **Bill line**:
-A line on a Bill. It stores the product id, a copy of the product name, and the rate charged, plus the tax code id and a copy of the code, the tax code's description, and the CGST, SGST, and IGST percents charged. The tax code is the product's tax code, copied when that product was chosen on the line.
-_Avoid_: Order line, joining the live product or tax code at display time, a separate HSN/SAC choice on the Bill
+A line on a Bill. It stores the product id, a copy of the product name, and the rate charged, plus the tax code id and a copy of the code, the tax code's description, and the tax code's CGST, SGST, and IGST from when that product was chosen. The Bill's tax shape decides which of those rates are charged. A line saved before tax shape stores the percents charged until that product is chosen again on a Bill whose lines share one shape.
+_Avoid_: Order line, joining the live product or tax code at display time, a separate HSN/SAC choice on the Bill, calling the stored numbers the percents charged on a new Bill, one rate shared by every line of a product, a live rate lookup
 
 **Total bill**:
 The amount of a Bill after the tax.

@@ -10,9 +10,10 @@ import { createBillDeps } from "../services/billStore.js";
 
 export const listGstBills = async (req, res) => {
   const { collection_id } = req.params;
+  const { page, limit, search = "" } = req.query;
   try {
-    const bills = await listBills(createBillDeps(), collection_id);
-    res.status(200).json({ bills });
+    const result = await listBills(createBillDeps(), collection_id, { page, limit, search });
+    res.status(200).json(result);
   } catch (error) {
     handleError("listGstBills", res, error);
   }

@@ -4,10 +4,15 @@ const token = localStorage.getItem("token");
 axios.defaults.headers.common["Authorization"] = token;
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-export async function listGstBills(collectionId) {
+export async function listGstBills(collectionId, { page, limit, search } = {}) {
   const response = await axios({
     method: "GET",
     url: `${BACKEND_URL}collections/${collectionId}/gst-bills`,
+    params: {
+      page,
+      limit,
+      search: search ?? "",
+    },
   });
   return response;
 }

@@ -8,6 +8,10 @@ import {
 
 const BILL_NUMBER_PART_MAX = 20;
 const RATE_PATTERN = /^\d+(\.\d{1,2})?$/;
+const PERCENT_PATTERN = /^\d+(\.\d{1,2})?$/;
+
+export const TAX_SHAPE_WITHIN_STATE = "within-state";
+export const TAX_SHAPE_INTERSTATE = "interstate";
 
 export function roundHalfUpToPaise(amount) {
   const n = Number(amount);
@@ -135,13 +139,39 @@ function isMissingLineRate(line) {
   return String(line.rate).trim() === "";
 }
 
-export function validateTaxPercentShape(cgstPercent, sgstPercent, igstPercent) {
-  const cgst = roundHalfUpToPaise(cgstPercent);
-  const sgst = roundHalfUpToPaise(sgstPercent);
-  const igst = roundHalfUpToPaise(igstPercent);
-  if (cgst < 0 || sgst < 0 || igst < 0) {
+function parseTaxPercentValue(raw) {
+  if (raw === undefined || raw === null || raw === "") {
     throw new BillValidationError("Tax percents must be zero or greater with at most two decimal places");
   }
+  const text = String(raw).trim();
+  if (!PERCENT_PATTERN.test(text)) {
+    throw new BillValidationError("Tax percents must be zero or greater with at most two decimal places");
+  }
+  const value = roundHalfUpToPaise(Number(text));
+  if (value < 0) {
+    throw new BillValidationError("Tax percents must be zero or greater with at most two decimal places");
+  }
+  return value;
+}
+
+export function parseTaxShape(raw, { required = true } = {}) {
+  if (raw === undefined || raw === null || String(raw).trim() === "") {
+    if (!required) {
+      return null;
+    }
+    throw new BillValidationError("Tax shape is required");
+  }
+  const text = String(raw).trim();
+  if (text !== TAX_SHAPE_WITHIN_STATE && text !== TAX_SHAPE_INTERSTATE) {
+    throw new BillValidationError("Tax shape is not valid");
+  }
+  return text;
+}
+
+export function validateTaxPercentShape(cgstPercent, sgstPercent, igstPercent) {
+  const cgst = parseTaxPercentValue(cgstPercent);
+  const sgst = parseTaxPercentValue(sgstPercent);
+  const igst = parseTaxPercentValue(igstPercent);
   const withinState = cgst === sgst && igst === 0;
   const igstOnly = cgst === 0 && sgst === 0;
   if (!withinState && !igstOnly) {
@@ -150,6 +180,220 @@ export function validateTaxPercentShape(cgstPercent, sgstPercent, igstPercent) {
     );
   }
   return { cgst, sgst, igst };
+}
+
+export function validateTaxCopyTrio(cgstPercent, sgstPercent, igstPercent) {
+  const cgst = parseTaxPercentValue(cgstPercent);
+  const sgst = parseTaxPercentValue(sgstPercent);
+  const igst = parseTaxPercentValue(igstPercent);
+  if (cgst !== sgst) {
+    throw new BillValidationError("CGST and SGST on the copied rates must be equal");
+  }
+  if (igst !== roundHalfUpToPaise(cgst + sgst)) {
+    throw new BillValidationError("IGST on the copied rates must equal CGST plus SGST");
+  }
+  return { cgst, sgst, igst };
+}
+
+export const LEGACY_BILL_SHAPE_MIXED = "mixed";
+
+export function isExemptChargedPercents(cgstPercent, sgstPercent, igstPercent) {
+  const cgst = parseTaxPercentValue(cgstPercent);
+  const sgst = parseTaxPercentValue(sgstPercent);
+  const igst = parseTaxPercentValue(igstPercent);
+  return cgst === 0 && sgst === 0 && igst === 0;
+}
+
+export function chargedShapeFromLegacyPercents(cgstPercent, sgstPercent, igstPercent) {
+  if (isExemptChargedPercents(cgstPercent, sgstPercent, igstPercent)) {
+    return "exempt";
+  }
+  const cgst = parseTaxPercentValue(cgstPercent);
+  const sgst = parseTaxPercentValue(sgstPercent);
+  const igst = parseTaxPercentValue(igstPercent);
+  if (cgst === sgst && igst === 0) {
+    return TAX_SHAPE_WITHIN_STATE;
+  }
+  if (cgst === 0 && sgst === 0 && igst > 0) {
+    return TAX_SHAPE_INTERSTATE;
+  }
+  throw new BillValidationError(
+    "Tax percents must be equal CGST and SGST with IGST 0, or CGST and SGST both 0 with IGST only"
+  );
+}
+
+function chargedShapeFromLineAmounts(line) {
+  const cgstAmount = Number(line.cgst_amount) || 0;
+  const sgstAmount = Number(line.sgst_amount) || 0;
+  const igstAmount = Number(line.igst_amount) || 0;
+  if (cgstAmount > 0 || sgstAmount > 0) {
+    return TAX_SHAPE_WITHIN_STATE;
+  }
+  if (igstAmount > 0) {
+    return TAX_SHAPE_INTERSTATE;
+  }
+  return "exempt";
+}
+
+function lineHasStoredTaxAmounts(line) {
+  return (
+    line.cgst_amount !== undefined &&
+    line.cgst_amount !== null &&
+    line.sgst_amount !== undefined &&
+    line.sgst_amount !== null &&
+    line.igst_amount !== undefined &&
+    line.igst_amount !== null
+  );
+}
+
+export function inferLegacyBillSharedShape(lines, rememberedSharedShape = null) {
+  if (!lines || lines.length === 0) {
+    return null;
+  }
+  const nonExemptShapes = [];
+  let skippedCopyWithoutAmounts = 0;
+  for (const line of lines) {
+    let shape;
+    try {
+      if (line.tax_rates_are_copy) {
+        if (lineHasStoredTaxAmounts(line)) {
+          shape = chargedShapeFromLineAmounts(line);
+        } else {
+          skippedCopyWithoutAmounts += 1;
+          continue;
+        }
+      } else {
+        shape = chargedShapeFromLegacyPercents(
+          line.cgst_percent ?? 0,
+          line.sgst_percent ?? 0,
+          line.igst_percent ?? 0
+        );
+      }
+    } catch {
+      return LEGACY_BILL_SHAPE_MIXED;
+    }
+    if (shape !== "exempt") {
+      nonExemptShapes.push(shape);
+    }
+  }
+  if (nonExemptShapes.length === 0) {
+    const everyLineIsCopyWithoutAmounts =
+      lines.length > 0 && skippedCopyWithoutAmounts === lines.length;
+    if (everyLineIsCopyWithoutAmounts && rememberedSharedShape) {
+      return rememberedSharedShape;
+    }
+    return TAX_SHAPE_WITHIN_STATE;
+  }
+  const first = nonExemptShapes[0];
+  if (nonExemptShapes.some((s) => s !== first)) {
+    return LEGACY_BILL_SHAPE_MIXED;
+  }
+  return first;
+}
+
+function inferLegacySharedShapeForKeptPayload(existingByLineId, rawLines) {
+  const existingKept = [];
+  const syntheticKept = [];
+  for (const line of rawLines ?? []) {
+    if (isBlankBillLine(line)) {
+      continue;
+    }
+    const lineId = line.bill_line_id ? String(line.bill_line_id).trim() : null;
+    const existingLine = lineId ? existingByLineId.get(lineId) : null;
+    if (existingLine) {
+      existingKept.push(existingLine);
+      continue;
+    }
+    syntheticKept.push({
+      tax_rates_are_copy: isTruthyFlag(line.tax_rates_are_copy),
+      cgst_percent: line.cgst_percent ?? 0,
+      sgst_percent: line.sgst_percent ?? 0,
+      igst_percent: line.igst_percent ?? 0,
+      ...(lineHasStoredTaxAmounts(line)
+        ? {
+            cgst_amount: line.cgst_amount,
+            sgst_amount: line.sgst_amount,
+            igst_amount: line.igst_amount,
+          }
+        : {}),
+    });
+  }
+  if (existingKept.length === 0) {
+    return inferLegacyBillSharedShape(syntheticKept);
+  }
+  return inferLegacyBillSharedShape(existingKept);
+}
+
+function chargedPercentsMatchStored(percents, storedLine) {
+  const stored = validateTaxPercentShape(
+    storedLine.cgst_percent,
+    storedLine.sgst_percent,
+    storedLine.igst_percent
+  );
+  return (
+    percents.cgst === stored.cgst &&
+    percents.sgst === stored.sgst &&
+    percents.igst === stored.igst
+  );
+}
+
+function chargedPercentsFromTaxCodeForLineShape(taxCode, lineShape) {
+  if (lineShape === TAX_SHAPE_INTERSTATE) {
+    return { cgst: 0, sgst: 0, igst: taxCode.igst };
+  }
+  return {
+    cgst: taxCode.cgst,
+    sgst: taxCode.sgst,
+    igst: 0,
+  };
+}
+
+function hasTaxShapeInPayload(rawTaxShape) {
+  return (
+    rawTaxShape !== undefined &&
+    rawTaxShape !== null &&
+    String(rawTaxShape).trim() !== ""
+  );
+}
+
+export function chargedPercentsForTaxShape(copyTrio, taxShape) {
+  if (taxShape === TAX_SHAPE_WITHIN_STATE) {
+    return { cgst: copyTrio.cgst, sgst: copyTrio.sgst, igst: 0 };
+  }
+  if (taxShape === TAX_SHAPE_INTERSTATE) {
+    return { cgst: 0, sgst: 0, igst: copyTrio.igst };
+  }
+  throw new BillValidationError("Tax shape is not valid");
+}
+
+function copyTrioMatchesStored(copyTrio, storedLine) {
+  const stored = validateTaxCopyTrio(
+    storedLine.cgst_percent,
+    storedLine.sgst_percent,
+    storedLine.igst_percent
+  );
+  return (
+    copyTrio.cgst === stored.cgst &&
+    copyTrio.sgst === stored.sgst &&
+    copyTrio.igst === stored.igst
+  );
+}
+
+export function computeLineFinancialsFromCopyTrio({ quantity, rate, copyTrio, taxShape }) {
+  const charged = chargedPercentsForTaxShape(copyTrio, taxShape);
+  const financials = computeLineFinancials({
+    quantity,
+    rate,
+    cgstPercent: charged.cgst,
+    sgstPercent: charged.sgst,
+    igstPercent: charged.igst,
+  });
+  return {
+    ...financials,
+    cgst_percent: copyTrio.cgst,
+    sgst_percent: copyTrio.sgst,
+    igst_percent: copyTrio.igst,
+  };
 }
 
 export function computeLineFinancials({
@@ -205,7 +449,16 @@ export function computeBillTotalsFromLines(lines) {
 
 export function previewBillTotals(input) {
   rejectDiscountInPayload(input);
-  const kept = [];
+  const taxShape = parseTaxShape(input?.tax_shape, { required: false });
+  const legacySharedShape = taxShape
+    ? null
+    : inferLegacyBillSharedShape(
+        (input?.lines ?? []).filter((line) => !isBlankBillLine(line) && !isHalfFilledBillLine(line))
+      );
+  const legacyChargeShape =
+    legacySharedShape === LEGACY_BILL_SHAPE_MIXED ? null : legacySharedShape;
+  let totalValue = 0;
+  let totalTax = 0;
   const linePreviews = [];
   for (const line of input?.lines ?? []) {
     if (isBlankBillLine(line)) {
@@ -222,28 +475,52 @@ export function previewBillTotals(input) {
     }
     const quantity = parseQuantity(line.quantity);
     const rate = parseRate(line.rate);
-    validateTaxPercentShape(
-      line.cgst_percent ?? 0,
-      line.sgst_percent ?? 0,
-      line.igst_percent ?? 0
-    );
-    const financials = computeLineFinancials({
-      quantity,
-      rate,
-      cgstPercent: line.cgst_percent ?? 0,
-      sgstPercent: line.sgst_percent ?? 0,
-      igstPercent: line.igst_percent ?? 0,
-    });
+    let financials;
+    if (taxShape) {
+      const copyTrio = validateTaxCopyTrio(
+        line.cgst_percent ?? 0,
+        line.sgst_percent ?? 0,
+        line.igst_percent ?? 0
+      );
+      financials = computeLineFinancialsFromCopyTrio({
+        quantity,
+        rate,
+        copyTrio,
+        taxShape,
+      });
+    } else if (isTruthyFlag(line.tax_rates_are_copy) && legacyChargeShape) {
+      const copyTrio = validateTaxCopyTrio(
+        line.cgst_percent ?? 0,
+        line.sgst_percent ?? 0,
+        line.igst_percent ?? 0
+      );
+      financials = computeLineFinancialsFromCopyTrio({
+        quantity,
+        rate,
+        copyTrio,
+        taxShape: legacyChargeShape,
+      });
+    } else {
+      validateTaxPercentShape(
+        line.cgst_percent ?? 0,
+        line.sgst_percent ?? 0,
+        line.igst_percent ?? 0
+      );
+      financials = computeLineFinancials({
+        quantity,
+        rate,
+        cgstPercent: line.cgst_percent ?? 0,
+        sgstPercent: line.sgst_percent ?? 0,
+        igstPercent: line.igst_percent ?? 0,
+      });
+    }
     linePreviews.push(financials);
-    kept.push({
-      quantity,
-      rate,
-      cgst_percent: line.cgst_percent ?? 0,
-      sgst_percent: line.sgst_percent ?? 0,
-      igst_percent: line.igst_percent ?? 0,
-    });
+    totalValue = roundHalfUpToPaise(totalValue + financials.price);
+    totalTax = roundHalfUpToPaise(
+      totalTax + financials.cgst_amount + financials.sgst_amount + financials.igst_amount
+    );
   }
-  if (kept.length === 0) {
+  if (linePreviews.every((preview) => preview === null)) {
     return {
       total_value: 0,
       total_tax: 0,
@@ -251,8 +528,12 @@ export function previewBillTotals(input) {
       line_previews: linePreviews,
     };
   }
-  const totals = computeBillTotalsFromLines(kept);
-  return { ...totals, line_previews: linePreviews };
+  return {
+    total_value: totalValue,
+    total_tax: totalTax,
+    total_bill: roundHalfUpToPaise(totalValue + totalTax),
+    line_previews: linePreviews,
+  };
 }
 
 function formatBillLineRow(row) {
@@ -273,6 +554,7 @@ function formatBillLineRow(row) {
     sgst_amount: Number(row.sgst_amount),
     igst_amount: Number(row.igst_amount),
     line_total: Number(row.line_total),
+    tax_rates_are_copy: Boolean(row.tax_rates_are_copy),
   };
 }
 
@@ -292,6 +574,7 @@ function formatBillRow(row, lines) {
     total_value: Number(row.total_value),
     total_tax: Number(row.total_tax),
     total_bill: Number(row.total_bill),
+    tax_shape: row.tax_shape ?? null,
     bank_name: row.bank_name,
     bank_address: row.bank_address,
     bank_account_number: row.bank_account_number,
@@ -312,9 +595,36 @@ function formatBillListRow(row) {
   };
 }
 
-export async function listBills(deps, collectionId) {
-  const rows = await deps.listBillsByCollection(collectionId);
-  return rows.map(formatBillListRow);
+const MAX_BILLS_PAGE_SIZE = 200;
+
+export function resolveBillListPagination({ page, limit } = {}) {
+  const parsedPage = Math.max(1, Number.parseInt(page, 10) || 1);
+  const parsedLimit = Math.min(
+    MAX_BILLS_PAGE_SIZE,
+    Math.max(1, Number.parseInt(limit, 10) || 10)
+  );
+
+  return { page: parsedPage, limit: parsedLimit, offset: (parsedPage - 1) * parsedLimit };
+}
+
+export async function listBills(deps, collectionId, query = {}) {
+  const { page, limit, offset } = resolveBillListPagination(query);
+  const search = query.search ?? "";
+  const { rows, totalItems } = await deps.listBillsByCollection(collectionId, {
+    limit,
+    offset,
+    search,
+  });
+
+  return {
+    bills: rows.map(formatBillListRow),
+    pagination: {
+      page,
+      limit,
+      totalPages: Math.ceil(totalItems / limit),
+      totalItems,
+    },
+  };
 }
 
 export async function getBill(deps, collectionId, billId) {
@@ -394,7 +704,7 @@ function assertTotalBillGreaterThanZero(totalBill) {
   }
 }
 
-async function resolveKeptLines(deps, collectionId, rawLines) {
+async function resolveKeptLines(deps, collectionId, rawLines, taxShape) {
   const keptInputs = [];
   for (const line of rawLines ?? []) {
     if (isBlankBillLine(line)) {
@@ -419,17 +729,16 @@ async function resolveKeptLines(deps, collectionId, rawLines) {
     }
     const quantity = parseQuantity(line.quantity);
     const rate = parseRate(line.rate);
-    const percents = validateTaxPercentShape(
+    const copyTrio = validateTaxCopyTrio(
       line.cgst_percent ?? 0,
       line.sgst_percent ?? 0,
       line.igst_percent ?? 0
     );
-    const financials = computeLineFinancials({
+    const financials = computeLineFinancialsFromCopyTrio({
       quantity,
       rate,
-      cgstPercent: percents.cgst,
-      sgstPercent: percents.sgst,
-      igstPercent: percents.igst,
+      copyTrio,
+      taxShape,
     });
     keptInputs.push({
       product_id: productId,
@@ -439,6 +748,7 @@ async function resolveKeptLines(deps, collectionId, rawLines) {
       tax_code_description: taxCode.description,
       quantity,
       rate,
+      tax_rates_are_copy: true,
       ...financials,
     });
   }
@@ -470,12 +780,13 @@ async function assertBillNumberAvailable(deps, collectionId, billNumber, exclude
 
 export async function createBill(deps, collectionId, rawInput) {
   rejectDiscountInPayload(rawInput);
+  const taxShape = parseTaxShape(rawInput?.tax_shape);
   const { billNumber } = parseBillNumberParts(rawInput?.bill_number_parts);
   const billDate = parseBillDate(rawInput?.bill_date);
   await assertBillNumberAvailable(deps, collectionId, billNumber);
   const receiver = await resolveReceiver(deps, rawInput?.receiver_mobile);
   const bank = await copyShopBankBlock(deps);
-  const keptLines = await resolveKeptLines(deps, collectionId, rawInput?.lines);
+  const keptLines = await resolveKeptLines(deps, collectionId, rawInput?.lines, taxShape);
 
   let totalValue = 0;
   let totalTax = 0;
@@ -499,6 +810,7 @@ export async function createBill(deps, collectionId, rawInput) {
     total_value: totalValue,
     total_tax: totalTax,
     total_bill: totalBill,
+    tax_shape: taxShape,
     ...bank,
     saved_at: savedAt,
   };
@@ -546,7 +858,14 @@ export async function updateBill(deps, collectionId, billId, rawInput) {
     receiver = await resolveReceiver(deps, receiverMobile);
   }
 
-  const keptLines = await resolveKeptLinesForUpdate(deps, collectionId, billId, rawInput?.lines);
+  const { keptLines, taxShape: resolvedTaxShape } = await resolveKeptLinesForUpdate(
+    deps,
+    collectionId,
+    billId,
+    rawInput?.lines,
+    existing,
+    rawInput?.tax_shape
+  );
 
   let totalValue = 0;
   let totalTax = 0;
@@ -568,6 +887,7 @@ export async function updateBill(deps, collectionId, billId, rawInput) {
     total_value: totalValue,
     total_tax: totalTax,
     total_bill: totalBill,
+    tax_shape: resolvedTaxShape ?? existing.tax_shape ?? null,
     saved_at: savedAt,
   };
 
@@ -585,7 +905,20 @@ export async function updateBill(deps, collectionId, billId, rawInput) {
   return formatBillRow(billRow, lines);
 }
 
-async function resolveKeptLinesForUpdate(deps, collectionId, billId, rawLines) {
+async function resolveKeptLinesForUpdate(
+  deps,
+  collectionId,
+  billId,
+  rawLines,
+  existingBill,
+  rawTaxShape
+) {
+  const billTaxShape = existingBill.tax_shape ?? null;
+  if (billTaxShape === null) {
+    return resolveKeptLinesLegacy(deps, collectionId, billId, rawLines, rawTaxShape);
+  }
+
+  const taxShape = parseTaxShape(rawTaxShape);
   const existingLines = await deps.listBillLines(billId);
   const existingByLineId = new Map(existingLines.map((line) => [line.bill_line_id, line]));
   const keptInputs = [];
@@ -617,13 +950,119 @@ async function resolveKeptLinesForUpdate(deps, collectionId, billId, rawLines) {
     }
     const quantity = parseQuantity(line.quantity);
     const rate = parseRate(line.rate);
-    const percents = validateTaxPercentShape(
+    const copyTrio = validateTaxCopyTrio(
       line.cgst_percent ?? 0,
       line.sgst_percent ?? 0,
       line.igst_percent ?? 0
     );
 
     const existingLine = lineId ? existingByLineId.get(lineId) : null;
+    const freshProductChoice = isFreshProductChoice(
+      existingLine,
+      productId,
+      line.product_chosen_again
+    );
+
+    let resolvedTaxCodeId = taxCodeId;
+    let taxCodeValue;
+    let taxCodeDescription;
+    let productName;
+    let taxRatesAreCopy = true;
+
+    if (!freshProductChoice) {
+      if (!existingLine?.tax_rates_are_copy) {
+        throw new BillValidationError("The copied rates cannot change unless the product is chosen again");
+      }
+      if (!copyTrioMatchesStored(copyTrio, existingLine)) {
+        throw new BillValidationError("The copied rates cannot change unless the product is chosen again");
+      }
+      const storedTaxCodeId = String(existingLine.tax_code_id).trim();
+      if (taxCodeId !== storedTaxCodeId) {
+        throw new BillValidationError(
+          "The tax code cannot change unless the product is chosen again"
+        );
+      }
+      resolvedTaxCodeId = storedTaxCodeId;
+      taxCodeValue = existingLine.tax_code;
+      taxCodeDescription = existingLine.tax_code_description;
+      productName = existingLine.product_name;
+    } else {
+      assertProductTaxCodeForNewLine(product, taxCodeId);
+      resolvedTaxCodeId = taxCodeId;
+      taxCodeValue = taxCode.code;
+      taxCodeDescription = taxCode.description;
+      productName =
+        existingLine && existingLine.product_id === productId
+          ? existingLine.product_name
+          : product.product_name;
+      taxRatesAreCopy = true;
+    }
+
+    const financials = computeLineFinancialsFromCopyTrio({
+      quantity,
+      rate,
+      copyTrio,
+      taxShape,
+    });
+
+    keptInputs.push({
+      bill_line_id: lineId ?? randomUUID(),
+      product_id: productId,
+      product_name: productName,
+      tax_code_id: resolvedTaxCodeId,
+      tax_code: taxCodeValue,
+      tax_code_description: taxCodeDescription,
+      quantity,
+      rate,
+      tax_rates_are_copy: taxRatesAreCopy,
+      ...financials,
+    });
+  }
+
+  if (keptInputs.length === 0) {
+    throw new BillValidationError("A bill needs at least one line");
+  }
+  return { keptLines: keptInputs, taxShape };
+}
+
+async function resolveKeptLinesLegacy(deps, collectionId, billId, rawLines, rawTaxShape) {
+  const existingLines = await deps.listBillLines(billId);
+  const existingByLineId = new Map(existingLines.map((line) => [line.bill_line_id, line]));
+  const sharedShapeFromKept = inferLegacySharedShapeForKeptPayload(existingByLineId, rawLines);
+  const isMixed = sharedShapeFromKept === LEGACY_BILL_SHAPE_MIXED;
+  const sharedShape = isMixed ? null : sharedShapeFromKept;
+  const keptInputs = [];
+
+  for (const line of rawLines ?? []) {
+    if (isBlankBillLine(line)) {
+      continue;
+    }
+    if (isHalfFilledBillLine(line)) {
+      throw new BillValidationError("Each line needs a product, a tax code, and a quantity");
+    }
+    const lineId = line.bill_line_id ? String(line.bill_line_id).trim() : null;
+    if (lineId && !existingByLineId.has(lineId)) {
+      throw new BillValidationError("Bill line does not belong to this bill");
+    }
+
+    const productId = String(line.product_id).trim();
+    const taxCodeId = String(line.tax_code_id).trim();
+    const product = await deps.getProductById(productId);
+    if (!product) {
+      throw new BillValidationError("Product is not known");
+    }
+    if (product.collection_id !== collectionId) {
+      throw new BillValidationError("Product must belong to this collection");
+    }
+    const taxCode = await deps.getTaxCodeById(taxCodeId);
+    if (!taxCode) {
+      throw new BillValidationError("Tax code is not known");
+    }
+    const quantity = parseQuantity(line.quantity);
+    const rate = parseRate(line.rate);
+
+    const existingLine = lineId ? existingByLineId.get(lineId) : null;
+    const isNewLine = !existingLine;
     const freshProductChoice = isFreshProductChoice(
       existingLine,
       productId,
@@ -657,13 +1096,83 @@ async function resolveKeptLinesForUpdate(deps, collectionId, billId, rawLines) {
           : product.product_name;
     }
 
-    const financials = computeLineFinancials({
-      quantity,
-      rate,
-      cgstPercent: percents.cgst,
-      sgstPercent: percents.sgst,
-      igstPercent: percents.igst,
-    });
+    let taxRatesAreCopy = Boolean(existingLine?.tax_rates_are_copy);
+    let financials;
+
+    if (isMixed) {
+      let percents;
+      if (!freshProductChoice && existingLine) {
+        percents = validateTaxPercentShape(
+          line.cgst_percent ?? 0,
+          line.sgst_percent ?? 0,
+          line.igst_percent ?? 0
+        );
+        if (!chargedPercentsMatchStored(percents, existingLine)) {
+          throw new BillValidationError(
+            "The charged rates cannot change unless the product is chosen again"
+          );
+        }
+      } else {
+        const lineShape = existingLine
+          ? chargedShapeFromLegacyPercents(
+              existingLine.cgst_percent,
+              existingLine.sgst_percent,
+              existingLine.igst_percent
+            )
+          : TAX_SHAPE_WITHIN_STATE;
+        const resolvedShape =
+          lineShape === "exempt" ? TAX_SHAPE_WITHIN_STATE : lineShape;
+        const fromCode = chargedPercentsFromTaxCodeForLineShape(taxCode, resolvedShape);
+        percents = validateTaxPercentShape(fromCode.cgst, fromCode.sgst, fromCode.igst);
+      }
+      taxRatesAreCopy = false;
+      financials = computeLineFinancials({
+        quantity,
+        rate,
+        cgstPercent: percents.cgst,
+        sgstPercent: percents.sgst,
+        igstPercent: percents.igst,
+      });
+    } else if (taxRatesAreCopy || isNewLine || freshProductChoice) {
+      const copyTrio = validateTaxCopyTrio(
+        line.cgst_percent ?? 0,
+        line.sgst_percent ?? 0,
+        line.igst_percent ?? 0
+      );
+      if (!freshProductChoice && !isNewLine && existingLine?.tax_rates_are_copy) {
+        if (!copyTrioMatchesStored(copyTrio, existingLine)) {
+          throw new BillValidationError(
+            "The copied rates cannot change unless the product is chosen again"
+          );
+        }
+      }
+      taxRatesAreCopy = true;
+      financials = computeLineFinancialsFromCopyTrio({
+        quantity,
+        rate,
+        copyTrio,
+        taxShape: sharedShape,
+      });
+    } else {
+      const percents = validateTaxPercentShape(
+        line.cgst_percent ?? 0,
+        line.sgst_percent ?? 0,
+        line.igst_percent ?? 0
+      );
+      if (!chargedPercentsMatchStored(percents, existingLine)) {
+        throw new BillValidationError(
+          "The charged rates cannot change unless the product is chosen again"
+        );
+      }
+      taxRatesAreCopy = false;
+      financials = computeLineFinancials({
+        quantity,
+        rate,
+        cgstPercent: percents.cgst,
+        sgstPercent: percents.sgst,
+        igstPercent: percents.igst,
+      });
+    }
 
     keptInputs.push({
       bill_line_id: lineId ?? randomUUID(),
@@ -674,6 +1183,7 @@ async function resolveKeptLinesForUpdate(deps, collectionId, billId, rawLines) {
       tax_code_description: taxCodeDescription,
       quantity,
       rate,
+      tax_rates_are_copy: taxRatesAreCopy,
       ...financials,
     });
   }
@@ -681,5 +1191,34 @@ async function resolveKeptLinesForUpdate(deps, collectionId, billId, rawLines) {
   if (keptInputs.length === 0) {
     throw new BillValidationError("A bill needs at least one line");
   }
-  return keptInputs;
+
+  const allCopy = keptInputs.every((line) => line.tax_rates_are_copy);
+  const taxShapeSubmitted = hasTaxShapeInPayload(rawTaxShape);
+
+  if (isMixed) {
+    if (taxShapeSubmitted) {
+      throw new BillValidationError("This bill does not use a tax shape");
+    }
+    return { keptLines: keptInputs, taxShape: null };
+  }
+
+  if (allCopy) {
+    if (!taxShapeSubmitted) {
+      throw new BillValidationError("Tax shape is required");
+    }
+    const submittedShape = parseTaxShape(rawTaxShape);
+    if (submittedShape !== sharedShape) {
+      throw new BillValidationError(
+        "Tax shape does not match the shape this bill already shares"
+      );
+    }
+    return { keptLines: keptInputs, taxShape: submittedShape };
+  }
+
+  if (taxShapeSubmitted) {
+    throw new BillValidationError(
+      "Tax shape cannot be set until every line has been chosen again"
+    );
+  }
+  return { keptLines: keptInputs, taxShape: null };
 }

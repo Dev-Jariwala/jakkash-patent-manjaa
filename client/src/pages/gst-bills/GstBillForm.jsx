@@ -2,6 +2,7 @@ import BreadCrum from "@/components/breadcrum/BreadCrum";
 import MutationError from "@/components/Errors/MutationError";
 import QueryError from "@/components/Errors/QueryError";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import {
@@ -34,6 +35,15 @@ import { CalendarIcon, Plus, Trash2 } from "lucide-react";
 import { Fragment, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import {
+  LEGACY_BILL_SHAPE_MIXED,
+  TAX_SHAPE_INTERSTATE,
+  TAX_SHAPE_WITHIN_STATE,
+  chargedLinePercentFieldsFromTaxCodeForLineShape,
+  chargedShapeFromLegacyPercents,
+  displayPercentsForLine,
+  inferLegacyBillSharedShape,
+} from "@/pages/gst-bills/billTaxShape";
 import {
   emptyLineFieldErrors,
   validateGstBillForm,
@@ -109,6 +119,7 @@ function emptyLine() {
     loaded_tax_code_id: "",
     stored_tax_code: "",
     product_chosen_again: false,
+    tax_rates_are_copy: false,
     quantity: "",
     rate: "",
     cgst_percent: 0,
@@ -208,7 +219,7 @@ function taxCodeFieldsFromProduct(option, taxCodes) {
     tax_code_id: taxCode.tax_code_id,
     cgst_percent: taxCode.cgst,
     sgst_percent: taxCode.sgst,
-    igst_percent: 0,
+    igst_percent: taxCode.igst,
     loaded_tax_code_id: "",
     stored_tax_code: "",
   };
@@ -252,6 +263,8 @@ const GstBillForm = () => {
   const [originalReceiverMobile, setOriginalReceiverMobile] = useState("");
   const [storedReceiverCopy, setStoredReceiverCopy] = useState(null);
   const [lines, setLines] = useState([emptyLine()]);
+  const [taxShape, setTaxShape] = useState(TAX_SHAPE_WITHIN_STATE);
+  const [rememberedLegacySharedShape, setRememberedLegacySharedShape] = useState(null);
   const [preview, setPreview] = useState(null);
   const [previewError, setPreviewError] = useState(null);
   const [formHydrated, setFormHydrated] = useState(!isEdit);
@@ -307,6 +320,11 @@ const GstBillForm = () => {
     setReceiverMobile(existingBill.receiver_mobile);
     setOriginalReceiverMobile(existingBill.receiver_mobile);
     setStoredReceiverCopy(receiverCopyFromBill(existingBill));
+    setTaxShape(existingBill.tax_shape ?? null);
+    const sharedShapeOnLoad = inferLegacyBillSharedShape(existingBill.lines);
+    if (sharedShapeOnLoad && sharedShapeOnLoad !== LEGACY_BILL_SHAPE_MIXED) {
+      setRememberedLegacySharedShape(sharedShapeOnLoad);
+    }
     setLines(
       existingBill.lines.length > 0
         ? existingBill.lines.map((line) => ({
@@ -323,6 +341,7 @@ const GstBillForm = () => {
             sgst_percent: line.sgst_percent,
             igst_percent: line.igst_percent,
             product_chosen_again: false,
+            tax_rates_are_copy: Boolean(line.tax_rates_are_copy),
           }))
         : [emptyLine()]
     );
@@ -379,13 +398,67 @@ const GstBillForm = () => {
     return options;
   }, [clients, isEdit, originalReceiverMobile, receiverMobile, storedReceiverCopy]);
 
+  const keptLinesForLegacyShape = useMemo(
+    () => lines.filter((line) => isCompleteLine(line)),
+    [lines]
+  );
+
+  useEffect(() => {
+    if (!isEdit || taxShape) {
+      return;
+    }
+    const linesStillOnLegacyPercents = keptLinesForLegacyShape.filter(
+      (line) => !line.tax_rates_are_copy
+    );
+    const shapeFromLegacyPercents = inferLegacyBillSharedShape(linesStillOnLegacyPercents);
+    if (shapeFromLegacyPercents && shapeFromLegacyPercents !== LEGACY_BILL_SHAPE_MIXED) {
+      setRememberedLegacySharedShape(shapeFromLegacyPercents);
+    }
+  }, [isEdit, taxShape, keptLinesForLegacyShape]);
+
+  const pendingSharedShape = useMemo(() => {
+    if (!isEdit || taxShape) {
+      return null;
+    }
+    return inferLegacyBillSharedShape(
+      keptLinesForLegacyShape,
+      rememberedLegacySharedShape
+    );
+  }, [isEdit, taxShape, keptLinesForLegacyShape, rememberedLegacySharedShape]);
+
+  const effectiveTaxShape =
+    taxShape ??
+    (pendingSharedShape && pendingSharedShape !== LEGACY_BILL_SHAPE_MIXED
+      ? pendingSharedShape
+      : null);
+
+  const showTaxShapeSwitch =
+    !isEdit || Boolean(taxShape) || pendingSharedShape !== LEGACY_BILL_SHAPE_MIXED;
+
+  const taxShapeSwitchLocked = isEdit && !taxShape && Boolean(pendingSharedShape);
+
+  const allKeptLinesAreCopies = useMemo(
+    () =>
+      keptLinesForLegacyShape.length > 0 &&
+      keptLinesForLegacyShape.every((line) => line.tax_rates_are_copy),
+    [keptLinesForLegacyShape]
+  );
+
   useEffect(() => {
     if (!activeCollection) {
       return;
     }
     const timer = setTimeout(async () => {
       try {
+        const unlockShape =
+          taxShape ||
+          (allKeptLinesAreCopies &&
+          pendingSharedShape &&
+          pendingSharedShape !== LEGACY_BILL_SHAPE_MIXED
+            ? pendingSharedShape
+            : null);
         const response = await previewGstBillTotals(activeCollection, {
+          ...(unlockShape ? { tax_shape: unlockShape } : {}),
           lines: lines.map((line) => ({
             product_id: line.product_id || undefined,
             tax_code_id: line.tax_code_id || undefined,
@@ -394,6 +467,7 @@ const GstBillForm = () => {
             cgst_percent: line.cgst_percent,
             sgst_percent: line.sgst_percent,
             igst_percent: line.igst_percent,
+            ...(line.tax_rates_are_copy ? { tax_rates_are_copy: true } : {}),
           })),
         });
         setPreview(response.data.totals);
@@ -404,24 +478,37 @@ const GstBillForm = () => {
       }
     }, 250);
     return () => clearTimeout(timer);
-  }, [activeCollection, lines]);
+  }, [activeCollection, lines, taxShape, allKeptLinesAreCopies, pendingSharedShape]);
 
-  const buildSavePayload = () => ({
-    bill_number_parts: billNumberParts,
-    bill_date: billDate,
-    receiver_mobile: receiverMobile,
-    lines: lines.map((line) => ({
-      bill_line_id: line.bill_line_id || undefined,
-      product_id: line.product_id,
-      tax_code_id: line.tax_code_id,
-      quantity: line.quantity,
-      rate: line.rate,
-      cgst_percent: line.cgst_percent,
-      sgst_percent: line.sgst_percent,
-      igst_percent: line.igst_percent,
-      ...(line.product_chosen_again ? { product_chosen_again: true } : {}),
-    })),
-  });
+  const usesTaxShape = !isEdit || Boolean(effectiveTaxShape);
+
+  const buildSavePayload = () => {
+    const unlockShape =
+      taxShape ||
+      (allKeptLinesAreCopies &&
+      pendingSharedShape &&
+      pendingSharedShape !== LEGACY_BILL_SHAPE_MIXED
+        ? pendingSharedShape
+        : null);
+    return {
+      bill_number_parts: billNumberParts,
+      bill_date: billDate,
+      receiver_mobile: receiverMobile,
+      ...(unlockShape ? { tax_shape: unlockShape } : {}),
+      lines: lines.map((line) => ({
+        bill_line_id: line.bill_line_id || undefined,
+        product_id: line.product_id,
+        tax_code_id: line.tax_code_id,
+        quantity: line.quantity,
+        rate: line.rate,
+        cgst_percent: line.cgst_percent,
+        sgst_percent: line.sgst_percent,
+        igst_percent: line.igst_percent,
+        ...(line.product_chosen_again ? { product_chosen_again: true } : {}),
+        ...(line.tax_rates_are_copy ? { tax_rates_are_copy: true } : {}),
+      })),
+    };
+  };
 
   const saveMutation = useMutation({
     mutationFn: async () => {
@@ -491,6 +578,11 @@ const GstBillForm = () => {
       receiverMobile,
       lines,
       clients,
+      taxShape: taxShape || null,
+      legacySharedShape:
+        isEdit && !taxShape && pendingSharedShape !== LEGACY_BILL_SHAPE_MIXED
+          ? pendingSharedShape
+          : null,
     });
     setValidationErrors(errors);
     if (hasError) {
@@ -525,11 +617,42 @@ const GstBillForm = () => {
       });
       return;
     }
+    const line = lines[index];
+    const keepMixedLegacyChargedPercents =
+      isEdit && !taxShape && pendingSharedShape === LEGACY_BILL_SHAPE_MIXED;
+    let taxCodePatch = taxCodeFieldsFromProduct(option, taxCodes);
+    if (keepMixedLegacyChargedPercents) {
+      const taxCode = taxCodes.find((t) => t.tax_code_id === option.tax_code_id);
+      if (taxCode) {
+        const lineShape = chargedShapeFromLegacyPercents(
+          line.cgst_percent,
+          line.sgst_percent,
+          line.igst_percent
+        );
+        const resolvedShape =
+          lineShape === "exempt" || lineShape === null
+            ? TAX_SHAPE_WITHIN_STATE
+            : lineShape;
+        taxCodePatch = {
+          tax_code_id: taxCode.tax_code_id,
+          ...chargedLinePercentFieldsFromTaxCodeForLineShape(taxCode, resolvedShape),
+          loaded_tax_code_id: "",
+          stored_tax_code: "",
+        };
+      }
+    }
     const patch = {
       product_id: option.value,
       rate: String(option.wholesale_price ?? ""),
-      ...taxCodeFieldsFromProduct(option, taxCodes),
+      ...taxCodePatch,
       ...(isEdit ? { product_chosen_again: true } : {}),
+      ...(keepMixedLegacyChargedPercents ? { tax_rates_are_copy: false } : {}),
+      ...(isEdit &&
+      !taxShape &&
+      pendingSharedShape &&
+      pendingSharedShape !== LEGACY_BILL_SHAPE_MIXED
+        ? { tax_rates_are_copy: true }
+        : {}),
     };
     updateLine(index, patch);
   };
@@ -702,8 +825,42 @@ const GstBillForm = () => {
           </div>
 
           <p className="text-xs text-muted-foreground">
-            <RequiredMark /> Filled lines need product, qty, rate, CGST %, and SGST %.
+            <RequiredMark /> Filled lines need product, quantity, and rate.
           </p>
+
+          {showTaxShapeSwitch ? (
+            <div className="flex flex-wrap items-center gap-3 rounded-lg border bg-muted/20 px-4 py-3">
+              <span className="text-sm font-medium">Tax shape</span>
+              <span
+                className={cn(
+                  "text-sm",
+                  effectiveTaxShape === TAX_SHAPE_WITHIN_STATE
+                    ? "font-semibold text-foreground"
+                    : "text-muted-foreground"
+                )}
+              >
+                Within state
+              </span>
+              <Switch
+                checked={effectiveTaxShape === TAX_SHAPE_INTERSTATE}
+                disabled={taxShapeSwitchLocked}
+                onCheckedChange={(checked) =>
+                  setTaxShape(checked ? TAX_SHAPE_INTERSTATE : TAX_SHAPE_WITHIN_STATE)
+                }
+                aria-label="Switch between within state and interstate tax"
+              />
+              <span
+                className={cn(
+                  "text-sm",
+                  effectiveTaxShape === TAX_SHAPE_INTERSTATE
+                    ? "font-semibold text-foreground"
+                    : "text-muted-foreground"
+                )}
+              >
+                Interstate
+              </span>
+            </div>
+          ) : null}
 
           <div className="rounded-lg border bg-card shadow-sm">
               <Table className="min-w-[1040px]">
@@ -769,6 +926,11 @@ const GstBillForm = () => {
                     const lineRowKey = line.bill_line_id || `line-${index}`;
                     const productInvalid =
                       lineErrors?.product || lineErrors?.line;
+                    const chargedPercents = displayPercentsForLine(
+                      line,
+                      usesTaxShape ? effectiveTaxShape : null
+                    );
+                    const percentReadOnly = usesTaxShape;
                     return (
                       <Fragment key={lineRowKey}>
                       <TableRow className="hover:bg-muted/30">
@@ -833,12 +995,20 @@ const GstBillForm = () => {
                         </TableCell>
                         <TableCell className={cn("p-2 align-middle", taxSectionClass)}>
                           <Input
+                            readOnly={percentReadOnly}
+                            tabIndex={percentReadOnly ? -1 : undefined}
                             className={cn(
                               percentInputClass,
+                              percentReadOnly &&
+                                "cursor-default border-input bg-muted/25 shadow-none focus-visible:ring-0",
                               (lineErrors?.cgst || lineErrors?.tax) && invalidInputClass
                             )}
-                            value={line.cgst_percent}
-                            onChange={(e) => onCgstPercentChange(index, e.target.value)}
+                            value={percentReadOnly ? chargedPercents.cgst : line.cgst_percent}
+                            onChange={
+                              percentReadOnly
+                                ? undefined
+                                : (e) => onCgstPercentChange(index, e.target.value)
+                            }
                             inputMode="decimal"
                           />
                         </TableCell>
@@ -847,12 +1017,20 @@ const GstBillForm = () => {
                         </TableCell>
                         <TableCell className="p-2 align-middle">
                           <Input
+                            readOnly={percentReadOnly}
+                            tabIndex={percentReadOnly ? -1 : undefined}
                             className={cn(
                               percentInputClass,
+                              percentReadOnly &&
+                                "cursor-default border-input bg-muted/25 shadow-none focus-visible:ring-0",
                               (lineErrors?.sgst || lineErrors?.tax) && invalidInputClass
                             )}
-                            value={line.sgst_percent}
-                            onChange={(e) => onSgstPercentChange(index, e.target.value)}
+                            value={percentReadOnly ? chargedPercents.sgst : line.sgst_percent}
+                            onChange={
+                              percentReadOnly
+                                ? undefined
+                                : (e) => onSgstPercentChange(index, e.target.value)
+                            }
                             inputMode="decimal"
                           />
                         </TableCell>
@@ -861,12 +1039,20 @@ const GstBillForm = () => {
                         </TableCell>
                         <TableCell className="p-2 align-middle">
                           <Input
+                            readOnly={percentReadOnly}
+                            tabIndex={percentReadOnly ? -1 : undefined}
                             className={cn(
                               percentInputClass,
+                              percentReadOnly &&
+                                "cursor-default border-input bg-muted/25 shadow-none focus-visible:ring-0",
                               lineErrors?.igst && invalidInputClass
                             )}
-                            value={line.igst_percent}
-                            onChange={(e) => onIgstPercentChange(index, e.target.value)}
+                            value={percentReadOnly ? chargedPercents.igst : line.igst_percent}
+                            onChange={
+                              percentReadOnly
+                                ? undefined
+                                : (e) => onIgstPercentChange(index, e.target.value)
+                            }
                             inputMode="decimal"
                           />
                         </TableCell>
