@@ -51,3 +51,12 @@ export async function previewGstBillTotals(collectionId, data) {
   });
   return response;
 }
+
+export async function exportGstBills(collectionId, data) {
+  const response = await axios({
+    method: "POST",
+    url: `${BACKEND_URL}collections/${collectionId}/gst-bills/export`,
+    data,
+  });
+  return response;
+}

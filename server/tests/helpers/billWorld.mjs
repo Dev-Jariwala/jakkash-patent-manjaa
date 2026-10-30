@@ -80,6 +80,10 @@ export function createBillWorld({
       };
     },
 
+    async listAllBillsByCollection(collectionId) {
+      return [...billsById.values()].filter((bill) => bill.collection_id === collectionId);
+    },
+
     async getBillById(billId) {
       return billsById.get(billId) ?? null;
     },

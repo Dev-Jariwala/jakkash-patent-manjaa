@@ -88,6 +88,16 @@ export function createBillDeps() {
       };
     },
 
+    async listAllBillsByCollection(collectionId) {
+      const rows = await query(
+        `select *
+         from gst_bills
+         where collection_id = $1`,
+        [collectionId]
+      );
+      return rows.map(mapBillRow);
+    },
+
     async getBillById(billId) {
       const [row] = await query(`select * from gst_bills where bill_id = $1`, [billId]);
       return mapBillRow(row);

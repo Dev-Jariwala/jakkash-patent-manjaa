@@ -636,6 +636,233 @@ export async function getBill(deps, collectionId, billId) {
   return formatBillRow(row, lines);
 }
 
+export const BILL_EXPORT_SPAN_BILL_NUMBER = "bill-number";
+export const BILL_EXPORT_SPAN_BILL_DATE = "bill-date";
+
+export const BILL_EXPORT_NOT_WHOLE_NUMBERS_MESSAGE =
+  "The bill number is not one series of whole numbers";
+
+export const BILL_EXPORT_ONE_SPAN_MESSAGE =
+  "Export must be either a bill number span or a bill date span";
+
+function parseBillExportSeriesPart(raw) {
+  if (raw === undefined || raw === null) {
+    throw new BillValidationError(BILL_EXPORT_NOT_WHOLE_NUMBERS_MESSAGE);
+  }
+  const trimmed = String(raw).trim();
+  if (trimmed.length === 0) {
+    throw new BillValidationError(BILL_EXPORT_NOT_WHOLE_NUMBERS_MESSAGE);
+  }
+  if (trimmed.includes("-")) {
+    throw new BillValidationError(BILL_EXPORT_NOT_WHOLE_NUMBERS_MESSAGE);
+  }
+  if (trimmed.length > BILL_NUMBER_PART_MAX) {
+    throw new BillValidationError(BILL_EXPORT_NOT_WHOLE_NUMBERS_MESSAGE);
+  }
+  return trimmed;
+}
+
+function parseBillExportThirdPart(raw) {
+  if (raw === undefined || raw === null || String(raw).trim() === "") {
+    throw new BillValidationError(BILL_EXPORT_NOT_WHOLE_NUMBERS_MESSAGE);
+  }
+  const trimmed = String(raw).trim();
+  if (!/^\d+$/.test(trimmed)) {
+    throw new BillValidationError(BILL_EXPORT_NOT_WHOLE_NUMBERS_MESSAGE);
+  }
+  return { text: trimmed, int: BigInt(trimmed) };
+}
+
+function billMatchesBillNumberSpan(row, seriesPart1, seriesPart2, lowInt, highInt) {
+  const parts = splitBillNumber(row.bill_number);
+  if (!parts) {
+    return null;
+  }
+  if (parts[0] !== seriesPart1 || parts[1] !== seriesPart2) {
+    return null;
+  }
+  const thirdText = parts[2];
+  if (!/^\d+$/.test(thirdText)) {
+    return null;
+  }
+  const thirdInt = BigInt(thirdText);
+  if (thirdInt < lowInt || thirdInt > highInt) {
+    return null;
+  }
+  return { thirdText, thirdInt };
+}
+
+function compareBillNumberSpanEntries(a, b) {
+  if (a.thirdInt < b.thirdInt) {
+    return -1;
+  }
+  if (a.thirdInt > b.thirdInt) {
+    return 1;
+  }
+  return a.thirdText.localeCompare(b.thirdText);
+}
+
+function exportSpanFieldPresent(raw) {
+  return raw !== undefined && raw !== null && String(raw).trim() !== "";
+}
+
+function hasBillNumberExportFields(rawInput) {
+  return (
+    exportSpanFieldPresent(rawInput?.series_part_1 ?? rawInput?.series_parts?.[0]) ||
+    exportSpanFieldPresent(rawInput?.series_part_2 ?? rawInput?.series_parts?.[1]) ||
+    exportSpanFieldPresent(rawInput?.from_third_part ?? rawInput?.from_third ?? rawInput?.third_from) ||
+    exportSpanFieldPresent(rawInput?.to_third_part ?? rawInput?.to_third ?? rawInput?.third_to)
+  );
+}
+
+function hasBillDateExportFields(rawInput) {
+  return (
+    exportSpanFieldPresent(rawInput?.from_date ?? rawInput?.fromDate) ||
+    exportSpanFieldPresent(rawInput?.to_date ?? rawInput?.toDate)
+  );
+}
+
+function assertSingleExportSpan(rawInput) {
+  if (hasBillNumberExportFields(rawInput) && hasBillDateExportFields(rawInput)) {
+    throw new BillValidationError(BILL_EXPORT_ONE_SPAN_MESSAGE);
+  }
+}
+
+function compareBillExportStoredText(left, right) {
+  if (left < right) {
+    return -1;
+  }
+  if (left > right) {
+    return 1;
+  }
+  return 0;
+}
+
+function compareBillExportThirdParts(thirdA, thirdB) {
+  const aDigits = /^\d+$/.test(thirdA);
+  const bDigits = /^\d+$/.test(thirdB);
+  if (aDigits && bDigits) {
+    const aInt = BigInt(thirdA);
+    const bInt = BigInt(thirdB);
+    if (aInt < bInt) {
+      return -1;
+    }
+    if (aInt > bInt) {
+      return 1;
+    }
+    return compareBillExportStoredText(thirdA, thirdB);
+  }
+  if (aDigits && !bDigits) {
+    return -1;
+  }
+  if (!aDigits && bDigits) {
+    return 1;
+  }
+  return compareBillExportStoredText(thirdA, thirdB);
+}
+
+function compareBillDateSpanEntries(a, b) {
+  if (a.billDate !== b.billDate) {
+    return a.billDate < b.billDate ? -1 : 1;
+  }
+  const part0Order = compareBillExportStoredText(a.part0, b.part0);
+  if (part0Order !== 0) {
+    return part0Order;
+  }
+  const part1Order = compareBillExportStoredText(a.part1, b.part1);
+  if (part1Order !== 0) {
+    return part1Order;
+  }
+  return compareBillExportThirdParts(a.part2, b.part2);
+}
+
+async function formatExportBills(deps, matchedRows) {
+  const bills = [];
+  for (const row of matchedRows) {
+    const lines = await deps.listBillLines(row.bill_id);
+    bills.push(formatBillRow(row, lines));
+  }
+  return { bills };
+}
+
+async function exportBillNumberSpan(deps, collectionId, rawInput) {
+  const seriesPart1 = parseBillExportSeriesPart(
+    rawInput?.series_part_1 ?? rawInput?.series_parts?.[0]
+  );
+  const seriesPart2 = parseBillExportSeriesPart(
+    rawInput?.series_part_2 ?? rawInput?.series_parts?.[1]
+  );
+  const fromThird = parseBillExportThirdPart(
+    rawInput?.from_third_part ?? rawInput?.from_third ?? rawInput?.third_from
+  );
+  const toThird = parseBillExportThirdPart(
+    rawInput?.to_third_part ?? rawInput?.to_third ?? rawInput?.third_to
+  );
+
+  const lowInt = fromThird.int < toThird.int ? fromThird.int : toThird.int;
+  const highInt = fromThird.int > toThird.int ? fromThird.int : toThird.int;
+
+  const rows = await deps.listAllBillsByCollection(collectionId);
+  const matched = [];
+  for (const row of rows) {
+    const spanMatch = billMatchesBillNumberSpan(row, seriesPart1, seriesPart2, lowInt, highInt);
+    if (!spanMatch) {
+      continue;
+    }
+    matched.push({ row, ...spanMatch });
+  }
+
+  matched.sort(compareBillNumberSpanEntries);
+
+  return formatExportBills(deps, matched.map((entry) => entry.row));
+}
+
+async function exportBillDateSpan(deps, collectionId, rawInput) {
+  const fromDate = parseBillDate(rawInput?.from_date ?? rawInput?.fromDate);
+  const toDate = parseBillDate(rawInput?.to_date ?? rawInput?.toDate);
+
+  const lowDate = fromDate < toDate ? fromDate : toDate;
+  const highDate = fromDate > toDate ? fromDate : toDate;
+
+  const rows = await deps.listAllBillsByCollection(collectionId);
+  const matched = [];
+  for (const row of rows) {
+    const billDate = normalizeBillCalendarDate(row.bill_date);
+    if (billDate < lowDate || billDate > highDate) {
+      continue;
+    }
+    const parts = splitBillNumber(row.bill_number);
+    if (!parts) {
+      continue;
+    }
+    matched.push({
+      row,
+      billDate,
+      part0: parts[0],
+      part1: parts[1],
+      part2: parts[2],
+    });
+  }
+
+  matched.sort(compareBillDateSpanEntries);
+
+  return formatExportBills(deps, matched.map((entry) => entry.row));
+}
+
+export async function exportBills(deps, collectionId, rawInput) {
+  assertSingleExportSpan(rawInput);
+
+  const spanType = rawInput?.span_type ?? rawInput?.spanType;
+  if (spanType === BILL_EXPORT_SPAN_BILL_NUMBER) {
+    return exportBillNumberSpan(deps, collectionId, rawInput);
+  }
+  if (spanType === BILL_EXPORT_SPAN_BILL_DATE) {
+    return exportBillDateSpan(deps, collectionId, rawInput);
+  }
+
+  throw new BillValidationError(BILL_EXPORT_ONE_SPAN_MESSAGE);
+}
+
 function productTaxCodeId(product) {
   const raw = product?.tax_code_id;
   if (raw === undefined || raw === null) {

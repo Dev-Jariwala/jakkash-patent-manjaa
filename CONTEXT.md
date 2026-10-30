@@ -68,6 +68,10 @@ _Avoid_: Order line, joining the live product or tax code at display time, a sep
 The amount of a Bill after the tax.
 _Avoid_: Total invoice, amount due
 
+**Export**:
+One PDF of printed Bills for a span of Bills in the active collection.
+_Avoid_: Report, a downloaded file, a zip, Order Delivery
+
 **Order Delivery**:
 The act of sending an order to a client through an outbound channel after the order has been created.
 _Avoid_: Share, forward, export

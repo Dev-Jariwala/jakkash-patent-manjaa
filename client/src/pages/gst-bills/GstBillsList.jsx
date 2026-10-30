@@ -15,7 +15,7 @@ import GstBillPdfModal from "@/pages/gst-bills/GstBillPdfModal";
 import { listGstBills } from "@/services/gstBills";
 import { useQuery } from "@tanstack/react-query";
 import { formatBillCalendarDate } from "@/pages/gst-bills/billCalendarDate";
-import { Eye, Pencil, Plus } from "lucide-react";
+import { Eye, Pencil, Plus, Upload } from "lucide-react";
 import { useEffect, useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from "react-icons/md";
@@ -82,15 +82,26 @@ const GstBillsList = () => {
             ]}
           />
         </div>
-        <Button
-          variant="indigo"
-          size="sm"
-          disabled={!activeCollection}
-          onClick={() => navigate("/bills/new")}
-        >
-          <Plus className="size-4" />
-          <div>Add</div>
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={!activeCollection}
+            onClick={() => navigate("/bills/export")}
+          >
+            <Upload className="size-4" />
+            <div>Export</div>
+          </Button>
+          <Button
+            variant="indigo"
+            size="sm"
+            disabled={!activeCollection}
+            onClick={() => navigate("/bills/new")}
+          >
+            <Plus className="size-4" />
+            <div>Add</div>
+          </Button>
+        </div>
       </div>
 
       {!activeCollection ? (

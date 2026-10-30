@@ -347,13 +347,12 @@ function bankLines(bill) {
   return [name, address].filter(Boolean).join(", ");
 }
 
-const GstBillInvoiceDocument = ({ bill }) => {
+export function GstBillInvoicePage({ bill }) {
   const lines = bill?.lines ?? [];
   const figures = invoiceFigures(bill);
 
   return (
-    <Document title={bill?.bill_number ? `Tax invoice ${bill.bill_number}` : "Tax invoice"}>
-      <Page size="A4" style={styles.page}>
+    <Page size="A4" style={styles.page}>
         <View style={styles.sheet}>
           <View style={styles.titleRow}>
             <Text style={styles.title}>TAX INVOICE</Text>
@@ -467,7 +466,14 @@ const GstBillInvoiceDocument = ({ bill }) => {
             </View>
           </View>
         </View>
-      </Page>
+    </Page>
+  );
+}
+
+const GstBillInvoiceDocument = ({ bill }) => {
+  return (
+    <Document title={bill?.bill_number ? `Tax invoice ${bill.bill_number}` : "Tax invoice"}>
+      <GstBillInvoicePage bill={bill} />
     </Document>
   );
 };

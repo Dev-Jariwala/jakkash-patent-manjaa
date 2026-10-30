@@ -1,6 +1,7 @@
 import { handleError } from "../utils/error.js";
 import {
   createBill,
+  exportBills,
   getBill,
   listBills,
   previewBillTotals,
@@ -55,5 +56,15 @@ export const previewGstBillTotals = async (req, res) => {
     res.status(200).json({ totals });
   } catch (error) {
     handleError("previewGstBillTotals", res, error);
+  }
+};
+
+export const exportGstBills = async (req, res) => {
+  const { collection_id } = req.params;
+  try {
+    const result = await exportBills(createBillDeps(), collection_id, req.body);
+    res.status(200).json(result);
+  } catch (error) {
+    handleError("exportGstBills", res, error);
   }
 };
