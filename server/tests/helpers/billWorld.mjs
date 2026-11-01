@@ -1,5 +1,31 @@
 import { randomUUID } from "node:crypto";
 import { TAX_SHAPE_WITHIN_STATE } from "../../services/bill.js";
+import { BillInsufficientStockError } from "../../services/billErrors.js";
+
+function applyStockDeltasInWorld(productsById, collectionId, stockDeltas) {
+  for (const entry of stockDeltas ?? []) {
+    const product = productsById.get(entry.product_id);
+    if (!product) {
+      continue;
+    }
+    const delta = Number(entry.delta);
+    if (!Number.isFinite(delta) || delta === 0) {
+      continue;
+    }
+    if (delta > 0) {
+      if (product.stock_in_hand < delta) {
+        throw new BillInsufficientStockError(
+          entry.product_name ?? product.product_name,
+          product.stock_in_hand,
+          delta
+        );
+      }
+      product.stock_in_hand -= delta;
+    } else {
+      product.stock_in_hand += -delta;
+    }
+  }
+}
 
 export function validShopBankAccount() {
   return {
@@ -97,8 +123,13 @@ export function createBillWorld({
       return linesByBillId.get(billId) ?? [];
     },
 
-    async insertBill(billRow, lineRows) {
-      billsById.set(billRow.bill_id, billRow);
+    async insertBill(billRow, lineRows, stockDeltas) {
+      applyStockDeltasInWorld(productsById, billRow.collection_id, stockDeltas);
+      const rowWithStock = {
+        ...billRow,
+        stock_applied: billRow.stock_applied ?? true,
+      };
+      billsById.set(billRow.bill_id, rowWithStock);
       billByCollectionAndNumber.set(
         `${billRow.collection_id}:${billRow.bill_number}`,
         billRow.bill_id
@@ -109,7 +140,8 @@ export function createBillWorld({
       );
     },
 
-    async replaceBillLines(billId, lineRows, billRow) {
+    async replaceBillLines(billId, lineRows, billRow, stockDeltas) {
+      applyStockDeltasInWorld(productsById, billRow.collection_id, stockDeltas);
       const previous = billsById.get(billId);
       if (previous && previous.bill_number !== billRow.bill_number) {
         billByCollectionAndNumber.delete(`${previous.collection_id}:${previous.bill_number}`);
@@ -118,7 +150,10 @@ export function createBillWorld({
           billId
         );
       }
-      billsById.set(billId, billRow);
+      billsById.set(billId, {
+        ...billRow,
+        stock_applied: billRow.stock_applied ?? true,
+      });
       linesByBillId.set(
         billId,
         lineRows.map((line) => ({ ...line, bill_id: billId }))
@@ -137,6 +172,9 @@ export function createBillWorld({
       shopBankAccount = account;
     },
     getBillSaveCount: () => billSaveCount,
+    getProductStock(productId) {
+      return productsById.get(productId)?.stock_in_hand;
+    },
     seedCollection(id = randomUUID()) {
       const collection_id = id;
       collectionIds.add(collection_id);
@@ -162,6 +200,8 @@ export function createBillWorld({
         product_name: "Cotton fabric",
         wholesale_price: 220,
         tax_code_id: null,
+        stock_in_hand: 10000,
+        total_stock: 10000,
         ...overrides,
       };
       productsById.set(product.product_id, product);
@@ -198,6 +238,8 @@ export function standardBillPayload({
     product_name: product.product_name,
     wholesale_price: product.wholesale_price,
     tax_code_id: taxCode.tax_code_id,
+    stock_in_hand: product.stock_in_hand,
+    total_stock: product.total_stock,
   });
 
   return {
@@ -272,6 +314,7 @@ export async function insertLegacyBill(
       bank_account_number: "012345678",
       bank_ifsc: "HDFC0000123",
       saved_at: savedAt,
+      stock_applied: false,
     },
     lines.map((line, index) => ({
       bill_id: billId,

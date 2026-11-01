@@ -2,6 +2,8 @@ import { randomUUID } from "node:crypto";
 import { normalizeBillCalendarDate } from "../utils/billCalendarDate.js";
 import {
   BillDuplicateNumberError,
+  BillDuplicateProductError,
+  BillInsufficientStockError,
   BillNotFoundError,
   BillValidationError,
 } from "./billErrors.js";
@@ -580,8 +582,89 @@ function formatBillRow(row, lines) {
     bank_account_number: row.bank_account_number,
     bank_ifsc: row.bank_ifsc,
     saved_at: row.saved_at,
+    stock_applied: Boolean(row.stock_applied),
     lines: lines.map(formatBillLineRow),
   };
+}
+
+function qtyByProductFromLines(lines) {
+  const map = new Map();
+  for (const line of lines ?? []) {
+    const productId = String(line.product_id);
+    map.set(productId, (map.get(productId) ?? 0) + Number(line.quantity));
+  }
+  return map;
+}
+
+function productNamesFromLines(lines) {
+  const names = new Map();
+  for (const line of lines ?? []) {
+    const productId = String(line.product_id);
+    if (!names.has(productId)) {
+      names.set(productId, line.product_name);
+    }
+  }
+  return names;
+}
+
+function assertNoDuplicateProducts(keptLines) {
+  const seen = new Map();
+  for (const line of keptLines) {
+    const productId = String(line.product_id);
+    if (seen.has(productId)) {
+      throw new BillDuplicateProductError(line.product_name ?? seen.get(productId));
+    }
+    seen.set(productId, line.product_name);
+  }
+}
+
+async function validateRequestedQuantitiesAgainstStock(deps, qtyByProduct, productNames) {
+  for (const [productId, requested] of qtyByProduct) {
+    const product = await deps.getProductById(productId);
+    const available = Number(product?.stock_in_hand ?? 0);
+    if (requested > available) {
+      throw new BillInsufficientStockError(
+        productNames.get(productId) ?? product?.product_name ?? productId,
+        available,
+        requested
+      );
+    }
+  }
+}
+
+async function buildStockDeltaEntries(deps, oldQtyByProduct, newQtyByProduct, productNames) {
+  const productIds = new Set([...oldQtyByProduct.keys(), ...newQtyByProduct.keys()]);
+  const entries = [];
+  for (const productId of productIds) {
+    const oldQty = oldQtyByProduct.get(productId) ?? 0;
+    const newQty = newQtyByProduct.get(productId) ?? 0;
+    const delta = newQty - oldQty;
+    if (delta === 0) {
+      continue;
+    }
+    const product = await deps.getProductById(productId);
+    entries.push({
+      product_id: productId,
+      delta,
+      product_name: productNames.get(productId) ?? product?.product_name ?? productId,
+      available: Number(product?.stock_in_hand ?? 0),
+    });
+  }
+  return entries;
+}
+
+async function validatePositiveStockDeltas(deps, stockDeltas) {
+  for (const entry of stockDeltas) {
+    if (entry.delta <= 0) {
+      continue;
+    }
+    const product = await deps.getProductById(entry.product_id);
+    const available = Number(product?.stock_in_hand ?? 0);
+    entry.available = available;
+    if (entry.delta > available) {
+      throw new BillInsufficientStockError(entry.product_name, available, entry.delta);
+    }
+  }
 }
 
 function formatBillListRow(row) {
@@ -1014,6 +1097,16 @@ export async function createBill(deps, collectionId, rawInput) {
   const receiver = await resolveReceiver(deps, rawInput?.receiver_mobile);
   const bank = await copyShopBankBlock(deps);
   const keptLines = await resolveKeptLines(deps, collectionId, rawInput?.lines, taxShape);
+  assertNoDuplicateProducts(keptLines);
+  const newQtyByProduct = qtyByProductFromLines(keptLines);
+  const productNames = productNamesFromLines(keptLines);
+  await validateRequestedQuantitiesAgainstStock(deps, newQtyByProduct, productNames);
+  const stockDeltas = [...newQtyByProduct.entries()].map(([product_id, delta]) => ({
+    product_id,
+    delta,
+    product_name: productNames.get(product_id),
+    available: undefined,
+  }));
 
   let totalValue = 0;
   let totalTax = 0;
@@ -1040,6 +1133,7 @@ export async function createBill(deps, collectionId, rawInput) {
     tax_shape: taxShape,
     ...bank,
     saved_at: savedAt,
+    stock_applied: true,
   };
 
   await deps.insertBill(
@@ -1049,7 +1143,8 @@ export async function createBill(deps, collectionId, rawInput) {
       bill_id: billId,
       line_order: index,
       ...line,
-    }))
+    })),
+    stockDeltas
   );
 
   if (deps.noteBillSaved) {
@@ -1093,6 +1188,29 @@ export async function updateBill(deps, collectionId, billId, rawInput) {
     existing,
     rawInput?.tax_shape
   );
+  assertNoDuplicateProducts(keptLines);
+
+  const existingLines = await deps.listBillLines(billId);
+  const oldQtyByProduct = existing.stock_applied
+    ? qtyByProductFromLines(existingLines)
+    : new Map();
+  const newQtyByProduct = qtyByProductFromLines(keptLines);
+  const productNames = productNamesFromLines(keptLines);
+  for (const [productId, oldQty] of oldQtyByProduct) {
+    if (!productNames.has(productId)) {
+      const line = existingLines.find((l) => String(l.product_id) === productId);
+      if (line?.product_name) {
+        productNames.set(productId, line.product_name);
+      }
+    }
+  }
+  const stockDeltas = await buildStockDeltaEntries(
+    deps,
+    oldQtyByProduct,
+    newQtyByProduct,
+    productNames
+  );
+  await validatePositiveStockDeltas(deps, stockDeltas);
 
   let totalValue = 0;
   let totalTax = 0;
@@ -1116,6 +1234,7 @@ export async function updateBill(deps, collectionId, billId, rawInput) {
     total_bill: totalBill,
     tax_shape: resolvedTaxShape ?? existing.tax_shape ?? null,
     saved_at: savedAt,
+    stock_applied: true,
   };
 
   await deps.replaceBillLines(
@@ -1125,7 +1244,8 @@ export async function updateBill(deps, collectionId, billId, rawInput) {
       bill_id: billId,
       line_order: index,
     })),
-    billRow
+    billRow,
+    stockDeltas
   );
 
   const lines = await deps.listBillLines(billId);

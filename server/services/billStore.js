@@ -1,6 +1,38 @@
 import { normalizeBillCalendarDate } from "../utils/billCalendarDate.js";
 import { query, withTransaction } from "../utils/query.js";
+import { BillInsufficientStockError } from "./billErrors.js";
 import { createShopBankAccountDeps } from "./shopBankAccountStore.js";
+
+async function applyStockDeltas(txQuery, collectionId, stockDeltas) {
+  for (const entry of stockDeltas ?? []) {
+    const productId = entry.product_id;
+    const delta = Number(entry.delta);
+    if (!Number.isFinite(delta) || delta === 0) {
+      continue;
+    }
+    const productName = entry.product_name ?? productId;
+    if (delta > 0) {
+      const rows = await txQuery(
+        `update products
+         set stock_in_hand = stock_in_hand - $3
+         where product_id = $1 and collection_id = $2 and stock_in_hand >= $3
+         returning stock_in_hand`,
+        [productId, collectionId, delta]
+      );
+      if (!rows || rows.length === 0) {
+        throw new BillInsufficientStockError(productName, entry.available ?? 0, delta);
+      }
+    } else {
+      const restore = -delta;
+      await txQuery(
+        `update products
+         set stock_in_hand = stock_in_hand + $3
+         where product_id = $1 and collection_id = $2`,
+        [productId, collectionId, restore]
+      );
+    }
+  }
+}
 
 function mapBillRow(row) {
   if (!row) {
@@ -32,7 +64,7 @@ export function createBillDeps() {
 
     async getProductById(productId) {
       const [row] = await query(
-        `select product_id, collection_id, product_name, wholesale_price, tax_code_id
+        `select product_id, collection_id, product_name, wholesale_price, tax_code_id, stock_in_hand
          from products
          where product_id = $1`,
         [productId]
@@ -121,89 +153,96 @@ export function createBillDeps() {
       );
     },
 
-    async insertBill(billRow, lineRows) {
-      await query(
-        `insert into gst_bills (
-          bill_id, collection_id, bill_number, bill_date,
-          receiver_mobile, receiver_name, receiver_address, receiver_gst_number,
-          receiver_contact_person, receiver_contact_number,
-          total_value, total_tax, total_bill, tax_shape,
-          bank_name, bank_address, bank_account_number, bank_ifsc, saved_at
-        ) values (
-          $1, $2, $3, $4,
-          $5, $6, $7, $8,
-          $9, $10,
-          $11, $12, $13, $14,
-          $15, $16, $17, $18, $19
-        )`,
-        [
-          billRow.bill_id,
-          billRow.collection_id,
-          billRow.bill_number,
-          billRow.bill_date,
-          billRow.receiver_mobile,
-          billRow.receiver_name,
-          billRow.receiver_address,
-          billRow.receiver_gst_number,
-          billRow.receiver_contact_person,
-          billRow.receiver_contact_number,
-          billRow.total_value,
-          billRow.total_tax,
-          billRow.total_bill,
-          billRow.tax_shape ?? null,
-          billRow.bank_name,
-          billRow.bank_address,
-          billRow.bank_account_number,
-          billRow.bank_ifsc,
-          billRow.saved_at,
-        ]
-      );
-
-      for (const line of lineRows) {
-        await query(
-          `insert into gst_bill_lines (
-            bill_line_id, bill_id, line_order,
-            product_id, product_name, tax_code_id, tax_code, tax_code_description,
-            quantity, rate, price,
-            cgst_percent, sgst_percent, igst_percent,
-            cgst_amount, sgst_amount, igst_amount,
-            tax_rates_are_copy,
-            line_total
+    async insertBill(billRow, lineRows, stockDeltas) {
+      await withTransaction(async (txQuery) => {
+        await txQuery(
+          `insert into gst_bills (
+            bill_id, collection_id, bill_number, bill_date,
+            receiver_mobile, receiver_name, receiver_address, receiver_gst_number,
+            receiver_contact_person, receiver_contact_number,
+            total_value, total_tax, total_bill, tax_shape,
+            bank_name, bank_address, bank_account_number, bank_ifsc, saved_at,
+            stock_applied
           ) values (
-            $1, $2, $3,
-            $4, $5, $6, $7, $8,
-            $9, $10, $11,
-            $12, $13, $14,
-            $15, $16, $17,
-            $18,
-            $19
+            $1, $2, $3, $4,
+            $5, $6, $7, $8,
+            $9, $10,
+            $11, $12, $13, $14,
+            $15, $16, $17, $18, $19,
+            $20
           )`,
           [
-            line.bill_line_id,
-            line.bill_id,
-            line.line_order,
-            line.product_id,
-            line.product_name,
-            line.tax_code_id,
-            line.tax_code,
-            line.tax_code_description,
-            line.quantity,
-            line.rate,
-            line.price,
-            line.cgst_percent,
-            line.sgst_percent,
-            line.igst_percent,
-            line.cgst_amount,
-            line.sgst_amount,
-            line.igst_amount,
-            line.tax_rates_are_copy ?? false,
-            line.line_total,
+            billRow.bill_id,
+            billRow.collection_id,
+            billRow.bill_number,
+            billRow.bill_date,
+            billRow.receiver_mobile,
+            billRow.receiver_name,
+            billRow.receiver_address,
+            billRow.receiver_gst_number,
+            billRow.receiver_contact_person,
+            billRow.receiver_contact_number,
+            billRow.total_value,
+            billRow.total_tax,
+            billRow.total_bill,
+            billRow.tax_shape ?? null,
+            billRow.bank_name,
+            billRow.bank_address,
+            billRow.bank_account_number,
+            billRow.bank_ifsc,
+            billRow.saved_at,
+            billRow.stock_applied ?? true,
           ]
         );
-      }
+
+        for (const line of lineRows) {
+          await txQuery(
+            `insert into gst_bill_lines (
+              bill_line_id, bill_id, line_order,
+              product_id, product_name, tax_code_id, tax_code, tax_code_description,
+              quantity, rate, price,
+              cgst_percent, sgst_percent, igst_percent,
+              cgst_amount, sgst_amount, igst_amount,
+              tax_rates_are_copy,
+              line_total
+            ) values (
+              $1, $2, $3,
+              $4, $5, $6, $7, $8,
+              $9, $10, $11,
+              $12, $13, $14,
+              $15, $16, $17,
+              $18,
+              $19
+            )`,
+            [
+              line.bill_line_id,
+              line.bill_id,
+              line.line_order,
+              line.product_id,
+              line.product_name,
+              line.tax_code_id,
+              line.tax_code,
+              line.tax_code_description,
+              line.quantity,
+              line.rate,
+              line.price,
+              line.cgst_percent,
+              line.sgst_percent,
+              line.igst_percent,
+              line.cgst_amount,
+              line.sgst_amount,
+              line.igst_amount,
+              line.tax_rates_are_copy ?? false,
+              line.line_total,
+            ]
+          );
+        }
+
+        await applyStockDeltas(txQuery, billRow.collection_id, stockDeltas);
+      });
     },
 
-    async replaceBillLines(billId, lineRows, billRow) {
+    async replaceBillLines(billId, lineRows, billRow, stockDeltas) {
       await withTransaction(async (txQuery) => {
         await txQuery(`delete from gst_bill_lines where bill_id = $1`, [billId]);
         await txQuery(
@@ -220,7 +259,8 @@ export function createBillDeps() {
                total_tax = $11,
                total_bill = $12,
                tax_shape = $13,
-               saved_at = $14
+               saved_at = $14,
+               stock_applied = $15
            where bill_id = $1`,
           [
             billId,
@@ -237,6 +277,7 @@ export function createBillDeps() {
             billRow.total_bill,
             billRow.tax_shape ?? null,
             billRow.saved_at,
+            billRow.stock_applied ?? true,
           ]
         );
 
@@ -282,6 +323,8 @@ export function createBillDeps() {
             ]
           );
         }
+
+        await applyStockDeltas(txQuery, billRow.collection_id, stockDeltas);
       });
     },
   };

@@ -572,12 +572,16 @@ describe("createBill", () => {
     );
   });
 
-  it("drops a blank line, rejects a half-filled line, and allows the same product twice", async () => {
+  it("drops a blank line, rejects a half-filled line, and rejects the same product twice", async () => {
     const world = createBillWorld();
     const collectionId = world.seedCollection();
     const client = world.seedClient();
     const product = world.seedProduct(collectionId);
     const taxCode = world.seedTaxCode();
+    const productTwo = world.seedProduct(collectionId, {
+      product_name: "Silk fabric",
+      tax_code_id: taxCode.tax_code_id,
+    });
 
     const saved = await createBill(world.deps, collectionId, {
       ...standardBillPayload({ world, collectionId, product, taxCode, client }),
@@ -592,7 +596,7 @@ describe("createBill", () => {
         },
         {},
         {
-          product_id: product.product_id,
+          product_id: productTwo.product_id,
           tax_code_id: taxCode.tax_code_id,
           quantity: 2,
           rate: 10,
@@ -601,6 +605,31 @@ describe("createBill", () => {
       ],
     });
     assert.equal(saved.lines.length, 2);
+
+    await assert.rejects(
+      () =>
+        createBill(world.deps, collectionId, {
+          ...standardBillPayload({ world, collectionId, product, taxCode, client }),
+          bill_number_parts: ["4", "4", "5"],
+          lines: [
+            {
+              product_id: product.product_id,
+              tax_code_id: taxCode.tax_code_id,
+              quantity: 1,
+              rate: 10,
+              ...copyTrioPercentsFromTaxCode(taxCode),
+            },
+            {
+              product_id: product.product_id,
+              tax_code_id: taxCode.tax_code_id,
+              quantity: 2,
+              rate: 10,
+              ...copyTrioPercentsFromTaxCode(taxCode),
+            },
+          ],
+        }),
+      (error) => error.name === "BillDuplicateProductError"
+    );
 
     await assert.rejects(
       () =>
@@ -1670,6 +1699,10 @@ describe("bill tax shape", () => {
     const client = world.seedClient();
     const taxCode = world.seedTaxCode({ cgst: 2.5, sgst: 2.5, igst: 5 });
     const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+    const productTwo = world.seedProduct(collectionId, {
+      tax_code_id: taxCode.tax_code_id,
+      product_name: "Second fabric",
+    });
 
     const created = await createBill(
       world.deps,
@@ -1686,7 +1719,7 @@ describe("bill tax shape", () => {
             ...copyTrioPercentsFromTaxCode(taxCode),
           },
           {
-            product_id: product.product_id,
+            product_id: productTwo.product_id,
             tax_code_id: taxCode.tax_code_id,
             quantity: 1,
             rate: 100,
@@ -1722,7 +1755,7 @@ describe("bill tax shape", () => {
           },
           {
             bill_line_id: created.lines[1].bill_line_id,
-            product_id: product.product_id,
+            product_id: productTwo.product_id,
             tax_code_id: taxCode.tax_code_id,
             quantity: 1,
             rate: 100,
