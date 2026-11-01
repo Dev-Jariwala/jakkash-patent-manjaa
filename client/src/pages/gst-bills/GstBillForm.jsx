@@ -45,6 +45,7 @@ import {
   inferLegacyBillSharedShape,
 } from "@/pages/gst-bills/billTaxShape";
 import {
+  displayedStockInHand,
   emptyLineFieldErrors,
   validateGstBillForm,
 } from "@/pages/gst-bills/gstBillFormValidation";
@@ -54,7 +55,7 @@ const compactInputClass = "h-9 tabular-nums";
 const invalidInputClass = "border-destructive focus-visible:ring-destructive";
 const percentInputClass = "h-9 w-[3.25rem] min-w-[3.25rem] px-1 text-center tabular-nums";
 const taxSectionClass = "border-l border-border/70 bg-muted/20";
-const LINE_TABLE_COLUMN_COUNT = 13;
+const LINE_TABLE_COLUMN_COUNT = 14;
 
 function FieldError({ message }) {
   if (!message) {
@@ -280,6 +281,7 @@ const GstBillForm = () => {
       return response.data?.products ?? [];
     },
     enabled: Boolean(activeCollection),
+    refetchOnWindowFocus: true,
   });
 
   const { data: taxCodes = [], isLoading: taxCodesLoading, error: taxCodesError } = useQuery({
@@ -376,6 +378,7 @@ const GstBillForm = () => {
       label: p.product_name,
       wholesale_price: p.wholesale_price,
       tax_code_id: p.tax_code_id,
+      stock_in_hand: p.stock_in_hand,
     }));
   }, [products]);
 
@@ -520,6 +523,7 @@ const GstBillForm = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["gst-bills", activeCollection] });
+      queryClient.invalidateQueries({ queryKey: ["products", activeCollection] });
       if (isEdit) {
         queryClient.invalidateQueries({ queryKey: ["gst-bill", activeCollection, billId] });
       }
@@ -583,6 +587,10 @@ const GstBillForm = () => {
         isEdit && !taxShape && pendingSharedShape !== LEGACY_BILL_SHAPE_MIXED
           ? pendingSharedShape
           : null,
+      products,
+      isEdit,
+      stockApplied: existingBill?.stock_applied,
+      existingLines: existingBill?.lines,
     });
     setValidationErrors(errors);
     if (hasError) {
@@ -863,10 +871,10 @@ const GstBillForm = () => {
           ) : null}
 
           <div className="rounded-lg border bg-card shadow-sm">
-              <Table className="min-w-[1040px]">
+              <Table className="min-w-[1160px]">
                 <TableHeader>
                   <TableRow className="hover:bg-transparent">
-                    <TableHead colSpan={5} className="h-9 py-2 text-xs font-semibold uppercase tracking-wide">
+                    <TableHead colSpan={6} className="h-9 py-2 text-xs font-semibold uppercase tracking-wide">
                       Product &amp; price
                     </TableHead>
                     <TableHead
@@ -886,6 +894,9 @@ const GstBillForm = () => {
                     </TableHead>
                     <TableHead className="h-10 min-w-[9rem] p-2 text-xs whitespace-nowrap">
                       HSN/SAC
+                    </TableHead>
+                    <TableHead className="h-10 w-28 p-2 text-center text-xs whitespace-nowrap">
+                      Stock in hand
                     </TableHead>
                     <TableHead className="h-10 w-16 p-2 text-center text-xs whitespace-nowrap">
                       Qty
@@ -931,6 +942,8 @@ const GstBillForm = () => {
                       usesTaxShape ? effectiveTaxShape : null
                     );
                     const percentReadOnly = usesTaxShape;
+                    const onHand = displayedStockInHand(line, { products });
+                    const stockInHandValue = onHand == null ? "" : String(onHand);
                     return (
                       <Fragment key={lineRowKey}>
                       <TableRow className="hover:bg-muted/30">
@@ -964,6 +977,15 @@ const GstBillForm = () => {
                               "cursor-default border-input bg-muted/25 shadow-none",
                               "focus-visible:border-input focus-visible:ring-0 focus-visible:ring-offset-0"
                             )}
+                          />
+                        </TableCell>
+                        <TableCell className="p-2 align-middle">
+                          <Input
+                            disabled
+                            tabIndex={-1}
+                            value={stockInHandValue}
+                            aria-label="Stock in hand"
+                            className={cn(compactInputClass, "w-24 text-center")}
                           />
                         </TableCell>
                         <TableCell className="p-2 align-middle">

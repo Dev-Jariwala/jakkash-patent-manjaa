@@ -44,6 +44,70 @@ function isHalfFilledLine(line) {
   );
 }
 
+export const DUPLICATE_PRODUCT_MESSAGE = "Each product may appear once on a Bill.";
+
+export function insufficientStockMessage(productName, available, requested) {
+  return `Insufficient stock for ${productName}: ${available} available, ${requested} requested.`;
+}
+
+function catalogProduct(products, productId) {
+  return (
+    (products ?? []).find((product) => String(product.product_id) === String(productId)) ??
+    null
+  );
+}
+
+function duplicateProductIds(lines) {
+  const counts = new Map();
+  for (const line of lines) {
+    if (isBlankLine(line) || !line.product_id) {
+      continue;
+    }
+    const id = String(line.product_id);
+    counts.set(id, (counts.get(id) ?? 0) + 1);
+  }
+  return new Set(
+    [...counts.entries()].filter(([, count]) => count > 1).map(([id]) => id)
+  );
+}
+
+function creditedStoredQuantity(line, { isEdit, stockApplied, existingLines }) {
+  if (!isEdit || !stockApplied || !line?.bill_line_id) {
+    return 0;
+  }
+  const stored = (existingLines ?? []).find(
+    (row) => String(row.bill_line_id) === String(line.bill_line_id)
+  );
+  if (!stored || String(stored.product_id) !== String(line.product_id)) {
+    return 0;
+  }
+  const quantity = Number(stored.quantity);
+  return Number.isFinite(quantity) ? quantity : 0;
+}
+
+export function displayedStockInHand(line, { products = [] } = {}) {
+  if (!line?.product_id) {
+    return null;
+  }
+  const product = catalogProduct(products, line.product_id);
+  if (!product) {
+    return null;
+  }
+  const onHand = Number(product.stock_in_hand ?? 0);
+  if (!Number.isFinite(onHand)) {
+    return null;
+  }
+  return onHand;
+}
+
+export function availableStockForBillLine(line, context = {}) {
+  const onHand = displayedStockInHand(line, context);
+  if (onHand == null) {
+    return null;
+  }
+  return onHand + creditedStoredQuantity(line, context);
+}
+
 function parsePercentMessage(raw, label) {
   if (raw === undefined || raw === null || raw === "") {
     return `${label} is required`;
@@ -128,9 +192,15 @@ export function validateGstBillForm({
   clients,
   taxShape = null,
   legacySharedShape = null,
+  products = [],
+  isEdit = false,
+  stockApplied = false,
+  existingLines = [],
 }) {
   const errors = emptyGstBillFormErrors(lines.length);
   let hasError = false;
+  const duplicateIds = duplicateProductIds(lines);
+  const stockContext = { products, isEdit, stockApplied, existingLines };
 
   if (!Array.isArray(billNumberParts) || billNumberParts.length !== 3) {
     errors.general = "Bill number requires three parts";
@@ -181,6 +251,11 @@ export function validateGstBillForm({
       return;
     }
 
+    if (line.product_id && duplicateIds.has(String(line.product_id))) {
+      errors.lines[index].product = DUPLICATE_PRODUCT_MESSAGE;
+      hasError = true;
+    }
+
     if (isHalfFilledLine(line)) {
       errors.lines[index].line = "Each line needs a product and quantity";
       if (!line.product_id) {
@@ -197,6 +272,18 @@ export function validateGstBillForm({
     if (!/^\d+$/.test(qtyText) || Number(qtyText) < 1) {
       errors.lines[index].quantity = "Quantity must be a whole number of at least 1";
       hasError = true;
+    } else {
+      const available = availableStockForBillLine(line, stockContext);
+      const requested = Number(qtyText);
+      if (available != null && requested > available) {
+        const product = catalogProduct(products, line.product_id);
+        errors.lines[index].quantity = insufficientStockMessage(
+          product?.product_name ?? line.product_id,
+          available,
+          requested
+        );
+        hasError = true;
+      }
     }
 
     const rateText = String(line.rate ?? "").trim();
