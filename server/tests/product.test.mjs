@@ -206,6 +206,96 @@ describe("copyProductsToCollection", () => {
     assert.equal(unchanged.tax_code_id, hsn.tax_code_id);
   });
 
+  it("copies active products only and leaves an inactive product out, even when it has a tax code", async () => {
+    const world = createProductWorld();
+    const hsn = world.insertTaxCode({
+      type: "HSN",
+      code: "5209",
+      description: "Cotton fabric",
+    });
+    const sac = world.insertTaxCode({
+      type: "SAC",
+      code: "998821",
+      description: "Embroidery services",
+    });
+    const inactiveGoods = world.seedProduct({
+      collection_id: sourceCollectionId,
+      product_name: "Old dye",
+      wholesale_price: 90,
+      retail_price: 110,
+      stock_in_hand: 12,
+      total_stock: 30,
+      is_labour: false,
+      is_active: false,
+      tax_code_id: hsn.tax_code_id,
+    });
+    const inactiveLabour = world.seedProduct({
+      collection_id: sourceCollectionId,
+      product_name: "Old stitching",
+      wholesale_price: 70,
+      retail_price: 95,
+      stock_in_hand: 4,
+      total_stock: 4,
+      is_labour: true,
+      is_active: false,
+      tax_code_id: sac.tax_code_id,
+    });
+    const active = world.seedProduct({
+      collection_id: sourceCollectionId,
+      product_name: "Plain cloth",
+      wholesale_price: 40,
+      retail_price: 55,
+      stock_in_hand: 8,
+      total_stock: 20,
+      is_labour: false,
+      is_active: true,
+      tax_code_id: null,
+    });
+
+    const copied = await copyProductsToCollection(
+      world.deps,
+      sourceCollectionId,
+      targetCollectionId
+    );
+
+    assert.equal(copied.length, 1);
+    const plain = copied[0];
+    assert.equal(plain.product_name, "Plain cloth");
+    assert.equal(plain.is_active, true);
+    assert.equal(plain.tax_code_id, null);
+    assert.equal(plain.tax_code_type, null);
+    assert.equal(plain.tax_code_code, null);
+    assert.equal(plain.wholesale_price, 0);
+    assert.equal(plain.retail_price, 0);
+    assert.equal(plain.stock_in_hand, 0);
+    assert.equal(plain.total_stock, 0);
+    assert.ok(copied.every((product) => product.product_name !== "Old dye"));
+    assert.ok(copied.every((product) => product.product_name !== "Old stitching"));
+
+    const sourceGoods = await getProduct(world.deps, inactiveGoods.product_id);
+    assert.equal(sourceGoods.is_active, false);
+    assert.equal(sourceGoods.tax_code_id, hsn.tax_code_id);
+    assert.equal(sourceGoods.tax_code_code, "5209");
+    assert.equal(sourceGoods.wholesale_price, 90);
+    assert.equal(sourceGoods.retail_price, 110);
+    assert.equal(sourceGoods.stock_in_hand, 12);
+    assert.equal(sourceGoods.total_stock, 30);
+
+    const sourceLabour = await getProduct(world.deps, inactiveLabour.product_id);
+    assert.equal(sourceLabour.is_active, false);
+    assert.equal(sourceLabour.is_labour, true);
+    assert.equal(sourceLabour.tax_code_id, sac.tax_code_id);
+    assert.equal(sourceLabour.tax_code_code, "998821");
+
+    const sourceActive = await getProduct(world.deps, active.product_id);
+    assert.equal(sourceActive.is_active, true);
+    assert.equal(sourceActive.tax_code_id, null);
+    assert.equal(sourceActive.wholesale_price, 40);
+    assert.equal(sourceActive.retail_price, 55);
+    assert.equal(sourceActive.stock_in_hand, 8);
+    assert.equal(sourceActive.total_stock, 20);
+  });
+
   it("creates no products when the source collection is empty", async () => {
     const world = createProductWorld();
 

@@ -1,0 +1,5 @@
+# An inactive product stays listed, is left out of a collection copy, and cannot be newly chosen
+
+An inactive product stays on the products list. That list opens on active products, with a status control for inactive products and for all products. It cannot be newly chosen on an Order, a Bill, or stock-in; a saved line that already names it can still be saved. A new collection copies active products only, so an inactive product is left out even when it has an HSN or a SAC. An active product with no HSN/SAC is still copied, still without a code. Wholesale price, retail price, stock in hand, and total stock on each copy start at 0, and the source collection is not updated.
+
+The rejected alternative was copying every product in the source collection. That would put a product the operator had turned off back into the new collection. [0023](./0023-collection-copy-takes-name-category-and-tax-code.md) still holds for the name, the category, the tax code, and prices and stock starting at 0; "every product" there is narrowed to active products.

@@ -33,7 +33,7 @@ An item in one collection whose category is Product or Labour, and that may name
 _Avoid_: Bill line, storing rates on the product, a required tax code
 
 **Inactive product**:
-A product the operator has turned off. It stays listed: the products list opens on active products, with a status control for inactive products and for all products, and it is not available for a new choice on an Order, a Bill, or stock-in.
+A product the operator has turned off. It stays listed: the products list opens on active products, with a status control for inactive products and for all products. It is not available for a new choice on an Order, a Bill, or stock-in, and a new collection leaves it out.
 _Avoid_: deleted, the unused delete flag
 
 **Stock in hand**:

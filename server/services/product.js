@@ -271,6 +271,9 @@ export async function copyProductsToCollection(deps, sourceCollectionId, targetC
   const copied = [];
 
   for (const row of rows) {
+    if (!productIsActive(row)) {
+      continue;
+    }
     const inserted = await deps.insertProduct({
       collection_id: targetId,
       product_name: row.product_name,
