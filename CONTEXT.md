@@ -29,15 +29,15 @@ A shared location row tied to a state. A client profile stores a city id that mu
 _Avoid_: Town, locality
 
 **Product**:
-An item in one collection whose category is Product or Labour. Category Product names one HSN; Labour names one SAC. The product stores the tax code id only and shows the type, code, and description currently on that Masters row. It does not keep CGST, SGST, or IGST rates.
-_Avoid_: Bill line, storing rates on the product
+An item in one collection whose category is Product or Labour, and that may name one tax code. When it does, Product names an HSN and Labour names a SAC; it stores the tax code id only, shows the type, code, and description currently on that Masters row, and does not keep CGST, SGST, or IGST rates.
+_Avoid_: Bill line, storing rates on the product, a required tax code
 
 **Stock in hand**:
 The quantity of a Product currently held in a collection. Labour is counted the same way. Receiving stock adds to it; an Order or a Bill takes from it, and a Bill refuses a quantity it cannot cover.
 _Avoid_: Inventory, available count, total stock
 
 **Tax code**:
-A catalog row on Masters (HSN/SAC tab) for goods or services: a stable id, a digits-only statutory code, a required description, and default CGST, SGST, and IGST rates. HSN is 4, 6, or 8 digits; SAC is 6 digits. The code is unique within its type; the same digits may exist once as HSN and once as SAC. Type is fixed at create; there is no delete. A product names one tax code by id.
+A catalog row on Masters (HSN/SAC tab) for goods or services: a stable id, a digits-only statutory code, a required description, and default CGST, SGST, and IGST rates. HSN is 4, 6, or 8 digits; SAC is 6 digits. The code is unique within its type; the same digits may exist once as HSN and once as SAC. Type is fixed at create; there is no delete. A product may name one tax code by id.
 _Avoid_: Live rate lookup on a saved Bill line
 
 **Shop bank account**:

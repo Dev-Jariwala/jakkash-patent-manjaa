@@ -36,10 +36,9 @@ export const validateCreateProduct = [
     .withMessage("Retail price must be a positive number"),
   body("is_labour").isIn([0, 1]).withMessage("is_labour must be 0 or 1"),
   body("tax_code_id")
-    .notEmpty()
-    .withMessage("HSN/SAC is required")
+    .optional({ values: "falsy" })
     .isUUID()
-    .withMessage("HSN/SAC is required"),
+    .withMessage("Tax code not found"),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -87,10 +86,9 @@ export const validateUpdateProduct = [
     .withMessage("Retail price must be a positive number"),
   body("is_labour").isIn([0, 1]).withMessage("is_labour must be 0 or 1"),
   body("tax_code_id")
-    .notEmpty()
-    .withMessage("HSN/SAC is required")
+    .optional({ values: "falsy" })
     .isUUID()
-    .withMessage("HSN/SAC is required"),
+    .withMessage("Tax code not found"),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

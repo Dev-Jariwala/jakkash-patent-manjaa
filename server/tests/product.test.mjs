@@ -11,7 +11,6 @@ import {
 import {
   ProductTaxCodeCategoryMismatchError,
   ProductTaxCodeNotFoundError,
-  ProductTaxCodeRequiredError,
 } from "../services/productErrors.js";
 import {
   createProductWorld,
@@ -267,24 +266,47 @@ describe("createProduct", () => {
     assert.equal(saved.is_labour, true);
   });
 
-  it("rejects a missing tax code", async () => {
+  it("saves a Product with no HSN", async () => {
     const world = createProductWorld();
-    world.insertTaxCode({ type: "HSN", code: "5209", description: "Cotton" });
 
-    await assert.rejects(
-      () =>
-        createProduct(world.deps, collectionId, {
-          product_name: "Cotton",
-          wholesale_price: 100,
-          retail_price: 120,
-          is_labour: 0,
-        }),
-      (error) => {
-        assert.ok(error instanceof ProductTaxCodeRequiredError);
-        assert.match(error.message, /HSN\/SAC is required/i);
-        return true;
-      }
-    );
+    const saved = await createProduct(world.deps, collectionId, {
+      product_name: "Cotton",
+      wholesale_price: 100,
+      retail_price: 120,
+      is_labour: 0,
+    });
+
+    assert.equal(saved.tax_code_id, null);
+    assert.equal(saved.tax_code_type, null);
+    assert.equal(saved.tax_code_code, null);
+    assert.equal(saved.tax_code_description, null);
+    assert.equal(saved.is_labour, false);
+
+    const loaded = await getProduct(world.deps, saved.product_id);
+    assert.equal(loaded.tax_code_id, null);
+    assert.equal(loaded.tax_code_type, null);
+    assert.equal(loaded.tax_code_code, null);
+  });
+
+  it("saves Labour with no SAC", async () => {
+    const world = createProductWorld();
+
+    const saved = await createProduct(world.deps, collectionId, {
+      product_name: "Stitching",
+      wholesale_price: 80,
+      retail_price: 120,
+      is_labour: 1,
+      tax_code_id: "",
+    });
+
+    assert.equal(saved.tax_code_id, null);
+    assert.equal(saved.tax_code_type, null);
+    assert.equal(saved.tax_code_code, null);
+    assert.equal(saved.is_labour, true);
+
+    const loaded = await getProduct(world.deps, saved.product_id);
+    assert.equal(loaded.tax_code_id, null);
+    assert.equal(loaded.is_labour, true);
   });
 
   it("rejects an unknown tax code", async () => {
@@ -383,31 +405,79 @@ describe("updateProduct", () => {
     assert.equal(updated.tax_code_code, "5210");
   });
 
-  it("rejects clearing the tax code on edit", async () => {
+  it("clears an existing HSN and reads the product back with no tax code", async () => {
     const world = createProductWorld();
     const hsn = world.insertTaxCode({
       type: "HSN",
       code: "5209",
       description: "Cotton",
     });
-    const created = await createProduct(world.deps, collectionId, {
-      ...validProductPayload({ tax_code_id: hsn.tax_code_id }),
+    const seeded = world.seedProduct({
+      collection_id: collectionId,
+      product_name: "Cotton",
+      wholesale_price: 250,
+      retail_price: 300,
+      stock_in_hand: 40,
+      total_stock: 100,
+      is_labour: false,
+      tax_code_id: hsn.tax_code_id,
     });
 
-    await assert.rejects(
-      () =>
-        updateProduct(world.deps, created.product_id, {
-          product_name: "Cotton",
-          wholesale_price: 100,
-          retail_price: 120,
-          is_labour: 0,
-          tax_code_id: "",
-        }),
-      ProductTaxCodeRequiredError
-    );
+    const updated = await updateProduct(world.deps, seeded.product_id, {
+      product_name: "Cotton",
+      wholesale_price: 250,
+      retail_price: 300,
+      is_labour: 0,
+      tax_code_id: "",
+    });
+
+    assert.equal(updated.tax_code_id, null);
+    assert.equal(updated.tax_code_type, null);
+    assert.equal(updated.tax_code_code, null);
+    assert.equal(updated.tax_code_description, null);
+    assert.equal(updated.product_name, "Cotton");
+    assert.equal(updated.wholesale_price, 250);
+    assert.equal(updated.retail_price, 300);
+    assert.equal(updated.is_labour, false);
+    assert.equal(updated.stock_in_hand, 40);
+    assert.equal(updated.total_stock, 100);
+
+    const loaded = await getProduct(world.deps, seeded.product_id);
+    assert.equal(loaded.tax_code_id, null);
+    assert.equal(loaded.tax_code_type, null);
+    assert.equal(loaded.tax_code_code, null);
+  });
+
+  it("clears an existing SAC and reads the labour back with no tax code", async () => {
+    const world = createProductWorld();
+    const sac = world.insertTaxCode({
+      type: "SAC",
+      code: "998821",
+      description: "Embroidery services",
+    });
+    const created = await createProduct(world.deps, collectionId, {
+      ...validProductPayload({
+        product_name: "Stitching",
+        tax_code_id: sac.tax_code_id,
+      }),
+      is_labour: 1,
+    });
+
+    const updated = await updateProduct(world.deps, created.product_id, {
+      product_name: "Stitching",
+      wholesale_price: 100,
+      retail_price: 120,
+      is_labour: 1,
+      tax_code_id: null,
+    });
+
+    assert.equal(updated.tax_code_id, null);
+    assert.equal(updated.is_labour, true);
 
     const loaded = await getProduct(world.deps, created.product_id);
-    assert.equal(loaded.tax_code_id, hsn.tax_code_id);
+    assert.equal(loaded.tax_code_id, null);
+    assert.equal(loaded.tax_code_type, null);
+    assert.equal(loaded.tax_code_code, null);
   });
 });
 
@@ -421,6 +491,12 @@ describe("getProduct and listProducts", () => {
     });
     await createProduct(world.deps, collectionId, {
       ...validProductPayload({ tax_code_id: hsn.tax_code_id }),
+    });
+    await createProduct(world.deps, collectionId, {
+      product_name: "Plain",
+      wholesale_price: 10,
+      retail_price: 12,
+      is_labour: 0,
     });
     world.seedProduct({
       collection_id: collectionId,
@@ -436,10 +512,14 @@ describe("getProduct and listProducts", () => {
     });
 
     const withCode = products.find((p) => p.product_name === "Cotton");
+    const plain = products.find((p) => p.product_name === "Plain");
     const legacy = products.find((p) => p.product_name === "Legacy");
 
     assert.equal(withCode.tax_code_type, "HSN");
     assert.equal(withCode.tax_code_code, "5209");
+    assert.equal(plain.tax_code_id, null);
+    assert.equal(plain.tax_code_type, null);
+    assert.equal(plain.tax_code_code, null);
     assert.equal(legacy.tax_code_id, null);
     assert.equal(legacy.tax_code_type, null);
     assert.equal(legacy.tax_code_code, null);
@@ -623,24 +703,35 @@ describe("getProduct and listProducts", () => {
     assert.equal(products[1].product_id, higherSerial.product_id);
   });
 
-  it("requires a tax code when a legacy product without one is edited", async () => {
+  it("keeps a product that already has no tax code valid", async () => {
     const world = createProductWorld();
     const legacy = world.seedProduct({
       collection_id: collectionId,
       product_name: "Legacy",
+      wholesale_price: 100,
+      retail_price: 120,
+      stock_in_hand: 4,
+      total_stock: 9,
       tax_code_id: null,
     });
 
-    await assert.rejects(
-      () =>
-        updateProduct(world.deps, legacy.product_id, {
-          product_name: "Legacy",
-          wholesale_price: 100,
-          retail_price: 120,
-          is_labour: 0,
-          tax_code_id: "",
-        }),
-      ProductTaxCodeRequiredError
-    );
+    const loaded = await getProduct(world.deps, legacy.product_id);
+    assert.equal(loaded.tax_code_id, null);
+    assert.equal(loaded.product_name, "Legacy");
+
+    const updated = await updateProduct(world.deps, legacy.product_id, {
+      product_name: "Legacy",
+      wholesale_price: 100,
+      retail_price: 120,
+      is_labour: 0,
+      tax_code_id: "",
+    });
+
+    assert.equal(updated.tax_code_id, null);
+    assert.equal(updated.tax_code_type, null);
+    assert.equal(updated.tax_code_code, null);
+    assert.equal(updated.stock_in_hand, 4);
+    assert.equal(updated.total_stock, 9);
+    assert.equal(updated.is_labour, false);
   });
 });

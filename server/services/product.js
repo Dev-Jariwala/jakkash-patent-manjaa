@@ -2,7 +2,6 @@ import {
   ProductNotFoundError,
   ProductTaxCodeCategoryMismatchError,
   ProductTaxCodeNotFoundError,
-  ProductTaxCodeRequiredError,
   ProductValidationError,
 } from "./productErrors.js";
 
@@ -78,7 +77,7 @@ function parsePrice(raw, label) {
 
 function parseTaxCodeId(raw) {
   if (raw === undefined || raw === null || String(raw).trim() === "") {
-    throw new ProductTaxCodeRequiredError();
+    return null;
   }
   return String(raw).trim();
 }
@@ -99,6 +98,16 @@ async function resolveTaxCode(deps, taxCodeId) {
     throw new ProductTaxCodeNotFoundError();
   }
   return taxCode;
+}
+
+async function resolveOptionalTaxCode(deps, isLabour, rawTaxCodeId) {
+  const taxCodeId = parseTaxCodeId(rawTaxCodeId);
+  if (!taxCodeId) {
+    return { taxCodeId: null, taxCode: null };
+  }
+  const taxCode = await resolveTaxCode(deps, taxCodeId);
+  assertTaxCodeMatchesCategory(isLabour, taxCode.type);
+  return { taxCodeId, taxCode };
 }
 
 export function formatProductRow(row, taxCode = null) {
@@ -139,9 +148,11 @@ export async function createProduct(deps, collectionId, rawInput) {
   const wholesalePrice = parsePrice(rawInput?.wholesale_price, "Wholesale price");
   const retailPrice = parsePrice(rawInput?.retail_price, "Retail price");
   const isLabour = parseIsLabour(rawInput?.is_labour);
-  const taxCodeId = parseTaxCodeId(rawInput?.tax_code_id);
-  const taxCode = await resolveTaxCode(deps, taxCodeId);
-  assertTaxCodeMatchesCategory(isLabour, taxCode.type);
+  const { taxCodeId, taxCode } = await resolveOptionalTaxCode(
+    deps,
+    isLabour,
+    rawInput?.tax_code_id
+  );
 
   const row = await deps.insertProduct({
     collection_id: collectionId,
@@ -172,9 +183,11 @@ export async function updateProduct(deps, productId, rawInput) {
   const wholesalePrice = parsePrice(rawInput?.wholesale_price, "Wholesale price");
   const retailPrice = parsePrice(rawInput?.retail_price, "Retail price");
   const isLabour = parseIsLabour(rawInput?.is_labour);
-  const taxCodeId = parseTaxCodeId(rawInput?.tax_code_id);
-  const taxCode = await resolveTaxCode(deps, taxCodeId);
-  assertTaxCodeMatchesCategory(isLabour, taxCode.type);
+  const { taxCodeId, taxCode } = await resolveOptionalTaxCode(
+    deps,
+    isLabour,
+    rawInput?.tax_code_id
+  );
 
   const row = await deps.updateProduct(id, {
     product_name: productName,

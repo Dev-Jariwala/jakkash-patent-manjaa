@@ -52,8 +52,10 @@ const schema = yup.object().shape({
     .string()
     .oneOf(["0", "1"], "Select a category")
     .typeError("Select a category"),
-  tax_code_id: yup.string().required("HSN/SAC is required"),
+  tax_code_id: yup.string(),
 });
+
+const EMPTY_TAX_CODE = "__none__";
 
 function taxCodeOptionLabel(taxCode) {
   return `${taxCode.type} ${taxCode.code} — ${taxCode.description}`;
@@ -134,6 +136,7 @@ const ProductForm = () => {
     const payload = {
       ...data,
       is_labour: Number(data.is_labour),
+      tax_code_id: data.tax_code_id ? data.tax_code_id : null,
     };
     if (formType === "new") {
       createProductMutation.mutate(payload);
@@ -256,13 +259,13 @@ const ProductForm = () => {
                 name="tax_code_id"
                 render={({ field }) => (
                   <FormItem className="order-5 lg:order-4">
-                    <FormLabel>
-                      HSN/SAC <RequiredMark />
-                    </FormLabel>
+                    <FormLabel>HSN/SAC</FormLabel>
                     <FormControl>
                       <Select
                         value={field.value || undefined}
-                        onValueChange={field.onChange}
+                        onValueChange={(value) =>
+                          field.onChange(value === EMPTY_TAX_CODE ? "" : value)
+                        }
                       >
                         <SelectTrigger
                           className="w-full min-w-0 h-10 max-h-10 overflow-hidden [&>span:first-child]:min-w-0 [&>span:first-child]:flex-1 [&>span:first-child]:truncate [&>span:first-child]:text-left"
@@ -270,6 +273,7 @@ const ProductForm = () => {
                           <SelectValue placeholder="Select HSN/SAC" />
                         </SelectTrigger>
                         <SelectContent className="max-w-[min(100vw-2rem,var(--radix-select-trigger-width))]">
+                          <SelectItem value={EMPTY_TAX_CODE}>None</SelectItem>
                           {taxCodeOptions.map((row) => (
                             <SelectItem
                               key={row.tax_code_id}

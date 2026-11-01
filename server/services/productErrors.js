@@ -16,15 +16,6 @@ export class ProductNotFoundError extends Error {
   }
 }
 
-export class ProductTaxCodeRequiredError extends Error {
-  constructor() {
-    super("HSN/SAC is required");
-    this.name = "ProductTaxCodeRequiredError";
-    this.code = "PRODUCT_TAX_CODE_REQUIRED";
-    this.statusCode = 400;
-  }
-}
-
 export class ProductTaxCodeNotFoundError extends Error {
   constructor() {
     super("Tax code not found");

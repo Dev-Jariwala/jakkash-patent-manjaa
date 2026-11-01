@@ -1217,6 +1217,65 @@ describe("updateBill", () => {
     assert.equal(updated.lines[0].tax_code_description, "Legacy copy");
   });
 
+  it("rejects choosing the product again after its tax code is cleared", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode({ code: "520910", description: "Legacy copy" });
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+
+    const created = await createBill(
+      world.deps,
+      collectionId,
+      standardBillPayload({
+        world,
+        collectionId,
+        product,
+        taxCode,
+        client,
+        overrides: { bill_number_parts: ["6", "1", "1"] },
+      })
+    );
+
+    world.seedProduct(collectionId, {
+      product_id: product.product_id,
+      tax_code_id: null,
+    });
+
+    await assert.rejects(
+      () =>
+        updateBill(
+          world.deps,
+          collectionId,
+          created.bill_id,
+          updatePayloadFromBill(created, {
+            lines: [
+              {
+                bill_line_id: created.lines[0].bill_line_id,
+                product_id: product.product_id,
+                tax_code_id: created.lines[0].tax_code_id,
+                quantity: created.lines[0].quantity,
+                rate: created.lines[0].rate,
+                cgst_percent: created.lines[0].cgst_percent,
+                sgst_percent: created.lines[0].sgst_percent,
+                igst_percent: created.lines[0].igst_percent,
+                product_chosen_again: true,
+              },
+            ],
+          })
+        ),
+      (error) => {
+        assert.ok(error instanceof BillValidationError);
+        assert.match(error.message, /no HSN\/SAC/);
+        return true;
+      }
+    );
+
+    const kept = await getBill(world.deps, collectionId, created.bill_id);
+    assert.equal(kept.lines[0].tax_code, "520910");
+    assert.equal(kept.lines[0].tax_code_description, "Legacy copy");
+  });
+
   it("reads a saved bill with the copied tax code, not the product's current tax code", async () => {
     const world = createBillWorld();
     const collectionId = world.seedCollection();
