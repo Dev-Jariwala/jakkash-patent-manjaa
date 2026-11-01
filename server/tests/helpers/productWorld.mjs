@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { productIsActive } from "../../services/product.js";
 
 export function createProductWorld({ taxCodes: initialTaxCodes = [] } = {}) {
   const taxCodesById = new Map(
@@ -40,6 +41,7 @@ export function createProductWorld({ taxCodes: initialTaxCodes = [] } = {}) {
         stock_in_hand: product.stock_in_hand,
         total_stock: product.total_stock,
         is_labour: product.is_labour,
+        is_active: productIsActive(product),
         is_delete: false,
         tax_code_id: product.tax_code_id ?? null,
         created_at: new Date().toISOString(),
@@ -60,6 +62,7 @@ export function createProductWorld({ taxCodes: initialTaxCodes = [] } = {}) {
         wholesale_price: product.wholesale_price,
         retail_price: product.retail_price,
         is_labour: product.is_labour,
+        is_active: product.is_active === undefined ? existing.is_active : productIsActive(product),
         tax_code_id: product.tax_code_id,
         updated_at: new Date().toISOString(),
       };
@@ -81,14 +84,23 @@ export function createProductWorld({ taxCodes: initialTaxCodes = [] } = {}) {
       sortColumn = "created_at",
       sortDirection = "DESC",
       unpaged = false,
+      status = "active",
     }) {
       const needle = String(search ?? "").toLowerCase();
       const all = [...productsById.values()]
-        .filter(
-          (row) =>
-            row.collection_id === collectionId &&
-            row.product_name.toLowerCase().includes(needle)
-        )
+        .filter((row) => {
+          if (row.collection_id !== collectionId) {
+            return false;
+          }
+          if (!row.product_name.toLowerCase().includes(needle)) {
+            return false;
+          }
+          if (status === "all") {
+            return true;
+          }
+          const active = productIsActive(row);
+          return status === "inactive" ? !active : active;
+        })
         .sort((a, b) => {
           const aVal = a[sortColumn];
           const bVal = b[sortColumn];
@@ -120,6 +132,7 @@ export function createProductWorld({ taxCodes: initialTaxCodes = [] } = {}) {
       stock_in_hand: row.stock_in_hand ?? 0,
       total_stock: row.total_stock ?? 0,
       is_labour: Boolean(row.is_labour),
+      is_active: productIsActive(row),
       is_delete: false,
       tax_code_id: row.tax_code_id ?? null,
       created_at: row.created_at ?? new Date().toISOString(),

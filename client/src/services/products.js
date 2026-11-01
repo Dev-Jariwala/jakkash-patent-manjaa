@@ -2,13 +2,19 @@ import axios from "axios";
 const token = localStorage.getItem("token");
 axios.defaults.headers.common["Authorization"] = token;
 
-export const getProductsByCollectionId = async ({ activeCollection, pagination, debouncedSearch = '' }) => {
+export const getProductsByCollectionId = async ({
+  activeCollection,
+  pagination,
+  debouncedSearch = "",
+  status,
+}) => {
   const response = await axios({
     method: "GET",
     url: `${import.meta.env.VITE_BACKEND_URL}collections/${activeCollection}/products?page=${pagination?.pageIndex + 1}&limit=${pagination?.pageSize}&search=${debouncedSearch}`,
     params: {
       pageIndex: pagination.pageIndex,
       pageSize: pagination.pageSize,
+      ...(status ? { status } : {}),
     },
   });
   return response;

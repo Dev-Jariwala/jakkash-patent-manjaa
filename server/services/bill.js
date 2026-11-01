@@ -7,6 +7,8 @@ import {
   BillNotFoundError,
   BillValidationError,
 } from "./billErrors.js";
+import { ProductInactiveError } from "./productErrors.js";
+import { assertProductMayBeNewlyChosen } from "./product.js";
 
 const BILL_NUMBER_PART_MAX = 20;
 const RATE_PATTERN = /^\d+(\.\d{1,2})?$/;
@@ -955,6 +957,14 @@ function productTaxCodeId(product) {
 }
 
 function assertProductTaxCodeForNewLine(product, submittedTaxCodeId) {
+  try {
+    assertProductMayBeNewlyChosen(product);
+  } catch (error) {
+    if (error instanceof ProductInactiveError) {
+      throw new BillValidationError(error.message);
+    }
+    throw error;
+  }
   const productTaxCodeIdValue = productTaxCodeId(product);
   if (!productTaxCodeIdValue) {
     throw new BillValidationError("This product has no HSN/SAC");

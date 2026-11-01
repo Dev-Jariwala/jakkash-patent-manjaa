@@ -62,7 +62,15 @@ const StocksForm = () => {
         },
         enabled: !!activeCollection,
     });
-    const productsOptions = useMemo(() => products?.map(product => ({ label: product?.product_name, value: product?.product_id })) || [], [products]);
+    const productsOptions = useMemo(() => {
+        const rows = (products ?? []).filter((product) => {
+            if (product?.is_active !== false) {
+                return true;
+            }
+            return formType === "update" && stock?.product_id === product.product_id;
+        });
+        return rows.map(product => ({ label: product?.product_name, value: product?.product_id }));
+    }, [products, formType, stock]);
 
     const createStockMutation = useMutation({
         mutationFn: async (data) => {

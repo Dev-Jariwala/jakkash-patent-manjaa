@@ -112,6 +112,7 @@ CREATE TABLE IF NOT EXISTS products (
     stock_in_hand   INT         NOT NULL DEFAULT 0,
     total_stock     INT         NOT NULL DEFAULT 0,
     is_labour       BOOLEAN     DEFAULT FALSE,
+    is_active       BOOLEAN     NOT NULL DEFAULT TRUE,
     is_delete       BOOLEAN     DEFAULT FALSE,
     created_at      TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     updated_at      TIMESTAMPTZ
@@ -225,7 +226,8 @@ ALTER TABLE products
     ADD COLUMN IF NOT EXISTS is_delete  BOOLEAN     DEFAULT FALSE,
     ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ,
-    ADD COLUMN IF NOT EXISTS tax_code_id UUID REFERENCES tax_codes (tax_code_id);
+    ADD COLUMN IF NOT EXISTS tax_code_id UUID REFERENCES tax_codes (tax_code_id),
+    ADD COLUMN IF NOT EXISTS is_active BOOLEAN NOT NULL DEFAULT TRUE;
 
 ALTER TABLE stocks
     ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,

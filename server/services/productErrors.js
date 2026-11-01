@@ -33,3 +33,14 @@ export class ProductTaxCodeCategoryMismatchError extends Error {
     this.statusCode = 400;
   }
 }
+
+export const PRODUCT_INACTIVE_MESSAGE = "This product is inactive";
+
+export class ProductInactiveError extends Error {
+  constructor() {
+    super(PRODUCT_INACTIVE_MESSAGE);
+    this.name = "ProductInactiveError";
+    this.code = "PRODUCT_INACTIVE";
+    this.statusCode = 400;
+  }
+}

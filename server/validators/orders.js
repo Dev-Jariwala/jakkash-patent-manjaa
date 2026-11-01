@@ -1,4 +1,5 @@
 import { body, param, validationResult } from "express-validator";
+import { assertProductMayBeNewlyChosen } from "../services/product.js";
 import { query } from "../utils/query.js";
 
 function toDateOnlyString(value) {
@@ -90,6 +91,7 @@ export const validateCreateOrder = [
       if (!product) {
         throw new Error(`product not found in collection`);
       }
+      assertProductMayBeNewlyChosen(product);
       if (product.stock_in_hand < currProd.quantity) {
         throw new Error("Insufficient stock in hand for product_id");
       }
@@ -294,6 +296,7 @@ export const validateUpdateOrderById = [
         throw new Error(`product not found in collection`);
       }
       const [billItem] = await query(`SELECT * FROM order_items WHERE product_id = $1 and order_id = $2`, [value, req.params.order_id]);
+      assertProductMayBeNewlyChosen(product, { alreadyOnDocument: Boolean(billItem) });
 
       if (billItem) {
         if (product.stock_in_hand + billItem.quantity < currProd.quantity) {

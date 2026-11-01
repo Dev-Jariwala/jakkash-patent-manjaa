@@ -32,6 +32,10 @@ _Avoid_: Town, locality
 An item in one collection whose category is Product or Labour, and that may name one tax code. When it does, Product names an HSN and Labour names a SAC; it stores the tax code id only, shows the type, code, and description currently on that Masters row, and does not keep CGST, SGST, or IGST rates.
 _Avoid_: Bill line, storing rates on the product, a required tax code
 
+**Inactive product**:
+A product the operator has turned off. It stays listed: the products list opens on active products, with a status control for inactive products and for all products, and it is not available for a new choice on an Order, a Bill, or stock-in.
+_Avoid_: deleted, the unused delete flag
+
 **Stock in hand**:
 The quantity of a Product currently held in a collection. Labour is counted the same way. Receiving stock adds to it; an Order or a Bill takes from it, and a Bill refuses a quantity it cannot cover.
 _Avoid_: Inventory, available count, total stock

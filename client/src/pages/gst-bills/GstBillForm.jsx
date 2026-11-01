@@ -372,7 +372,7 @@ const GstBillForm = () => {
   }, [clients, isEdit, originalReceiverMobile, receiverMobile, storedReceiverCopy]);
 
   const productOptions = useMemo(() => {
-    const catalog = products.filter((p) => p.tax_code_id);
+    const catalog = products.filter((p) => p.tax_code_id && p.is_active !== false);
     return catalog.map((p) => ({
       value: p.product_id,
       label: p.product_name,

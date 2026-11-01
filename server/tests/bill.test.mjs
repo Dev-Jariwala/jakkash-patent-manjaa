@@ -14,6 +14,7 @@ import {
 } from "../services/bill.js";
 import {
   BillDuplicateNumberError,
+  BillInsufficientStockError,
   BillValidationError,
 } from "../services/billErrors.js";
 import {
@@ -143,6 +144,177 @@ describe("createBill", () => {
         assert.match(error.message, /no HSN\/SAC/);
         return true;
       }
+    );
+  });
+
+  it("rejects a new line when the product is inactive", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const product = world.seedProduct(collectionId, {
+      tax_code_id: taxCode.tax_code_id,
+      is_active: false,
+    });
+
+    await assert.rejects(
+      () =>
+        createBill(world.deps, collectionId, {
+          bill_number_parts: ["4", "4", "5"],
+          bill_date: "2026-10-11",
+          receiver_mobile: client.mobile,
+          tax_shape: TAX_SHAPE_WITHIN_STATE,
+          lines: [
+            {
+              product_id: product.product_id,
+              tax_code_id: taxCode.tax_code_id,
+              quantity: 1,
+              rate: 100,
+              ...copyTrioPercentsFromTaxCode(taxCode),
+            },
+          ],
+        }),
+      (error) => {
+        assert.ok(error instanceof BillValidationError);
+        assert.match(error.message, /inactive/i);
+        assert.doesNotMatch(error.message, /no HSN\/SAC/);
+        return true;
+      }
+    );
+  });
+
+  it("rejects an inactive product with no tax code as inactive", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const product = world.seedProduct(collectionId, {
+      tax_code_id: null,
+      is_active: false,
+    });
+
+    await assert.rejects(
+      () =>
+        createBill(world.deps, collectionId, {
+          bill_number_parts: ["4", "4", "6"],
+          bill_date: "2026-10-11",
+          receiver_mobile: client.mobile,
+          tax_shape: TAX_SHAPE_WITHIN_STATE,
+          lines: [
+            {
+              product_id: product.product_id,
+              tax_code_id: taxCode.tax_code_id,
+              quantity: 1,
+              rate: 100,
+              ...copyTrioPercentsFromTaxCode(taxCode),
+            },
+          ],
+        }),
+      (error) => {
+        assert.ok(error instanceof BillValidationError);
+        assert.match(error.message, /inactive/i);
+        assert.doesNotMatch(error.message, /no HSN\/SAC/);
+        return true;
+      }
+    );
+  });
+
+  it("saves a line whose product is now inactive when the product was not chosen again", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode({ code: "520910", description: "Cotton yarn" });
+    const product = world.seedProduct(collectionId, {
+      tax_code_id: taxCode.tax_code_id,
+      stock_in_hand: 20,
+    });
+
+    const created = await createBill(
+      world.deps,
+      collectionId,
+      standardBillPayload({
+        world,
+        collectionId,
+        product,
+        taxCode,
+        client,
+        overrides: {
+          bill_number_parts: ["4", "4", "7"],
+          lines: [
+            {
+              product_id: product.product_id,
+              tax_code_id: taxCode.tax_code_id,
+              quantity: 5,
+              rate: 220,
+              ...copyTrioPercentsFromTaxCode(taxCode),
+            },
+          ],
+        },
+      })
+    );
+
+    world.seedProduct(collectionId, {
+      product_id: product.product_id,
+      product_name: product.product_name,
+      tax_code_id: taxCode.tax_code_id,
+      is_active: false,
+      stock_in_hand: 15,
+    });
+
+    const updated = await updateBill(
+      world.deps,
+      collectionId,
+      created.bill_id,
+      updatePayloadFromBill(created, {
+        lines: [
+          {
+            bill_line_id: created.lines[0].bill_line_id,
+            product_id: product.product_id,
+            tax_code_id: created.lines[0].tax_code_id,
+            quantity: 8,
+            rate: created.lines[0].rate,
+            cgst_percent: created.lines[0].cgst_percent,
+            sgst_percent: created.lines[0].sgst_percent,
+            igst_percent: created.lines[0].igst_percent,
+          },
+        ],
+      })
+    );
+
+    assert.equal(updated.lines[0].quantity, 8);
+    assert.equal(updated.lines[0].tax_code, "520910");
+    assert.equal(updated.lines[0].product_id, product.product_id);
+
+    world.seedProduct(collectionId, {
+      product_id: product.product_id,
+      product_name: product.product_name,
+      tax_code_id: taxCode.tax_code_id,
+      is_active: false,
+      stock_in_hand: 0,
+    });
+
+    await assert.rejects(
+      () =>
+        updateBill(
+          world.deps,
+          collectionId,
+          created.bill_id,
+          updatePayloadFromBill(updated, {
+            lines: [
+              {
+                bill_line_id: updated.lines[0].bill_line_id,
+                product_id: product.product_id,
+                tax_code_id: updated.lines[0].tax_code_id,
+                quantity: 9,
+                rate: updated.lines[0].rate,
+                cgst_percent: updated.lines[0].cgst_percent,
+                sgst_percent: updated.lines[0].sgst_percent,
+                igst_percent: updated.lines[0].igst_percent,
+              },
+            ],
+          })
+        ),
+      BillInsufficientStockError
     );
   });
 

@@ -15,7 +15,7 @@ export const createProductHandler = async (req, res) => {
 
 export const getProductsByCollectionId = async (req, res) => {
   const { collection_id } = req.params;
-  const { page = 1, limit = 10, sortField, sortOrder, search = "" } = req.query;
+  const { page = 1, limit = 10, sortField, sortOrder, search = "", status } = req.query;
 
   try {
     const { products, totalCount, pagination } = await listProducts(createProductDeps(), {
@@ -25,6 +25,9 @@ export const getProductsByCollectionId = async (req, res) => {
       search,
       sortField,
       sortOrder,
+      // Orders, Bills, and stock-in omit status and still need every product,
+      // including one already named on a saved line. The products list sends a status.
+      status: status || "all",
     });
 
     const responsePage = pagination.unpaged ? -1 : pagination.page;

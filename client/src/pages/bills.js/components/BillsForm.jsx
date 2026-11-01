@@ -36,6 +36,17 @@ import {
 import { BILL_NUMBER_LABEL } from "@jakkash/bill-pdf";
 import { RequiredMark } from "@/components/form/RequiredMark";
 
+function productFitsOrder(product, orderType, orderItems) {
+    const price = Number(product?.[`${orderType}_price`]);
+    if (!(price > 0)) {
+        return false;
+    }
+    if (product?.is_active !== false) {
+        return true;
+    }
+    return (orderItems ?? []).some((item) => item.product_id === product.product_id);
+}
+
 const BillsForm = () => {
     const { order_id } = useParams();
     const [activeCollection] = useLocalStorage("activeCollection", null);
@@ -183,7 +194,10 @@ const BillsForm = () => {
         },
         enabled: mobile?.length === 10,
     });
-    const productsOptions = useMemo(() => products?.filter(product => product?.[`${orderType}_price`] > 0)?.map(product => ({ label: product?.product_name, value: product?.product_id })) || [], [products]);
+    const productsOptions = useMemo(() => {
+        const orderItems = formType === "update" ? bill?.order_items : [];
+        return products?.filter((product) => productFitsOrder(product, orderType, orderItems))?.map(product => ({ label: product?.product_name, value: product?.product_id })) || [];
+    }, [products, orderType, formType, bill]);
 
     const createOrderMutation = useMutation({
         mutationFn: createOrder,
@@ -265,13 +279,16 @@ const BillsForm = () => {
     };
 
     useEffect(() => {
+        if (formType === "update") {
+            return;
+        }
         const oldsProducts = form.getValues('products');
-        const showProducts = products?.filter(product => product?.[`${orderType}_price`] > 0)?.map(product => {
+        const showProducts = products?.filter((product) => productFitsOrder(product, orderType, []))?.map(product => {
             const oldProd = oldsProducts?.find(p => p.product_id === product?.product_id);
             return ({ product_id: product?.product_id, product_name: product?.product_name, is_labour: product?.is_labour, quantity: oldProd?.quantity || 0, price: product[`${orderType}_price`], stock_in_hand: product?.stock_in_hand, total: oldProd?.total || 0 })
         }) || [];
         form.setValue('products', sortProductsByNames(showProducts, productNamesOrder));
-    }, [products, orderType]);
+    }, [products, orderType, formType]);
 
     useEffect(() => {
         if (formType === 'update' && bill) {
@@ -281,7 +298,7 @@ const BillsForm = () => {
             form.setValue('address', bill.address);
             form.setValue('order_date', new Date(bill.order_date));
             form.setValue('delivery_date', new Date(bill.delivery_date));
-            const showProducts = products?.filter(product => product?.[`${bill.order_type}_price`] > 0)?.map(product => {
+            const showProducts = products?.filter((product) => productFitsOrder(product, bill.order_type, bill.order_items))?.map(product => {
                 console.log({ product, bill });
                 const billItem = bill.order_items.find(item => item.product_id === product.product_id);
                 const price = product[`${bill.order_type}_price`];

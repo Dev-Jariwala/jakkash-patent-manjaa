@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
 import {
+  assertProductMayBeNewlyChosen,
   copyProductsToCollection,
   createProduct,
   getProduct,
@@ -9,6 +10,7 @@ import {
   updateProduct,
 } from "../services/product.js";
 import {
+  ProductInactiveError,
   ProductTaxCodeCategoryMismatchError,
   ProductTaxCodeNotFoundError,
 } from "../services/productErrors.js";
@@ -733,5 +735,227 @@ describe("getProduct and listProducts", () => {
     assert.equal(updated.stock_in_hand, 4);
     assert.equal(updated.total_stock, 9);
     assert.equal(updated.is_labour, false);
+  });
+});
+
+describe("active choice", () => {
+  it("saves a new product as active when the choice is omitted", async () => {
+    const world = createProductWorld();
+
+    const saved = await createProduct(world.deps, collectionId, {
+      product_name: "Cotton",
+      wholesale_price: 100,
+      retail_price: 120,
+      is_labour: 0,
+    });
+
+    assert.equal(saved.is_active, true);
+    assert.equal(saved.is_delete, false);
+
+    const loaded = await getProduct(world.deps, saved.product_id);
+    assert.equal(loaded.is_active, true);
+  });
+
+  it("saves new labour as active when the choice is omitted", async () => {
+    const world = createProductWorld();
+
+    const saved = await createProduct(world.deps, collectionId, {
+      product_name: "Stitching",
+      wholesale_price: 80,
+      retail_price: 120,
+      is_labour: 1,
+      tax_code_id: "",
+    });
+
+    assert.equal(saved.is_active, true);
+    assert.equal(saved.is_labour, true);
+  });
+
+  it("saves a product or labour as inactive and can turn it active again", async () => {
+    const world = createProductWorld();
+
+    const product = await createProduct(world.deps, collectionId, {
+      product_name: "Cotton",
+      wholesale_price: 100,
+      retail_price: 120,
+      is_labour: 0,
+      is_active: 0,
+    });
+    const labour = await createProduct(world.deps, collectionId, {
+      product_name: "Stitching",
+      wholesale_price: 80,
+      retail_price: 120,
+      is_labour: 1,
+      is_active: "0",
+    });
+
+    assert.equal(product.is_active, false);
+    assert.equal(product.is_labour, false);
+    assert.equal(product.is_delete, false);
+    assert.equal(labour.is_active, false);
+    assert.equal(labour.is_labour, true);
+    assert.equal(labour.is_delete, false);
+
+    const restored = await updateProduct(world.deps, product.product_id, {
+      product_name: "Cotton",
+      wholesale_price: 100,
+      retail_price: 120,
+      is_labour: 0,
+      is_active: 1,
+    });
+
+    assert.equal(restored.is_active, true);
+    const loaded = await getProduct(world.deps, product.product_id);
+    assert.equal(loaded.is_active, true);
+    assert.equal(loaded.is_delete, false);
+  });
+
+  it("reads a product saved before the choice existed as active", async () => {
+    const world = createProductWorld();
+    const seeded = world.seedProduct({
+      collection_id: collectionId,
+      product_name: "Legacy",
+    });
+
+    const loaded = await getProduct(world.deps, seeded.product_id);
+    assert.equal(loaded.is_active, true);
+    assert.equal(loaded.is_delete, false);
+  });
+
+  it("lists active products by default, and an inactive product when asked for inactive or all", async () => {
+    const world = createProductWorld();
+    await createProduct(world.deps, collectionId, {
+      product_name: "Cotton",
+      wholesale_price: 100,
+      retail_price: 120,
+      is_labour: 0,
+    });
+    await createProduct(world.deps, collectionId, {
+      product_name: "Old dye",
+      wholesale_price: 40,
+      retail_price: 50,
+      is_labour: 0,
+      is_active: false,
+    });
+
+    const activeOnly = await listProducts(world.deps, {
+      collectionId,
+      page: 1,
+      limit: 10,
+      search: "",
+    });
+
+    assert.equal(activeOnly.totalCount, 1);
+    assert.equal(activeOnly.products.length, 1);
+    assert.equal(activeOnly.products[0].product_name, "Cotton");
+    assert.equal(activeOnly.products[0].is_active, true);
+
+    const inactiveOnly = await listProducts(world.deps, {
+      collectionId,
+      page: 1,
+      limit: 10,
+      search: "",
+      status: "inactive",
+    });
+
+    assert.equal(inactiveOnly.totalCount, 1);
+    assert.equal(inactiveOnly.products[0].product_name, "Old dye");
+    assert.equal(inactiveOnly.products[0].is_active, false);
+
+    const all = await listProducts(world.deps, {
+      collectionId,
+      page: 1,
+      limit: 10,
+      search: "",
+      status: "all",
+    });
+
+    assert.equal(all.totalCount, 2);
+    const cotton = all.products.find((row) => row.product_name === "Cotton");
+    const dye = all.products.find((row) => row.product_name === "Old dye");
+    assert.equal(cotton.is_active, true);
+    assert.equal(dye.is_active, false);
+
+    const dyeInsideActive = await listProducts(world.deps, {
+      collectionId,
+      page: 1,
+      limit: 10,
+      search: "dye",
+    });
+    assert.equal(dyeInsideActive.totalCount, 0);
+
+    const dyeInsideAll = await listProducts(world.deps, {
+      collectionId,
+      page: 1,
+      limit: 10,
+      search: "dye",
+      status: "all",
+    });
+    assert.equal(dyeInsideAll.totalCount, 1);
+    assert.equal(dyeInsideAll.products[0].product_name, "Old dye");
+  });
+
+  it("does not change stock in hand when a product is marked inactive", async () => {
+    const world = createProductWorld();
+    const seeded = world.seedProduct({
+      collection_id: collectionId,
+      product_name: "Cotton",
+      wholesale_price: 250,
+      retail_price: 300,
+      stock_in_hand: 40,
+      total_stock: 100,
+      is_labour: false,
+    });
+
+    const updated = await updateProduct(world.deps, seeded.product_id, {
+      product_name: "Cotton",
+      wholesale_price: 250,
+      retail_price: 300,
+      is_labour: 0,
+      is_active: 0,
+    });
+
+    assert.equal(updated.is_active, false);
+    assert.equal(updated.stock_in_hand, 40);
+    assert.equal(updated.total_stock, 100);
+    assert.equal(updated.is_delete, false);
+  });
+
+  it("rejects a new choice of an inactive product and allows one already on the document", () => {
+    const world = createProductWorld();
+    const inactive = world.seedProduct({
+      collection_id: collectionId,
+      product_name: "Old dye",
+      is_active: false,
+    });
+    const active = world.seedProduct({
+      collection_id: collectionId,
+      product_name: "Cotton",
+      is_active: true,
+    });
+    const inactiveLabour = world.seedProduct({
+      collection_id: collectionId,
+      product_name: "Old stitching",
+      is_labour: true,
+      is_active: false,
+    });
+
+    assert.throws(
+      () => assertProductMayBeNewlyChosen(inactive),
+      (error) => {
+        assert.ok(error instanceof ProductInactiveError);
+        assert.match(error.message, /inactive/i);
+        assert.doesNotMatch(error.message, /HSN|SAC|deleted/i);
+        return true;
+      }
+    );
+    assert.doesNotThrow(() =>
+      assertProductMayBeNewlyChosen(inactive, { alreadyOnDocument: true })
+    );
+    assert.doesNotThrow(() => assertProductMayBeNewlyChosen(active));
+    assert.throws(() => assertProductMayBeNewlyChosen(inactiveLabour), ProductInactiveError);
+    assert.doesNotThrow(() =>
+      assertProductMayBeNewlyChosen(inactiveLabour, { alreadyOnDocument: true })
+    );
   });
 });

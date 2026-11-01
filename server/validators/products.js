@@ -35,6 +35,24 @@ export const validateCreateProduct = [
     .isFloat({ gt: -1 })
     .withMessage("Retail price must be a positive number"),
   body("is_labour").isIn([0, 1]).withMessage("is_labour must be 0 or 1"),
+  body("is_active")
+    .optional({ values: "null" })
+    .custom((value) => {
+      if (
+        value === "" ||
+        value === true ||
+        value === false ||
+        value === 0 ||
+        value === 1 ||
+        value === "0" ||
+        value === "1" ||
+        value === "true" ||
+        value === "false"
+      ) {
+        return true;
+      }
+      throw new Error("is_active must be 0 or 1");
+    }),
   body("tax_code_id")
     .optional({ values: "falsy" })
     .isUUID()
@@ -85,6 +103,24 @@ export const validateUpdateProduct = [
     .isFloat({ gt: -1 })
     .withMessage("Retail price must be a positive number"),
   body("is_labour").isIn([0, 1]).withMessage("is_labour must be 0 or 1"),
+  body("is_active")
+    .optional({ values: "null" })
+    .custom((value) => {
+      if (
+        value === "" ||
+        value === true ||
+        value === false ||
+        value === 0 ||
+        value === 1 ||
+        value === "0" ||
+        value === "1" ||
+        value === "true" ||
+        value === "false"
+      ) {
+        return true;
+      }
+      throw new Error("is_active must be 0 or 1");
+    }),
   body("tax_code_id")
     .optional({ values: "falsy" })
     .isUUID()

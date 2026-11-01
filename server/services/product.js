@@ -1,4 +1,5 @@
 import {
+  ProductInactiveError,
   ProductNotFoundError,
   ProductTaxCodeCategoryMismatchError,
   ProductTaxCodeNotFoundError,
@@ -18,6 +19,15 @@ export const PRODUCT_SORT_FIELDS = {
 };
 
 const DEFAULT_PRODUCT_SORT_FIELD = "sr_no";
+const PRODUCT_LIST_STATUSES = new Set(["active", "inactive", "all"]);
+
+export function resolveProductListStatus(status) {
+  if (status === undefined || status === null || String(status).trim() === "") {
+    return "active";
+  }
+  const value = String(status).trim().toLowerCase();
+  return PRODUCT_LIST_STATUSES.has(value) ? value : "active";
+}
 
 export function resolveProductsListOrdering({ sortField, sortOrder }) {
   const column = Object.hasOwn(PRODUCT_SORT_FIELDS, String(sortField ?? ""))
@@ -86,6 +96,36 @@ function expectedTaxCodeType(isLabour) {
   return isLabour ? "SAC" : "HSN";
 }
 
+export function productIsActive(product) {
+  const value = product?.is_active;
+  if (value === undefined || value === null || value === "") {
+    return true;
+  }
+  return !(value === false || value === 0 || value === "0" || value === "false");
+}
+
+function parseIsActive(raw) {
+  if (raw === undefined || raw === null || raw === "") {
+    return true;
+  }
+  if (raw === true || raw === 1 || raw === "1" || raw === "true") {
+    return true;
+  }
+  if (raw === false || raw === 0 || raw === "0" || raw === "false") {
+    return false;
+  }
+  throw new ProductValidationError("is_active must be 0 or 1");
+}
+
+export function assertProductMayBeNewlyChosen(product, { alreadyOnDocument = false } = {}) {
+  if (alreadyOnDocument) {
+    return;
+  }
+  if (!productIsActive(product)) {
+    throw new ProductInactiveError();
+  }
+}
+
 function assertTaxCodeMatchesCategory(isLabour, taxCodeType) {
   if (taxCodeType !== expectedTaxCodeType(isLabour)) {
     throw new ProductTaxCodeCategoryMismatchError();
@@ -125,6 +165,7 @@ export function formatProductRow(row, taxCode = null) {
     stock_in_hand: row.stock_in_hand,
     total_stock: row.total_stock,
     is_labour: Boolean(row.is_labour),
+    is_active: productIsActive(row),
     is_delete: Boolean(row.is_delete),
     created_at: row.created_at,
     updated_at: row.updated_at,
@@ -148,6 +189,7 @@ export async function createProduct(deps, collectionId, rawInput) {
   const wholesalePrice = parsePrice(rawInput?.wholesale_price, "Wholesale price");
   const retailPrice = parsePrice(rawInput?.retail_price, "Retail price");
   const isLabour = parseIsLabour(rawInput?.is_labour);
+  const isActive = parseIsActive(rawInput?.is_active);
   const { taxCodeId, taxCode } = await resolveOptionalTaxCode(
     deps,
     isLabour,
@@ -160,6 +202,7 @@ export async function createProduct(deps, collectionId, rawInput) {
     wholesale_price: wholesalePrice,
     retail_price: retailPrice,
     is_labour: isLabour,
+    is_active: isActive,
     tax_code_id: taxCodeId,
     stock_in_hand: 0,
     total_stock: 0,
@@ -183,6 +226,7 @@ export async function updateProduct(deps, productId, rawInput) {
   const wholesalePrice = parsePrice(rawInput?.wholesale_price, "Wholesale price");
   const retailPrice = parsePrice(rawInput?.retail_price, "Retail price");
   const isLabour = parseIsLabour(rawInput?.is_labour);
+  const isActive = parseIsActive(rawInput?.is_active);
   const { taxCodeId, taxCode } = await resolveOptionalTaxCode(
     deps,
     isLabour,
@@ -194,6 +238,7 @@ export async function updateProduct(deps, productId, rawInput) {
     wholesale_price: wholesalePrice,
     retail_price: retailPrice,
     is_labour: isLabour,
+    is_active: isActive,
     tax_code_id: taxCodeId,
   });
 
@@ -234,6 +279,7 @@ export async function copyProductsToCollection(deps, sourceCollectionId, targetC
       stock_in_hand: 0,
       total_stock: 0,
       is_labour: Boolean(row.is_labour),
+      is_active: productIsActive(row),
       tax_code_id: row.tax_code_id ?? null,
     });
     copied.push(await formatProductWithTaxCode(deps, inserted));
@@ -244,10 +290,11 @@ export async function copyProductsToCollection(deps, sourceCollectionId, targetC
 
 export async function listProducts(
   deps,
-  { collectionId, page, limit, search, sortField, sortOrder }
+  { collectionId, page, limit, search, sortField, sortOrder, status }
 ) {
   const pagination = resolveProductsListPagination({ page, limit });
   const { column, direction } = resolveProductsListOrdering({ sortField, sortOrder });
+  const listStatus = resolveProductListStatus(status);
 
   const { rows, totalCount } = await deps.listProducts({
     collectionId,
@@ -257,6 +304,7 @@ export async function listProducts(
     unpaged: pagination.unpaged,
     limit: pagination.limit,
     offset: pagination.offset,
+    status: listStatus,
   });
   const products = await Promise.all(rows.map((row) => formatProductWithTaxCode(deps, row)));
   return { products, totalCount, pagination };

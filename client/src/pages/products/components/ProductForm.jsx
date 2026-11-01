@@ -52,6 +52,10 @@ const schema = yup.object().shape({
     .string()
     .oneOf(["0", "1"], "Select a category")
     .typeError("Select a category"),
+  is_active: yup
+    .string()
+    .oneOf(["0", "1"], "Select Active or Inactive")
+    .typeError("Select Active or Inactive"),
   tax_code_id: yup.string(),
 });
 
@@ -76,6 +80,7 @@ const ProductForm = () => {
       retail_price: "",
       wholesale_price: "",
       is_labour: "0",
+      is_active: "1",
       tax_code_id: "",
     },
   });
@@ -136,6 +141,7 @@ const ProductForm = () => {
     const payload = {
       ...data,
       is_labour: Number(data.is_labour),
+      is_active: formType === "new" ? 1 : Number(data.is_active),
       tax_code_id: data.tax_code_id ? data.tax_code_id : null,
     };
     if (formType === "new") {
@@ -153,6 +159,7 @@ const ProductForm = () => {
         retail_price: product?.retail_price,
         wholesale_price: product?.wholesale_price,
         is_labour: product?.is_labour ? "1" : "0",
+        is_active: product?.is_active === false ? "0" : "1",
         tax_code_id: product?.tax_code_id ?? "",
       });
     }
@@ -301,7 +308,7 @@ const ProductForm = () => {
                     </FormLabel>
                     <FormControl>
                       <Select value={String(field.value)} onValueChange={field.onChange}>
-                        <SelectTrigger className="w-full lg:w-[180px]">
+                        <SelectTrigger className="w-full">
                           <SelectValue placeholder="Collection" />
                         </SelectTrigger>
                         <SelectContent>
@@ -314,6 +321,31 @@ const ProductForm = () => {
                   </FormItem>
                 )}
               />
+              {formType === "update" && (
+                <FormField
+                  control={form.control}
+                  name="is_active"
+                  render={({ field }) => (
+                    <FormItem className="order-6">
+                      <FormLabel>
+                        Status <RequiredMark />
+                      </FormLabel>
+                      <FormControl>
+                        <Select value={String(field.value)} onValueChange={field.onChange}>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Active" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="1">Active</SelectItem>
+                            <SelectItem value="0">Inactive</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
             </div>
             <div className="w-full mt-5">
               <MutationError mutation={createProductMutation} />

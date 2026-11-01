@@ -21,9 +21,9 @@ export function createProductDeps() {
       const [inserted] = await query(
         `insert into products (
            collection_id, product_name, wholesale_price, retail_price,
-           stock_in_hand, total_stock, is_labour, tax_code_id
+           stock_in_hand, total_stock, is_labour, tax_code_id, is_active
          )
-         values ($1, $2, $3, $4, $5, $6, $7, $8)
+         values ($1, $2, $3, $4, $5, $6, $7, $8, $9)
          returning *`,
         [
           product.collection_id,
@@ -34,6 +34,7 @@ export function createProductDeps() {
           product.total_stock,
           product.is_labour,
           product.tax_code_id,
+          product.is_active !== false,
         ]
       );
       return inserted;
@@ -47,8 +48,9 @@ export function createProductDeps() {
              retail_price = $3,
              is_labour = $4,
              tax_code_id = $5,
+             is_active = $6,
              updated_at = now()
-         where product_id = $6
+         where product_id = $7
          returning *`,
         [
           product.product_name,
@@ -56,6 +58,7 @@ export function createProductDeps() {
           product.retail_price,
           product.is_labour,
           product.tax_code_id,
+          product.is_active !== false,
           productId,
         ]
       );
@@ -80,21 +83,28 @@ export function createProductDeps() {
       sortColumn,
       sortDirection,
       unpaged,
+      status = "active",
     }) {
       const searchQuery = `%${String(search ?? "").toLowerCase()}%`;
+      const statusSql =
+        status === "all"
+          ? ""
+          : status === "inactive"
+            ? " and is_active = false"
+            : " and is_active = true";
 
       const countParams = [collectionId, searchQuery];
       const [totalCountResult] = await query(
         `select count(*)::int as total_count
          from products
          where collection_id = $1
-           and product_name ilike $2`,
+           and product_name ilike $2${statusSql}`,
         countParams
       );
 
       let listSql = `select * from products
          where collection_id = $1
-           and product_name ilike $2
+           and product_name ilike $2${statusSql}
          order by ${sortColumn} ${sortDirection}`;
       const listParams = [collectionId, searchQuery];
 

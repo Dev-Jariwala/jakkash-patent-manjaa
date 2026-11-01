@@ -37,7 +37,7 @@ const columnsDef = [
       const type = row.tax_code_type ?? "";
       const code = row.tax_code_code ?? "";
       if (!type || !code) {
-        return null;
+        return "—";
       }
       return `${type} ${code}`;
     },
@@ -72,6 +72,23 @@ const columnsDef = [
           className={''}
         >
           {info.getValue() ? "Labour" : "Product"}
+        </Chip>
+      );
+    },
+  }),
+  columnHelper.accessor("is_active", {
+    header: "Status",
+    cell: (info) => {
+      const active = info.getValue() !== false;
+      return (
+        <Chip
+          variant={"light"}
+          border={"none"}
+          size={"xs"}
+          color={active ? "green" : "red"}
+          className={''}
+        >
+          {active ? "Active" : "Inactive"}
         </Chip>
       );
     },
@@ -129,11 +146,17 @@ const ProductsTable = () => {
   const [columnOrder, setColumnOrder] = useState([]);
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 300);
+  const [status, setStatus] = useState("active");
 
   const { data: productData, isLoading: isProductDataLoading, error: productDataError } = useQuery({
-    queryKey: ["products", activeCollection, pagination, debouncedSearch],
+    queryKey: ["products", activeCollection, pagination, debouncedSearch, status],
     queryFn: async () => {
-      const response = await getProductsByCollectionId({ activeCollection, pagination, debouncedSearch });
+      const response = await getProductsByCollectionId({
+        activeCollection,
+        pagination,
+        debouncedSearch,
+        status,
+      });
       return response.data;
     },
     enabled: !!activeCollection,
@@ -167,12 +190,30 @@ const ProductsTable = () => {
   return (
     <>
       <div className="flex items-center justify-between px-4">
-        <Input
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search product name..."
-          className="max-w-64"
-        />
+        <div className="flex items-center gap-3">
+          <Input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search product name..."
+            className="max-w-64"
+          />
+          <Select
+            value={status}
+            onValueChange={(value) => {
+              setStatus(value);
+              setPagination((current) => ({ ...current, pageIndex: 0 }));
+            }}
+          >
+            <SelectTrigger aria-label="Status" className="w-36 shrink-0">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="active">Active</SelectItem>
+              <SelectItem value="inactive">Inactive</SelectItem>
+              <SelectItem value="all">All</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
         <div className="flex items-center space-x-5">
           <Link to={`/products/report`} className="flex items-center space-x-2 border border-destructive/30 rounded-lg px-2 cursor-pointer hover:bg-destructive/10 py-1 text-destructive">
             <Avatar className="w-6 h-6 rounded-none">

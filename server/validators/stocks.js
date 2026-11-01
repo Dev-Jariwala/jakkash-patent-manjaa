@@ -1,4 +1,5 @@
 import { body, param, validationResult } from "express-validator";
+import { assertProductMayBeNewlyChosen } from "../services/product.js";
 import { query } from "../utils/query.js";
 
 export const validateGetStocks = [
@@ -63,6 +64,7 @@ export const validateCreateStock = [
       if (!product) {
         throw new Error("product not found");
       }
+      assertProductMayBeNewlyChosen(product);
       req.product = product;
       return true;
     }),

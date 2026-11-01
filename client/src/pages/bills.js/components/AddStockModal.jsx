@@ -52,7 +52,7 @@ const AddStockModal = ({ open, onClose }) => {
         },
         enabled: !!activeCollection,
     });
-    const productsOptions = useMemo(() => products?.map(product => ({ label: product?.product_name, value: product?.product_id })) || [], [products]);
+    const productsOptions = useMemo(() => products?.filter((product) => product?.is_active !== false)?.map(product => ({ label: product?.product_name, value: product?.product_id })) || [], [products]);
 
     const createStockMutation = useMutation({
         mutationFn: async (data) => {
