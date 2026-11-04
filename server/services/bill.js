@@ -1091,13 +1091,6 @@ async function copyShopBankBlock(deps) {
   };
 }
 
-async function assertBillNumberAvailable(deps, collectionId, billNumber, excludeBillId = null) {
-  const existing = await deps.getBillByBillNumber(collectionId, billNumber);
-  if (existing && existing.bill_id !== excludeBillId) {
-    throw new BillDuplicateNumberError();
-  }
-}
-
 export const BILL_YEAR_REQUIRED_MESSAGE =
   "Set a bill year on this collection before raising a bill.";
 export const BILL_SERIES_REQUIRED_MESSAGE =
@@ -1289,9 +1282,8 @@ export async function updateBill(deps, collectionId, billId, rawInput) {
   if (!existing || existing.collection_id !== collectionId) {
     throw new BillNotFoundError();
   }
-  const { billNumber } = parseBillNumberParts(rawInput?.bill_number_parts);
+  const billNumber = existing.bill_number;
   const billDate = parseBillDate(rawInput?.bill_date);
-  await assertBillNumberAvailable(deps, collectionId, billNumber, billId);
 
   const receiverMobile = rawInput?.receiver_mobile ?? existing.receiver_mobile;
   let receiver;

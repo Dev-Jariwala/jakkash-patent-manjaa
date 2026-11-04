@@ -57,8 +57,20 @@ A GST document entered directly for one collection. It is not created from an Or
 _Avoid_: Order, invoice, calling it an invoice or an Order
 
 **Bill number**:
-The three-part number typed for a Bill, stored as one hyphenated value, unique within the collection it was raised in.
-_Avoid_: Invoice number, order number, generated sequence
+The three-part number of a Bill, stored as one hyphenated value, unique within the collection it was raised in. On a new Bill the series is chosen, the year is the collection's current bill year, and the serial is generated. Once saved, the number does not change.
+_Avoid_: Invoice number, order number, typing the year or the serial
+
+**Bill series**:
+The name printed on a Bill, fixed once saved, active or inactive, and a new Bill will offer it only while it is active.
+_Avoid_: shop code, and a label besides the name
+
+**Bill year**:
+The year a collection stores, printed as the second part of a Bill raised while that year is current. A saved Bill keeps the year it was raised with.
+_Avoid_: the collection name
+
+**Bill serial**:
+The generated third part, counted inside one collection for one bill series and one bill year.
+_Avoid_: a shop-wide sequence, and a typed number
 
 **Receiver**:
 The GST client a Bill was raised to. The Bill stores that client's id and a copy of the name, address, GST number, contact person, and contact number taken when that client was chosen for the save.

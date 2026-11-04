@@ -16,7 +16,6 @@ import {
   updateBill,
 } from "../services/bill.js";
 import {
-  BillDuplicateNumberError,
   BillInsufficientStockError,
   BillValidationError,
 } from "../services/billErrors.js";
@@ -1561,7 +1560,7 @@ describe("updateBill", () => {
     assert.equal(updated.bank_account_number, "012345678");
   });
 
-  it("accepts this bill's own number and rejects another bill's number", async () => {
+  it("keeps this bill's number when edit sends another bill's number", async () => {
     const world = createBillWorld();
     const collectionId = world.seedCollection();
     const client = world.seedClient();
@@ -1578,26 +1577,15 @@ describe("updateBill", () => {
       bill_number_parts: ["1", "0", "0"],
     });
 
-    await updateBill(
+    const kept = await updateBill(
       world.deps,
       collectionId,
       first.bill_id,
-      updatePayloadFromBill(first)
+      updatePayloadFromBill(first, { bill_number_parts: second.bill_number.split("-") })
     );
 
-    await assert.rejects(
-      () =>
-        updateBill(
-          world.deps,
-          collectionId,
-          first.bill_id,
-          updatePayloadFromBill(first, { bill_number_parts: second.bill_number.split("-") })
-        ),
-      (error) => {
-        assert.ok(error instanceof BillDuplicateNumberError);
-        return true;
-      }
-    );
+    assert.equal(kept.bill_number, "9-26-01");
+    assert.equal((await getBill(world.deps, collectionId, second.bill_id)).bill_number, "1-26-01");
   });
 
   it("drops a removed line, saves a new line, and keeps submitted order", async () => {
@@ -1712,7 +1700,7 @@ describe("updateBill", () => {
 describe("bill number per collection", () => {
   const sharedNumberParts = ["00", "26", "01"];
 
-  it("saves 00-26-01 in two collections and rejects a second 00-26-01 in one collection", async () => {
+  it("saves 00-26-01 in two collections and leaves the next bill in one collection as 00-26-02", async () => {
     const world = createBillWorld();
     const collectionA = world.seedCollection();
     const collectionB = world.seedCollection();
@@ -1757,23 +1745,17 @@ describe("bill number per collection", () => {
     });
     assert.equal(secondInA.bill_number, "00-26-02");
 
-    await assert.rejects(
-      () =>
-        updateBill(
-          world.deps,
-          collectionA,
-          secondInA.bill_id,
-          updatePayloadFromBill(secondInA, { bill_number_parts: sharedNumberParts })
-        ),
-      (error) => {
-        assert.ok(error instanceof BillDuplicateNumberError);
-        assert.equal(error.message, "This bill number is already in use");
-        return true;
-      }
+    const edited = await updateBill(
+      world.deps,
+      collectionA,
+      secondInA.bill_id,
+      updatePayloadFromBill(secondInA, { bill_number_parts: sharedNumberParts })
     );
+    assert.equal(edited.bill_number, "00-26-02");
+    assert.equal((await getBill(world.deps, collectionA, inA.bill_id)).bill_number, "00-26-01");
   });
 
-  it("edit keeps its own number and may take a number used only in another collection", async () => {
+  it("edit keeps its own number when sent a number used only in another collection", async () => {
     const world = createBillWorld();
     const collectionA = world.seedCollection();
     const collectionB = world.seedCollection();
@@ -1782,7 +1764,7 @@ describe("bill number per collection", () => {
     const productB = world.seedProduct(collectionB);
     const taxCode = world.seedTaxCode();
 
-    await createBill(world.deps, collectionA, {
+    const billInA = await createBill(world.deps, collectionA, {
       ...standardBillPayload({
         world,
         collectionId: collectionA,
@@ -1817,10 +1799,11 @@ describe("bill number per collection", () => {
       billInB.bill_id,
       updatePayloadFromBill(billInB, { bill_number_parts: sharedNumberParts })
     );
-    assert.equal(retargeted.bill_number, "00-26-01");
+    assert.equal(retargeted.bill_number, "1-26-01");
+    assert.equal((await getBill(world.deps, collectionA, billInA.bill_id)).bill_number, "00-26-01");
   });
 
-  it("keeps 00-26-01 and an edited 0-26-1 as different numbers", async () => {
+  it("keeps 00-26-01 and 0-26-01 when edit sends an unpadded serial", async () => {
     const world = createBillWorld();
     const collectionId = world.seedCollection();
     const client = world.seedClient();
@@ -1845,7 +1828,7 @@ describe("bill number per collection", () => {
 
     assert.equal(first.bill_number, "00-26-01");
     assert.equal(second.bill_number, "0-26-01");
-    assert.equal(edited.bill_number, "0-26-1");
+    assert.equal(edited.bill_number, "0-26-01");
     assert.equal((await getBill(world.deps, collectionId, first.bill_id)).bill_number, "00-26-01");
   });
 });
@@ -3214,7 +3197,7 @@ describe("next bill serial", () => {
     );
   });
 
-  it("saves ST-2026-01 in a second collection and refuses a second copy in the same collection", async () => {
+  it("saves ST-2026-01 in a second collection and leaves the next bill in the first as ST-2026-02", async () => {
     const world = createBillWorld();
     const collectionA = world.seedCollection(randomUUID(), { bill_year: "2026" });
     const collectionB = world.seedCollection(randomUUID(), { bill_year: "2026" });
@@ -3242,21 +3225,16 @@ describe("next bill serial", () => {
 
     assert.equal(inA.bill_number, "ST-2026-01");
     assert.equal(inB.bill_number, "ST-2026-01");
+    assert.equal(nextInA.bill_number, "ST-2026-02");
 
-    await assert.rejects(
-      () =>
-        updateBill(
-          world.deps,
-          collectionA,
-          nextInA.bill_id,
-          updatePayloadFromBill(nextInA, { bill_number_parts: ["ST", "2026", "01"] })
-        ),
-      (error) => {
-        assert.ok(error instanceof BillDuplicateNumberError);
-        assert.equal(error.message, "This bill number is already in use");
-        return true;
-      }
+    const edited = await updateBill(
+      world.deps,
+      collectionA,
+      nextInA.bill_id,
+      updatePayloadFromBill(nextInA, { bill_number_parts: ["ST", "2026", "01"] })
     );
+    assert.equal(edited.bill_number, "ST-2026-02");
+    assert.equal((await getBill(world.deps, collectionA, inA.bill_id)).bill_number, "ST-2026-01");
   });
 
   it("shows the stored number on the list and leaves bills already saved unchanged", async () => {
@@ -3330,10 +3308,11 @@ describe("next bill serial", () => {
     );
   });
 
-  it("still lets edit change a saved bill number", async () => {
+  it("keeps ST-2025-01 when edit sends another series, year, or serial", async () => {
     const world = createBillWorld();
     const collectionId = world.seedCollection(randomUUID(), { bill_year: "2025" });
     world.seedBillSeries({ name: "ST" });
+    world.seedBillSeries({ name: "ADI" });
     const client = world.seedClient();
     const taxCode = world.seedTaxCode();
     const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
@@ -3347,10 +3326,93 @@ describe("next bill serial", () => {
       world.deps,
       collectionId,
       saved.bill_id,
-      updatePayloadFromBill(saved, { bill_number_parts: ["ST", "2025", "77"] })
+      updatePayloadFromBill(saved, {
+        bill_number_parts: ["ADI", "2026", "99"],
+        bill_series: "ADI",
+        bill_year: "2026",
+        bill_serial: "99",
+        bill_date: "2026-10-12",
+      })
     );
 
     assert.equal(saved.bill_number, "ST-2025-01");
-    assert.equal(edited.bill_number, "ST-2025-77");
+    assert.equal(edited.bill_number, "ST-2025-01");
+    assert.deepEqual(edited.bill_number_parts, ["ST", "2025", "01"]);
+    assert.equal(edited.bill_date, "2026-10-12");
+    assert.equal(
+      (await getBill(world.deps, collectionId, saved.bill_id)).bill_number,
+      "ST-2025-01"
+    );
+  });
+
+  it("leaves ST-2025-01 when the collection year becomes 2026 and starts that year at 01", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection(randomUUID(), { bill_year: "2025" });
+    world.seedBillSeries({ name: "ST" });
+    world.seedBillSeries({ name: "ADI" });
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+    const saved = await createBill(
+      world.deps,
+      collectionId,
+      seriesBillPayload(world, collectionId, product, taxCode, client, "ST")
+    );
+
+    world.seedCollection(collectionId, { bill_year: "2026" });
+
+    const stillSaved = await getBill(world.deps, collectionId, saved.bill_id);
+    const nextSt = await readNextBillSerial(world.deps, collectionId, { bill_series: "ST" });
+    const nextAdi = await readNextBillSerial(world.deps, collectionId, { bill_series: "ADI" });
+    const st2026 = await createBill(
+      world.deps,
+      collectionId,
+      seriesBillPayload(world, collectionId, product, taxCode, client, "ST")
+    );
+    const adi2026 = await createBill(
+      world.deps,
+      collectionId,
+      seriesBillPayload(world, collectionId, product, taxCode, client, "ADI")
+    );
+
+    assert.equal(stillSaved.bill_number, "ST-2025-01");
+    assert.deepEqual(stillSaved.bill_number_parts, ["ST", "2025", "01"]);
+    assert.equal(nextSt.bill_year, "2026");
+    assert.equal(nextSt.bill_serial, "01");
+    assert.equal(nextAdi.bill_serial, "01");
+    assert.equal(st2026.bill_number, "ST-2026-01");
+    assert.equal(adi2026.bill_number, "ADI-2026-01");
+    assert.equal(
+      (await getBill(world.deps, collectionId, saved.bill_id)).bill_number,
+      "ST-2025-01"
+    );
+  });
+
+  it("does not fill a gap left in 2025 after the collection year becomes 2026", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection(randomUUID(), { bill_year: "2025" });
+    world.seedBillSeries({ name: "ST" });
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+    await insertLegacyBill(world, { collectionId, client, billNumber: "ST-2025-01", lines: [] });
+    await insertLegacyBill(world, { collectionId, client, billNumber: "ST-2025-03", lines: [] });
+
+    world.seedCollection(collectionId, { bill_year: "2026" });
+    const nextYear = await createBill(
+      world.deps,
+      collectionId,
+      seriesBillPayload(world, collectionId, product, taxCode, client, "ST")
+    );
+
+    world.seedCollection(collectionId, { bill_year: "2025" });
+    const backOn2025 = await readNextBillSerial(world.deps, collectionId, { bill_series: "ST" });
+    const listed = await listBills(world.deps, collectionId, { page: 1, limit: 10 });
+    const numbers = listed.bills.map((bill) => bill.bill_number).sort();
+
+    assert.equal(nextYear.bill_number, "ST-2026-01");
+    assert.equal(backOn2025.bill_year, "2025");
+    assert.equal(backOn2025.bill_serial, "04");
+    assert.deepEqual(numbers, ["ST-2025-01", "ST-2025-03", "ST-2026-01"]);
   });
 });

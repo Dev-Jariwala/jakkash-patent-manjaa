@@ -204,7 +204,7 @@ export function validateGstBillForm({
   const duplicateIds = duplicateProductIds(lines);
   const stockContext = { products, isEdit, stockApplied, existingLines };
 
-  if (isEdit || billSeries === undefined) {
+  if (!isEdit && billSeries === undefined) {
     if (!Array.isArray(billNumberParts) || billNumberParts.length !== 3) {
       errors.general = "Bill number requires three parts";
       hasError = true;
@@ -223,7 +223,7 @@ export function validateGstBillForm({
         }
       });
     }
-  } else if (!String(billSeries).trim()) {
+  } else if (!isEdit && !String(billSeries ?? "").trim()) {
     errors.billSeries = "Choose a bill series";
     hasError = true;
   }

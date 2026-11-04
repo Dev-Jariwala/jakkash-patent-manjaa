@@ -829,25 +829,12 @@ const GstBillForm = () => {
                     <Input
                       key={index}
                       value={part}
-                      maxLength={20}
-                      aria-label={["Bill series", "Bill year", "Bill serial"][index]}
-                      className={cn(
-                        "h-9 min-w-0 flex-1",
-                        validationErrors?.billNumberParts?.[index] && invalidInputClass
-                      )}
-                      onChange={(e) => {
-                        const next = [...billNumberParts];
-                        next[index] = e.target.value;
-                        setBillNumberParts(next);
-                        setValidationErrors((prev) => {
-                          if (!prev?.billNumberParts?.[index]) {
-                            return prev;
-                          }
-                          const billNumberPartsErrors = [...prev.billNumberParts];
-                          billNumberPartsErrors[index] = null;
-                          return { ...prev, billNumberParts: billNumberPartsErrors };
-                        });
-                      }}
+                      disabled
+                      aria-label={
+                        ["Bill series", "Bill year", "Bill serial"][index] ??
+                        `Bill number part ${index + 1}`
+                      }
+                      className={lockedNumberClass}
                     />
                   ))
                 ) : (
@@ -894,14 +881,6 @@ const GstBillForm = () => {
               {numberingMessage ? <FieldError message={numberingMessage} /> : null}
               {!isEdit && validationErrors?.billSeries ? (
                 <FieldError message={validationErrors.billSeries} />
-              ) : null}
-              {isEdit && validationErrors?.billNumberParts?.some(Boolean) ? (
-                <FieldError
-                  message={
-                    validationErrors.billNumberParts.find(Boolean) ??
-                    "Bill number is incomplete"
-                  }
-                />
               ) : null}
             </div>
             <div>
