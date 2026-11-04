@@ -17,6 +17,7 @@ export function createProductWorld({ taxCodes: initialTaxCodes = [] } = {}) {
     ])
   );
   const productsById = new Map();
+  const collectionsById = new Map();
   let srNo = 0;
 
   const deps = {
@@ -119,6 +120,12 @@ export function createProductWorld({ taxCodes: initialTaxCodes = [] } = {}) {
 
   };
 
+  function seedCollection({ collection_id, bill_year = null }) {
+    const row = { collection_id, bill_year };
+    collectionsById.set(collection_id, row);
+    return row;
+  }
+
   function seedProduct(row) {
     const productId = row.product_id ?? randomUUID();
     srNo += 1;
@@ -166,7 +173,16 @@ export function createProductWorld({ taxCodes: initialTaxCodes = [] } = {}) {
     return updated;
   }
 
-  return { deps, productsById, taxCodesById, seedProduct, insertTaxCode, updateTaxCode };
+  return {
+    deps,
+    productsById,
+    taxCodesById,
+    collectionsById,
+    seedProduct,
+    seedCollection,
+    insertTaxCode,
+    updateTaxCode,
+  };
 }
 
 export function validProductPayload(overrides = {}) {

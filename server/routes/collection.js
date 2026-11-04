@@ -8,6 +8,6 @@ const router = express.Router();
 router.get("/", collectionControllers.getCollections);
 router.get("/:collection_id", collectionControllers.getCollectionById);
 router.post("/", collectionValidators.validateCreateCollection, collectionControllers.createCollection);
-router.put("/:collection_id", collectionValidators.validateCreateCollection, collectionControllers.updateCollection);
+router.put("/:collection_id", collectionValidators.validateUpdateCollection, collectionControllers.updateCollection);
 
 export default router;

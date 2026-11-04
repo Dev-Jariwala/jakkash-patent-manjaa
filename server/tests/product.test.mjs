@@ -314,6 +314,30 @@ describe("copyProductsToCollection", () => {
     });
     assert.equal(totalCount, 0);
   });
+
+  it("copies products and does not take a bill year", async () => {
+    const world = createProductWorld();
+    world.seedCollection({ collection_id: sourceCollectionId, bill_year: "2025" });
+    world.seedCollection({ collection_id: targetCollectionId, bill_year: null });
+    world.seedProduct({
+      collection_id: sourceCollectionId,
+      product_name: "Cotton",
+    });
+
+    const copied = await copyProductsToCollection(
+      world.deps,
+      sourceCollectionId,
+      targetCollectionId
+    );
+
+    assert.deepEqual(
+      {
+        products: copied.map((row) => row.product_name),
+        bill_year: world.collectionsById.get(targetCollectionId).bill_year,
+      },
+      { products: ["Cotton"], bill_year: null }
+    );
+  });
 });
 
 describe("createProduct", () => {

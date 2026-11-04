@@ -2,6 +2,8 @@ import { handleError } from "../utils/error.js";
 import { query } from "../utils/query.js";
 import { createTaxCode, listTaxCodes, updateTaxCode } from "../services/taxCodeMaintenance.js";
 import { createTaxCodeMaintenanceDeps } from "../services/taxCodeMaintenanceStore.js";
+import { createBillSeries, listBillSeries, updateBillSeries } from "../services/billSeries.js";
+import { createBillSeriesDeps } from "../services/billSeriesStore.js";
 import {
   getShopBankAccount,
   saveShopBankAccount,
@@ -197,6 +199,50 @@ export const updateMastersTaxCode = async (req, res) => {
     res.status(200).json({ tax_code: taxCode });
   } catch (error) {
     handleError("updateMastersTaxCode", res, error);
+  }
+};
+
+export const getMastersBillSeries = async (req, res) => {
+  const { page, limit, offset } = parseMastersListPagination(req.query);
+  try {
+    const { billSeries, totalCount } = await listBillSeries(createBillSeriesDeps(), {
+      limit,
+      offset,
+    });
+    res.status(200).json(
+      mastersListResponse({
+        rows: billSeries,
+        totalCount,
+        page,
+        limit,
+        key: "bill_series",
+      })
+    );
+  } catch (error) {
+    handleError("getMastersBillSeries", res, error);
+  }
+};
+
+export const createMastersBillSeries = async (req, res) => {
+  try {
+    const billSeries = await createBillSeries(createBillSeriesDeps(), req.body);
+    res.status(201).json({ bill_series: billSeries });
+  } catch (error) {
+    handleError("createMastersBillSeries", res, error);
+  }
+};
+
+export const updateMastersBillSeries = async (req, res) => {
+  const { bill_series_id } = req.params;
+  try {
+    const billSeries = await updateBillSeries(
+      createBillSeriesDeps(),
+      bill_series_id,
+      req.body
+    );
+    res.status(200).json({ bill_series: billSeries });
+  } catch (error) {
+    handleError("updateMastersBillSeries", res, error);
   }
 };
 

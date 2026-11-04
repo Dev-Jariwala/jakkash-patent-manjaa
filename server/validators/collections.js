@@ -29,10 +29,14 @@ export const validateUpdateCollection = [
   body("collection_name")
     .isString().withMessage("Collection name must be a string")
     .notEmpty().withMessage("Collection name is required")
-    .custom(async (value) => {
+    .custom(async (value, { req }) => {
+      const collectionId = String(req.params.collection_id ?? "");
+      if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(collectionId)) {
+        return true;
+      }
       const [collection] = await query(
-        "SELECT * FROM collections WHERE collection_name = $1",
-        [value]
+        "SELECT collection_id FROM collections WHERE collection_name = $1 AND collection_id <> $2",
+        [value, collectionId]
       );
       if (collection) {
         throw new Error("Collection name already exists");

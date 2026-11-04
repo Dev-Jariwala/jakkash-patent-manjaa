@@ -18,8 +18,23 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 const schema = yup.object().shape({
     collection_name: yup.string().required("Collection name is required"),
+    bill_year: yup
+        .string()
+        .trim()
+        .required("Enter a bill year")
+        .max(20, "A bill year cannot be longer than 20 characters")
+        .test(
+            "hyphen",
+            "A bill year cannot contain a hyphen",
+            (value) => !String(value ?? "").includes("-")
+        ),
     copy_collection_id: yup.string().notRequired(),
 });
+
+const collectionErrorMessage = (error, fallback) =>
+    error?.response?.data?.errors?.[0]?.msg ||
+    error?.response?.data?.message ||
+    fallback;
 
 const CollectionForm = () => {
     const [activeCollection] = useLocalStorage("activeCollection");
@@ -34,6 +49,7 @@ const CollectionForm = () => {
         resolver: yupResolver(schema),
         defaultValues: {
             collection_name: "",
+            bill_year: "",
             copy_collection_id: "",
         },
     });
@@ -54,8 +70,10 @@ const CollectionForm = () => {
             queryClient.invalidateQueries(["collections"]);
             toast.success("Collection created successfully");
         },
-        onError: () => {
-            toast.error("Error creating collection");
+        onError: (error) => {
+            const message = collectionErrorMessage(error, "Error creating collection");
+            error.message = message;
+            toast.error(message);
         }
     });
     const updateCollectionMutation = useMutation({
@@ -65,25 +83,33 @@ const CollectionForm = () => {
             queryClient.invalidateQueries(["collections"]);
             toast.success("Collection updated successfully");
         },
-        onError: () => {
-            toast.error("Error updating collection");
+        onError: (error) => {
+            const message = collectionErrorMessage(error, "Error updating collection");
+            error.message = message;
+            toast.error(message);
         }
     });
     const onSubmit = async (data) => {
-        console.log({ data });
+        const payload = {
+            collection_name: data.collection_name,
+            bill_year: String(data.bill_year ?? "").trim(),
+            copy_collection_id: data.copy_collection_id,
+        };
         if (formType === "new") {
-            createCollectionMutation.mutate(data);
+            createCollectionMutation.mutate(payload);
         } else if (formType === "update") {
-            updateCollectionMutation.mutate({ data, collection_id });
+            updateCollectionMutation.mutate({ data: payload, collection_id });
         }
     };
     useEffect(() => {
         if (collection) {
             form.reset({
                 collection_name: collection.collection_name,
+                bill_year: collection.bill_year ?? "",
+                copy_collection_id: "",
             });
         }
-    }, [collection]);
+    }, [collection, form]);
 
     useEffect(() => {
         if (error) {
@@ -91,7 +117,7 @@ const CollectionForm = () => {
         }
     }, [error]);
 
-    if (!collection && formType === "update") {
+    if (formType === "update" && !isLoading && !collection) {
         return (
             <div className="text-center text-xl text-red-500 font-medium">
                 This product does not belong to this collection.
@@ -136,6 +162,25 @@ const CollectionForm = () => {
                                     <FormControl>
                                         <Input variant='ringShadow' {...field} />
                                     </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="bill_year"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>
+                                        Bill year
+                                        <RequiredMark />
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Input variant='ringShadow' {...field} autoComplete="off" />
+                                    </FormControl>
+                                    <FormDescription>
+                                        Printed on a bill. Not the collection name.
+                                    </FormDescription>
                                     <FormMessage />
                                 </FormItem>
                             )}

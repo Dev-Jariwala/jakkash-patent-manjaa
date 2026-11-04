@@ -22,6 +22,10 @@ const columnsDef = [
     columnHelper.accessor("collection_name", {
         header: "Collection Name",
     }),
+    columnHelper.accessor("bill_year", {
+        header: "Bill year",
+        cell: (info) => info.getValue() || "-",
+    }),
 ];
 
 const ProductsTable = () => {

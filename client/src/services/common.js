@@ -108,3 +108,30 @@ export const updateMastersTaxCode = async (taxCodeId, data) => {
   });
   return response;
 };
+
+export const getMastersBillSeries = async ({ pageIndex, pageSize }) => {
+  const response = await axios({
+    method: "GET",
+    url: `${import.meta.env.VITE_BACKEND_URL}common/masters/bill-series`,
+    params: mastersListParams({ pageIndex, pageSize }),
+  });
+  return response;
+};
+
+export const createMastersBillSeries = async (data) => {
+  const response = await axios({
+    method: "POST",
+    url: `${import.meta.env.VITE_BACKEND_URL}common/masters/bill-series`,
+    data,
+  });
+  return response;
+};
+
+export const updateMastersBillSeries = async (billSeriesId, data) => {
+  const response = await axios({
+    method: "PUT",
+    url: `${import.meta.env.VITE_BACKEND_URL}common/masters/bill-series/${billSeriesId}`,
+    data,
+  });
+  return response;
+};

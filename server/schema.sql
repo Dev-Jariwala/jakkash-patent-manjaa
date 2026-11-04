@@ -64,8 +64,11 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS collections (
     sr_no           SERIAL PRIMARY KEY,
     collection_id   UUID        NOT NULL UNIQUE DEFAULT gen_random_uuid(),
-    collection_name VARCHAR(50) NOT NULL
+    collection_name VARCHAR(50) NOT NULL,
+    bill_year       VARCHAR(20)
 );
+-- bill_year is the printed year. It is not the collection name.
+-- Existing rows stay null until an operator enters one.
 -- Uniqueness of collection_name is enforced in validators/collections.js.
 -- Enable the DB-level guarantee too if your existing data has no duplicates:
 -- ALTER TABLE collections ADD CONSTRAINT collections_collection_name_key
@@ -99,6 +102,16 @@ CREATE TABLE IF NOT EXISTS tax_codes (
     sgst          NUMERIC(5, 2)  NOT NULL,
     igst          NUMERIC(5, 2)  NOT NULL,
     UNIQUE (type, code)
+);
+
+-- bill_series ---------------------------------------------------------
+-- The name printed on a bill. The name is the whole row.
+CREATE TABLE IF NOT EXISTS bill_series (
+    sr_no            SERIAL PRIMARY KEY,
+    bill_series_id   UUID         NOT NULL UNIQUE DEFAULT gen_random_uuid(),
+    name             VARCHAR(20)  NOT NULL,
+    is_active        BOOLEAN      NOT NULL DEFAULT TRUE,
+    UNIQUE (name)
 );
 
 -- products ------------------------------------------------------------
@@ -220,6 +233,25 @@ CREATE TABLE IF NOT EXISTS app_settings (
 -- ---------------------------------------------------------------------
 -- No-ops on a fresh install. These bring an older database forward
 -- without touching data.
+
+ALTER TABLE collections
+    ADD COLUMN IF NOT EXISTS bill_year VARCHAR(20);
+
+DO $$
+BEGIN
+    IF EXISTS (
+        SELECT 1 FROM information_schema.columns
+        WHERE table_name = 'bill_series' AND column_name = 'token'
+    ) THEN
+        ALTER TABLE bill_series RENAME COLUMN token TO name;
+    END IF;
+    IF EXISTS (
+        SELECT 1 FROM information_schema.columns
+        WHERE table_name = 'bill_series' AND column_name = 'is_on'
+    ) THEN
+        ALTER TABLE bill_series RENAME COLUMN is_on TO is_active;
+    END IF;
+END $$;
 
 ALTER TABLE products
     ADD COLUMN IF NOT EXISTS is_labour  BOOLEAN     DEFAULT FALSE,
