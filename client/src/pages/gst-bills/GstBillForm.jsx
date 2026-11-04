@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
   Table,
   TableBody,
@@ -20,8 +21,9 @@ import { defaultStyles } from "@/components/ui/react-select/helper";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { getAllClients } from "@/services/clients";
-import { createGstBill, getGstBill, previewGstBillTotals, updateGstBill } from "@/services/gstBills";
-import { getAllMastersTaxCodes } from "@/services/common";
+import { createGstBill, getGstBill, getNextBillSerial, previewGstBillTotals, updateGstBill } from "@/services/gstBills";
+import { getAllMastersBillSeries, getAllMastersTaxCodes } from "@/services/common";
+import { getCollectionById } from "@/services/collections";
 import { getProductsByCollectionId } from "@/services/products";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useLocalStorage } from "@uidotdev/usehooks";
@@ -56,6 +58,10 @@ const invalidInputClass = "border-destructive focus-visible:ring-destructive";
 const percentInputClass = "h-9 w-[3.25rem] min-w-[3.25rem] px-1 text-center tabular-nums";
 const taxSectionClass = "border-l border-border/70 bg-muted/20";
 const LINE_TABLE_COLUMN_COUNT = 14;
+const SET_BILL_YEAR_MESSAGE = "Set a bill year on this collection before raising a bill.";
+const ADD_BILL_SERIES_MESSAGE = "Add a bill series on Masters before raising a bill.";
+const lockedNumberClass =
+  "h-9 flex-1 cursor-not-allowed border-input bg-muted/25 text-foreground shadow-none disabled:opacity-100";
 
 function FieldError({ message }) {
   if (!message) {
@@ -259,6 +265,7 @@ const GstBillForm = () => {
   const [activeCollection] = useLocalStorage("activeCollection", null);
 
   const [billNumberParts, setBillNumberParts] = useState(["", "", ""]);
+  const [billSeries, setBillSeries] = useState("");
   const [billDate, setBillDate] = useState(() => localDateToBillCalendarIso(new Date()));
   const [receiverMobile, setReceiverMobile] = useState("");
   const [originalReceiverMobile, setOriginalReceiverMobile] = useState("");
@@ -295,6 +302,49 @@ const GstBillForm = () => {
       const response = await getAllClients();
       return (response.data?.clients ?? []).filter((c) => c.gst_number);
     },
+  });
+
+  const {
+    data: billSeriesRows = [],
+    isLoading: billSeriesLoading,
+    error: billSeriesError,
+  } = useQuery({
+    queryKey: ["masters", "bill-series", "all"],
+    queryFn: () => getAllMastersBillSeries(),
+    enabled: Boolean(activeCollection) && !isEdit,
+  });
+
+  const {
+    data: openCollection,
+    isLoading: collectionLoading,
+    error: collectionError,
+  } = useQuery({
+    queryKey: ["collection", activeCollection],
+    queryFn: async () => {
+      const response = await getCollectionById(activeCollection);
+      return response.data?.collection ?? null;
+    },
+    enabled: Boolean(activeCollection) && !isEdit,
+  });
+
+  const activeBillSeries = useMemo(
+    () => (billSeriesRows ?? []).filter((series) => series.is_active),
+    [billSeriesRows]
+  );
+  const activeSeriesKey = activeBillSeries.map((series) => series.name).join("\n");
+  const collectionBillYear = String(openCollection?.bill_year ?? "").trim();
+
+  const {
+    data: nextBillSerial,
+    isLoading: nextSerialLoading,
+    error: nextSerialError,
+  } = useQuery({
+    queryKey: ["gst-bill-next-serial", activeCollection, billSeries],
+    queryFn: async () => {
+      const response = await getNextBillSerial(activeCollection, billSeries);
+      return response.data;
+    },
+    enabled: Boolean(!isEdit && activeCollection && billSeries && collectionBillYear),
   });
 
   const {
@@ -349,6 +399,13 @@ const GstBillForm = () => {
     );
     setFormHydrated(true);
   }, [existingBill, formHydrated]);
+
+  useEffect(() => {
+    if (isEdit || billSeries || !activeSeriesKey) {
+      return;
+    }
+    setBillSeries(activeSeriesKey.split("\n")[0]);
+  }, [isEdit, billSeries, activeSeriesKey]);
 
   const receiverDisplay = useMemo(() => {
     if (
@@ -494,7 +551,7 @@ const GstBillForm = () => {
         ? pendingSharedShape
         : null);
     return {
-      bill_number_parts: billNumberParts,
+      ...(isEdit ? { bill_number_parts: billNumberParts } : { bill_series: billSeries }),
       bill_date: billDate,
       receiver_mobile: receiverMobile,
       ...(unlockShape ? { tax_shape: unlockShape } : {}),
@@ -575,9 +632,32 @@ const GstBillForm = () => {
     updateLine(index, patch);
   };
 
+  const displayedBillYear = isEdit
+    ? billNumberParts[1]
+    : nextBillSerial?.bill_year || collectionBillYear;
+  const displayedBillSerial = isEdit ? billNumberParts[2] : nextBillSerial?.bill_serial ?? "";
+  const seriesReady = !billSeriesLoading && !billSeriesError;
+  const collectionReady = !collectionLoading && !collectionError;
+  let numberingMessage = null;
+  if (!isEdit && collectionReady && !collectionBillYear) {
+    numberingMessage = SET_BILL_YEAR_MESSAGE;
+  } else if (!isEdit && collectionReady && seriesReady && activeBillSeries.length === 0) {
+    numberingMessage = ADD_BILL_SERIES_MESSAGE;
+  } else if (!isEdit && nextSerialError) {
+    numberingMessage =
+      nextSerialError?.response?.data?.message || "This bill series is inactive.";
+  }
+  const newBillNumberPending =
+    !isEdit && Boolean(billSeries) && Boolean(collectionBillYear) && nextSerialLoading;
+
   const attemptSave = () => {
+    if (numberingMessage) {
+      toast.error(numberingMessage);
+      return;
+    }
     const { hasError, errors } = validateGstBillForm({
       billNumberParts,
+      billSeries: isEdit ? undefined : billSeries,
       billDate,
       receiverMobile,
       lines,
@@ -699,8 +779,17 @@ const GstBillForm = () => {
   };
 
   const isLoading =
-    productsLoading || taxCodesLoading || clientsLoading || (isEdit && billLoading);
-  const queryError = productsError || taxCodesError || clientsError || billError;
+    productsLoading ||
+    taxCodesLoading ||
+    clientsLoading ||
+    (isEdit && billLoading) ||
+    (!isEdit && (billSeriesLoading || collectionLoading));
+  const queryError =
+    productsError ||
+    taxCodesError ||
+    clientsError ||
+    billError ||
+    (!isEdit && (billSeriesError || collectionError));
   const formReady = !isEdit || formHydrated;
   const hasCompleteLine = lines.some(isCompleteLine);
   const showFooterTotals = preview && hasCompleteLine;
@@ -735,31 +824,78 @@ const GstBillForm = () => {
                 Bill number <RequiredMark />
               </label>
               <div className="flex gap-2 mt-1">
-                {billNumberParts.map((part, index) => (
-                  <Input
-                    key={index}
-                    value={part}
-                    maxLength={20}
-                    className={cn(
-                      validationErrors?.billNumberParts?.[index] && invalidInputClass
-                    )}
-                    onChange={(e) => {
-                      const next = [...billNumberParts];
-                      next[index] = e.target.value;
-                      setBillNumberParts(next);
-                      setValidationErrors((prev) => {
-                        if (!prev?.billNumberParts?.[index]) {
-                          return prev;
-                        }
-                        const billNumberPartsErrors = [...prev.billNumberParts];
-                        billNumberPartsErrors[index] = null;
-                        return { ...prev, billNumberParts: billNumberPartsErrors };
-                      });
-                    }}
-                  />
-                ))}
+                {isEdit ? (
+                  billNumberParts.map((part, index) => (
+                    <Input
+                      key={index}
+                      value={part}
+                      maxLength={20}
+                      aria-label={["Bill series", "Bill year", "Bill serial"][index]}
+                      className={cn(
+                        "h-9 min-w-0 flex-1",
+                        validationErrors?.billNumberParts?.[index] && invalidInputClass
+                      )}
+                      onChange={(e) => {
+                        const next = [...billNumberParts];
+                        next[index] = e.target.value;
+                        setBillNumberParts(next);
+                        setValidationErrors((prev) => {
+                          if (!prev?.billNumberParts?.[index]) {
+                            return prev;
+                          }
+                          const billNumberPartsErrors = [...prev.billNumberParts];
+                          billNumberPartsErrors[index] = null;
+                          return { ...prev, billNumberParts: billNumberPartsErrors };
+                        });
+                      }}
+                    />
+                  ))
+                ) : (
+                  <>
+                    <div className="min-w-0 flex-1">
+                      <Select
+                        value={billSeries || undefined}
+                        onValueChange={setBillSeries}
+                        disabled={activeBillSeries.length === 0}
+                      >
+                        <SelectTrigger
+                          aria-label="Bill series"
+                          className={cn(
+                            "h-9",
+                            validationErrors?.billSeries && invalidInputClass
+                          )}
+                        >
+                          <SelectValue placeholder={activeBillSeries.length ? "Select" : "None"} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {activeBillSeries.map((series) => (
+                            <SelectItem key={series.bill_series_id} value={series.name}>
+                              {series.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <Input
+                      value={displayedBillYear}
+                      disabled
+                      aria-label="Bill year"
+                      className={lockedNumberClass}
+                    />
+                    <Input
+                      value={displayedBillSerial}
+                      disabled
+                      aria-label="Bill serial"
+                      className={lockedNumberClass}
+                    />
+                  </>
+                )}
               </div>
-              {validationErrors?.billNumberParts?.some(Boolean) ? (
+              {numberingMessage ? <FieldError message={numberingMessage} /> : null}
+              {!isEdit && validationErrors?.billSeries ? (
+                <FieldError message={validationErrors.billSeries} />
+              ) : null}
+              {isEdit && validationErrors?.billNumberParts?.some(Boolean) ? (
                 <FieldError
                   message={
                     validationErrors.billNumberParts.find(Boolean) ??
@@ -1157,7 +1293,9 @@ const GstBillForm = () => {
               variant="indigo"
               disabled={
                 saveMutation.isPending ||
-                !canSubmitGstBill({ hasCompleteLine, preview, previewError })
+                !canSubmitGstBill({ hasCompleteLine, preview, previewError }) ||
+                Boolean(numberingMessage) ||
+                newBillNumberPending
               }
               onClick={attemptSave}
             >

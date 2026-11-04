@@ -5,6 +5,7 @@ import {
   getBill,
   listBills,
   previewBillTotals,
+  readNextBillSerial,
   updateBill,
 } from "../services/bill.js";
 import { createBillDeps } from "../services/billStore.js";
@@ -27,6 +28,18 @@ export const getGstBill = async (req, res) => {
     res.status(200).json({ bill });
   } catch (error) {
     handleError("getGstBill", res, error);
+  }
+};
+
+export const readNextGstBillSerial = async (req, res) => {
+  const { collection_id } = req.params;
+  try {
+    const next = await readNextBillSerial(createBillDeps(), collection_id, {
+      bill_series: req.query.bill_series,
+    });
+    res.status(200).json(next);
+  } catch (error) {
+    handleError("readNextGstBillSerial", res, error);
   }
 };
 

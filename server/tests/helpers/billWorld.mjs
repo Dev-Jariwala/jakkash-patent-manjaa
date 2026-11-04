@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { TAX_SHAPE_WITHIN_STATE } from "../../services/bill.js";
-import { BillInsufficientStockError } from "../../services/billErrors.js";
+import { BillDuplicateNumberError, BillInsufficientStockError } from "../../services/billErrors.js";
 
 function applyStockDeltasInWorld(productsById, collectionId, stockDeltas) {
   for (const entry of stockDeltas ?? []) {
@@ -50,7 +50,18 @@ export function createBillWorld({
   const clientsByMobile = new Map(clients.map((c) => [c.mobile, c]));
   const productsById = new Map(products.map((p) => [p.product_id, p]));
   const taxCodesById = new Map(taxCodes.map((t) => [t.tax_code_id, t]));
-  const collectionIds = new Set(collections.map((c) => c.collection_id));
+  const collectionsById = new Map(
+    collections.map((collection) => [
+      collection.collection_id,
+      {
+        collection_id: collection.collection_id,
+        bill_year: Object.hasOwn(collection, "bill_year") ? collection.bill_year : "26",
+      },
+    ])
+  );
+  const collectionIds = new Set(collectionsById.keys());
+  const billSeriesByName = new Map();
+  let explicitBillSeries = false;
 
   let billSaveCount = 0;
 
@@ -69,6 +80,27 @@ export function createBillWorld({
 
     async getTaxCodeById(taxCodeId) {
       return taxCodesById.get(taxCodeId) ?? null;
+    },
+
+    async getCollection(collectionId) {
+      return collectionsById.get(collectionId) ?? null;
+    },
+
+    async listActiveBillSeries() {
+      if (!explicitBillSeries) {
+        return [{ bill_series_id: "permissive", name: "ST", is_active: true }];
+      }
+      return [...billSeriesByName.values()].filter((row) => row.is_active);
+    },
+
+    async getBillSeriesByName(name) {
+      if (!explicitBillSeries) {
+        if (!name) {
+          return null;
+        }
+        return { bill_series_id: name, name, is_active: true };
+      }
+      return billSeriesByName.get(name) ?? null;
     },
 
     async listBillsByCollection(collectionId, { limit, offset, search } = {}) {
@@ -124,6 +156,11 @@ export function createBillWorld({
     },
 
     async insertBill(billRow, lineRows, stockDeltas) {
+      const numberKey = `${billRow.collection_id}:${billRow.bill_number}`;
+      const existingId = billByCollectionAndNumber.get(numberKey);
+      if (existingId && existingId !== billRow.bill_id) {
+        throw new BillDuplicateNumberError();
+      }
       applyStockDeltasInWorld(productsById, billRow.collection_id, stockDeltas);
       const rowWithStock = {
         ...billRow,
@@ -175,10 +212,31 @@ export function createBillWorld({
     getProductStock(productId) {
       return productsById.get(productId)?.stock_in_hand;
     },
-    seedCollection(id = randomUUID()) {
+    seedCollection(id = randomUUID(), options = {}) {
       const collection_id = id;
+      const bill_year = Object.hasOwn(options, "bill_year") ? options.bill_year : "26";
+      collectionsById.set(collection_id, { collection_id, bill_year });
       collectionIds.add(collection_id);
       return collection_id;
+    },
+    seedBillSeries({ name, is_active = true } = {}) {
+      explicitBillSeries = true;
+      const existing = billSeriesByName.get(name);
+      const row = {
+        bill_series_id: existing?.bill_series_id ?? randomUUID(),
+        name,
+        is_active,
+      };
+      billSeriesByName.set(name, row);
+      return row;
+    },
+    setBillSeriesActive(name, isActive) {
+      const row = billSeriesByName.get(name);
+      if (!row) {
+        return null;
+      }
+      row.is_active = isActive;
+      return row;
     },
     seedClient(overrides = {}) {
       const client = {

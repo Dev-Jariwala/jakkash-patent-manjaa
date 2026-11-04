@@ -18,6 +18,7 @@ export function emptyLineFieldErrors() {
 export function emptyGstBillFormErrors(lineCount) {
   return {
     billNumberParts: [null, null, null],
+    billSeries: null,
     billDate: null,
     receiver: null,
     lines: Array.from({ length: lineCount }, () => emptyLineFieldErrors()),
@@ -186,6 +187,7 @@ function isValidBillDate(raw) {
 
 export function validateGstBillForm({
   billNumberParts,
+  billSeries,
   billDate,
   receiverMobile,
   lines,
@@ -202,23 +204,28 @@ export function validateGstBillForm({
   const duplicateIds = duplicateProductIds(lines);
   const stockContext = { products, isEdit, stockApplied, existingLines };
 
-  if (!Array.isArray(billNumberParts) || billNumberParts.length !== 3) {
-    errors.general = "Bill number requires three parts";
+  if (isEdit || billSeries === undefined) {
+    if (!Array.isArray(billNumberParts) || billNumberParts.length !== 3) {
+      errors.general = "Bill number requires three parts";
+      hasError = true;
+    } else {
+      billNumberParts.forEach((part, index) => {
+        const trimmed = String(part ?? "").trim();
+        if (!trimmed) {
+          errors.billNumberParts[index] = `Part ${index + 1} is required`;
+          hasError = true;
+        } else if (trimmed.includes("-")) {
+          errors.billNumberParts[index] = "A bill number part cannot contain a hyphen";
+          hasError = true;
+        } else if (trimmed.length > BILL_NUMBER_PART_MAX) {
+          errors.billNumberParts[index] = "A bill number part is too long";
+          hasError = true;
+        }
+      });
+    }
+  } else if (!String(billSeries).trim()) {
+    errors.billSeries = "Choose a bill series";
     hasError = true;
-  } else {
-    billNumberParts.forEach((part, index) => {
-      const trimmed = String(part ?? "").trim();
-      if (!trimmed) {
-        errors.billNumberParts[index] = `Part ${index + 1} is required`;
-        hasError = true;
-      } else if (trimmed.includes("-")) {
-        errors.billNumberParts[index] = "A bill number part cannot contain a hyphen";
-        hasError = true;
-      } else if (trimmed.length > BILL_NUMBER_PART_MAX) {
-        errors.billNumberParts[index] = "A bill number part is too long";
-        hasError = true;
-      }
-    });
   }
 
   if (!billDate || String(billDate).trim() === "") {

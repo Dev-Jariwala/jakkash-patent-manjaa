@@ -26,6 +26,15 @@ export async function createGstBill(collectionId, data) {
   return response;
 }
 
+export async function getNextBillSerial(collectionId, billSeries) {
+  const response = await axios({
+    method: "GET",
+    url: `${BACKEND_URL}collections/${collectionId}/gst-bills/next-serial`,
+    params: { bill_series: billSeries },
+  });
+  return response;
+}
+
 export async function getGstBill(collectionId, billId) {
   const response = await axios({
     method: "GET",

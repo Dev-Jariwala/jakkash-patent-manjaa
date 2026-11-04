@@ -3,13 +3,16 @@ import { randomUUID } from "node:crypto";
 import { describe, it } from "node:test";
 
 import {
+  BILL_EXPORT_SPAN_BILL_NUMBER,
   TAX_SHAPE_INTERSTATE,
   TAX_SHAPE_WITHIN_STATE,
   createBill,
+  exportBills,
   getBill,
   inferLegacyBillSharedShape,
   listBills,
   previewBillTotals,
+  readNextBillSerial,
   updateBill,
 } from "../services/bill.js";
 import {
@@ -39,7 +42,7 @@ describe("createBill", () => {
       standardBillPayload({ world, collectionId, product, taxCode, client })
     );
 
-    assert.equal(saved.bill_number, "9-26-15");
+    assert.equal(saved.bill_number, "9-26-01");
     assert.equal(saved.total_value, 44000);
     assert.equal(saved.total_tax, 2200);
     assert.equal(saved.total_bill, 46200);
@@ -686,7 +689,7 @@ describe("createBill", () => {
     );
   });
 
-  it("rejects bill number, receiver, and bank problems with a clear message", async () => {
+  it("rejects a missing receiver, a client without GST, and a missing bank", async () => {
     const world = createBillWorld();
     const collectionId = world.seedCollection();
     const client = world.seedClient();
@@ -694,23 +697,7 @@ describe("createBill", () => {
     const taxCode = world.seedTaxCode();
     const base = standardBillPayload({ world, collectionId, product, taxCode, client });
 
-    await assert.rejects(
-      () => createBill(world.deps, collectionId, { ...base, bill_number_parts: ["9", "26"] }),
-      /three parts/
-    );
-    await assert.rejects(
-      () => createBill(world.deps, collectionId, { ...base, bill_number_parts: ["9-26", "15", "1"] }),
-      /hyphen/
-    );
-
     await createBill(world.deps, collectionId, base);
-    await assert.rejects(
-      () => createBill(world.deps, collectionId, { ...base, bill_number_parts: ["9", "26", "15"] }),
-      (error) => {
-        assert.ok(error instanceof BillDuplicateNumberError);
-        return true;
-      }
-    );
 
     await assert.rejects(
       () =>
@@ -878,14 +865,14 @@ describe("listBills", () => {
 
     const listA = await listBills(world.deps, collectionA, { page: 1, limit: 10 });
     assert.equal(listA.bills.length, 2);
-    assert.equal(listA.bills[0].bill_number, "1-0-2");
-    assert.equal(listA.bills[1].bill_number, "1-0-1");
+    assert.equal(listA.bills[0].bill_number, "1-26-02");
+    assert.equal(listA.bills[1].bill_number, "1-26-01");
     assert.equal(listA.pagination.page, 1);
     assert.equal(listA.pagination.totalItems, 2);
 
     const page2 = await listBills(world.deps, collectionA, { page: 2, limit: 1 });
     assert.equal(page2.bills.length, 1);
-    assert.equal(page2.bills[0].bill_number, "1-0-1");
+    assert.equal(page2.bills[0].bill_number, "1-26-01");
     assert.equal(page2.pagination.page, 2);
     assert.equal(page2.pagination.limit, 1);
     assert.equal(page2.pagination.totalItems, 2);
@@ -893,7 +880,7 @@ describe("listBills", () => {
 
     const listB = await listBills(world.deps, collectionB, { page: 1, limit: 10 });
     assert.equal(listB.bills.length, 1);
-    assert.equal(listB.bills[0].bill_number, "9-9-9");
+    assert.equal(listB.bills[0].bill_number, "9-26-01");
   });
 
   it("matches a bill number or receiver name and stays inside the collection", async () => {
@@ -939,13 +926,13 @@ describe("listBills", () => {
 
     const byName = await listBills(world.deps, collectionA, { search: "beta" });
     assert.equal(byName.bills.length, 1);
-    assert.equal(byName.bills[0].bill_number, "1-0-2");
+    assert.equal(byName.bills[0].bill_number, "1-26-02");
     assert.equal(byName.bills[0].receiver_name, "Beta Textiles");
     assert.equal(byName.pagination.totalItems, 1);
 
-    const byNumber = await listBills(world.deps, collectionA, { search: "1-0-1" });
+    const byNumber = await listBills(world.deps, collectionA, { search: "1-26-01" });
     assert.equal(byNumber.bills.length, 1);
-    assert.equal(byNumber.bills[0].bill_number, "1-0-1");
+    assert.equal(byNumber.bills[0].bill_number, "1-26-01");
     assert.equal(byNumber.bills[0].receiver_name, "Acme Fabrics");
 
     const otherCollection = await listBills(world.deps, collectionA, { search: "9-9-9" });
@@ -1586,7 +1573,7 @@ describe("updateBill", () => {
       collectionId,
       standardBillPayload({ world, collectionId, product, taxCode, client })
     );
-    await createBill(world.deps, collectionId, {
+    const second = await createBill(world.deps, collectionId, {
       ...standardBillPayload({ world, collectionId, product, taxCode, client }),
       bill_number_parts: ["1", "0", "0"],
     });
@@ -1604,7 +1591,7 @@ describe("updateBill", () => {
           world.deps,
           collectionId,
           first.bill_id,
-          updatePayloadFromBill(first, { bill_number_parts: ["1", "0", "0"] })
+          updatePayloadFromBill(first, { bill_number_parts: second.bill_number.split("-") })
         ),
       (error) => {
         assert.ok(error instanceof BillDuplicateNumberError);
@@ -1758,18 +1745,26 @@ describe("bill number per collection", () => {
     assert.equal(inA.bill_number, "00-26-01");
     assert.equal(inB.bill_number, "00-26-01");
 
+    const secondInA = await createBill(world.deps, collectionA, {
+      ...standardBillPayload({
+        world,
+        collectionId: collectionA,
+        product: productA,
+        taxCode,
+        client,
+      }),
+      bill_number_parts: sharedNumberParts,
+    });
+    assert.equal(secondInA.bill_number, "00-26-02");
+
     await assert.rejects(
       () =>
-        createBill(world.deps, collectionA, {
-          ...standardBillPayload({
-            world,
-            collectionId: collectionA,
-            product: productA,
-            taxCode,
-            client,
-          }),
-          bill_number_parts: sharedNumberParts,
-        }),
+        updateBill(
+          world.deps,
+          collectionA,
+          secondInA.bill_id,
+          updatePayloadFromBill(secondInA, { bill_number_parts: sharedNumberParts })
+        ),
       (error) => {
         assert.ok(error instanceof BillDuplicateNumberError);
         assert.equal(error.message, "This bill number is already in use");
@@ -1814,7 +1809,7 @@ describe("bill number per collection", () => {
       billInB.bill_id,
       updatePayloadFromBill(billInB)
     );
-    assert.equal(kept.bill_number, "1-0-0");
+    assert.equal(kept.bill_number, "1-26-01");
 
     const retargeted = await updateBill(
       world.deps,
@@ -1825,7 +1820,7 @@ describe("bill number per collection", () => {
     assert.equal(retargeted.bill_number, "00-26-01");
   });
 
-  it("treats 00-26-01 and 0-26-1 as different numbers", async () => {
+  it("keeps 00-26-01 and an edited 0-26-1 as different numbers", async () => {
     const world = createBillWorld();
     const collectionId = world.seedCollection();
     const client = world.seedClient();
@@ -1841,9 +1836,17 @@ describe("bill number per collection", () => {
       ...base,
       bill_number_parts: ["0", "26", "1"],
     });
+    const edited = await updateBill(
+      world.deps,
+      collectionId,
+      second.bill_id,
+      updatePayloadFromBill(second, { bill_number_parts: ["0", "26", "1"] })
+    );
 
     assert.equal(first.bill_number, "00-26-01");
-    assert.equal(second.bill_number, "0-26-1");
+    assert.equal(second.bill_number, "0-26-01");
+    assert.equal(edited.bill_number, "0-26-1");
+    assert.equal((await getBill(world.deps, collectionId, first.bill_id)).bill_number, "00-26-01");
   });
 });
 
@@ -2957,4 +2960,397 @@ describe("bill tax shape", () => {
     assert.equal(inferLegacyBillSharedShape(copyLines), TAX_SHAPE_WITHIN_STATE);
   });
 
+});
+
+function seriesBillPayload(world, collectionId, product, taxCode, client, series) {
+  return {
+    ...standardBillPayload({ world, collectionId, product, taxCode, client }),
+    bill_series: series,
+    bill_year: "1999",
+    bill_serial: "07",
+    bill_number_parts: ["ZZ", "1999", "07"],
+  };
+}
+
+describe("next bill serial", () => {
+  it("saves ST-2025-01, then ST-2025-02, and the first ADI bill as ADI-2025-01", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection(randomUUID(), { bill_year: "2025" });
+    world.seedBillSeries({ name: "ST" });
+    world.seedBillSeries({ name: "ADI" });
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+
+    const preview = await readNextBillSerial(world.deps, collectionId, { bill_series: "ST" });
+    assert.equal(preview.bill_year, "2025");
+    assert.equal(preview.bill_serial, "01");
+
+    const first = await createBill(
+      world.deps,
+      collectionId,
+      seriesBillPayload(world, collectionId, product, taxCode, client, "ST")
+    );
+    const second = await createBill(
+      world.deps,
+      collectionId,
+      seriesBillPayload(world, collectionId, product, taxCode, client, "ST")
+    );
+    const adi = await createBill(
+      world.deps,
+      collectionId,
+      seriesBillPayload(world, collectionId, product, taxCode, client, "ADI")
+    );
+
+    assert.equal(first.bill_number, "ST-2025-01");
+    assert.equal(second.bill_number, "ST-2025-02");
+    assert.equal(adi.bill_number, "ADI-2025-01");
+  });
+
+  it("leaves a gap at 02 so the next ST bill is ST-2025-04", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection(randomUUID(), { bill_year: "2025" });
+    world.seedBillSeries({ name: "ST" });
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+    await insertLegacyBill(world, { collectionId, client, billNumber: "ST-2025-01", lines: [] });
+    await insertLegacyBill(world, { collectionId, client, billNumber: "ST-2025-03", lines: [] });
+
+    const preview = await readNextBillSerial(world.deps, collectionId, { bill_series: "ST" });
+    const saved = await createBill(
+      world.deps,
+      collectionId,
+      seriesBillPayload(world, collectionId, product, taxCode, client, "ST")
+    );
+
+    assert.equal(preview.bill_serial, "04");
+    assert.equal(saved.bill_number, "ST-2025-04");
+  });
+
+  it("follows 09 with 10 and 99 with 100", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection(randomUUID(), { bill_year: "2025" });
+    world.seedBillSeries({ name: "ST" });
+    world.seedBillSeries({ name: "ADI" });
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+    await insertLegacyBill(world, { collectionId, client, billNumber: "ST-2025-09", lines: [] });
+    await insertLegacyBill(world, { collectionId, client, billNumber: "ADI-2025-99", lines: [] });
+
+    const afterNine = await createBill(
+      world.deps,
+      collectionId,
+      seriesBillPayload(world, collectionId, product, taxCode, client, "ST")
+    );
+    const afterNinetyNine = await createBill(
+      world.deps,
+      collectionId,
+      seriesBillPayload(world, collectionId, product, taxCode, client, "ADI")
+    );
+
+    assert.equal(afterNine.bill_number, "ST-2025-10");
+    assert.equal(afterNinetyNine.bill_number, "ADI-2025-100");
+  });
+
+  it("counts a stored 8 and 08 as 8, and leaves a non-digit third part out of the count", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection(randomUUID(), { bill_year: "2025" });
+    world.seedBillSeries({ name: "ST" });
+    world.seedBillSeries({ name: "ADI" });
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+    await insertLegacyBill(world, { collectionId, client, billNumber: "ST-2025-8", lines: [] });
+    await insertLegacyBill(world, { collectionId, client, billNumber: "ST-2025-08", lines: [] });
+    await insertLegacyBill(world, { collectionId, client, billNumber: "ST-2025-A", lines: [] });
+    await insertLegacyBill(world, { collectionId, client, billNumber: "ADI-2025-A", lines: [] });
+
+    const saved = await createBill(
+      world.deps,
+      collectionId,
+      seriesBillPayload(world, collectionId, product, taxCode, client, "ST")
+    );
+    const adi = await createBill(
+      world.deps,
+      collectionId,
+      seriesBillPayload(world, collectionId, product, taxCode, client, "ADI")
+    );
+
+    assert.equal(saved.bill_number, "ST-2025-09");
+    assert.equal(adi.bill_number, "ADI-2025-01");
+    assert.equal(
+      (await getBill(world.deps, collectionId, (await world.deps.getBillByBillNumber(collectionId, "ST-2025-A")).bill_id))
+        .bill_number,
+      "ST-2025-A"
+    );
+  });
+
+  it("makes the next 00 bill 00-2025-04 when 01 and 03 are already stored", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection(randomUUID(), { bill_year: "2025" });
+    world.seedBillSeries({ name: "00" });
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+    await insertLegacyBill(world, { collectionId, client, billNumber: "00-2025-01", lines: [] });
+    await insertLegacyBill(world, { collectionId, client, billNumber: "00-2025-03", lines: [] });
+
+    const saved = await createBill(
+      world.deps,
+      collectionId,
+      seriesBillPayload(world, collectionId, product, taxCode, client, "00")
+    );
+
+    assert.equal(saved.bill_number, "00-2025-04");
+  });
+
+  it("ignores a year and a serial sent on create, and does not reuse a serial another save took", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection(randomUUID(), { bill_year: "2025" });
+    world.seedBillSeries({ name: "ST" });
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+    await insertLegacyBill(world, { collectionId, client, billNumber: "ST-2025-01", lines: [] });
+    await insertLegacyBill(world, { collectionId, client, billNumber: "ST-2025-03", lines: [] });
+
+    const shown = await readNextBillSerial(world.deps, collectionId, {
+      bill_series: "ST",
+      bill_year: "1999",
+      bill_serial: "04",
+    });
+    assert.equal(shown.bill_year, "2025");
+    assert.equal(shown.bill_serial, "04");
+
+    await insertLegacyBill(world, { collectionId, client, billNumber: "ST-2025-04", lines: [] });
+    const saved = await createBill(
+      world.deps,
+      collectionId,
+      seriesBillPayload(world, collectionId, product, taxCode, client, "ST")
+    );
+
+    assert.equal(saved.bill_number, "ST-2025-05");
+  });
+
+  it("refuses a collection with no bill year", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection(randomUUID(), { bill_year: null });
+    world.seedBillSeries({ name: "ST" });
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+
+    await assert.rejects(
+      () =>
+        createBill(
+          world.deps,
+          collectionId,
+          seriesBillPayload(world, collectionId, product, taxCode, client, "ST")
+        ),
+      (error) => {
+        assert.ok(error instanceof BillValidationError);
+        assert.equal(error.message, "Set a bill year on this collection before raising a bill.");
+        return true;
+      }
+    );
+    await assert.rejects(
+      () => readNextBillSerial(world.deps, collectionId, { bill_series: "ST" }),
+      (error) => {
+        assert.equal(error.message, "Set a bill year on this collection before raising a bill.");
+        return true;
+      }
+    );
+  });
+
+  it("refuses a new bill when no bill series is active", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection(randomUUID(), { bill_year: "2025" });
+    world.seedBillSeries({ name: "ST", is_active: false });
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+
+    await assert.rejects(
+      () =>
+        createBill(
+          world.deps,
+          collectionId,
+          seriesBillPayload(world, collectionId, product, taxCode, client, "ST")
+        ),
+      (error) => {
+        assert.ok(error instanceof BillValidationError);
+        assert.equal(error.message, "Add a bill series on Masters before raising a bill.");
+        return true;
+      }
+    );
+  });
+
+  it("refuses an inactive series and an unknown series", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection(randomUUID(), { bill_year: "2025" });
+    world.seedBillSeries({ name: "ST" });
+    world.seedBillSeries({ name: "ADI", is_active: false });
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+    const payload = (series) =>
+      seriesBillPayload(world, collectionId, product, taxCode, client, series);
+
+    await assert.rejects(
+      () => createBill(world.deps, collectionId, payload("ADI")),
+      (error) => {
+        assert.equal(error.message, "This bill series is inactive.");
+        return true;
+      }
+    );
+    await assert.rejects(
+      () => readNextBillSerial(world.deps, collectionId, { bill_series: "NOPE" }),
+      (error) => {
+        assert.equal(error.message, "This bill series is inactive.");
+        return true;
+      }
+    );
+  });
+
+  it("saves ST-2026-01 in a second collection and refuses a second copy in the same collection", async () => {
+    const world = createBillWorld();
+    const collectionA = world.seedCollection(randomUUID(), { bill_year: "2026" });
+    const collectionB = world.seedCollection(randomUUID(), { bill_year: "2026" });
+    world.seedBillSeries({ name: "ST" });
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const productA = world.seedProduct(collectionA, { tax_code_id: taxCode.tax_code_id });
+    const productB = world.seedProduct(collectionB, { tax_code_id: taxCode.tax_code_id });
+
+    const inA = await createBill(
+      world.deps,
+      collectionA,
+      seriesBillPayload(world, collectionA, productA, taxCode, client, "ST")
+    );
+    const inB = await createBill(
+      world.deps,
+      collectionB,
+      seriesBillPayload(world, collectionB, productB, taxCode, client, "ST")
+    );
+    const nextInA = await createBill(
+      world.deps,
+      collectionA,
+      seriesBillPayload(world, collectionA, productA, taxCode, client, "ST")
+    );
+
+    assert.equal(inA.bill_number, "ST-2026-01");
+    assert.equal(inB.bill_number, "ST-2026-01");
+
+    await assert.rejects(
+      () =>
+        updateBill(
+          world.deps,
+          collectionA,
+          nextInA.bill_id,
+          updatePayloadFromBill(nextInA, { bill_number_parts: ["ST", "2026", "01"] })
+        ),
+      (error) => {
+        assert.ok(error instanceof BillDuplicateNumberError);
+        assert.equal(error.message, "This bill number is already in use");
+        return true;
+      }
+    );
+  });
+
+  it("shows the stored number on the list and leaves bills already saved unchanged", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection(randomUUID(), { bill_year: "2025" });
+    world.seedBillSeries({ name: "ST" });
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+    const legacy = await insertLegacyBill(world, {
+      collectionId,
+      client,
+      billNumber: "HAND-2024-8",
+      lines: [],
+    });
+
+    const saved = await createBill(
+      world.deps,
+      collectionId,
+      seriesBillPayload(world, collectionId, product, taxCode, client, "ST")
+    );
+    const listed = await listBills(world.deps, collectionId, { page: 1, limit: 10 });
+    const numbers = listed.bills.map((bill) => bill.bill_number).sort();
+
+    assert.deepEqual(numbers, ["HAND-2024-8", "ST-2025-01"]);
+    assert.equal((await getBill(world.deps, collectionId, saved.bill_id)).bill_number, "ST-2025-01");
+    assert.equal(
+      (await getBill(world.deps, collectionId, legacy.billId)).bill_number,
+      "HAND-2024-8"
+    );
+  });
+
+  it("still exports an inactive series and refuses it on a new bill", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection(randomUUID(), { bill_year: "2025" });
+    world.seedBillSeries({ name: "ST" });
+    world.seedBillSeries({ name: "ADI" });
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+    await createBill(
+      world.deps,
+      collectionId,
+      seriesBillPayload(world, collectionId, product, taxCode, client, "ST")
+    );
+    world.setBillSeriesActive("ST", false);
+
+    const exported = await exportBills(world.deps, collectionId, {
+      span_type: BILL_EXPORT_SPAN_BILL_NUMBER,
+      series_part_1: "ST",
+      series_part_2: "2025",
+      from_third_part: "1",
+      to_third_part: "10",
+    });
+    assert.deepEqual(
+      exported.bills.map((bill) => bill.bill_number),
+      ["ST-2025-01"]
+    );
+
+    await assert.rejects(
+      () =>
+        createBill(
+          world.deps,
+          collectionId,
+          seriesBillPayload(world, collectionId, product, taxCode, client, "ST")
+        ),
+      (error) => {
+        assert.equal(error.message, "This bill series is inactive.");
+        return true;
+      }
+    );
+  });
+
+  it("still lets edit change a saved bill number", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection(randomUUID(), { bill_year: "2025" });
+    world.seedBillSeries({ name: "ST" });
+    const client = world.seedClient();
+    const taxCode = world.seedTaxCode();
+    const product = world.seedProduct(collectionId, { tax_code_id: taxCode.tax_code_id });
+    const saved = await createBill(
+      world.deps,
+      collectionId,
+      seriesBillPayload(world, collectionId, product, taxCode, client, "ST")
+    );
+
+    const edited = await updateBill(
+      world.deps,
+      collectionId,
+      saved.bill_id,
+      updatePayloadFromBill(saved, { bill_number_parts: ["ST", "2025", "77"] })
+    );
+
+    assert.equal(saved.bill_number, "ST-2025-01");
+    assert.equal(edited.bill_number, "ST-2025-77");
+  });
 });

@@ -222,6 +222,30 @@ describe("validateGstBillForm stock and duplicates", () => {
     );
   });
 
+  it("accepts a new bill when a series is chosen and the year and serial are not typed", () => {
+    const result = validateGstBillForm(
+      validForm({
+        billSeries: "ST",
+        billNumberParts: ["", "", ""],
+      })
+    );
+
+    expect(result.hasError).toBe(false);
+    expect(result.errors.billSeries).toBeNull();
+  });
+
+  it("asks for a bill series on a new bill when none is chosen", () => {
+    const result = validateGstBillForm(
+      validForm({
+        billSeries: "",
+        billNumberParts: ["", "", ""],
+      })
+    );
+
+    expect(result.hasError).toBe(true);
+    expect(result.errors.billSeries).toBe("Choose a bill series");
+  });
+
   it("leaves a stored product missing from the catalog to the server", () => {
     const line = validLine({ bill_line_id: "bl1", product_id: "gone", quantity: "9" });
     const context = {

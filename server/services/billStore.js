@@ -82,6 +82,39 @@ export function createBillDeps() {
       return row ?? null;
     },
 
+    async getCollection(collectionId) {
+      const [row] = await query(
+        `select collection_id, bill_year
+         from collections
+         where collection_id = $1`,
+        [collectionId]
+      );
+      return row ?? null;
+    },
+
+    async listActiveBillSeries() {
+      const rows = await query(
+        `select bill_series_id, name, is_active
+         from bill_series
+         where is_active = true
+         order by name`
+      );
+      return rows.map((row) => ({ ...row, is_active: Boolean(row.is_active) }));
+    },
+
+    async getBillSeriesByName(name) {
+      const [row] = await query(
+        `select bill_series_id, name, is_active
+         from bill_series
+         where name = $1`,
+        [name]
+      );
+      if (!row) {
+        return null;
+      }
+      return { ...row, is_active: Boolean(row.is_active) };
+    },
+
     async listBillsByCollection(collectionId, { limit, offset, search } = {}) {
       const params = [collectionId];
       let searchClause = "";

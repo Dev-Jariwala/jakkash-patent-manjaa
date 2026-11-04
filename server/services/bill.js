@@ -1098,12 +1098,120 @@ async function assertBillNumberAvailable(deps, collectionId, billNumber, exclude
   }
 }
 
+export const BILL_YEAR_REQUIRED_MESSAGE =
+  "Set a bill year on this collection before raising a bill.";
+export const BILL_SERIES_REQUIRED_MESSAGE =
+  "Add a bill series on Masters before raising a bill.";
+export const BILL_SERIES_INACTIVE_MESSAGE = "This bill series is inactive.";
+
+function submittedBillSeriesName(rawInput) {
+  const explicit = rawInput?.bill_series;
+  if (explicit !== undefined && explicit !== null && String(explicit).trim() !== "") {
+    return String(explicit).trim();
+  }
+  const part = rawInput?.bill_number_parts?.[0];
+  if (part !== undefined && part !== null && String(part).trim() !== "") {
+    return String(part).trim();
+  }
+  return "";
+}
+
+function digitSerial(text) {
+  if (!/^\d+$/.test(text)) {
+    return null;
+  }
+  return BigInt(text);
+}
+
+function formatBillSerial(value) {
+  const text = value.toString();
+  return text.length >= 2 ? text : text.padStart(2, "0");
+}
+
+function isTakenBillNumberError(error) {
+  return (
+    error instanceof BillDuplicateNumberError ||
+    error?.code === "23505" ||
+    error?.cause?.code === "23505"
+  );
+}
+
+async function resolveNewBillNumberContext(deps, collectionId, rawInput) {
+  const collection = await deps.getCollection(collectionId);
+  const billYear =
+    collection?.bill_year === undefined || collection?.bill_year === null
+      ? ""
+      : String(collection.bill_year).trim();
+  if (!billYear) {
+    throw new BillValidationError(BILL_YEAR_REQUIRED_MESSAGE);
+  }
+
+  const active = await deps.listActiveBillSeries();
+  if (!active?.length) {
+    throw new BillValidationError(BILL_SERIES_REQUIRED_MESSAGE);
+  }
+
+  const seriesName = submittedBillSeriesName(rawInput);
+  const series = seriesName ? await deps.getBillSeriesByName(seriesName) : null;
+  if (!series || !series.is_active) {
+    throw new BillValidationError(BILL_SERIES_INACTIVE_MESSAGE);
+  }
+
+  return { seriesName: series.name, billYear };
+}
+
+async function assignBillNumber(deps, collectionId, seriesName, billYear) {
+  const rows = await deps.listAllBillsByCollection(collectionId);
+  let highest = null;
+  for (const row of rows) {
+    const parts = splitBillNumber(row.bill_number);
+    if (!parts || parts[0] !== seriesName || parts[1] !== billYear) {
+      continue;
+    }
+    const serial = digitSerial(parts[2]);
+    if (serial === null) {
+      continue;
+    }
+    if (highest === null || serial > highest) {
+      highest = serial;
+    }
+  }
+
+  let next = highest === null ? 1n : highest + 1n;
+  for (;;) {
+    const billSerial = formatBillSerial(next);
+    const billNumber = `${seriesName}-${billYear}-${billSerial}`;
+    const existing = await deps.getBillByBillNumber(collectionId, billNumber);
+    if (!existing) {
+      return { billNumber, billSerial };
+    }
+    next += 1n;
+  }
+}
+
+export async function readNextBillSerial(deps, collectionId, rawInput) {
+  const { seriesName, billYear } = await resolveNewBillNumberContext(
+    deps,
+    collectionId,
+    rawInput
+  );
+  const { billSerial } = await assignBillNumber(deps, collectionId, seriesName, billYear);
+  return {
+    bill_series: seriesName,
+    bill_year: billYear,
+    bill_serial: billSerial,
+  };
+}
+
 export async function createBill(deps, collectionId, rawInput) {
   rejectDiscountInPayload(rawInput);
   const taxShape = parseTaxShape(rawInput?.tax_shape);
-  const { billNumber } = parseBillNumberParts(rawInput?.bill_number_parts);
+  const { seriesName, billYear } = await resolveNewBillNumberContext(
+    deps,
+    collectionId,
+    rawInput
+  );
   const billDate = parseBillDate(rawInput?.bill_date);
-  await assertBillNumberAvailable(deps, collectionId, billNumber);
   const receiver = await resolveReceiver(deps, rawInput?.receiver_mobile);
   const bank = await copyShopBankBlock(deps);
   const keptLines = await resolveKeptLines(deps, collectionId, rawInput?.lines, taxShape);
@@ -1131,31 +1239,41 @@ export async function createBill(deps, collectionId, rawInput) {
 
   const billId = randomUUID();
   const savedAt = new Date().toISOString();
-  const billRow = {
-    bill_id: billId,
-    collection_id: collectionId,
-    bill_number: billNumber,
-    bill_date: billDate,
-    ...receiver,
-    total_value: totalValue,
-    total_tax: totalTax,
-    total_bill: totalBill,
-    tax_shape: taxShape,
-    ...bank,
-    saved_at: savedAt,
-    stock_applied: true,
-  };
-
-  await deps.insertBill(
-    billRow,
-    keptLines.map((line, index) => ({
-      bill_line_id: randomUUID(),
+  let billRow = null;
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    const { billNumber } = await assignBillNumber(deps, collectionId, seriesName, billYear);
+    billRow = {
       bill_id: billId,
-      line_order: index,
-      ...line,
-    })),
-    stockDeltas
-  );
+      collection_id: collectionId,
+      bill_number: billNumber,
+      bill_date: billDate,
+      ...receiver,
+      total_value: totalValue,
+      total_tax: totalTax,
+      total_bill: totalBill,
+      tax_shape: taxShape,
+      ...bank,
+      saved_at: savedAt,
+      stock_applied: true,
+    };
+    try {
+      await deps.insertBill(
+        billRow,
+        keptLines.map((line, index) => ({
+          bill_line_id: randomUUID(),
+          bill_id: billId,
+          line_order: index,
+          ...line,
+        })),
+        stockDeltas
+      );
+      break;
+    } catch (error) {
+      if (!isTakenBillNumberError(error) || attempt === 4) {
+        throw error;
+      }
+    }
+  }
 
   if (deps.noteBillSaved) {
     await deps.noteBillSaved();
