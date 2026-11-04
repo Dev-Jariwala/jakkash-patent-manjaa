@@ -5,6 +5,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import GstBillsExportDocument from "@/pages/gst-bills/GstBillsExportDocument";
 import {
   BILL_EXPORT_SPAN_BILL_DATE,
@@ -16,9 +17,10 @@ import {
   formatBillCalendarDate,
   localDateToBillCalendarIso,
 } from "@/pages/gst-bills/billCalendarDate";
+import { getAllMastersBillSeries } from "@/services/common";
 import { exportGstBills } from "@/services/gstBills";
 import { PDFViewer } from "@react-pdf/renderer";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { CalendarIcon } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -84,6 +86,16 @@ const GstBillsExport = () => {
     setExportBills(null);
     setEmptySpanMessage("");
   }, [activeCollection]);
+
+  const {
+    data: billSeries = [],
+    isLoading: billSeriesLoading,
+    isError: billSeriesError,
+  } = useQuery({
+    queryKey: ["masters", "bill-series", "all"],
+    queryFn: () => getAllMastersBillSeries(),
+    enabled: Boolean(activeCollection),
+  });
 
   const { mutate: runExport, isPending: isExportLoading } = useMutation({
     mutationFn: async (payload) => {
@@ -174,28 +186,42 @@ const GstBillsExport = () => {
             <div className="flex flex-wrap items-end gap-3">
               {isBillNumberSpan ? (
                 <>
-                  <ExportField label="Series (first part)">
-                    <Input
-                      value={seriesPart1}
-                      onChange={(event) => setSeriesPart1(event.target.value)}
-                      className="h-10"
-                    />
+                  <ExportField label="Bill series">
+                    <Select
+                      value={seriesPart1 || undefined}
+                      onValueChange={setSeriesPart1}
+                      disabled={billSeriesLoading || billSeriesError}
+                    >
+                      <SelectTrigger
+                        className="h-10 max-h-10 overflow-hidden whitespace-nowrap [&>span:first-child]:min-w-0 [&>span:first-child]:truncate"
+                        isLoading={billSeriesLoading}
+                      >
+                        <SelectValue placeholder={billSeries.length ? "Select" : "None"} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {billSeries.map((series) => (
+                          <SelectItem key={series.bill_series_id} value={series.name}>
+                            {series.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </ExportField>
-                  <ExportField label="Series (second part)">
+                  <ExportField label="Year">
                     <Input
                       value={seriesPart2}
                       onChange={(event) => setSeriesPart2(event.target.value)}
                       className="h-10"
                     />
                   </ExportField>
-                  <ExportField label="From (third part)">
+                  <ExportField label="From">
                     <Input
                       value={fromThird}
                       onChange={(event) => setFromThird(event.target.value)}
                       className="h-10"
                     />
                   </ExportField>
-                  <ExportField label="To (third part)">
+                  <ExportField label="To">
                     <Input
                       value={toThird}
                       onChange={(event) => setToThird(event.target.value)}
@@ -219,6 +245,9 @@ const GstBillsExport = () => {
               </Button>
             </div>
 
+            {isBillNumberSpan && billSeriesError ? (
+              <p className="text-sm text-destructive">Bill series could not be loaded.</p>
+            ) : null}
             {emptySpanMessage ? (
               <p className="text-sm text-muted-foreground">{emptySpanMessage}</p>
             ) : null}

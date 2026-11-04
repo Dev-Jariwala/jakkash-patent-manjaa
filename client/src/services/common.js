@@ -118,6 +118,27 @@ export const getMastersBillSeries = async ({ pageIndex, pageSize }) => {
   return response;
 };
 
+const MASTERS_BILL_SERIES_PAGE_SIZE = 100;
+
+export async function getAllMastersBillSeries() {
+  const rows = [];
+  let pageIndex = 0;
+  let totalPages = 1;
+
+  while (pageIndex < totalPages) {
+    const response = await getMastersBillSeries({
+      pageIndex,
+      pageSize: MASTERS_BILL_SERIES_PAGE_SIZE,
+    });
+    const data = response.data ?? {};
+    rows.push(...(data.bill_series ?? []));
+    totalPages = data.totalPages ?? 1;
+    pageIndex += 1;
+  }
+
+  return rows;
+}
+
 export const createMastersBillSeries = async (data) => {
   const response = await axios({
     method: "POST",

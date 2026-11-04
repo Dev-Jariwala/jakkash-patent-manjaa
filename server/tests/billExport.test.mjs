@@ -10,7 +10,9 @@ import {
   exportBills,
   listBills,
 } from "../services/bill.js";
+import { createBillSeries, listBillSeries, updateBillSeries } from "../services/billSeries.js";
 import { BillValidationError } from "../services/billErrors.js";
+import { createBillSeriesWorld } from "./helpers/billSeriesWorld.mjs";
 import { createBillWorld, insertLegacyBill } from "./helpers/billWorld.mjs";
 
 function spanPayload(series1, series2, fromThird, toThird) {
@@ -230,6 +232,107 @@ describe("exportBills bill-number span", () => {
     assert.equal(bill.lines.length, 1);
     assert.equal(bill.lines[0].product_name, line.product_name);
     assert.equal(bill.lines[0].tax_code, line.tax_code);
+  });
+
+  it("returns ST and 2025 from 1 to 10 in integer order, skipping a gap and leaving st and another collection out", async () => {
+    const world = createBillWorld();
+    const collectionA = world.seedCollection();
+    const collectionB = world.seedCollection();
+    const client = world.seedClient();
+    const line = minimalLine(world, collectionA);
+    const numbers = [
+      "ST-2025-01",
+      "ST-2025-08",
+      "ST-2025-8",
+      "ST-2025-10",
+      "ST-2025-11",
+      "ST-2025-10A",
+      "st-2025-1",
+    ];
+    for (const billNumber of numbers) {
+      await insertLegacyBill(world, {
+        collectionId: collectionA,
+        client,
+        billNumber,
+        lines: [line],
+      });
+    }
+    await insertLegacyBill(world, {
+      collectionId: collectionB,
+      client,
+      billNumber: "ST-2025-04",
+      lines: [minimalLine(world, collectionB)],
+    });
+
+    const { bills } = await exportBills(
+      world.deps,
+      collectionA,
+      spanPayload("ST", "2025", "1", "10")
+    );
+
+    assert.deepEqual(
+      bills.map((bill) => bill.bill_number),
+      ["ST-2025-01", "ST-2025-08", "ST-2025-8", "ST-2025-10"]
+    );
+    assert.ok(bills.every((bill) => bill.collection_id === collectionA));
+  });
+
+  it("returns stored bills for a series that is inactive, including 00 only after it is on Masters", async () => {
+    const seriesWorld = createBillSeriesWorld();
+    const before = await listBillSeries(seriesWorld.deps, { limit: 10, offset: 0 });
+    assert.equal(
+      before.billSeries.some((row) => row.name === "00"),
+      false
+    );
+
+    const created = await createBillSeries(seriesWorld.deps, { name: "00" });
+    const inactive = await updateBillSeries(seriesWorld.deps, created.bill_series_id, {
+      is_active: false,
+    });
+    assert.equal(inactive.name, "00");
+    assert.equal(inactive.is_active, false);
+
+    const listed = await listBillSeries(seriesWorld.deps, { limit: 10, offset: 0 });
+    assert.deepEqual(
+      listed.billSeries.map((row) => ({ name: row.name, is_active: row.is_active })),
+      [{ name: "00", is_active: false }]
+    );
+
+    const world = createBillWorld();
+    const collectionA = world.seedCollection();
+    const collectionB = world.seedCollection();
+    const client = world.seedClient();
+    const line = minimalLine(world, collectionA);
+    await insertLegacyBill(world, {
+      collectionId: collectionA,
+      client,
+      billNumber: "00-2025-01",
+      lines: [line],
+    });
+    await insertLegacyBill(world, {
+      collectionId: collectionA,
+      client,
+      billNumber: "00-2025-03",
+      lines: [line],
+    });
+    await insertLegacyBill(world, {
+      collectionId: collectionB,
+      client,
+      billNumber: "00-2025-01",
+      lines: [minimalLine(world, collectionB)],
+    });
+
+    const { bills } = await exportBills(
+      world.deps,
+      collectionA,
+      spanPayload(inactive.name, "2025", "1", "10")
+    );
+
+    assert.deepEqual(
+      bills.map((bill) => bill.bill_number),
+      ["00-2025-01", "00-2025-03"]
+    );
+    assert.equal(bills[0].collection_id, collectionA);
   });
 
   it("rejects a bad series part or non-digit third part", async () => {
