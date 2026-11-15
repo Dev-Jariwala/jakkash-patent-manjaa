@@ -212,6 +212,12 @@ export function createBillWorld({
     getProductStock(productId) {
       return productsById.get(productId)?.stock_in_hand;
     },
+    setProductStock(productId, stockInHand) {
+      const product = productsById.get(productId);
+      if (product) {
+        product.stock_in_hand = stockInHand;
+      }
+    },
     seedCollection(id = randomUUID(), options = {}) {
       const collection_id = id;
       const bill_year = Object.hasOwn(options, "bill_year") ? options.bill_year : "26";

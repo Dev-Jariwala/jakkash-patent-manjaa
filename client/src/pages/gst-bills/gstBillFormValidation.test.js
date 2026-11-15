@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  DUPLICATE_PRODUCT_MESSAGE,
+  DUPLICATE_PRODUCT_RATE_MESSAGE,
   availableStockForBillLine,
   displayedStockInHand,
   insufficientStockMessage,
@@ -49,21 +49,95 @@ describe("validateGstBillForm stock and duplicates", () => {
     expect(result.hasError).toBe(false);
   });
 
-  it("refuses the same product on two non-blank lines", () => {
+  it("refuses the same product at the same rate on two lines", () => {
     const result = validateGstBillForm(
       validForm({
         lines: [
-          validLine({ product_id: "p1", quantity: "1" }),
-          validLine({ product_id: "p1", quantity: "2" }),
+          validLine({ product_id: "p1", quantity: "1", rate: "220" }),
+          validLine({ product_id: "p1", quantity: "2", rate: "220" }),
           validLine({ product_id: "", tax_code_id: "", quantity: "" }),
         ],
       })
     );
 
     expect(result.hasError).toBe(true);
-    expect(result.errors.lines[0].product).toBe(DUPLICATE_PRODUCT_MESSAGE);
-    expect(result.errors.lines[1].product).toBe(DUPLICATE_PRODUCT_MESSAGE);
+    expect(result.errors.lines[0].rate).toBe(DUPLICATE_PRODUCT_RATE_MESSAGE);
+    expect(result.errors.lines[1].rate).toBe(DUPLICATE_PRODUCT_RATE_MESSAGE);
     expect(result.errors.lines[2].product).toBeNull();
+  });
+
+  it("treats 220 and 220.00 as the same rate", () => {
+    const result = validateGstBillForm(
+      validForm({
+        lines: [
+          validLine({ rate: "220", quantity: "1" }),
+          validLine({ rate: "220.00", quantity: "2" }),
+        ],
+      })
+    );
+    expect(result.errors.lines[0].rate).toBe(DUPLICATE_PRODUCT_RATE_MESSAGE);
+    expect(result.errors.lines[1].rate).toBe(DUPLICATE_PRODUCT_RATE_MESSAGE);
+  });
+
+  it("allows the same product at different rates", () => {
+    const result = validateGstBillForm(
+      validForm({
+        products: [{ product_id: "p1", product_name: "Widget", stock_in_hand: 100 }],
+        lines: [
+          validLine({ quantity: "80", rate: "220" }),
+          validLine({ quantity: "20", rate: "270" }),
+        ],
+      })
+    );
+    expect(result.hasError).toBe(false);
+  });
+
+  it("refuses the same rate when GST percents differ", () => {
+    const result = validateGstBillForm(
+      validForm({
+        lines: [
+          validLine({ rate: "220", cgst_percent: 2.5, sgst_percent: 2.5, igst_percent: 5 }),
+          validLine({ rate: "220", cgst_percent: 9, sgst_percent: 9, igst_percent: 18 }),
+        ],
+      })
+    );
+    expect(result.errors.lines[0].rate).toBe(DUPLICATE_PRODUCT_RATE_MESSAGE);
+    expect(result.errors.lines[1].rate).toBe(DUPLICATE_PRODUCT_RATE_MESSAGE);
+  });
+
+  it("keeps a blank rate on the rate-required message", () => {
+    const result = validateGstBillForm(
+      validForm({
+        lines: [validLine({ rate: "" }), validLine({ rate: "220", quantity: "2" })],
+      })
+    );
+    expect(result.errors.lines[0].rate).toBe("Rate is required");
+    expect(result.errors.lines[0].rate).not.toBe(DUPLICATE_PRODUCT_RATE_MESSAGE);
+  });
+
+  it("keeps an invalid rate on the rate-format message", () => {
+    const result = validateGstBillForm(
+      validForm({
+        lines: [validLine({ rate: "abc" }), validLine({ rate: "220", quantity: "2" })],
+      })
+    );
+    expect(result.errors.lines[0].rate).toBe(
+      "Rate must be zero or greater with at most two decimal places"
+    );
+  });
+
+  it("rejects a half-filled line and ignores a blank line", () => {
+    const result = validateGstBillForm(
+      validForm({
+        lines: [
+          validLine(),
+          { product_id: "p1", tax_code_id: "t1", quantity: "" },
+          { product_id: "", tax_code_id: "", quantity: "" },
+        ],
+      })
+    );
+    expect(result.errors.lines[1].line).toBe("Each line needs a product and quantity");
+    expect(result.hasError).toBe(true);
   });
 
   it("allows the same bill once the extra product line is removed", () => {
@@ -90,6 +164,68 @@ describe("validateGstBillForm stock and duplicates", () => {
       "Insufficient stock for Widget: 3 available, 5 requested."
     );
     expect(result.errors.lines[0].quantity).toBe(insufficientStockMessage("Widget", 3, 5));
+  });
+
+  it("sums quantities per product and marks every line of that product", () => {
+    const result = validateGstBillForm(
+      validForm({
+        products: [{ product_id: "p1", product_name: "Cotton", stock_in_hand: 100 }],
+        lines: [
+          validLine({ quantity: "80", rate: "220" }),
+          validLine({ quantity: "30", rate: "270" }),
+        ],
+      })
+    );
+    expect(result.errors.lines[0].quantity).toBe(
+      "Insufficient stock for Cotton: 100 available, 110 requested."
+    );
+    expect(result.errors.lines[1].quantity).toBe(
+      "Insufficient stock for Cotton: 100 available, 110 requested."
+    );
+  });
+
+  it("marks only the product that is short", () => {
+    const result = validateGstBillForm(
+      validForm({
+        products: [
+          { product_id: "p1", product_name: "Cotton", stock_in_hand: 100 },
+          { product_id: "p2", product_name: "Silk", stock_in_hand: 5 },
+        ],
+        lines: [
+          validLine({ product_id: "p1", quantity: "10", rate: "220" }),
+          validLine({ product_id: "p1", quantity: "10", rate: "270" }),
+          validLine({
+            product_id: "p2",
+            tax_code_id: "t1",
+            quantity: "9",
+            rate: "100",
+            cgst_percent: 9,
+            sgst_percent: 9,
+            igst_percent: 18,
+          }),
+        ],
+      })
+    );
+    expect(result.errors.lines[0].quantity).toBeNull();
+    expect(result.errors.lines[1].quantity).toBeNull();
+    expect(result.errors.lines[2].quantity).toMatch(/Silk/);
+  });
+
+  it("excludes bad quantities from the stock sum", () => {
+    const result = validateGstBillForm(
+      validForm({
+        products: [{ product_id: "p1", product_name: "Cotton", stock_in_hand: 100 }],
+        lines: [
+          validLine({ quantity: "1.5", rate: "220" }),
+          validLine({ quantity: "10", rate: "270" }),
+        ],
+      })
+    );
+    expect(result.errors.lines[0].quantity).toBe(
+      "Quantity must be a whole number of at least 1"
+    );
+    expect(result.errors.lines[1].quantity).toBeNull();
+    expect(result.hasError).toBe(true);
   });
 
   it("allows a quantity equal to stock in hand", () => {
@@ -135,6 +271,25 @@ describe("validateGstBillForm stock and duplicates", () => {
       })
     );
     expect(kept.hasError).toBe(false);
+  });
+
+  it("adds back stored quantities on edit before comparing the sum", () => {
+    const context = {
+      products: [{ product_id: "p1", product_name: "Cotton", stock_in_hand: 50 }],
+      isEdit: true,
+      stockApplied: true,
+      existingLines: [{ bill_line_id: "bl1", product_id: "p1", quantity: 100 }],
+    };
+    const result = validateGstBillForm(
+      validForm({
+        ...context,
+        lines: [
+          validLine({ bill_line_id: "bl1", quantity: "80", rate: "220" }),
+          validLine({ quantity: "30", rate: "270" }),
+        ],
+      })
+    );
+    expect(result.hasError).toBe(false);
   });
 
   it("uses the new product's current stock when the line product changed", () => {

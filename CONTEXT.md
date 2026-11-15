@@ -37,7 +37,7 @@ A product the operator has turned off. It stays listed: the products list opens 
 _Avoid_: deleted, the unused delete flag
 
 **Stock in hand**:
-The quantity of a Product currently held in a collection. Labour is counted the same way. Receiving stock adds to it; an Order or a Bill takes from it, and a Bill refuses a quantity it cannot cover.
+The quantity of a Product currently held in a collection. Labour is counted the same way. Receiving stock adds to it; an Order or a Bill takes from it. A Bill refuses a save when the sum of that Product's line quantities is more than stock in hand can cover.
 _Avoid_: Inventory, available count, total stock
 
 **Tax code**:
@@ -81,8 +81,8 @@ A Bill's single choice of which copied rates are charged. Within-state charges t
 _Avoid_: A three-way CGST, SGST, or IGST switch, outside-state, intrastate
 
 **Bill line**:
-A line on a Bill. It stores the product id, a copy of the product name, and the rate charged, plus the tax code id and a copy of the code, the tax code's description, and the tax code's CGST, SGST, and IGST from when that product was chosen. The Bill's tax shape decides which of those rates are charged. A line saved before tax shape stores the percents charged until that product is chosen again on a Bill whose lines share one shape.
-_Avoid_: Order line, joining the live product or tax code at display time, a separate HSN/SAC choice on the Bill, calling the stored numbers the percents charged on a new Bill, one rate shared by every line of a product, a live rate lookup
+A line on a Bill: one Product at one rate. The same Product may appear on more than one Bill line when each line's rate differs; the same Product at the same rate is one line. It stores the product id, a copy of the product name, and the rate charged, plus the tax code id and a copy of the code, the tax code's description, and the tax code's CGST, SGST, and IGST from when that product was chosen. The Bill's tax shape decides which of those rates are charged. A line saved before tax shape stores the percents charged until that product is chosen again on a Bill whose lines share one shape.
+_Avoid_: Order line, joining the live product or tax code at display time, a separate HSN/SAC choice on the Bill, calling the stored numbers the percents charged on a new Bill, a live rate lookup
 
 **Total bill**:
 The amount of a Bill after the tax.

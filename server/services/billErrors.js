@@ -39,12 +39,26 @@ export class BillInsufficientStockError extends Error {
   }
 }
 
+export function formatBillRateForMessage(rate) {
+  const n = Number(rate);
+  if (!Number.isFinite(n)) {
+    return String(rate);
+  }
+  const rounded = Math.round((n + Number.EPSILON) * 100) / 100;
+  if (Math.abs(rounded - Math.round(rounded)) < Number.EPSILON) {
+    return String(Math.round(rounded));
+  }
+  return String(rounded);
+}
+
 export class BillDuplicateProductError extends Error {
-  constructor(productName) {
-    super(`The same product appears more than once on this bill: ${productName}`);
+  constructor(productName, rate) {
+    const rateText = formatBillRateForMessage(rate);
+    super(`${productName} is already on this bill at ${rateText}.`);
     this.name = "BillDuplicateProductError";
     this.code = "BILL_DUPLICATE_PRODUCT";
     this.statusCode = 400;
     this.productName = productName;
+    this.rate = rate;
   }
 }

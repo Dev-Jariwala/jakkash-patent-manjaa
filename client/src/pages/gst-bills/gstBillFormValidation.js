@@ -1,3 +1,5 @@
+import { roundHalfUpToPaise } from "@/pages/gst-bills/formatGstBillInvoice";
+
 const BILL_NUMBER_PART_MAX = 20;
 const RATE_PATTERN = /^\d+(\.\d{1,2})?$/;
 const PERCENT_PATTERN = /^\d+(\.\d{1,2})?$/;
@@ -45,7 +47,8 @@ function isHalfFilledLine(line) {
   );
 }
 
-export const DUPLICATE_PRODUCT_MESSAGE = "Each product may appear once on a Bill.";
+export const DUPLICATE_PRODUCT_RATE_MESSAGE =
+  "This product is already on the Bill at this rate.";
 
 export function insufficientStockMessage(productName, available, requested) {
   return `Insufficient stock for ${productName}: ${available} available, ${requested} requested.`;
@@ -58,18 +61,37 @@ function catalogProduct(products, productId) {
   );
 }
 
-function duplicateProductIds(lines) {
-  const counts = new Map();
-  for (const line of lines) {
-    if (isBlankLine(line) || !line.product_id) {
-      continue;
-    }
-    const id = String(line.product_id);
-    counts.set(id, (counts.get(id) ?? 0) + 1);
+function parseLineRate(raw) {
+  const text = String(raw ?? "").trim();
+  if (!text || !RATE_PATTERN.test(text)) {
+    return null;
   }
-  return new Set(
-    [...counts.entries()].filter(([, count]) => count > 1).map(([id]) => id)
-  );
+  return roundHalfUpToPaise(Number(text));
+}
+
+function duplicateRateLineIndexes(lines) {
+  const groups = new Map();
+  lines.forEach((line, index) => {
+    if (isBlankLine(line) || isHalfFilledLine(line) || !line.product_id) {
+      return;
+    }
+    const rate = parseLineRate(line.rate);
+    if (rate === null) {
+      return;
+    }
+    const key = `${String(line.product_id)}:${rate}`;
+    if (!groups.has(key)) {
+      groups.set(key, []);
+    }
+    groups.get(key).push(index);
+  });
+  const duplicateIndexes = new Set();
+  for (const indices of groups.values()) {
+    if (indices.length > 1) {
+      indices.forEach((index) => duplicateIndexes.add(index));
+    }
+  }
+  return duplicateIndexes;
 }
 
 function creditedStoredQuantity(line, { isEdit, stockApplied, existingLines }) {
@@ -107,6 +129,43 @@ export function availableStockForBillLine(line, context = {}) {
     return null;
   }
   return onHand + creditedStoredQuantity(line, context);
+}
+
+function availableStockForProduct(productId, lines, context) {
+  const onHand = displayedStockInHand({ product_id: productId }, context);
+  if (onHand == null) {
+    return null;
+  }
+  let credited = 0;
+  for (const line of lines) {
+    if (isBlankLine(line) || isHalfFilledLine(line)) {
+      continue;
+    }
+    if (String(line.product_id) !== String(productId)) {
+      continue;
+    }
+    credited += creditedStoredQuantity(line, context);
+  }
+  return onHand + credited;
+}
+
+function summedQuantitiesByProduct(lines) {
+  const sums = new Map();
+  lines.forEach((line, index) => {
+    if (isBlankLine(line) || isHalfFilledLine(line) || !line.product_id) {
+      return;
+    }
+    const qtyText = String(line.quantity).trim();
+    if (!/^\d+$/.test(qtyText) || Number(qtyText) < 1) {
+      return;
+    }
+    const productId = String(line.product_id);
+    const entry = sums.get(productId) ?? { requested: 0, lineIndexes: [] };
+    entry.requested += Number(qtyText);
+    entry.lineIndexes.push(index);
+    sums.set(productId, entry);
+  });
+  return sums;
 }
 
 function parsePercentMessage(raw, label) {
@@ -201,8 +260,8 @@ export function validateGstBillForm({
 }) {
   const errors = emptyGstBillFormErrors(lines.length);
   let hasError = false;
-  const duplicateIds = duplicateProductIds(lines);
   const stockContext = { products, isEdit, stockApplied, existingLines };
+  const duplicateRateIndexes = duplicateRateLineIndexes(lines);
 
   if (!isEdit && billSeries === undefined) {
     if (!Array.isArray(billNumberParts) || billNumberParts.length !== 3) {
@@ -258,11 +317,6 @@ export function validateGstBillForm({
       return;
     }
 
-    if (line.product_id && duplicateIds.has(String(line.product_id))) {
-      errors.lines[index].product = DUPLICATE_PRODUCT_MESSAGE;
-      hasError = true;
-    }
-
     if (isHalfFilledLine(line)) {
       errors.lines[index].line = "Each line needs a product and quantity";
       if (!line.product_id) {
@@ -279,18 +333,6 @@ export function validateGstBillForm({
     if (!/^\d+$/.test(qtyText) || Number(qtyText) < 1) {
       errors.lines[index].quantity = "Quantity must be a whole number of at least 1";
       hasError = true;
-    } else {
-      const available = availableStockForBillLine(line, stockContext);
-      const requested = Number(qtyText);
-      if (available != null && requested > available) {
-        const product = catalogProduct(products, line.product_id);
-        errors.lines[index].quantity = insufficientStockMessage(
-          product?.product_name ?? line.product_id,
-          available,
-          requested
-        );
-        hasError = true;
-      }
     }
 
     const rateText = String(line.rate ?? "").trim();
@@ -300,6 +342,9 @@ export function validateGstBillForm({
     } else if (!RATE_PATTERN.test(rateText)) {
       errors.lines[index].rate =
         "Rate must be zero or greater with at most two decimal places";
+      hasError = true;
+    } else if (duplicateRateIndexes.has(index)) {
+      errors.lines[index].rate = DUPLICATE_PRODUCT_RATE_MESSAGE;
       hasError = true;
     }
 
@@ -349,6 +394,24 @@ export function validateGstBillForm({
       completeLineCount += 1;
     }
   });
+
+  const quantitySums = summedQuantitiesByProduct(lines);
+  for (const [productId, { requested, lineIndexes }] of quantitySums) {
+    const available = availableStockForProduct(productId, lines, stockContext);
+    if (available == null || requested <= available) {
+      continue;
+    }
+    const product = catalogProduct(products, productId);
+    const message = insufficientStockMessage(
+      product?.product_name ?? productId,
+      available,
+      requested
+    );
+    for (const lineIndex of lineIndexes) {
+      errors.lines[lineIndex].quantity = message;
+      hasError = true;
+    }
+  }
 
   if (completeLineCount === 0) {
     errors.general = errors.general || "A bill needs at least one line";

@@ -609,14 +609,19 @@ function productNamesFromLines(lines) {
   return names;
 }
 
+function productRateLineKey(line) {
+  return `${String(line.product_id)}:${roundHalfUpToPaise(Number(line.rate))}`;
+}
+
 function assertNoDuplicateProducts(keptLines) {
   const seen = new Map();
   for (const line of keptLines) {
-    const productId = String(line.product_id);
-    if (seen.has(productId)) {
-      throw new BillDuplicateProductError(line.product_name ?? seen.get(productId));
+    const key = productRateLineKey(line);
+    if (seen.has(key)) {
+      const productName = line.product_name ?? seen.get(key);
+      throw new BillDuplicateProductError(productName, line.rate);
     }
-    seen.set(productId, line.product_name);
+    seen.set(key, line.product_name);
   }
 }
 
