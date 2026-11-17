@@ -19,6 +19,7 @@ import ReactSelect from "@/components/ui/react-select/react-select";
 import { Option as SelectOption } from "@/components/ui/react-select/components";
 import { defaultStyles } from "@/components/ui/react-select/helper";
 import { Textarea } from "@/components/ui/textarea";
+import { clientGstListDisplay } from "@/lib/clientGstDisplay";
 import { cn } from "@/lib/utils";
 import { getAllClients } from "@/services/clients";
 import { createGstBill, getGstBill, getNextBillSerial, previewGstBillTotals, updateGstBill } from "@/services/gstBills";
@@ -300,7 +301,9 @@ const GstBillForm = () => {
     queryKey: ["clients", "all"],
     queryFn: async () => {
       const response = await getAllClients();
-      return (response.data?.clients ?? []).filter((c) => c.gst_number);
+      return (response.data?.clients ?? []).filter(
+        (c) => c.gst_not_applicable || String(c.gst_number ?? "").trim()
+      );
     },
   });
 
@@ -422,7 +425,7 @@ const GstBillForm = () => {
     return {
       name: client.name,
       address: client.address ?? "",
-      gst_number: client.gst_number ?? "",
+      gst_number: clientGstListDisplay(client),
       contact_person: client.contact_person ?? "",
       contact_number: client.contact_number ?? "",
     };

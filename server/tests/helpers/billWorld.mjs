@@ -250,6 +250,7 @@ export function createBillWorld({
         name: "Acme Fabrics",
         address: "Ring Road, Surat",
         gst_number: "24AABCU9603R1ZM",
+        gst_not_applicable: false,
         contact_person: "Ravi",
         contact_number: "9123456789",
         ...overrides,

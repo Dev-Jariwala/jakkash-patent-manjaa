@@ -78,6 +78,7 @@ export function createClientMaintenanceWorld({
         state_id: null,
         city_id: null,
         gst_number: null,
+        gst_not_applicable: false,
         contact_person: null,
         contact_number: null,
         ...row,
@@ -98,6 +99,7 @@ export function createClientMaintenanceWorld({
         state_id: null,
         city_id: null,
         gst_number: null,
+        gst_not_applicable: false,
         contact_person: null,
         contact_number: null,
       });

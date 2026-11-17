@@ -2,6 +2,7 @@
 import { Document, Page, Text, StyleSheet, View } from "@react-pdf/renderer";
 import React from "react";
 import { BILL_NUMBER_LABEL } from "@jakkash/bill-pdf";
+import { clientGstListDisplay } from "@/lib/clientGstDisplay";
 const styles = StyleSheet.create({
     page: {
         padding: "20px 0 20px",
@@ -71,11 +72,13 @@ const ClientReportPDF = ({ client }) => {
         state_name,
         city_name,
         gst_number,
+        gst_not_applicable,
         contact_person,
         contact_number,
         orders: ordersFromClient,
         bills: billsFromClient,
     } = client;
+    const gstDisplay = clientGstListDisplay({ gst_number, gst_not_applicable });
     const orders = ordersFromClient ?? billsFromClient ?? [];
     const getProductArray = () => {
         const productArray = [];
@@ -164,7 +167,7 @@ const ClientReportPDF = ({ client }) => {
                                     </View>
                                     <View style={styles.bdRow}>
                                         <Text style={styles.bdCol}>GST NUMBER:</Text>
-                                        <Text style={styles.bdCol}>{profileField(gst_number)}</Text>
+                                        <Text style={styles.bdCol}>{profileField(gstDisplay)}</Text>
                                     </View>
                                 </View>
                                 <View style={{ width: "40%" }}>

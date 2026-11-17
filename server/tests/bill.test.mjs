@@ -1009,6 +1009,138 @@ describe("previewBillTotals", () => {
   });
 });
 
+describe("GST not applicable receiver", () => {
+  it("copies N/A as receiver GST for a marked client on create", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient({
+      mobile: "9000000200",
+      gst_number: null,
+      gst_not_applicable: true,
+    });
+    const product = world.seedProduct(collectionId);
+    const taxCode = world.seedTaxCode();
+
+    const saved = await createBill(
+      world.deps,
+      collectionId,
+      standardBillPayload({ world, collectionId, product, taxCode, client })
+    );
+
+    assert.equal(saved.receiver_gst_number, "N/A");
+    assert.equal(saved.receiver_mobile, client.mobile);
+  });
+
+  it("still refuses a client whose GST is blank and the mark is off", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const product = world.seedProduct(collectionId);
+    const taxCode = world.seedTaxCode();
+    const gstClient = world.seedClient();
+    const base = standardBillPayload({
+      world,
+      collectionId,
+      product,
+      taxCode,
+      client: gstClient,
+    });
+
+    await createBill(world.deps, collectionId, base);
+
+    world.seedClient({
+      mobile: "9000000201",
+      gst_number: null,
+      gst_not_applicable: false,
+    });
+
+    await assert.rejects(
+      () =>
+        createBill(world.deps, collectionId, {
+          ...base,
+          bill_number_parts: ["2", "2", "2"],
+          receiver_mobile: "9000000201",
+        }),
+      /GST number/
+    );
+  });
+
+  it("keeps N/A on edit when the receiver is unchanged even if the client is marked later", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const client = world.seedClient({
+      mobile: "9000000202",
+      gst_number: "24AAAAA0000A1Z5",
+    });
+    const product = world.seedProduct(collectionId);
+    const taxCode = world.seedTaxCode();
+
+    const created = await createBill(
+      world.deps,
+      collectionId,
+      standardBillPayload({ world, collectionId, product, taxCode, client })
+    );
+    assert.equal(created.receiver_gst_number, "24AAAAA0000A1Z5");
+
+    world.seedClient({
+      mobile: client.mobile,
+      gst_number: null,
+      gst_not_applicable: true,
+    });
+
+    const updated = await updateBill(
+      world.deps,
+      collectionId,
+      created.bill_id,
+      updatePayloadFromBill(created, {
+        lines: [
+          {
+            bill_line_id: created.lines[0].bill_line_id,
+            product_id: product.product_id,
+            tax_code_id: taxCode.tax_code_id,
+            quantity: 200,
+            rate: 215,
+            cgst_percent: created.lines[0].cgst_percent,
+            sgst_percent: created.lines[0].sgst_percent,
+            igst_percent: created.lines[0].igst_percent,
+          },
+        ],
+      })
+    );
+
+    assert.equal(updated.receiver_gst_number, "24AAAAA0000A1Z5");
+  });
+
+  it("copies N/A when edit changes the receiver to a marked client", async () => {
+    const world = createBillWorld();
+    const collectionId = world.seedCollection();
+    const clientA = world.seedClient();
+    const clientB = world.seedClient({
+      mobile: "9000000203",
+      name: "No GST Corp",
+      gst_number: null,
+      gst_not_applicable: true,
+    });
+    const product = world.seedProduct(collectionId);
+    const taxCode = world.seedTaxCode();
+
+    const created = await createBill(
+      world.deps,
+      collectionId,
+      standardBillPayload({ world, collectionId, product, taxCode, client: clientA })
+    );
+
+    const updated = await updateBill(
+      world.deps,
+      collectionId,
+      created.bill_id,
+      updatePayloadFromBill(created, { receiver_mobile: clientB.mobile })
+    );
+
+    assert.equal(updated.receiver_name, "No GST Corp");
+    assert.equal(updated.receiver_gst_number, "N/A");
+  });
+});
+
 describe("updateBill", () => {
   it("keeps an unchanged receiver copy after the client is renamed and loses GST", async () => {
     const world = createBillWorld();

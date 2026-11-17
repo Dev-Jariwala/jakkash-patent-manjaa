@@ -424,3 +424,41 @@ describe("validateGstBillForm stock and duplicates", () => {
     expect(result.errors.lines[0].product).toBeNull();
   });
 });
+
+describe("validateGstBillForm receiver GST", () => {
+  const markedClient = {
+    mobile: "8888888888",
+    name: "Marked Co",
+    gst_number: null,
+    gst_not_applicable: true,
+  };
+
+  const blankClient = {
+    mobile: "7777777777",
+    name: "Blank GST Co",
+    gst_number: null,
+    gst_not_applicable: false,
+  };
+
+  it("accepts a marked client as receiver", () => {
+    const result = validateGstBillForm(
+      validForm({
+        receiverMobile: markedClient.mobile,
+        clients: [client, markedClient],
+      })
+    );
+    expect(result.hasError).toBe(false);
+    expect(result.errors.receiver).toBeNull();
+  });
+
+  it("rejects a blank-GST client as receiver", () => {
+    const result = validateGstBillForm(
+      validForm({
+        receiverMobile: blankClient.mobile,
+        clients: [client, blankClient],
+      })
+    );
+    expect(result.hasError).toBe(true);
+    expect(result.errors.receiver).toBe("Receiver must be a client with a GST number");
+  });
+});

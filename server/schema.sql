@@ -85,9 +85,12 @@ CREATE TABLE IF NOT EXISTS clients (
     pincode          VARCHAR(6),
     state_id         UUID REFERENCES states (state_id),
     city_id          UUID REFERENCES cities (city_id),
-    gst_number       VARCHAR(15),
-    contact_person   VARCHAR(100),
-    contact_number   VARCHAR(10)
+    gst_number           VARCHAR(15),
+    gst_not_applicable   BOOLEAN NOT NULL DEFAULT false,
+    contact_person       VARCHAR(100),
+    contact_number   VARCHAR(10),
+    CONSTRAINT clients_gst_not_both
+        CHECK (NOT (gst_not_applicable AND gst_number IS NOT NULL))
 );
 
 -- tax_codes -----------------------------------------------------------
@@ -233,6 +236,17 @@ CREATE TABLE IF NOT EXISTS app_settings (
 -- ---------------------------------------------------------------------
 -- No-ops on a fresh install. These bring an older database forward
 -- without touching data.
+
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint WHERE conname = 'clients_gst_not_both'
+    ) THEN
+        ALTER TABLE clients
+            ADD CONSTRAINT clients_gst_not_both
+            CHECK (NOT (gst_not_applicable AND gst_number IS NOT NULL));
+    END IF;
+END $$;
 
 ALTER TABLE collections
     ADD COLUMN IF NOT EXISTS bill_year VARCHAR(20);

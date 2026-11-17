@@ -304,7 +304,10 @@ export function validateGstBillForm({
     if (!client) {
       errors.receiver = "Receiver is not a known client";
       hasError = true;
-    } else if (!String(client.gst_number ?? "").trim()) {
+    } else if (
+      !client.gst_not_applicable &&
+      !String(client.gst_number ?? "").trim()
+    ) {
       errors.receiver = "Receiver must be a client with a GST number";
       hasError = true;
     }

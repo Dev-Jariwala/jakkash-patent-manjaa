@@ -16,6 +16,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { DataTableViewOptions } from "@/components/ui/data-table-view-options";
+import { clientGstListDisplay } from "@/lib/clientGstDisplay";
 
 const columnHelper = createColumnHelper();
 const emptyCell = (value) => (value == null || value === "" ? "-" : value);
@@ -41,9 +42,10 @@ const columnsDef = [
         header: "City",
         cell: (info) => emptyCell(info.getValue()),
     }),
-    columnHelper.accessor("gst_number", {
+    columnHelper.display({
+        id: "gst_number",
         header: "GST Number",
-        cell: (info) => emptyCell(info.getValue()),
+        cell: (info) => emptyCell(clientGstListDisplay(info.row.original)),
     }),
     columnHelper.accessor("contact_person", {
         header: "Contact Person",
@@ -57,7 +59,10 @@ const columnsDef = [
 
 const headers = {};
 columnsDef.forEach((column) => {
-  headers[column.accessorKey] = column.header;
+  const key = column.accessorKey ?? column.id;
+  if (key) {
+    headers[key] = column.header;
+  }
 });
 
 const csvColumns = [
@@ -67,7 +72,7 @@ const csvColumns = [
     { label: "Pincode", key: "pincode" },
     { label: "State", key: "state_name" },
     { label: "City", key: "city_name" },
-    { label: "GST Number", key: "gst_number" },
+    { label: "GST Number", key: "gst_display" },
     { label: "Contact Person", key: "contact_person" },
     { label: "Contact Number", key: "contact_number" },
 ];
@@ -80,7 +85,14 @@ const csvCell = (value) => {
 const downloadClientsCsv = (rows) => {
     const csv = [
         csvColumns.map((column) => csvCell(column.label)).join(","),
-        ...rows.map((row) => csvColumns.map((column) => csvCell(row[column.key])).join(",")),
+        ...rows.map((row) =>
+            csvColumns.map((column) => {
+                if (column.key === "gst_display") {
+                    return csvCell(clientGstListDisplay(row));
+                }
+                return csvCell(row[column.key]);
+            }).join(",")
+        ),
     ].join("\n");
     const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8;" }));
     const link = document.createElement("a");

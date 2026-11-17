@@ -25,6 +25,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Spinner } from "@/components/ui/spinner";
 import { ArrowLeft } from "lucide-react";
 import { RequiredMark } from "@/components/form/RequiredMark";
+import { Switch } from "@/components/ui/switch";
 
 const placeCursorAtEnd = (event) => {
     const field = event.target;
@@ -69,12 +70,21 @@ const buildSchema = (isEdit) =>
                 return Boolean(this.parent.state_id);
             }
         ),
+        gst_not_applicable: yup.boolean().default(false),
         gst_number: yup
             .string()
             .transform((value) => (value === "" ? undefined : value?.replace(/\s+/g, "").toUpperCase()))
             .notRequired()
-            .test("gstin", "GST number must be a valid 15-character GSTIN", (value) => {
-                if (!value) return true;
+            .test("gstin", "GST number must be a valid 15-character GSTIN", function (value) {
+                if (this.parent.gst_not_applicable) {
+                    return true;
+                }
+                if (!value) {
+                    return true;
+                }
+                if (value === "N/A") {
+                    return false;
+                }
                 return value.length === 15 && gstinPattern.test(value);
             }),
         contact_person: yup.string().trim().max(100).notRequired(),
@@ -92,6 +102,7 @@ const emptyValues = {
     pincode: "",
     state_id: "",
     city_id: "",
+    gst_not_applicable: false,
     gst_number: "",
     contact_person: "",
     contact_number: "",
@@ -124,6 +135,7 @@ const ClientForm = () => {
     });
 
     const selectedStateId = form.watch("state_id");
+    const gstNotApplicable = form.watch("gst_not_applicable");
 
     const {
         data: existingClient,
@@ -226,7 +238,10 @@ const ClientForm = () => {
             pincode: existingClient.pincode ?? "",
             state_id: existingClient.state_id ?? "",
             city_id: existingClient.city_id ?? "",
-            gst_number: existingClient.gst_number ?? "",
+            gst_not_applicable: Boolean(existingClient.gst_not_applicable),
+            gst_number: existingClient.gst_not_applicable
+                ? ""
+                : (existingClient.gst_number ?? ""),
             contact_person: existingClient.contact_person ?? "",
             contact_number: existingClient.contact_number ?? "",
         });
@@ -251,7 +266,8 @@ const ClientForm = () => {
                 pincode: data.pincode || undefined,
                 state_id: data.state_id || undefined,
                 city_id: data.city_id || undefined,
-                gst_number: data.gst_number || undefined,
+                gst_not_applicable: Boolean(data.gst_not_applicable),
+                gst_number: data.gst_not_applicable ? undefined : data.gst_number || undefined,
                 contact_person: data.contact_person || undefined,
                 contact_number: data.contact_number || undefined,
             };
@@ -504,6 +520,32 @@ const ClientForm = () => {
                             </FormSection>
 
                             <FormSection title="GST & contact">
+                                <FormField
+                                    control={form.control}
+                                    name="gst_not_applicable"
+                                    render={({ field }) => (
+                                        <FormItem className="flex flex-row items-center justify-between rounded-lg border border-border p-4">
+                                            <div className="space-y-0.5">
+                                                <FormLabel className="text-base">GST not applicable</FormLabel>
+                                                <p className="text-sm text-muted-foreground">
+                                                    Use when this client has no GSTIN but should appear on Bills.
+                                                </p>
+                                            </div>
+                                            <FormControl>
+                                                <Switch
+                                                    checked={Boolean(field.value)}
+                                                    onCheckedChange={(checked) => {
+                                                        field.onChange(checked);
+                                                        if (checked) {
+                                                            form.setValue("gst_number", "");
+                                                        }
+                                                    }}
+                                                    aria-label="GST not applicable"
+                                                />
+                                            </FormControl>
+                                        </FormItem>
+                                    )}
+                                />
                                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                                     <FormField
                                         control={form.control}
@@ -512,7 +554,22 @@ const ClientForm = () => {
                                             <FormItem>
                                                 <FormLabel>GST number</FormLabel>
                                                 <FormControl>
-                                                    <Input placeholder="15-character GSTIN" {...field} />
+                                                    <Input
+                                                        placeholder="15-character GSTIN"
+                                                        disabled={gstNotApplicable}
+                                                        value={gstNotApplicable ? "N/A" : field.value}
+                                                        onChange={(event) => {
+                                                            const next = event.target.value;
+                                                            field.onChange(next);
+                                                            const compact = next.replace(/\s+/g, "");
+                                                            if (compact.length > 0) {
+                                                                form.setValue("gst_not_applicable", false);
+                                                            }
+                                                        }}
+                                                        onBlur={field.onBlur}
+                                                        name={field.name}
+                                                        ref={field.ref}
+                                                    />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>

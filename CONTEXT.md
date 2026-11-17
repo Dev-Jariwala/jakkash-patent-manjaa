@@ -13,8 +13,12 @@ The person or business identified by mobile number who receives an order.
 _Avoid_: Customer, buyer, account
 
 **Client profile**:
-Pincode, state, city, GST number, contact person, and contact number for a client. Maintained only from the clients screen; order create updates name and address but does not write the profile. Stores a state id and a city id only, not a country.
+Pincode, state, city, GST, contact person, and contact number for a client. GST is one of three states: blank (empty GST number, mark off), a 15-character GSTIN, or GST not applicable (mark on, GST number empty). Maintained only from the clients screen; order create updates name and address but does not write the profile. Stores a state id and a city id only, not a country.
 _Avoid_: Customer account, invoice address
+
+**GST not applicable**:
+A client profile mark that means the client has no GSTIN. The GST number stays empty; list, CSV, and report show N/A. Many clients may carry the mark. The letters N/A are not stored in the GST number.
+_Avoid_: White Bill, regular client, typing N/A as a GST number
 
 **Country**:
 A shared location row in the countries list, identified by name and ISO codes. The client form resolves India without a country control; Masters shows every country row, including inactive ones.
@@ -73,8 +77,8 @@ The generated third part, counted inside one collection for one bill series and 
 _Avoid_: a shop-wide sequence, and a typed number
 
 **Receiver**:
-The GST client a Bill was raised to. The Bill stores that client's id and a copy of the name, address, GST number, contact person, and contact number taken when that client was chosen for the save.
-_Avoid_: Live client lookup, customer
+A client with a GSTIN or GST not applicable that a Bill was raised to. A client whose GST is blank is not a Receiver. The Bill stores that client's id and a copy of the name, address, GST number (a GSTIN or the words N/A when the client is GST not applicable), contact person, and contact number taken when that client was chosen for the save.
+_Avoid_: Live client lookup, customer, any client with blank GST
 
 **Tax shape**:
 A Bill's single choice of which copied rates are charged. Within-state charges the copied CGST and SGST. Interstate charges the copied IGST. A new Bill opens on within-state. The client's state does not set it.

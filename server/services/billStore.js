@@ -54,7 +54,7 @@ export function createBillDeps() {
 
     async getClientByMobile(mobile) {
       const [row] = await query(
-        `select mobile, name, address, gst_number, contact_person, contact_number
+        `select mobile, name, address, gst_number, gst_not_applicable, contact_person, contact_number
          from clients
          where mobile = $1`,
         [mobile]

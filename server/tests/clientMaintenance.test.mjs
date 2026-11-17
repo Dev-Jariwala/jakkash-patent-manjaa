@@ -213,6 +213,130 @@ describe("createClient", () => {
   });
 });
 
+describe("client GST not applicable", () => {
+  it("creates a client marked GST not applicable with an empty GST number", async () => {
+    const world = createClientMaintenanceWorld();
+    const client = await createClient(
+      world.deps,
+      validCreatePayload({ mobile: "9000000101", gst_not_applicable: true })
+    );
+
+    assert.equal(client.gst_not_applicable, true);
+    assert.equal(client.gst_number, null);
+  });
+
+  it("defaults GST not applicable to off for a new client", async () => {
+    const world = createClientMaintenanceWorld();
+    const client = await createClient(
+      world.deps,
+      validCreatePayload({ mobile: "9000000102" })
+    );
+
+    assert.equal(client.gst_not_applicable, false);
+    assert.equal(client.gst_number, null);
+  });
+
+  it("rejects a payload that sends both a GSTIN and GST not applicable", async () => {
+    const world = createClientMaintenanceWorld();
+    const gst = world.validGst;
+
+    await assert.rejects(
+      () =>
+        createClient(
+          world.deps,
+          validCreatePayload({
+            mobile: "9000000103",
+            gst_number: gst,
+            gst_not_applicable: true,
+          })
+        ),
+      (error) => {
+        assert.ok(error instanceof ClientValidationError);
+        assert.match(error.message, /cannot have both/i);
+        return true;
+      }
+    );
+  });
+
+  it("allows more than one client marked GST not applicable", async () => {
+    const world = createClientMaintenanceWorld();
+
+    await createClient(
+      world.deps,
+      validCreatePayload({ mobile: "9000000104", gst_not_applicable: true })
+    );
+    await createClient(
+      world.deps,
+      validCreatePayload({ mobile: "9000000105", gst_not_applicable: true })
+    );
+
+    assert.equal(world.clientsByGst.size, 0);
+    assert.equal(world.clientsByMobile.size, 2);
+    assert.equal(world.clientsByMobile.get("9000000104").gst_not_applicable, true);
+    assert.equal(world.clientsByMobile.get("9000000105").gst_not_applicable, true);
+  });
+
+  it("rejects the letters N/A as a GST number", async () => {
+    const world = createClientMaintenanceWorld();
+
+    await assert.rejects(
+      () => createClient(world.deps, validCreatePayload({ mobile: "9000000106", gst_number: "N/A" })),
+      ClientValidationError
+    );
+  });
+
+  it("clears a saved GSTIN when GST not applicable is turned on", async () => {
+    const world = createClientMaintenanceWorld();
+    const gst = world.validGst;
+
+    await createClient(
+      world.deps,
+      validCreatePayload({ mobile: "9000000107", gst_number: gst })
+    );
+
+    const client = await updateClient(
+      world.deps,
+      "9000000107",
+      validUpdatePayload({ gst_not_applicable: true, gst_number: undefined })
+    );
+
+    assert.equal(client.gst_not_applicable, true);
+    assert.equal(client.gst_number, null);
+    assert.equal(world.clientsByGst.size, 0);
+  });
+
+  it("returns the client to blank GST when the mark is turned off", async () => {
+    const world = createClientMaintenanceWorld();
+
+    await createClient(
+      world.deps,
+      validCreatePayload({ mobile: "9000000108", gst_not_applicable: true })
+    );
+
+    const client = await updateClient(
+      world.deps,
+      "9000000108",
+      validUpdatePayload({ gst_not_applicable: false })
+    );
+
+    assert.equal(client.gst_not_applicable, false);
+    assert.equal(client.gst_number, null);
+  });
+
+  it("stores a GSTIN in the third GST state", async () => {
+    const world = createClientMaintenanceWorld();
+    const gst = world.validGst;
+
+    const client = await createClient(
+      world.deps,
+      validCreatePayload({ mobile: "9000000109", gst_number: gst })
+    );
+
+    assert.equal(client.gst_not_applicable, false);
+    assert.equal(client.gst_number, gst);
+  });
+});
+
 describe("updateClient", () => {
   it("updates profile for an existing mobile without changing mobile", async () => {
     const world = createClientMaintenanceWorld();

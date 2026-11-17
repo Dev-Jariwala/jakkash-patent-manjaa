@@ -76,20 +76,57 @@ function normalizeGst(raw) {
   if (gstNumber === null) {
     return null;
   }
+  if (gstNumber === "N/A") {
+    throw new ClientValidationError("GST number must be a valid 15-character GSTIN");
+  }
   if (gstNumber.length !== 15 || !GSTIN_PATTERN.test(gstNumber)) {
     throw new ClientValidationError("GST number must be a valid 15-character GSTIN");
   }
   return gstNumber;
 }
 
+function parseGstNotApplicable(raw) {
+  if (raw === undefined || raw === null || raw === "") {
+    return false;
+  }
+  if (typeof raw === "boolean") {
+    return raw;
+  }
+  const normalized = String(raw).trim().toLowerCase();
+  if (normalized === "true" || normalized === "1") {
+    return true;
+  }
+  if (normalized === "false" || normalized === "0") {
+    return false;
+  }
+  throw new ClientValidationError("GST not applicable must be true or false");
+}
+
+function resolveGstProfileState({ gstNumber, gstNotApplicable }) {
+  if (gstNotApplicable && gstNumber) {
+    throw new ClientValidationError(
+      "A client cannot have both a GST number and GST not applicable"
+    );
+  }
+  if (gstNotApplicable) {
+    return { gstNumber: null, gstNotApplicable: true };
+  }
+  return { gstNumber, gstNotApplicable: false };
+}
+
 function parseClientProfileInput(raw, { includeMobile }) {
+  const gstNotApplicable = parseGstNotApplicable(raw?.gst_not_applicable);
+  const gstNumber = normalizeGst(raw?.gst_number);
+  const gstState = resolveGstProfileState({ gstNumber, gstNotApplicable });
+
   const parsed = {
     name: requireText(raw?.name, "Name", 100),
     address: requireText(raw?.address, "Address", 255),
     pincode: normalizePincode(raw?.pincode),
     stateId: optionalUuid(raw?.state_id, "State"),
     cityId: optionalUuid(raw?.city_id, "City"),
-    gstNumber: normalizeGst(raw?.gst_number),
+    gstNumber: gstState.gstNumber,
+    gstNotApplicable: gstState.gstNotApplicable,
     contactPerson: optionalText(raw?.contact_person, {
       maxLength: 100,
       fieldLabel: "Contact person",
@@ -231,6 +268,7 @@ export async function createClient(deps, rawInput) {
     state_id: input.stateId,
     city_id: input.cityId,
     gst_number: input.gstNumber,
+    gst_not_applicable: input.gstNotApplicable,
     contact_person: input.contactPerson,
     contact_number: input.contactNumber,
   });
@@ -264,6 +302,7 @@ export async function updateClient(deps, mobile, rawInput) {
     state_id: input.stateId,
     city_id: input.cityId,
     gst_number: input.gstNumber,
+    gst_not_applicable: input.gstNotApplicable,
     contact_person: input.contactPerson,
     contact_number: input.contactNumber,
   });

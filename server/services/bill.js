@@ -1009,6 +1009,16 @@ async function resolveReceiver(deps, receiverMobile) {
   if (!client) {
     throw new BillValidationError("Receiver is not a known client");
   }
+  if (client.gst_not_applicable) {
+    return {
+      receiver_mobile: mobile,
+      receiver_name: client.name,
+      receiver_address: client.address,
+      receiver_gst_number: "N/A",
+      receiver_contact_person: client.contact_person ?? null,
+      receiver_contact_number: client.contact_number ?? null,
+    };
+  }
   const gst = client.gst_number ? String(client.gst_number).trim() : "";
   if (!gst) {
     throw new BillValidationError("Receiver must be a client with a GST number");

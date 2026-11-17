@@ -11,6 +11,7 @@ const CLIENT_LIST_SELECT = `
     c.state_id,
     c.city_id,
     c.gst_number,
+    c.gst_not_applicable,
     c.contact_person,
     c.contact_number,
     s.name as state_name,
@@ -78,8 +79,8 @@ export function createClientMaintenanceDeps() {
       const [client] = await query(
         `insert into clients (
           name, mobile, address, pincode, state_id, city_id,
-          gst_number, contact_person, contact_number
-        ) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+          gst_number, gst_not_applicable, contact_person, contact_number
+        ) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
         returning *`,
         [
           row.name,
@@ -89,6 +90,7 @@ export function createClientMaintenanceDeps() {
           row.state_id,
           row.city_id,
           row.gst_number,
+          row.gst_not_applicable ?? false,
           row.contact_person,
           row.contact_number,
         ]
@@ -121,9 +123,10 @@ export function createClientMaintenanceDeps() {
           state_id = $4,
           city_id = $5,
           gst_number = $6,
-          contact_person = $7,
-          contact_number = $8
-        where mobile = $9
+          gst_not_applicable = $7,
+          contact_person = $8,
+          contact_number = $9
+        where mobile = $10
         returning *`,
         [
           row.name,
@@ -132,6 +135,7 @@ export function createClientMaintenanceDeps() {
           row.state_id,
           row.city_id,
           row.gst_number,
+          row.gst_not_applicable ?? false,
           row.contact_person,
           row.contact_number,
           mobile,
@@ -150,12 +154,16 @@ export async function getClientByMobileWithLocation(mobile) {
   return client ?? null;
 }
 
-const CLIENT_SEARCH_PATTERN = (paramIndex) => `(
+function clientSearchMatchesGstNotApplicable(search) {
+  return typeof search === "string" && search.trim().toLowerCase() === "n/a";
+}
+
+const CLIENT_SEARCH_PATTERN = (paramIndex, { matchGstNotApplicable = false } = {}) => `(
     c.name ilike $${paramIndex}
     or c.mobile ilike $${paramIndex}
     or c.address ilike $${paramIndex}
     or c.pincode ilike $${paramIndex}
-    or c.gst_number ilike $${paramIndex}
+    or c.gst_number ilike $${paramIndex}${matchGstNotApplicable ? "\n    or c.gst_not_applicable" : ""}
     or c.contact_person ilike $${paramIndex}
     or c.contact_number ilike $${paramIndex}
     or ci.name ilike $${paramIndex}
@@ -171,7 +179,10 @@ export async function listClientsPaginated({ search, limit, offset }) {
 
   if (search) {
     queryParams.push(`%${search}%`);
-    whereClause = ` where ${CLIENT_SEARCH_PATTERN(1)}`;
+    const matchGstNotApplicable = clientSearchMatchesGstNotApplicable(search);
+    whereClause = ` where ${CLIENT_SEARCH_PATTERN(1, {
+      matchGstNotApplicable,
+    })}`;
   }
 
   const clients = await query(
