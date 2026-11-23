@@ -119,19 +119,20 @@ CREATE TABLE IF NOT EXISTS bill_series (
 
 -- products ------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS products (
-    sr_no           SERIAL PRIMARY KEY,
-    product_id      UUID        NOT NULL UNIQUE DEFAULT gen_random_uuid(),
-    collection_id   UUID        NOT NULL REFERENCES collections (collection_id),
-    product_name    VARCHAR(50) NOT NULL,
-    wholesale_price FLOAT,
-    retail_price    FLOAT,
-    stock_in_hand   INT         NOT NULL DEFAULT 0,
-    total_stock     INT         NOT NULL DEFAULT 0,
-    is_labour       BOOLEAN     DEFAULT FALSE,
-    is_active       BOOLEAN     NOT NULL DEFAULT TRUE,
-    is_delete       BOOLEAN     DEFAULT FALSE,
-    created_at      TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-    updated_at      TIMESTAMPTZ
+    sr_no              SERIAL PRIMARY KEY,
+    product_id         UUID        NOT NULL UNIQUE DEFAULT gen_random_uuid(),
+    collection_id      UUID        NOT NULL REFERENCES collections (collection_id),
+    product_name       VARCHAR(50) NOT NULL,
+    wholesale_price    FLOAT,
+    retail_price       FLOAT,
+    stock_in_hand      INT         NOT NULL DEFAULT 0,
+    total_stock        INT         NOT NULL DEFAULT 0,
+    is_labour          BOOLEAN     DEFAULT FALSE,
+    is_active          BOOLEAN     NOT NULL DEFAULT TRUE,
+    is_delete          BOOLEAN     DEFAULT FALSE,
+    display_position   INT         NOT NULL,
+    created_at         TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updated_at         TIMESTAMPTZ
 );
 
 -- stocks --------------------------------------------------------------
@@ -315,6 +316,8 @@ WHERE NOT (whatsapp_metadata ? 'provider_accepted_at');
 -- products: collection listing + ILIKE search + report joins
 CREATE INDEX IF NOT EXISTS idx_products_collection_id
     ON products (collection_id);
+CREATE UNIQUE INDEX IF NOT EXISTS products_collection_display_position_idx
+    ON products (collection_id, display_position);
 CREATE INDEX IF NOT EXISTS idx_products_collection_created_at
     ON products (collection_id, created_at DESC);
 CREATE INDEX IF NOT EXISTS products_tax_code_id_idx

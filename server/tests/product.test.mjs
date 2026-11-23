@@ -7,9 +7,12 @@ import {
   createProduct,
   getProduct,
   listProducts,
+  listProductsInDisplayOrder,
+  reorderProductDisplayOrder,
   updateProduct,
 } from "../services/product.js";
 import {
+  ProductDisplayOrderReorderError,
   ProductInactiveError,
   ProductTaxCodeCategoryMismatchError,
   ProductTaxCodeNotFoundError,
@@ -18,6 +21,7 @@ import {
   createProductWorld,
   validProductPayload,
 } from "./helpers/productWorld.mjs";
+import { sortProductsForSeed } from "../services/productDisplayOrder.js";
 
 const collectionId = "c1";
 const sourceCollectionId = "default-collection";
@@ -1070,6 +1074,298 @@ describe("active choice", () => {
     assert.throws(() => assertProductMayBeNewlyChosen(inactiveLabour), ProductInactiveError);
     assert.doesNotThrow(() =>
       assertProductMayBeNewlyChosen(inactiveLabour, { alreadyOnDocument: true })
+    );
+  });
+});
+
+describe("product display order", () => {
+  it("orders an existing collection by the legacy name list, then by name with ties keeping sr_no", () => {
+    const products = [
+      { product_name: "Mango cloth", sr_no: 20 },
+      { product_name: "ONLY FIRKI 1000", sr_no: 5 },
+      { product_name: "BOX", sr_no: 9 },
+      { product_name: "BOX", sr_no: 8 },
+      { product_name: "Apple weave", sr_no: 3 },
+    ];
+
+    const sorted = sortProductsForSeed(products);
+
+    assert.deepEqual(
+      sorted.map((row) => row.product_name),
+      ["ONLY FIRKI 1000", "BOX", "BOX", "Apple weave", "Mango cloth"]
+    );
+    assert.ok(sorted[1].sr_no < sorted[2].sr_no);
+  });
+
+  it("appends a later product whose name is on the legacy list at the end of the sequence", async () => {
+    const world = createProductWorld();
+    world.seedProduct({
+      collection_id: collectionId,
+      product_name: "Mango cloth",
+      display_position: 1,
+    });
+
+    const created = await createProduct(world.deps, collectionId, {
+      product_name: "ONLY FIRKI 1000",
+      wholesale_price: 10,
+      retail_price: 12,
+      is_labour: 0,
+    });
+
+    assert.equal(created.display_position, 2);
+
+    const { products } = await listProductsInDisplayOrder(world.deps, collectionId);
+    assert.deepEqual(
+      products.map((row) => row.product_name),
+      ["Mango cloth", "ONLY FIRKI 1000"]
+    );
+  });
+
+  it("appends a created product past the current end of the sequence", async () => {
+    const world = createProductWorld();
+    world.seedProduct({
+      collection_id: collectionId,
+      product_name: "Earlier",
+      display_position: 1,
+    });
+
+    const created = await createProduct(world.deps, collectionId, {
+      product_name: "Later",
+      wholesale_price: 10,
+      retail_price: 12,
+      is_labour: 0,
+    });
+
+    assert.equal(created.display_position, 2);
+
+    const { products } = await listProductsInDisplayOrder(world.deps, collectionId);
+    assert.deepEqual(
+      products.map((row) => row.product_name),
+      ["Earlier", "Later"]
+    );
+  });
+
+  it("appends two created products in creation order", async () => {
+    const world = createProductWorld();
+
+    const first = await createProduct(world.deps, collectionId, {
+      product_name: "First new",
+      wholesale_price: 10,
+      retail_price: 12,
+      is_labour: 0,
+    });
+    const second = await createProduct(world.deps, collectionId, {
+      product_name: "Second new",
+      wholesale_price: 11,
+      retail_price: 13,
+      is_labour: 0,
+    });
+
+    assert.equal(first.display_position, 1);
+    assert.equal(second.display_position, 2);
+
+    const { products } = await listProductsInDisplayOrder(world.deps, collectionId);
+    assert.deepEqual(
+      products.map((row) => row.product_name),
+      ["First new", "Second new"]
+    );
+  });
+
+  it("keeps copy sequence among active products, leaves inactive out, and starts prices and stock at zero", async () => {
+    const world = createProductWorld();
+    world.seedProduct({
+      collection_id: sourceCollectionId,
+      product_name: "Alpha",
+      display_position: 1,
+      wholesale_price: 50,
+      retail_price: 60,
+      stock_in_hand: 9,
+      total_stock: 20,
+      is_active: true,
+    });
+    world.seedProduct({
+      collection_id: sourceCollectionId,
+      product_name: "Old dye",
+      display_position: 2,
+      wholesale_price: 30,
+      retail_price: 40,
+      stock_in_hand: 4,
+      total_stock: 4,
+      is_active: false,
+    });
+    world.seedProduct({
+      collection_id: sourceCollectionId,
+      product_name: "Zebra",
+      display_position: 3,
+      wholesale_price: 70,
+      retail_price: 80,
+      stock_in_hand: 2,
+      total_stock: 10,
+      is_active: true,
+    });
+
+    const copied = await copyProductsToCollection(
+      world.deps,
+      sourceCollectionId,
+      targetCollectionId
+    );
+
+    assert.deepEqual(
+      copied.map((row) => row.product_name),
+      ["Alpha", "Zebra"]
+    );
+    assert.deepEqual(
+      copied.map((row) => row.display_position),
+      [1, 2]
+    );
+    assert.ok(copied.every((row) => row.wholesale_price === 0 && row.retail_price === 0));
+    assert.ok(copied.every((row) => row.stock_in_hand === 0 && row.total_stock === 0));
+
+    const { products } = await listProductsInDisplayOrder(world.deps, targetCollectionId);
+    assert.deepEqual(
+      products.map((row) => row.product_name),
+      ["Alpha", "Zebra"]
+    );
+  });
+
+  it("leaves display position unchanged when a product is renamed", async () => {
+    const world = createProductWorld();
+    const seeded = world.seedProduct({
+      collection_id: collectionId,
+      product_name: "BOX",
+      display_position: 5,
+    });
+
+    const updated = await updateProduct(world.deps, seeded.product_id, {
+      product_name: "Custom box",
+      wholesale_price: seeded.wholesale_price,
+      retail_price: seeded.retail_price,
+      is_labour: 0,
+    });
+
+    assert.equal(updated.display_position, 5);
+    assert.equal(updated.product_name, "Custom box");
+  });
+
+  it("replaces the sequence when reorder lists every product in the collection once", async () => {
+    const world = createProductWorld();
+    const alpha = world.seedProduct({
+      collection_id: collectionId,
+      product_name: "Alpha",
+      display_position: 1,
+    });
+    const beta = world.seedProduct({
+      collection_id: collectionId,
+      product_name: "Beta",
+      display_position: 2,
+    });
+    const gamma = world.seedProduct({
+      collection_id: collectionId,
+      product_name: "Gamma",
+      display_position: 3,
+    });
+
+    const { products } = await reorderProductDisplayOrder(world.deps, collectionId, [
+      gamma.product_id,
+      alpha.product_id,
+      beta.product_id,
+    ]);
+
+    assert.deepEqual(
+      products.map((row) => row.product_name),
+      ["Gamma", "Alpha", "Beta"]
+    );
+    assert.deepEqual(
+      products.map((row) => row.display_position),
+      [1, 2, 3]
+    );
+  });
+
+  it("leaves the sequence unchanged when reorder omits a product", async () => {
+    const world = createProductWorld();
+    const alpha = world.seedProduct({
+      collection_id: collectionId,
+      product_name: "Alpha",
+      display_position: 1,
+    });
+    world.seedProduct({
+      collection_id: collectionId,
+      product_name: "Beta",
+      display_position: 2,
+    });
+
+    await assert.rejects(
+      () => reorderProductDisplayOrder(world.deps, collectionId, [alpha.product_id]),
+      ProductDisplayOrderReorderError
+    );
+
+    const { products } = await listProductsInDisplayOrder(world.deps, collectionId);
+    assert.deepEqual(
+      products.map((row) => row.product_name),
+      ["Alpha", "Beta"]
+    );
+  });
+
+  it("leaves the sequence unchanged when reorder repeats a product", async () => {
+    const world = createProductWorld();
+    const alpha = world.seedProduct({
+      collection_id: collectionId,
+      product_name: "Alpha",
+      display_position: 1,
+    });
+    world.seedProduct({
+      collection_id: collectionId,
+      product_name: "Beta",
+      display_position: 2,
+    });
+
+    await assert.rejects(
+      () =>
+        reorderProductDisplayOrder(world.deps, collectionId, [
+          alpha.product_id,
+          alpha.product_id,
+        ]),
+      ProductDisplayOrderReorderError
+    );
+
+    const { products } = await listProductsInDisplayOrder(world.deps, collectionId);
+    assert.deepEqual(
+      products.map((row) => row.product_name),
+      ["Alpha", "Beta"]
+    );
+  });
+
+  it("leaves the sequence unchanged when reorder names a product outside the collection", async () => {
+    const world = createProductWorld();
+    const alpha = world.seedProduct({
+      collection_id: collectionId,
+      product_name: "Alpha",
+      display_position: 1,
+    });
+    const beta = world.seedProduct({
+      collection_id: collectionId,
+      product_name: "Beta",
+      display_position: 2,
+    });
+    const outsider = world.seedProduct({
+      collection_id: "other-collection",
+      product_name: "Outside",
+      display_position: 1,
+    });
+
+    await assert.rejects(
+      () =>
+        reorderProductDisplayOrder(world.deps, collectionId, [
+          beta.product_id,
+          outsider.product_id,
+        ]),
+      ProductDisplayOrderReorderError
+    );
+
+    const { products } = await listProductsInDisplayOrder(world.deps, collectionId);
+    assert.deepEqual(
+      products.map((row) => row.product_name),
+      ["Alpha", "Beta"]
     );
   });
 });

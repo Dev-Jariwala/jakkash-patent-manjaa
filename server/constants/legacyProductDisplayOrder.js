@@ -1,0 +1,26 @@
+// Exact spellings and order used by the Order form before product display order shipped.
+// Used only for the one-time database seed; runtime code must not sort by this list.
+export const LEGACY_PRODUCT_NAME_ORDER = [
+  "ONLY FIRKI 1000",
+  "ONLY FIRKI 2500",
+  "ONLY FIRKI 5000",
+  "6/900 READY FIRKI",
+  "6/250 READY FIRKI",
+  "6/500 REDY FIRKI",
+  "9/900 READY FIRKI",
+  "9/250 READY FIRKI",
+  "9/500 READY FIRKI",
+  "12/900 READY FIRKI",
+  "12/250 READY FIRKI",
+  "12/500 READY FIRKI",
+  "9/900 BOBIN",
+  "9/250 BOBIN",
+  "9/500 BOBIN",
+  "12/900 BOBIN",
+  "12/250 BOBIN",
+  "12/500 BOBIN",
+  "LABOUR 900 MTR RIL",
+  "LABOUR 250 GM RIL",
+  "LABOUR 500 GM RIL",
+  "BOX",
+];

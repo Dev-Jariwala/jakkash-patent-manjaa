@@ -1,6 +1,12 @@
 import { handleError } from "../utils/error.js";
 import { query } from "../utils/query.js";
-import { createProduct, getProduct, listProducts, updateProduct } from "../services/product.js";
+import {
+  createProduct,
+  getProduct,
+  listProducts,
+  reorderProductDisplayOrder,
+  updateProduct,
+} from "../services/product.js";
 import { createProductDeps } from "../services/productStore.js";
 
 export const createProductHandler = async (req, res) => {
@@ -95,6 +101,23 @@ export const getProductById = async (req, res) => {
   }
 };
 
+export const reorderProductDisplayOrderHandler = async (req, res) => {
+  try {
+    const { collection_id } = req.params;
+    const { products } = await reorderProductDisplayOrder(
+      createProductDeps(),
+      collection_id,
+      req.body.product_ids
+    );
+    res.status(200).json({
+      message: "Product display order saved",
+      products,
+    });
+  } catch (error) {
+    handleError("reorderProductDisplayOrder", res, error);
+  }
+};
+
 export const getProductsReport = async (req, res) => {
   const { collection_id } = req.params;
   try {
@@ -111,8 +134,8 @@ export const getProductsReport = async (req, res) => {
       LEFT JOIN order_items bi ON p.product_id = bi.product_id
       LEFT JOIN orders b ON bi.order_id = b.order_id
       WHERE p.collection_id = $1
-      GROUP BY p.product_id, p.product_name
-      ORDER BY p.product_name
+      GROUP BY p.product_id, p.product_name, p.display_position
+      ORDER BY p.display_position ASC
       `,
       [collection_id]
     );

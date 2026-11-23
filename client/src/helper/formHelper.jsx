@@ -28,41 +28,19 @@ export const handleNumberInputChange = (e, field) => {
     return value;
 };
 
-export const productNamesOrder = [
-    'ONLY FIRKI 1000',
-    'ONLY FIRKI 2500',
-    'ONLY FIRKI 5000',
-    '6/900 READY FIRKI',
-    '6/250 READY FIRKI',
-    '6/500 REDY FIRKI',
-    '9/900 READY FIRKI',
-    '9/250 READY FIRKI',
-    '9/500 READY FIRKI',
-    '12/900 READY FIRKI',
-    '12/250 READY FIRKI',
-    '12/500 READY FIRKI',
-    '9/900 BOBIN',
-    '9/250 BOBIN',
-    '9/500 BOBIN',
-    '12/900 BOBIN',
-    '12/250 BOBIN',
-    '12/500 BOBIN',
-    'LABOUR 900 MTR RIL',
-    'LABOUR 250 GM RIL',
-    'LABOUR 500 GM RIL',
-    'BOX',
-];
-
-export function sortProductsByNames(products, productNamesOrder) {
-    // Create a map for quick lookup of the index of each product name
-    const nameIndexMap = new Map(productNamesOrder.map((name, index) => [name, index]));
-
-    // Sort the products array
-    products.sort((a, b) => {
-        const indexA = nameIndexMap.has(a.product_name) ? nameIndexMap.get(a.product_name) : Infinity;
-        const indexB = nameIndexMap.has(b.product_name) ? nameIndexMap.get(b.product_name) : Infinity;
-        return indexA - indexB;
+export function sortProductsByDisplayPosition(products) {
+    return [...products].sort((a, b) => {
+        const positionA = Number(a?.display_position);
+        const positionB = Number(b?.display_position);
+        if (!Number.isFinite(positionA) && !Number.isFinite(positionB)) {
+            return 0;
+        }
+        if (!Number.isFinite(positionA)) {
+            return 1;
+        }
+        if (!Number.isFinite(positionB)) {
+            return -1;
+        }
+        return positionA - positionB;
     });
-
-    return products;
 }

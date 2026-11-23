@@ -40,6 +40,10 @@ _Avoid_: Bill line, storing rates on the product, a required tax code
 A product the operator has turned off. It stays listed: the products list opens on active products, with a status control for inactive products and for all products. It is not available for a new choice on an Order, a Bill, or stock-in, and a new collection leaves it out.
 _Avoid_: deleted, the unused delete flag
 
+**Product display order**:
+The sequence of every product in one collection, followed by the Order form and the products report. A product the Order form does not offer is skipped and stays in the sequence.
+_Avoid_: sort, rank, the fixed name list, and a separate retail and wholesale order
+
 **Stock in hand**:
 The quantity of a Product currently held in a collection. Labour is counted the same way. Receiving stock adds to it; an Order or a Bill takes from it. A Bill refuses a save when the sum of that Product's line quantities is more than stock in hand can cover.
 _Avoid_: Inventory, available count, total stock

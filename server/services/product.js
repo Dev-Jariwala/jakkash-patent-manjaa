@@ -1,4 +1,5 @@
 import {
+  ProductDisplayOrderReorderError,
   ProductInactiveError,
   ProductNotFoundError,
   ProductTaxCodeCategoryMismatchError,
@@ -8,6 +9,7 @@ import {
 
 export const PRODUCT_SORT_FIELDS = {
   sr_no: "sr_no",
+  display_position: "display_position",
   product_name: "product_name",
   wholesale_price: "wholesale_price",
   retail_price: "retail_price",
@@ -157,6 +159,7 @@ export function formatProductRow(row, taxCode = null) {
 
   return {
     sr_no: row.sr_no,
+    display_position: row.display_position != null ? Number(row.display_position) : null,
     product_id: row.product_id,
     collection_id: row.collection_id,
     product_name: row.product_name,
@@ -196,6 +199,8 @@ export async function createProduct(deps, collectionId, rawInput) {
     rawInput?.tax_code_id
   );
 
+  const displayPosition = await deps.getNextDisplayPosition(collectionId);
+
   const row = await deps.insertProduct({
     collection_id: collectionId,
     product_name: productName,
@@ -206,6 +211,7 @@ export async function createProduct(deps, collectionId, rawInput) {
     tax_code_id: taxCodeId,
     stock_in_hand: 0,
     total_stock: 0,
+    display_position: displayPosition,
   });
 
   return formatProductRow(row, taxCode);
@@ -269,11 +275,13 @@ export async function copyProductsToCollection(deps, sourceCollectionId, targetC
 
   const rows = await deps.listProductsForCollectionCopy(sourceId);
   const copied = [];
+  let displayPosition = 0;
 
   for (const row of rows) {
     if (!productIsActive(row)) {
       continue;
     }
+    displayPosition += 1;
     const inserted = await deps.insertProduct({
       collection_id: targetId,
       product_name: row.product_name,
@@ -284,6 +292,7 @@ export async function copyProductsToCollection(deps, sourceCollectionId, targetC
       is_labour: Boolean(row.is_labour),
       is_active: productIsActive(row),
       tax_code_id: row.tax_code_id ?? null,
+      display_position: displayPosition,
     });
     copied.push(await formatProductWithTaxCode(deps, inserted));
   }
@@ -311,4 +320,63 @@ export async function listProducts(
   });
   const products = await Promise.all(rows.map((row) => formatProductWithTaxCode(deps, row)));
   return { products, totalCount, pagination };
+}
+
+export async function listProductsInDisplayOrder(deps, collectionId, { status = "all" } = {}) {
+  return listProducts(deps, {
+    collectionId,
+    page: -1,
+    search: "",
+    sortField: "display_position",
+    sortOrder: "asc",
+    status,
+  });
+}
+
+function parseReorderProductIds(rawProductIds) {
+  if (!Array.isArray(rawProductIds)) {
+    throw new ProductValidationError("product_ids must be an array");
+  }
+  return rawProductIds.map((value, index) => {
+    const id = String(value ?? "").trim();
+    if (!id) {
+      throw new ProductValidationError(`product_ids[${index}] is required`);
+    }
+    return id;
+  });
+}
+
+function assertReorderMatchesCollection(collectionProductIds, requestedProductIds) {
+  if (requestedProductIds.length !== collectionProductIds.length) {
+    throw new ProductDisplayOrderReorderError();
+  }
+
+  const collectionSet = new Set(collectionProductIds);
+  const seen = new Set();
+
+  for (const productId of requestedProductIds) {
+    if (!collectionSet.has(productId)) {
+      throw new ProductDisplayOrderReorderError();
+    }
+    if (seen.has(productId)) {
+      throw new ProductDisplayOrderReorderError();
+    }
+    seen.add(productId);
+  }
+}
+
+export async function reorderProductDisplayOrder(deps, collectionId, rawProductIds) {
+  const id = String(collectionId ?? "").trim();
+  if (!id) {
+    throw new ProductValidationError("collection_id is required");
+  }
+
+  const productIds = parseReorderProductIds(rawProductIds);
+  const rows = await deps.listProductsForCollectionCopy(id);
+  const collectionProductIds = rows.map((row) => row.product_id);
+
+  assertReorderMatchesCollection(collectionProductIds, productIds);
+  await deps.reorderProductDisplayOrder(id, productIds);
+
+  return listProductsInDisplayOrder(deps, id);
 }

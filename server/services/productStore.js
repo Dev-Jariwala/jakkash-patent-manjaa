@@ -1,4 +1,4 @@
-import { query } from "../utils/query.js";
+import { query, withTransaction } from "../utils/query.js";
 
 export function createProductDeps() {
   return {
@@ -17,13 +17,24 @@ export function createProductDeps() {
       return row ?? null;
     },
 
+    async getNextDisplayPosition(collectionId) {
+      const [row] = await query(
+        `select coalesce(max(display_position), 0)::int as max_position
+         from products
+         where collection_id = $1`,
+        [collectionId]
+      );
+      return (row?.max_position ?? 0) + 1;
+    },
+
     async insertProduct(product) {
       const [inserted] = await query(
         `insert into products (
            collection_id, product_name, wholesale_price, retail_price,
-           stock_in_hand, total_stock, is_labour, tax_code_id, is_active
+           stock_in_hand, total_stock, is_labour, tax_code_id, is_active,
+           display_position
          )
-         values ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+         values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
          returning *`,
         [
           product.collection_id,
@@ -35,6 +46,7 @@ export function createProductDeps() {
           product.is_labour,
           product.tax_code_id,
           product.is_active !== false,
+          product.display_position,
         ]
       );
       return inserted;
@@ -70,7 +82,7 @@ export function createProductDeps() {
         `select *
          from products
          where collection_id = $1
-         order by sr_no asc`,
+         order by display_position asc`,
         [collectionId]
       );
     },
@@ -119,6 +131,28 @@ export function createProductDeps() {
         rows: products,
         totalCount: totalCountResult?.total_count ?? 0,
       };
+    },
+
+    async reorderProductDisplayOrder(collectionId, productIds) {
+      await withTransaction(async (txQuery) => {
+        await txQuery(
+          `update products
+           set display_position = -display_position
+           where collection_id = $1`,
+          [collectionId]
+        );
+
+        for (let index = 0; index < productIds.length; index += 1) {
+          await txQuery(
+            `update products
+             set display_position = $1,
+                 updated_at = now()
+             where product_id = $2
+               and collection_id = $3`,
+            [index + 1, productIds[index], collectionId]
+          );
+        }
+      });
     },
   };
 }

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form";
@@ -20,7 +20,7 @@ import ReactSelect from "@/components/ui/react-select/react-select";
 import { Textarea } from "@/components/ui/textarea";
 import { createOrder, getOrderById, getNextOrderNo, updateOrderById } from "@/services/orders";
 import { getWhatsAppServiceSetting } from "@/services/settings";
-import { handleDecimalInputChange, handleNumberInputChange, productNamesOrder, sortProductsByNames } from "@/helper/formHelper";
+import { handleDecimalInputChange, handleNumberInputChange, sortProductsByDisplayPosition } from "@/helper/formHelper";
 import { getClientByMobileNumber } from "@/services/clients";
 import AddStockModal from "./AddStockModal";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -45,6 +45,39 @@ function productFitsOrder(product, orderType, orderItems) {
         return true;
     }
     return (orderItems ?? []).some((item) => item.product_id === product.product_id);
+}
+
+function buildOrderProductRows(catalog, { orderType, orderItems, currentRows }) {
+    const items = orderItems ?? [];
+    const rows = currentRows ?? [];
+    return sortProductsByDisplayPosition(catalog ?? [])
+        .filter((product) => productFitsOrder(product, orderType, items))
+        .map((product) => {
+            const currentRow = rows.find((row) => row.product_id === product.product_id);
+            const savedItem = items.find((item) => item.product_id === product.product_id);
+            const price = product[`${orderType}_price`];
+            if (currentRow) {
+                return {
+                    product_id: product.product_id,
+                    product_name: product.product_name,
+                    stock_in_hand: product.stock_in_hand,
+                    is_labour: product.is_labour,
+                    price,
+                    quantity: currentRow.quantity || 0,
+                    total: currentRow.total || 0,
+                };
+            }
+            const quantity = savedItem?.quantity || 0;
+            return {
+                product_id: product.product_id,
+                product_name: product.product_name,
+                stock_in_hand: product.stock_in_hand,
+                is_labour: product.is_labour,
+                price,
+                quantity,
+                total: savedItem ? (price * quantity).toFixed(2) : 0,
+            };
+        });
 }
 
 const BillsForm = () => {
@@ -186,6 +219,7 @@ const BillsForm = () => {
     // Only the update path can be locked; a bill being created has no delivery yet.
     const isEditLocked = formType === "update" && isBillLockedForEditing(bill);
     const mobile = form.watch("mobile");
+    const productRows = useWatch({ control: form.control, name: "products" }) ?? [];
     const { data: clientDetails, isLoading: isClientDetailsLoading, error: clientDetailsError } = useQuery({
         queryKey: ["clientDetails", mobile],
         queryFn: async () => {
@@ -279,16 +313,20 @@ const BillsForm = () => {
     };
 
     useEffect(() => {
-        if (formType === "update") {
+        if (formType === "update" && !bill) {
             return;
         }
-        const oldsProducts = form.getValues('products');
-        const showProducts = products?.filter((product) => productFitsOrder(product, orderType, []))?.map(product => {
-            const oldProd = oldsProducts?.find(p => p.product_id === product?.product_id);
-            return ({ product_id: product?.product_id, product_name: product?.product_name, is_labour: product?.is_labour, quantity: oldProd?.quantity || 0, price: product[`${orderType}_price`], stock_in_hand: product?.stock_in_hand, total: oldProd?.total || 0 })
-        }) || [];
-        form.setValue('products', sortProductsByNames(showProducts, productNamesOrder));
-    }, [products, orderType, formType]);
+        const orderTypeForRows = formType === "update" ? bill.order_type : orderType;
+        const orderItems = formType === "update" ? bill.order_items : [];
+        form.setValue(
+            "products",
+            buildOrderProductRows(products, {
+                orderType: orderTypeForRows,
+                orderItems,
+                currentRows: form.getValues("products"),
+            })
+        );
+    }, [products, orderType, formType, bill]);
 
     useEffect(() => {
         if (formType === 'update' && bill) {
@@ -298,23 +336,6 @@ const BillsForm = () => {
             form.setValue('address', bill.address);
             form.setValue('order_date', new Date(bill.order_date));
             form.setValue('delivery_date', new Date(bill.delivery_date));
-            const showProducts = products?.filter((product) => productFitsOrder(product, bill.order_type, bill.order_items))?.map(product => {
-                console.log({ product, bill });
-                const billItem = bill.order_items.find(item => item.product_id === product.product_id);
-                const price = product[`${bill.order_type}_price`];
-                const quantity = billItem?.quantity || 0;
-                return {
-                    product_id: product.product_id,
-                    product_name: product.product_name,
-                    stock_in_hand: product.stock_in_hand,
-                    is_labour: product?.is_labour,
-                    price,
-                    quantity,
-                    total: (price * quantity).toFixed(2),
-                };
-            }) || [];
-            // console.log({ showProducts });
-            form.setValue('products', sortProductsByNames(showProducts, productNamesOrder));
             form.setValue('notes', bill.notes);
             form.setValue('total_firki', bill.total_firki);
             form.setValue('sub_total', bill.sub_total);
@@ -323,7 +344,7 @@ const BillsForm = () => {
             form.setValue('total_due', bill.total_due);
             form.setValue('is_delivered', bill.delivered_at ? true : false);
         }
-    }, [bill, formType, products]);
+    }, [bill, formType]);
 
     useEffect(() => {
         if (formType === 'new' && nextOrderNo) {
@@ -554,8 +575,8 @@ const BillsForm = () => {
                                         </div>
                                         <div className="text-sm font-medium text-foreground">Total</div>
                                     </div>
-                                    {form.watch('products')?.map((product, index) => (
-                                        <div key={product?.product_id} className="grid grid-cols-5 gap-3 border-t pt-4">
+                                    {productRows.map((product, index) => (
+                                        <div key={`${index}-${product?.product_id}`} className="grid grid-cols-5 gap-3 border-t pt-4">
                                             <div className="flex items-center">
                                                 <FormField
                                                     control={form.control}

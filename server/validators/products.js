@@ -159,6 +159,37 @@ export const validateGetProducts = [
     next();
   },
 ];
+export const validateReorderProductDisplayOrder = [
+  param("collection_id")
+    .notEmpty()
+    .withMessage("collection_id is required")
+    .custom(async (value, { req }) => {
+      if (!value) {
+        throw new Error("collection_id is required");
+      }
+      const [collection] = await query(
+        "SELECT * FROM collections WHERE collection_id = $1",
+        [value]
+      );
+      if (!collection) {
+        throw new Error("collection not found");
+      }
+      req.collection = collection;
+      return true;
+    }),
+  body("product_ids")
+    .isArray({ min: 1 })
+    .withMessage("product_ids must be a non-empty array"),
+  body("product_ids.*").isUUID().withMessage("Each product_id must be a valid UUID"),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    next();
+  },
+];
+
 export const validateDeleteProduct = [
   param("product_id")
     .notEmpty()

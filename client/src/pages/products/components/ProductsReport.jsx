@@ -1,6 +1,5 @@
 import ExportPDF from "@/components/bill-pdf/ExportPDF";
 import TypeWritterLoader from "@/components/loaders/typewritter/TypeWritterLoader";
-import { productNamesOrder, sortProductsByNames } from "@/helper/formHelper";
 import { getProductsReport } from "@/services/products";
 import { PDFViewer } from "@react-pdf/renderer";
 import { useQuery } from "@tanstack/react-query";
@@ -33,7 +32,7 @@ const ProductsReport = () => {
                     total_amount: Number(product.wholesale_amount) + Number(product.retail_amount),
                 }
             }) || [];
-            return sortProductsByNames(showProducts, productNamesOrder)
+            return showProducts;
         }
     });
 

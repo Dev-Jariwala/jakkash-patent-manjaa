@@ -50,3 +50,26 @@ export async function getProductsReport({ collection_id }) {
   });
   return res;
 }
+
+export async function reorderProductDisplayOrder({ activeCollection, product_ids }) {
+  const res = await axios({
+    method: "PUT",
+    url: `${import.meta.env.VITE_BACKEND_URL}collections/${activeCollection}/products/display-order`,
+    data: { product_ids },
+  });
+  return res;
+}
+
+export async function getProductsInDisplayOrder({ activeCollection }) {
+  const res = await axios({
+    method: "GET",
+    url: `${import.meta.env.VITE_BACKEND_URL}collections/${activeCollection}/products`,
+    params: {
+      page: -1,
+      status: "all",
+      sortField: "display_position",
+      sortOrder: "asc",
+    },
+  });
+  return res;
+}

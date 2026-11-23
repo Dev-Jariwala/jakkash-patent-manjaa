@@ -20,6 +20,16 @@ export function createProductWorld({ taxCodes: initialTaxCodes = [] } = {}) {
   const collectionsById = new Map();
   let srNo = 0;
 
+  function nextDisplayPosition(collectionId) {
+    const inCollection = [...productsById.values()].filter(
+      (row) => row.collection_id === collectionId
+    );
+    if (inCollection.length === 0) {
+      return 1;
+    }
+    return Math.max(...inCollection.map((row) => row.display_position ?? 0)) + 1;
+  }
+
   const deps = {
     async getTaxCodeById(taxCodeId) {
       return taxCodesById.get(taxCodeId) ?? null;
@@ -29,11 +39,17 @@ export function createProductWorld({ taxCodes: initialTaxCodes = [] } = {}) {
       return productsById.get(productId) ?? null;
     },
 
+    async getNextDisplayPosition(collectionId) {
+      return nextDisplayPosition(collectionId);
+    },
+
     async insertProduct(product) {
       const productId = randomUUID();
       srNo += 1;
       const row = {
         sr_no: srNo,
+        display_position:
+          product.display_position ?? nextDisplayPosition(product.collection_id),
         product_id: productId,
         collection_id: product.collection_id,
         product_name: product.product_name,
@@ -74,7 +90,18 @@ export function createProductWorld({ taxCodes: initialTaxCodes = [] } = {}) {
     async listProductsForCollectionCopy(collectionId) {
       return [...productsById.values()]
         .filter((row) => row.collection_id === collectionId)
-        .sort((a, b) => a.sr_no - b.sr_no);
+        .sort((a, b) => a.display_position - b.display_position);
+    },
+
+    async reorderProductDisplayOrder(collectionId, productIds) {
+      productIds.forEach((productId, index) => {
+        const row = productsById.get(productId);
+        if (!row || row.collection_id !== collectionId) {
+          return;
+        }
+        row.display_position = index + 1;
+        productsById.set(productId, { ...row });
+      });
     },
 
     async listProducts({
@@ -131,6 +158,7 @@ export function createProductWorld({ taxCodes: initialTaxCodes = [] } = {}) {
     srNo += 1;
     const stored = {
       sr_no: srNo,
+      display_position: row.display_position ?? nextDisplayPosition(row.collection_id),
       product_id: productId,
       collection_id: row.collection_id,
       product_name: row.product_name,

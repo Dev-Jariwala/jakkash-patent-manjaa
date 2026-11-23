@@ -44,3 +44,15 @@ export class ProductInactiveError extends Error {
     this.statusCode = 400;
   }
 }
+
+export const PRODUCT_DISPLAY_ORDER_REORDER_MESSAGE =
+  "Product display order must list every product in the collection, each once";
+
+export class ProductDisplayOrderReorderError extends Error {
+  constructor(message = PRODUCT_DISPLAY_ORDER_REORDER_MESSAGE) {
+    super(message);
+    this.name = "ProductDisplayOrderReorderError";
+    this.code = "PRODUCT_DISPLAY_ORDER_REORDER";
+    this.statusCode = 400;
+  }
+}
