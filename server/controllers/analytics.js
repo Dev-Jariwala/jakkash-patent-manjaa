@@ -1,3 +1,4 @@
+import { calculateAnalyticsTotals } from "../services/analyticsTotals.js";
 import { handleError } from "../utils/error.js";
 import { query } from "../utils/query.js";
 
@@ -112,7 +113,14 @@ export const getAnalytics = async (req, res) => {
         const totalRetailSalesAmount = await query(`SELECT SUM(quantity * price) as total_sales_amount FROM order_items WHERE product_id IN (SELECT product_id FROM products WHERE collection_id = $1) AND order_id IN (SELECT order_id FROM orders WHERE collection_id = $1 AND order_type = 'retail')`, [collection_id]);
         // calculate total sales amout for collection id from order_items table quantity * price where order type is wholesale
         const totalWholesaleSalesAmount = await query(`SELECT SUM(quantity * price) as total_sales_amount FROM order_items WHERE product_id IN (SELECT product_id FROM products WHERE collection_id = $1) AND order_id IN (SELECT order_id FROM orders WHERE collection_id = $1 AND order_type = 'wholesale')`, [collection_id]);
-        res.status(200).json({ totalPurchaseAmount: totalPurchaseAmount[0].total_purchase_amount, totalSalesAmount: totalSalesAmount[0].total_sales_amount, totalRetailSalesAmount: totalRetailSalesAmount[0].total_sales_amount, totalWholesaleSalesAmount: totalWholesaleSalesAmount[0].total_sales_amount });
+        const totalBillAmount = await query(`SELECT SUM(total_bill) as total_bill_amount FROM gst_bills WHERE collection_id = $1`, [collection_id]);
+        res.status(200).json(calculateAnalyticsTotals({
+            purchaseSum: totalPurchaseAmount[0].total_purchase_amount,
+            orderLineSum: totalSalesAmount[0].total_sales_amount,
+            retailOrderLineSum: totalRetailSalesAmount[0].total_sales_amount,
+            wholesaleOrderLineSum: totalWholesaleSalesAmount[0].total_sales_amount,
+            billTotalSum: totalBillAmount[0].total_bill_amount,
+        }));
     } catch (error) {
         handleError('getAnalytics', error, res);
     }

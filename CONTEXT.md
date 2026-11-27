@@ -167,3 +167,21 @@ _Avoid_: Per-collection WhatsApp toggle, local override
 **Disabled Service Reason**:
 The operator-facing explanation shown when WhatsApp order delivery actions are unavailable because the WhatsApp service toggle is off.
 _Avoid_: Silent disable, hidden block
+
+### Analytics
+
+**Retail Sales**:
+The line prices of retail Orders in one collection.
+_Avoid_: Wholesale Sales, a Bill's Total bill
+
+**Wholesale Sales**:
+The line prices of wholesale Orders in one collection, plus every Bill's Total bill in that collection.
+_Avoid_: Retail Sales, Total value, the products report wholesale amount
+
+**Total Investment**:
+The purchase amount for one collection.
+_Avoid_: Total Profit, a count of purchases
+
+**Total Profit**:
+Retail Sales plus Wholesale Sales minus Total Investment.
+_Avoid_: Wholesale Sales alone, Total Investment alone
